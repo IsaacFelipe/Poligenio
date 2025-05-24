@@ -30,8 +30,9 @@ public class Professor extends AbstractPessoa implements InterfaceAdministrador 
     
     /*MÉTODO CONSTRUTOR herdando parâmetros da Super Classe para que não
     necessite atribui-las novamente*/ 
-    public Professor(String nome, String id, String email, String especialidade, String senha) {
-        super(nome, null, null, senha); /*Chamando construtor da Super Classe para
+    public Professor(String nome, String id, String email, 
+            String especialidade, String senha) {
+        super(nome, id, email, senha); /*Chamando construtor da Super Classe para
         inicializar corretamente os seus atributos exclusivos*/
         this.especialidade = especialidade;
     }
@@ -43,10 +44,65 @@ public class Professor extends AbstractPessoa implements InterfaceAdministrador 
         System.out.println("Email = " + getEmail() + " \nId = " + getId() + 
         " \nNome = " + getNome() + " \nEspecialidade = " + getEspecialidade());
     }
+    
+    public String buscarIdAdministrador(String email) throws Exception {
+        String idAdministrador = null;
+        try {
+            Connection conexao = ConexaoBD.obterConexao();
+            String sql = "SELECT id_administrador FROM administrador WHERE email_administrador = ?";
+            PreparedStatement stmt = conexao.prepareStatement(sql);
+            stmt.setString(1, email);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                idAdministrador = rs.getString("id_administrador");
+            }
+
+            rs.close();
+            stmt.close();
+            conexao.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return idAdministrador;
+    }
 
     @Override
-    public void cadastrarJogador() {
-    
+    public boolean cadastrarJogador(String nome, 
+            String raAluno, String email, 
+            String senha, String serieAluno, 
+            String turmaAluno) {
+
+        String idAdministrador = this.getId();
+        try {
+                Connection conexao = ConexaoBD.obterConexao();
+                String sql = "INSERT INTO jogador (nome_jogador, "
+                        + "serie_jogador, "
+                        + "email_jogador, "
+                        + "Administrador_id_administrador, "
+                        + "senha, "
+                        + "ra) VALUES (?, ?, ?, ?, ?, ?)";
+                PreparedStatement stmt = conexao.prepareStatement(sql);
+                stmt.setString(1, nome);
+                stmt.setString(2, serieAluno);
+                stmt.setString(3, email);
+                stmt.setString(4, idAdministrador);
+                stmt.setString(5, senha);
+                stmt.setString(6, raAluno);
+
+                int linhasAfetadas = stmt.executeUpdate();
+                stmt.close();
+                conexao.close();
+
+                return linhasAfetadas > 0;
+
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+                return false;
+        } catch (Exception ex) {
+            Logger.getLogger(Professor.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
 
     @Override
@@ -72,16 +128,19 @@ public class Professor extends AbstractPessoa implements InterfaceAdministrador 
 
         try {
             conn = ConexaoBD.obterConexao();
-            String sql = "SELECT * FROM administrador WHERE nome_administrador = ? AND senha = ?";
+            String sql = "SELECT * FROM administrador "
+                    + "WHERE nome_administrador = ? "
+                    + "AND senha = ?";
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, nome);
             stmt.setString(2, Senha);
             rs = stmt.executeQuery();
 
             if (rs.next()) {
-                // Login bem-sucedido
                 this.nome = rs.getString("nome_administrador");
+                this.id = rs.getString("id_administrador");
                 this.senha = Senha;
+                
                 return true;
             } else {
                 return false;
@@ -90,7 +149,8 @@ public class Professor extends AbstractPessoa implements InterfaceAdministrador 
             e.printStackTrace();
             return false;
         } catch (Exception ex) {
-            Logger.getLogger(Professor.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Professor.class.getName()).log
+        (Level.SEVERE, null, ex);
         } finally {
             try {
                 if (rs != null) rs.close();

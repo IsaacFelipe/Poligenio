@@ -12,14 +12,14 @@ a interfaceJogador para separar apenas os métodos e atributos que vão ser
 utilizados por essa classe em específico*/
 public class Aluno extends AbstractPessoa implements InterfaceJogador {
     //Definindo variável local
-    private Integer serie;
+    private String serie;
     
     /*Get e Set definidos para os métodos da variável local*/
 
-    public Integer getSerie(){
+    public String getSerie(){
         return serie;
     }
-    public void setSerie(Integer serie){
+    public void setSerie(String serie){
         this.serie = serie;
     }
     public Aluno(String nome, String senha) {
@@ -29,7 +29,7 @@ public class Aluno extends AbstractPessoa implements InterfaceJogador {
     
     /*MÉTODO CONSTRUTOR herdando parâmetros da Super Classe para que não
     necessite atribui-las novamente*/ 
-    public Aluno(String nome, String id, String email, Integer serie, String senha){
+    public Aluno(String nome, String id, String email, String serie, String senha){
         super(nome, null, null, senha);/*Chamando construtor da Super Classe para
         inicializar corretamente os seus atributos exclusivos*/
         this.serie = serie;
