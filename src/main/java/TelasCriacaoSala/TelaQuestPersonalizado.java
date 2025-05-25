@@ -50,27 +50,24 @@ public class TelaQuestPersonalizado extends JFrame {
 
     public static class PanelQuestPersonalizada extends JPanel {
 
-        private BufferedImage imagemdeFundoQuestPersonalizado;
+        private BufferedImage imagemDeFundoQuestPersonalizado;
         private BufferedImage imagemNomeQuiz;
         private BufferedImage imagemBoxMateria;
-        private BufferedImage imagemAddQuestao;
         private BufferedImage imagemBotaoCriarQuest;
         private BufferedImage imagemBotaoVoltarQuest;
-        
-        private JLabel labelSelecioneMateria;
 
         private final JPanel container;
 
-        private JButton botaoAddQuestao;
         private JButton botaoCriar;
         private JButton botaoVoltar;
+        private JButton botaoBoxMaterias;
         private JTextField campoTextoNomeQuest;
 
         public PanelQuestPersonalizada(JPanel container) throws IOException {
             this.container = container;
             setLayout(new GridBagLayout());
 
-            imagemdeFundoQuestPersonalizado = ImageIO.read(getClass().getResource
+            imagemDeFundoQuestPersonalizado = ImageIO.read(getClass().getResource
             ("/ImagensTelaQuestPersonalizado/telaQuestaoPersonalizada.png"));
             
             imagemNomeQuiz = ImageIO.read(getClass().getResource
@@ -112,7 +109,7 @@ public class TelaQuestPersonalizado extends JFrame {
                     
                     int larguraBoxMateria = (int) 
                             (imagemBoxMateria.getWidth() * 0.7 * escala);
-                    int alturaBoxMateria= (int) 
+                    int alturaBoxMateria = (int) 
                             (imagemBoxMateria.getHeight() * 0.7 * escala);
                     
                     int larguraCriarQuest = (int) 
@@ -125,7 +122,7 @@ public class TelaQuestPersonalizado extends JFrame {
                     int alturaVoltarQuest = (int) 
                             (imagemBotaoVoltarQuest.getHeight() * 0.7 * escala);
 
-/*---------------------Posicionamento dos elementos na tela-------------------*/
+/*--------------------Posicionamento dos elementos na tela--------------------*/
 
                     int xNQuiz = centroX - (larguraNomeQuiz / 3) + 60;
                     int yNQuiz = (int) (h * 0.45) - 195;
@@ -147,6 +144,11 @@ public class TelaQuestPersonalizado extends JFrame {
                             yVoltar, 
                             larguraVoltarQuest, 
                             alturaVoltarQuest);
+                    
+                    botaoBoxMaterias.setBounds(xBoxMat,
+                            yBoxMat, 
+                            larguraBoxMateria, 
+                            alturaBoxMateria);
                     
                     campoTextoNomeQuest.setBounds(xNQuiz + (int)(75 * escala), 
                             yNQuiz + (int)(16 * escala), 
@@ -198,6 +200,26 @@ public class TelaQuestPersonalizado extends JFrame {
             botaoCriar.setCursor(new Cursor(Cursor.HAND_CURSOR));
             painelConteudo.add(botaoCriar);
             
+            botaoBoxMaterias = new JButton();
+            botaoBoxMaterias.setBorderPainted(false);
+            botaoBoxMaterias.setContentAreaFilled(false);
+            botaoBoxMaterias.setFocusPainted(false);
+            botaoBoxMaterias.setOpaque(false);
+            botaoBoxMaterias.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            botaoBoxMaterias.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    TelaMateriasPersonalizado matPersona = new TelaMateriasPersonalizado();
+                    matPersona.setVisible(true);
+                    Window janela = SwingUtilities.getWindowAncestor
+                                (PanelQuestPersonalizada.this);
+                    if (janela instanceof JFrame) {
+                        janela.dispose();
+                    }                     
+                }
+            });
+            painelConteudo.add(botaoBoxMaterias);
+            
             botaoVoltar = new JButton();
             botaoVoltar.setBorderPainted(false);
             botaoVoltar.setContentAreaFilled(false);
@@ -240,8 +262,8 @@ public class TelaQuestPersonalizado extends JFrame {
             g2d.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
             g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_PURE);
 
-            if (imagemdeFundoQuestPersonalizado != null) {
-                g2d.drawImage(imagemdeFundoQuestPersonalizado, 0, 0, w, h, this);
+            if (imagemDeFundoQuestPersonalizado != null) {
+                g2d.drawImage(imagemDeFundoQuestPersonalizado, 0, 0, w, h, this);
             }
         }
     }
