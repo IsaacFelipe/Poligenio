@@ -17,12 +17,19 @@ public class TelaMateriasPersonalizado extends JFrame {
     
     private CardLayout cardLayout;
     private JPanel painelMateriaPersonalizado;
+    private static String textoNomeQuiz;
+    private static String idProfessor;
     
+    public void setNavigation(CardLayout cardLayout, JPanel painelPrincipal) {
+        this.cardLayout = cardLayout;
+    }
 
-    public TelaMateriasPersonalizado() {
+    public TelaMateriasPersonalizado(String textoNomeQuiz,String idProfessor) {
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setUndecorated(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.textoNomeQuiz = textoNomeQuiz;
+        this.idProfessor = idProfessor;
 
         cardLayout = new CardLayout();
         painelMateriaPersonalizado = new JPanel(cardLayout);
@@ -34,7 +41,7 @@ public class TelaMateriasPersonalizado extends JFrame {
             painelMateriaPersonalizado.add(panelMateriaPersonalizada, 
                     "TelaMateriasPersonalizado");
             
-            add(panelMateriaPersonalizada);
+            add(painelMateriaPersonalizado);
 
         } 
         catch (IOException e) {
@@ -47,10 +54,12 @@ public class TelaMateriasPersonalizado extends JFrame {
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            TelaMateriasPersonalizado tela = new TelaMateriasPersonalizado();
+            TelaMateriasPersonalizado tela = 
+                    new TelaMateriasPersonalizado(textoNomeQuiz, idProfessor);
             tela.setVisible(true);
         });
     }
+    
     
     public static class PanelMateriaPersonalizada extends JPanel {
 
@@ -74,6 +83,8 @@ public class TelaMateriasPersonalizado extends JFrame {
         private JButton botaoFisicaMP;
         private JButton botaoBiologiaMP;
         private JButton botaoSelecionarMP;
+        
+        private String materiaSelecionada;
 
         public PanelMateriaPersonalizada() throws IOException {
             setLayout(new GridBagLayout());
@@ -316,6 +327,9 @@ public class TelaMateriasPersonalizado extends JFrame {
             botaoGeografiaMP.setFocusPainted(false);
             botaoGeografiaMP.setOpaque(false);
             botaoGeografiaMP.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            botaoGeografiaMP.addActionListener(e -> {
+                materiaSelecionada = "Geografia";
+            });
             painelConteudo.add(botaoGeografiaMP);
             
             botaoHistoriaMP = new JButton();
@@ -324,6 +338,9 @@ public class TelaMateriasPersonalizado extends JFrame {
             botaoHistoriaMP.setFocusPainted(false);
             botaoHistoriaMP.setOpaque(false);
             botaoHistoriaMP.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            botaoHistoriaMP.addActionListener(e -> {
+                materiaSelecionada = "História";
+            });
             painelConteudo.add(botaoHistoriaMP);
             
             botaoInglesMP = new JButton();
@@ -332,6 +349,9 @@ public class TelaMateriasPersonalizado extends JFrame {
             botaoInglesMP.setFocusPainted(false);
             botaoInglesMP.setOpaque(false);
             botaoInglesMP.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            botaoInglesMP.addActionListener(e -> {
+                materiaSelecionada = "Inglês";
+            });
             painelConteudo.add(botaoInglesMP);
             
             botaoQuimicaMP = new JButton();
@@ -340,6 +360,9 @@ public class TelaMateriasPersonalizado extends JFrame {
             botaoQuimicaMP.setFocusPainted(false);
             botaoQuimicaMP.setOpaque(false);
             botaoQuimicaMP.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            botaoQuimicaMP.addActionListener(e -> {
+                materiaSelecionada = "Química";
+            });
             painelConteudo.add(botaoQuimicaMP);
             
             botaoPortuguesMP = new JButton();
@@ -348,6 +371,9 @@ public class TelaMateriasPersonalizado extends JFrame {
             botaoPortuguesMP.setFocusPainted(false);
             botaoPortuguesMP.setOpaque(false);
             botaoPortuguesMP.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            botaoPortuguesMP.addActionListener(e -> {
+                materiaSelecionada = "Português";
+            });
             painelConteudo.add(botaoPortuguesMP);
             
             botaoMatematicaMP = new JButton();
@@ -356,6 +382,9 @@ public class TelaMateriasPersonalizado extends JFrame {
             botaoMatematicaMP.setFocusPainted(false);
             botaoMatematicaMP.setOpaque(false);
             botaoMatematicaMP.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            botaoMatematicaMP.addActionListener(e -> {
+                materiaSelecionada = "Matemática";
+            });
             painelConteudo.add(botaoMatematicaMP);
             
             botaoFisicaMP = new JButton();
@@ -364,6 +393,9 @@ public class TelaMateriasPersonalizado extends JFrame {
             botaoFisicaMP.setFocusPainted(false);
             botaoFisicaMP.setOpaque(false);
             botaoFisicaMP.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            botaoFisicaMP.addActionListener(e -> {
+                materiaSelecionada = "Física";
+            });
             painelConteudo.add(botaoFisicaMP);
             
             botaoBiologiaMP = new JButton();
@@ -372,6 +404,9 @@ public class TelaMateriasPersonalizado extends JFrame {
             botaoBiologiaMP.setFocusPainted(false);
             botaoBiologiaMP.setOpaque(false);
             botaoBiologiaMP.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            botaoBiologiaMP.addActionListener(e -> {
+                materiaSelecionada = "Biologia";
+            });
             painelConteudo.add(botaoBiologiaMP);
             
             botaoSelecionarMP = new JButton();
@@ -380,6 +415,22 @@ public class TelaMateriasPersonalizado extends JFrame {
             botaoSelecionarMP.setFocusPainted(false);
             botaoSelecionarMP.setOpaque(false);
             botaoSelecionarMP.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            botaoSelecionarMP.addActionListener(e -> {
+                if (materiaSelecionada == null){
+                    JOptionPane.showMessageDialog(this, "Por favor, selecione "
+                            + "uma matéria antes de continuar.");
+                }
+                TelaQuestPersonalizado materias = 
+                        new TelaQuestPersonalizado(textoNomeQuiz, idProfessor);
+                materias.setMateriaSelecionada(materiaSelecionada);
+                materias.setVisible(true);
+                Window janela = SwingUtilities.getWindowAncestor
+                                (PanelMateriaPersonalizada.this);
+                    if (janela instanceof JFrame) {
+                        janela.dispose();
+                }    
+                
+            });
             painelConteudo.add(botaoSelecionarMP);
             
             setLayout(new BorderLayout());

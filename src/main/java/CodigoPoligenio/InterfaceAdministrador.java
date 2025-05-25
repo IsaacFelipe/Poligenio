@@ -8,7 +8,7 @@ public interface InterfaceAdministrador {
             String senha,
             String serieAluno,
             String turmaAluno);
-    void criarSala();
+    void criarSala(String idProfessorSala, String codigoSala);
     void solicitarRanking();
     void consultarRanking();
     void iniciarPartida();

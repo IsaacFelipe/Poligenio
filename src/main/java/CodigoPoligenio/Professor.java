@@ -12,10 +12,10 @@ a interfaceAdministrador para separar apenas os métodos e atributos que vão se
 utilizados por essa classe em específico*/
 public class Professor extends AbstractPessoa implements InterfaceAdministrador {
     
-    //Definindo variável local
+/*-------------------------Definindo variável local---------------------------*/
     private String especialidade;
     
-    /*Get e Set definidos para os métodos da variável local*/
+/*-----------Get e Set definidos para os métodos da variável local------------*/
     public String getEspecialidade(){
         return especialidade;
     }
@@ -28,17 +28,19 @@ public class Professor extends AbstractPessoa implements InterfaceAdministrador 
         super(nome, null, null, senha);
     }
     
-    /*MÉTODO CONSTRUTOR herdando parâmetros da Super Classe para que não
-    necessite atribui-las novamente*/ 
+/*------MÉTODO CONSTRUTOR herdando parâmetros da Super Classe para que não------
+----------------------necessite atribui-las novamente-------------------------*/
+    
     public Professor(String nome, String id, String email, 
             String especialidade, String senha) {
-        super(nome, id, email, senha); /*Chamando construtor da Super Classe para
-        inicializar corretamente os seus atributos exclusivos*/
+/*--------------Chamando construtor da super classe AbstractPessoa------------*/
+
+        super(nome, id, email, senha);
         this.especialidade = especialidade;
     }
     
-    /*Métodos herdados da Super classe e definidas apenas as de uso exclusivo
-    desta classe pela interfaceAdministrador*/
+/*---Métodos herdados da Super classe e definidas apenas as de uso exclusivo----
+-------------------desta classe pela interfaceAdministrador-------------------*/
     @Override
     public void autenticarUsuario() {
         System.out.println("Email = " + getEmail() + " \nId = " + getId() + 
@@ -84,8 +86,44 @@ public class Professor extends AbstractPessoa implements InterfaceAdministrador 
     }
 
     @Override
-    public void criarSala() {
-    
+    public void criarSala(String idProfessor, String codigoSala) {
+        System.out.print(idProfessor);
+        System.out.print(codigoSala);
+        Connection conexao = null;
+        PreparedStatement stmt = null;
+
+        try {
+            conexao = ConexaoBD.obterConexao();
+
+            String sql = "INSERT INTO sala (código_sala, id_administrador) "
+                    + "VALUES (?, ?)";
+            stmt = conexao.prepareStatement(sql);
+
+
+            stmt.setString(1, codigoSala);
+            stmt.setString(2, idProfessor);
+
+            int linhasAfetadas = stmt.executeUpdate();
+
+            if (linhasAfetadas > 0) {
+                System.out.println("Sala criada com sucesso! Código: " 
+                        + codigoSala);
+            } else {
+                System.out.println("Falha ao criar sala.");
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } catch (Exception ex) {
+            Logger.getLogger(Professor.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                if (stmt != null) stmt.close();
+                if (conexao != null) conexao.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
     }
 
     @Override

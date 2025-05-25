@@ -1,5 +1,8 @@
 package TelasCriacaoSala;
 
+import CodigoPoligenio.Professor;
+import CodigoPoligenio.Sistema;
+import TelasCriacaoSala.TelaMateriasPersonalizado.PanelMateriaPersonalizada;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -12,27 +15,34 @@ public class TelaQuestPersonalizado extends JFrame {
 
     private CardLayout cardLayout;
     private JPanel painelQuestPersonalizada;
+    private static String materiaSelecionada;
+    private static String textoNomeQuiz;
+    private static String materia;
+    private static String idProfessor;
+    private static JTextField campoTextoNomeMateria;
     
     public void setNavigation(CardLayout cardLayout, JPanel painelPrincipal) {
         this.cardLayout = cardLayout;
     }
 
-    public TelaQuestPersonalizado() {
+    public TelaQuestPersonalizado(String textoNomeQuiz, String idProfessor) {
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setUndecorated(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.textoNomeQuiz = textoNomeQuiz;
+        this.idProfessor = idProfessor;
 
         cardLayout = new CardLayout();
         painelQuestPersonalizada = new JPanel(cardLayout);
 
         try {
             PanelQuestPersonalizada panelQuestPersonalizada = new 
-        PanelQuestPersonalizada(painelQuestPersonalizada);
+                    PanelQuestPersonalizada(painelQuestPersonalizada);
             
             painelQuestPersonalizada.add(panelQuestPersonalizada, 
                     "TelaQuestPersonalizado");
             
-            add(panelQuestPersonalizada);
+            add(painelQuestPersonalizada);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -44,9 +54,15 @@ public class TelaQuestPersonalizado extends JFrame {
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            TelaQuestPersonalizado tela = new TelaQuestPersonalizado();
+            TelaQuestPersonalizado tela = 
+                    new TelaQuestPersonalizado(textoNomeQuiz, idProfessor);
             tela.setVisible(true);
         });
+    }
+    
+    public void setMateriaSelecionada(String materia) {
+        this.materiaSelecionada = materia;
+        campoTextoNomeMateria.setText(materia);
     }
     
     public void mostrarTela(String nomeTela) {
@@ -164,6 +180,11 @@ public class TelaQuestPersonalizado extends JFrame {
                             (int)(680 * escala), 
                             (int)(50 * escala));
                     
+                    campoTextoNomeMateria.setBounds(xBoxMat + (int)(320 * escala), 
+                            yBoxMat + (int)(16 * escala), 
+                            (int)(200 * escala), 
+                            (int)(50 * escala));
+                    
 /*---------------------------Desenhando Imagens na tela-----------------------*/
 
                     g2d.drawImage(imagemNomeQuiz, 
@@ -199,7 +220,18 @@ public class TelaQuestPersonalizado extends JFrame {
             campoTextoNomeQuest.setForeground(Color.BLACK);
             campoTextoNomeQuest.setFont(new Font("Jockey One", Font.BOLD, 32));
             campoTextoNomeQuest.setHorizontalAlignment(JTextField.CENTER);
+            campoTextoNomeQuest.setText(textoNomeQuiz);
             painelConteudo.add(campoTextoNomeQuest);
+            
+            campoTextoNomeMateria = new JTextField();
+            campoTextoNomeMateria.setBorder(null);
+            campoTextoNomeMateria.setOpaque(false);
+            campoTextoNomeMateria.setForeground(Color.BLACK);
+            campoTextoNomeMateria.setFont(new Font("Jockey One", Font.BOLD, 32));
+            campoTextoNomeMateria.setHorizontalAlignment(JTextField.CENTER);
+            campoTextoNomeMateria.setEditable(false);
+            campoTextoNomeMateria.setFocusable(false);
+            painelConteudo.add(campoTextoNomeMateria);
             
             botaoCriar = new JButton();
             botaoCriar.setBorderPainted(false);
@@ -207,6 +239,30 @@ public class TelaQuestPersonalizado extends JFrame {
             botaoCriar.setFocusPainted(false);
             botaoCriar.setOpaque(false);
             botaoCriar.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            botaoCriar.addActionListener((ActionEvent e) -> {                
+/*-----------------Instanciando classes para obter seus métodos---------------*/               
+                Professor professor = new Professor("", "");
+                Sistema sistema = new Sistema();
+                
+ /*-----Atribuindo à variáveis os valores devolvido pelos métodos chamados----*/               
+                String codigoSala = sistema.gerarCodigoSala();
+                String materiaSala = campoTextoNomeMateria.getText();
+                
+/*---------------------Chamando o método da classe Professor------------------*/               
+                professor.criarSala(idProfessor, codigoSala);
+                
+/*--------------------Instanciando nova tela para ser aberta------------------*/                
+                TelaAdicionarPergunta addPergunta =
+                        new TelaAdicionarPergunta(materiaSala);
+                addPergunta.setVisible(true);
+                
+/*----------------------------Fechar janela atual-----------------------------*/                
+                Window janela = SwingUtilities.getWindowAncestor
+                                        (PanelQuestPersonalizada.this);
+                if (janela instanceof JFrame) {
+                    janela.dispose();                     
+                }
+            });
             painelConteudo.add(botaoCriar);
             
             botaoBoxMaterias = new JButton();
@@ -215,17 +271,15 @@ public class TelaQuestPersonalizado extends JFrame {
             botaoBoxMaterias.setFocusPainted(false);
             botaoBoxMaterias.setOpaque(false);
             botaoBoxMaterias.setCursor(new Cursor(Cursor.HAND_CURSOR));
-            botaoBoxMaterias.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    TelaMateriasPersonalizado matPersona = 
-                            new TelaMateriasPersonalizado();
-                    matPersona.setVisible(true);
-                    Window janela = SwingUtilities.getWindowAncestor
-                                (PanelQuestPersonalizada.this);
-                    if (janela instanceof JFrame) {
-                        janela.dispose();
-                    }                     
+            botaoBoxMaterias.addActionListener((ActionEvent e) -> {
+                String textoNomeQuiz = campoTextoNomeQuest.getText();
+                TelaMateriasPersonalizado materias = 
+                    new TelaMateriasPersonalizado(textoNomeQuiz, idProfessor);
+                materias.setVisible(true);
+                Window janela = SwingUtilities.getWindowAncestor
+                                        (PanelQuestPersonalizada.this);
+                if (janela instanceof JFrame) {
+                    janela.dispose();                     
                 }
             });
             painelConteudo.add(botaoBoxMaterias);
@@ -236,16 +290,13 @@ public class TelaQuestPersonalizado extends JFrame {
             botaoVoltar.setFocusPainted(false);
             botaoVoltar.setOpaque(false);
             botaoVoltar.setCursor(new Cursor(Cursor.HAND_CURSOR));
-            botaoVoltar.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    TelaCriarSala lobbyProfessor = new TelaCriarSala();
-                    lobbyProfessor.setVisible(true);
-                    Window janela = SwingUtilities.getWindowAncestor
-                                (PanelQuestPersonalizada.this);
-                    if (janela instanceof JFrame) {
-                        janela.dispose();
-                    }                     
+            botaoVoltar.addActionListener((ActionEvent e) -> {
+                TelaCriarSala lobbyProfessor = new TelaCriarSala("");
+                lobbyProfessor.setVisible(true);
+                Window janela = SwingUtilities.getWindowAncestor
+                                        (PanelQuestPersonalizada.this);
+                if (janela instanceof JFrame) {
+                    janela.dispose();                     
                 }
             });
             painelConteudo.add(botaoVoltar);
@@ -264,16 +315,27 @@ public class TelaQuestPersonalizado extends JFrame {
             int h = getHeight();
 
             // Melhor qualidade de renderização
-            g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
-            g2d.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
-            g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-            g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-            g2d.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
-            g2d.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
-            g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_PURE);
+            g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, 
+                    RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+            g2d.setRenderingHint(RenderingHints.KEY_RENDERING, 
+                    RenderingHints.VALUE_RENDER_QUALITY);
+            g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, 
+                    RenderingHints.VALUE_ANTIALIAS_ON);
+            g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, 
+                    RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+            g2d.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, 
+                    RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
+            g2d.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, 
+                    RenderingHints.VALUE_COLOR_RENDER_QUALITY);
+            g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, 
+                    RenderingHints.VALUE_STROKE_PURE);
 
             if (imagemDeFundoQuestPersonalizado != null) {
-                g2d.drawImage(imagemDeFundoQuestPersonalizado, 0, 0, w, h, this);
+                g2d.drawImage(imagemDeFundoQuestPersonalizado, 
+                        0, 
+                        0, 
+                        w, 
+                        h, this);
             }
         }
     }
