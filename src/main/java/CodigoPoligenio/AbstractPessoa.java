@@ -2,6 +2,7 @@ package CodigoPoligenio;
 
 //Classe Molde para outras classes do programa herdarem
 public abstract class AbstractPessoa {
+    
     //Set de variáveis
     protected String nome;
     protected String id;

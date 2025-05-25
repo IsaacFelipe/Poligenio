@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 a interfaceJogador para separar apenas os métodos e atributos que vão ser 
 utilizados por essa classe em específico*/
 public class Aluno extends AbstractPessoa implements InterfaceJogador {
+    
     //Definindo variável local
     private String serie;
     

@@ -1,5 +1,6 @@
 package CodigoPoligenio;
 public interface InterfaceAdministrador {
+    
     boolean fazerLogin(String RA, String Senha);
     boolean cadastrarJogador(String nome,
             String raAluno,
@@ -14,4 +15,5 @@ public interface InterfaceAdministrador {
     void gerenciarDica();
     void gerenciarQuestao();
     void encerrarPartida();
+    
 }

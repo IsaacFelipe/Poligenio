@@ -44,28 +44,6 @@ public class Professor extends AbstractPessoa implements InterfaceAdministrador 
         System.out.println("Email = " + getEmail() + " \nId = " + getId() + 
         " \nNome = " + getNome() + " \nEspecialidade = " + getEspecialidade());
     }
-    
-    public String buscarIdAdministrador(String email) throws Exception {
-        String idAdministrador = null;
-        try {
-            Connection conexao = ConexaoBD.obterConexao();
-            String sql = "SELECT id_administrador FROM administrador WHERE email_administrador = ?";
-            PreparedStatement stmt = conexao.prepareStatement(sql);
-            stmt.setString(1, email);
-            ResultSet rs = stmt.executeQuery();
-
-            if (rs.next()) {
-                idAdministrador = rs.getString("id_administrador");
-            }
-
-            rs.close();
-            stmt.close();
-            conexao.close();
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-        return idAdministrador;
-    }
 
     @Override
     public boolean cadastrarJogador(String nome, 
