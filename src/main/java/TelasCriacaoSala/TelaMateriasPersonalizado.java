@@ -28,11 +28,16 @@ public class TelaMateriasPersonalizado extends JFrame {
         painelMateriaPersonalizado = new JPanel(cardLayout);
 
         try {
-            PanelMateriaPersonalizada panelMateriaPersonalizada = new PanelMateriaPersonalizada();
-            painelMateriaPersonalizado.add(panelMateriaPersonalizada, "TelaMateriasPersonalizado");
-            add(panelMateriaPersonalizada); // Adiciona o painel diretamente ao JFrame
+            PanelMateriaPersonalizada panelMateriaPersonalizada = 
+                    new PanelMateriaPersonalizada();
+            
+            painelMateriaPersonalizado.add(panelMateriaPersonalizada, 
+                    "TelaMateriasPersonalizado");
+            
+            add(panelMateriaPersonalizada);
 
-        } catch (IOException e) {
+        } 
+        catch (IOException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Erro ao inicializar a tela: " 
                     + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);

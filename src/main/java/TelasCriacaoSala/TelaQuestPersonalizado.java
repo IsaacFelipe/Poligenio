@@ -26,13 +26,18 @@ public class TelaQuestPersonalizado extends JFrame {
         painelQuestPersonalizada = new JPanel(cardLayout);
 
         try {
-            PanelQuestPersonalizada panelQuestPersonalizada = new PanelQuestPersonalizada(painelQuestPersonalizada); // Cria o painel
-            painelQuestPersonalizada.add(panelQuestPersonalizada, "TelaQuestPersonalizado");
-            add(panelQuestPersonalizada); // Adiciona o painel diretamente ao JFrame
+            PanelQuestPersonalizada panelQuestPersonalizada = new 
+        PanelQuestPersonalizada(painelQuestPersonalizada);
+            
+            painelQuestPersonalizada.add(panelQuestPersonalizada, 
+                    "TelaQuestPersonalizado");
+            
+            add(panelQuestPersonalizada);
 
         } catch (IOException e) {
             e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Erro ao inicializar a tela: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Erro ao inicializar a tela: " 
+                    + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -90,6 +95,7 @@ public class TelaQuestPersonalizado extends JFrame {
                     Graphics2D g2d = (Graphics2D) g;
                     g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, 
                             RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+                    
                     g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, 
                             RenderingHints.VALUE_ANTIALIAS_ON);
 
@@ -126,10 +132,13 @@ public class TelaQuestPersonalizado extends JFrame {
 
                     int xNQuiz = centroX - (larguraNomeQuiz / 3) + 60;
                     int yNQuiz = (int) (h * 0.45) - 195;
+                    
                     int xBoxMat = centroX - (larguraBoxMateria / 3) + 60;
                     int yBoxMat = yNQuiz + alturaNomeQuiz + (int)(40 * escala);
+                    
                     int xCriar = centroX - (larguraCriarQuest / 2) - 320;
                     int yCriar = (int) (h * 0.45) + 290;
+                    
                     int xVoltar = centroX - (larguraVoltarQuest / 2) + 300;
                     int yVoltar = (int) (h * 0.45) + 290;
 
@@ -209,7 +218,8 @@ public class TelaQuestPersonalizado extends JFrame {
             botaoBoxMaterias.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    TelaMateriasPersonalizado matPersona = new TelaMateriasPersonalizado();
+                    TelaMateriasPersonalizado matPersona = 
+                            new TelaMateriasPersonalizado();
                     matPersona.setVisible(true);
                     Window janela = SwingUtilities.getWindowAncestor
                                 (PanelQuestPersonalizada.this);
