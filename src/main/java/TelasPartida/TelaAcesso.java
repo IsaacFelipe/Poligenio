@@ -75,7 +75,7 @@ public class TelaAcesso extends JFrame{
                     int centroX = w / 2;
 
                     // Dimensões dos elementos
-                    double escala = 1.0; // Defina a escala conforme necessário
+                    double escala = 1.0; // Defina a escala conforme necessário!
                     
                     int larguraBotVoltar = (int) (imagemBotaoVoltar.getWidth() * 0.7 * escala);
                     int alturaBotVoltar = (int) (imagemBotaoVoltar.getHeight() * 0.7 * escala);
