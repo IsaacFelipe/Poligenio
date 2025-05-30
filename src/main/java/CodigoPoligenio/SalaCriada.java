@@ -21,7 +21,7 @@ public class SalaCriada {
     public SalaCriada(TipoSala tipoSala) {
         this.tipoSala = tipoSala;
     }
-
+        //
     public void adicionarPergunta(Integer idDificuldade, 
             String idMateria, 
             String pergunta) throws Exception {
