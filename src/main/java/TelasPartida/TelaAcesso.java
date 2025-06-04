@@ -16,6 +16,7 @@ public class TelaAcesso extends JFrame{
     /*----------------------DECLARAÇÃO DE VARIÁVEIS----------------------*/
     private CardLayout cardLayout;
     private JPanel painelAcesso;
+    private static String idProfessor;
    
     /*----------------------CONFIGURA O LAYOUT DE NAVEGAÇÃO------------------*/
     public void setNavigation(CardLayout cardLayout, JPanel painelPrincipal) {
@@ -23,11 +24,12 @@ public class TelaAcesso extends JFrame{
     }
 
     /*----------------------CONSTRUTOR DA TELA DE ACESSO---------------------*/
-    public TelaAcesso() {
+    public TelaAcesso(String idProfessor) {
         /*----------------------CONFIGURAÇÕES DA JANELA-------------------*/
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setUndecorated(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.idProfessor = idProfessor;
         
         /*----------------------CONFIGURA O LAYOUT DE CARTÕES-------------*/
         cardLayout = new CardLayout();
@@ -52,7 +54,7 @@ public class TelaAcesso extends JFrame{
     /*----------------------MÉTODO MAIN PARA EXECUTAR A TELA----------------*/
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            TelaAcesso tela = new TelaAcesso();
+            TelaAcesso tela = new TelaAcesso(idProfessor);
             tela.setVisible(true);
         });
     }

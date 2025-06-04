@@ -21,6 +21,7 @@ public class TelaAdicionarPergunta extends JFrame {
     private JPanel painelAdicionarPergunta;
     private static String materiaSala;
     private static String idMateria;
+    private static String idProfessor;
     
     /*----------------------CONFIGURA O LAYOUT DE NAVEGAÇÃO------------------*/
     public void setNavigation(CardLayout cardLayout, JPanel painelPrincipal) {
@@ -29,13 +30,17 @@ public class TelaAdicionarPergunta extends JFrame {
     }
     
     /*----------------------CONSTRUTOR DA TELA DE ADIÇÃO DE PERGUNTA---------*/
-    public TelaAdicionarPergunta(String materiaSala, String idMateria) {
+    public TelaAdicionarPergunta(String materiaSala,
+            String idMateria,
+            String idProfessor) {
+        
         /*----------------------CONFIGURAÇÕES DA JANELA-------------------*/
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setUndecorated(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.materiaSala = materiaSala;
         this.idMateria = idMateria;
+        this.idProfessor = idProfessor;
 
         /*----------------------CONFIGURA O LAYOUT DE CARTÕES-------------*/
         cardLayout = new CardLayout();
@@ -43,23 +48,28 @@ public class TelaAdicionarPergunta extends JFrame {
 
         try {
             /*----------------------INSTANCIAÇÃO DO PAINEL----------------*/
-            PanelAdicionarPerguntas telaQuestionarioPanel = new PanelAdicionarPerguntas();
+            PanelAdicionarPerguntas telaQuestionarioPanel = 
+                    new PanelAdicionarPerguntas();
             
             /*----------------------ADICIONANDO PAINEL AO LAYOUT-------------*/
-            painelAdicionarPergunta.add(telaQuestionarioPanel, "TelaAdicionarPergunta");
+            painelAdicionarPergunta.add(telaQuestionarioPanel, 
+                    "TelaAdicionarPergunta");
             
             /*----------------------CONFIGURAÇÃO DO PAINEL INICIAL-----------*/
             add(painelAdicionarPergunta);
             cardLayout.show(painelAdicionarPergunta, "TelaAdicionarPergunta");
         } catch (IOException e) {
-            JOptionPane.showMessageDialog(this, "Erro ao inicializar a tela: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Erro ao inicializar a tela: " 
+                    + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }
     
     /*----------------------MÉTODO MAIN PARA EXECUTAR A TELA----------------*/
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            TelaAdicionarPergunta tela = new TelaAdicionarPergunta(materiaSala, idMateria);
+            TelaAdicionarPergunta tela = new TelaAdicionarPergunta(materiaSala, 
+                    idMateria, 
+                    idProfessor);
             tela.setVisible(true);
         });
     }
@@ -115,23 +125,73 @@ public class TelaAdicionarPergunta extends JFrame {
             setLayout(new GridBagLayout());
 
             /*----------------------CARREGAMENTO DAS IMAGENS------------------*/
-            imagemDeFundoAdicionarPerguntas = ImageIO.read(getClass().getResource("/ImagensTelaAdicionarPergunta/telaAdicionarPergunta.png"));
-            imagemBotaoNovaQuestao = ImageIO.read(getClass().getResource("/ImagensTelaAdicionarPergunta/botaoNovaQuestao.png"));
-            imagemBotaoCriarQuestionario = ImageIO.read(getClass().getResource("/ImagensTelaAdicionarPergunta/botaoCriarQuestionario.png"));
-            imagemBoxMostrarMateria = ImageIO.read(getClass().getResource("/ImagensTelaAdicionarPergunta/boxMostrarMateria.png"));
-            imagemBotaoDifFacil = ImageIO.read(getClass().getResource("/ImagensTelaAdicionarPergunta/botaoDifFacil.png"));
-            imagemBotaoDifMedio = ImageIO.read(getClass().getResource("/ImagensTelaAdicionarPergunta/botaoDifMedio.png"));
-            imagemBotaoDifDificil = ImageIO.read(getClass().getResource("/ImagensTelaAdicionarPergunta/botaoDifDificil.png"));
-            imagemTextoPergunta = ImageIO.read(getClass().getResource("/ImagensTelaAdicionarPergunta/boxTextoPergunta.png"));
-            imagemTextoAlternativa1 = ImageIO.read(getClass().getResource("/ImagensTelaAdicionarPergunta/boxAlternativa.png"));
-            imagemTextoAlternativa3 = ImageIO.read(getClass().getResource("/ImagensTelaAdicionarPergunta/boxAlternativa.png"));
-            imagemTextoAlternativa2 = ImageIO.read(getClass().getResource("/ImagensTelaAdicionarPergunta/boxAlternativa.png"));
-            imagemTextoAlternativa4 = ImageIO.read(getClass().getResource("/ImagensTelaAdicionarPergunta/boxAlternativa.png"));
-            imagemBotaoVoltar = ImageIO.read(getClass().getResource("/ImagensTelaAdicionarPergunta/botaoVoltarAP.png"));
-            imagemFacilSelecionado = ImageIO.read(getClass().getResource("/ImagensTelaAdicionarPergunta/botaoDifFacilSelect.png"));
-            imagemMedioSelecionado = ImageIO.read(getClass().getResource("/ImagensTelaAdicionarPergunta/botaoDifMedioSelect.png"));
-            imagemDificilSelecionado = ImageIO.read(getClass().getResource("/ImagensTelaAdicionarPergunta/botaoDifDificilSelect.png"));
-            imagemBotaoSalvar = ImageIO.read(getClass().getResource("/ImagensTelaAdicionarPergunta/botaoSalvarAP.png"));
+            imagemDeFundoAdicionarPerguntas = ImageIO.read
+        (getClass().getResource
+        ("/ImagensTelaAdicionarPergunta/telaAdicionarPergunta.png"));
+            
+            imagemBotaoNovaQuestao = ImageIO.read
+        (getClass().getResource
+        ("/ImagensTelaAdicionarPergunta/botaoNovaQuestao.png"));
+           
+            imagemBotaoCriarQuestionario = ImageIO.read
+        (getClass().getResource
+        ("/ImagensTelaAdicionarPergunta/botaoCriarQuestionario.png"));
+            
+            imagemBoxMostrarMateria = ImageIO.read
+        (getClass().getResource
+        ("/ImagensTelaAdicionarPergunta/boxMostrarMateria.png"));
+            
+            imagemBotaoDifFacil = ImageIO.read
+        (getClass().getResource
+        ("/ImagensTelaAdicionarPergunta/botaoDifFacil.png"));
+            
+            imagemBotaoDifMedio = ImageIO.read
+        (getClass().getResource
+        ("/ImagensTelaAdicionarPergunta/botaoDifMedio.png"));
+            
+            imagemBotaoDifDificil = ImageIO.read
+        (getClass().getResource
+        ("/ImagensTelaAdicionarPergunta/botaoDifDificil.png"));
+            
+            imagemTextoPergunta = ImageIO.read
+        (getClass().getResource
+        ("/ImagensTelaAdicionarPergunta/boxTextoPergunta.png"));
+            
+            imagemTextoAlternativa1 = ImageIO.read
+        (getClass().getResource
+        ("/ImagensTelaAdicionarPergunta/boxAlternativa.png"));
+            
+            imagemTextoAlternativa3 = ImageIO.read
+        (getClass().getResource
+        ("/ImagensTelaAdicionarPergunta/boxAlternativa.png"));
+            
+            imagemTextoAlternativa2 = ImageIO.read
+        (getClass().getResource
+        ("/ImagensTelaAdicionarPergunta/boxAlternativa.png"));
+            
+            imagemTextoAlternativa4 = ImageIO.read
+        (getClass().getResource
+        ("/ImagensTelaAdicionarPergunta/boxAlternativa.png"));
+            
+            imagemBotaoVoltar = ImageIO.read
+        (getClass().getResource
+        ("/ImagensTelaAdicionarPergunta/botaoVoltarAP.png"));
+            
+            imagemFacilSelecionado = ImageIO.read
+        (getClass().getResource
+        ("/ImagensTelaAdicionarPergunta/botaoDifFacilSelect.png"));
+            
+            imagemMedioSelecionado = ImageIO.read
+        (getClass().getResource
+        ("/ImagensTelaAdicionarPergunta/botaoDifMedioSelect.png"));
+            
+            imagemDificilSelecionado = ImageIO.read
+        (getClass().getResource
+        ("/ImagensTelaAdicionarPergunta/botaoDifDificilSelect.png"));
+            
+            imagemBotaoSalvar = ImageIO.read
+        (getClass().getResource
+        ("/ImagensTelaAdicionarPergunta/botaoSalvarAP.png"));
             
             /*----------------------CRIAÇÃO DO PAINEL DE CONTEÚDO-------------*/
             JPanel painelConteudo = new JPanel(null) {
@@ -141,8 +201,10 @@ public class TelaAdicionarPergunta extends JFrame {
 
                     /*----------------------CONFIGURAÇÃO GRÁFICA----------------*/
                     Graphics2D g2d = (Graphics2D) g;
-                    g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-                    g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+                    g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, 
+                            RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+                    g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                            RenderingHints.VALUE_ANTIALIAS_ON);
 
                     int w = getWidth();
                     int h = getHeight();
@@ -150,58 +212,109 @@ public class TelaAdicionarPergunta extends JFrame {
 
                     /*----------------------DIMENSIONAMENTO E POSICIONAMENTO----*/
                     double escala = 1.0;
-                    int larguraBotNewQuest = (int) (imagemBotaoNovaQuestao.getWidth() * 0.7 * escala);
-                    int alturaBotNewQuest = (int) (imagemBotaoNovaQuestao.getHeight() * 0.7 * escala);
-                    int larguraBotCQuest = (int) (imagemBotaoCriarQuestionario.getWidth() * 0.7 * escala);
-                    int alturaBotCQuest = (int) (imagemBotaoCriarQuestionario.getHeight() * 0.7 * escala);
-                    int larguraBoxMat = (int) (imagemBoxMostrarMateria.getWidth() * 0.7 * escala);
-                    int alturaBoxMat = (int) (imagemBoxMostrarMateria.getHeight() * 0.7 * escala);
-                    int larguraBotFacil = (int) (imagemBotaoDifFacil.getWidth() * 0.7 * escala);
-                    int alturaBotFacil = (int) (imagemBotaoDifFacil.getHeight() * 0.7 * escala);
-                    int larguraBotMedio = (int) (imagemBotaoDifMedio.getWidth() * 0.7 * escala);
-                    int alturaBotMedio = (int) (imagemBotaoDifMedio.getHeight() * 0.7 * escala);
-                    int larguraBotDificil = (int) (imagemBotaoDifDificil.getWidth() * 0.7 * escala);
-                    int alturaBotDificil = (int) (imagemBotaoDifDificil.getHeight() * 0.7 * escala);
-                    int larguraBoxPergunta = (int) (imagemTextoPergunta.getWidth() * 0.7 * escala);
-                    int alturaBoxPergunta = (int) (imagemTextoPergunta.getHeight() * 0.7 * escala);
-                    int larguraBoxAlternativa1 = (int) (imagemTextoAlternativa1.getWidth() * 0.7 * escala);
-                    int alturaBoxAlternativa1 = (int) (imagemTextoAlternativa1.getHeight() * 0.7 * escala);
-                    int larguraBoxAlternativa3 = (int) (imagemTextoAlternativa3.getWidth() * 0.7 * escala);
-                    int alturaBoxAlternativa3 = (int) (imagemTextoAlternativa3.getHeight() * 0.7 * escala);
-                    int larguraBoxAlternativa2 = (int) (imagemTextoAlternativa2.getWidth() * 0.7 * escala);
-                    int alturaBoxAlternativa2 = (int) (imagemTextoAlternativa2.getHeight() * 0.7 * escala);
-                    int larguraBoxAlternativa4 = (int) (imagemTextoAlternativa4.getWidth() * 0.7 * escala);
-                    int alturaBoxAlternativa4 = (int) (imagemTextoAlternativa4.getHeight() * 0.7 * escala);
-                    int larguraBotVoltar = (int) (imagemBotaoVoltar.getWidth() * 0.7 * escala);
-                    int alturaBotVoltar = (int) (imagemBotaoVoltar.getHeight() * 0.7 * escala);
-                    int larguraBotSalvar = (int) (imagemBotaoSalvar.getWidth() * 0.7 * escala);
-                    int alturaBotSalvar = (int) (imagemBotaoSalvar.getHeight() * 0.7 * escala);
+                    int larguraBotNewQuest = (int) 
+                            (imagemBotaoNovaQuestao.getWidth() * 0.7 * escala);
+                    int alturaBotNewQuest = (int)
+                            (imagemBotaoNovaQuestao.getHeight() * 0.7 * escala);
+                    
+                    int larguraBotCQuest = (int) 
+                            (imagemBotaoCriarQuestionario.getWidth() * 0.7 * escala);
+                    int alturaBotCQuest = (int)
+                            (imagemBotaoCriarQuestionario.getHeight() * 0.7 * escala);
+                    
+                    int larguraBoxMat = (int) 
+                            (imagemBoxMostrarMateria.getWidth() * 0.7 * escala);
+                    int alturaBoxMat = (int) 
+                            (imagemBoxMostrarMateria.getHeight() * 0.7 * escala);
+                    
+                    int larguraBotFacil = (int) 
+                            (imagemBotaoDifFacil.getWidth() * 0.7 * escala);
+                    int alturaBotFacil = (int) 
+                            (imagemBotaoDifFacil.getHeight() * 0.7 * escala);
+                    
+                    int larguraBotMedio = (int) 
+                            (imagemBotaoDifMedio.getWidth() * 0.7 * escala);
+                    int alturaBotMedio = (int)
+                            (imagemBotaoDifMedio.getHeight() * 0.7 * escala);
+                    
+                    int larguraBotDificil = (int) 
+                            (imagemBotaoDifDificil.getWidth() * 0.7 * escala);
+                    int alturaBotDificil = (int) 
+                            (imagemBotaoDifDificil.getHeight() * 0.7 * escala);
+                    
+                    int larguraBoxPergunta = (int)
+                            (imagemTextoPergunta.getWidth() * 0.7 * escala);
+                    int alturaBoxPergunta = (int) 
+                            (imagemTextoPergunta.getHeight() * 0.7 * escala);
+                    
+                    int larguraBoxAlternativa1 = (int)
+                        (imagemTextoAlternativa1.getWidth() * 0.7 * escala);
+                    int alturaBoxAlternativa1 = (int) 
+                        (imagemTextoAlternativa1.getHeight() * 0.7 * escala);
+                    
+                    int larguraBoxAlternativa3 = (int) 
+                        (imagemTextoAlternativa3.getWidth() * 0.7 * escala);
+                    int alturaBoxAlternativa3 = (int) 
+                        (imagemTextoAlternativa3.getHeight() * 0.7 * escala);
+                    
+                    int larguraBoxAlternativa2 = (int) 
+                        (imagemTextoAlternativa2.getWidth() * 0.7 * escala);
+                    int alturaBoxAlternativa2 = (int) 
+                        (imagemTextoAlternativa2.getHeight() * 0.7 * escala);
+                    
+                    int larguraBoxAlternativa4 = (int) 
+                        (imagemTextoAlternativa4.getWidth() * 0.7 * escala);
+                    int alturaBoxAlternativa4 = (int)
+                        (imagemTextoAlternativa4.getHeight() * 0.7 * escala);
+                    
+                    int larguraBotVoltar = (int)
+                            (imagemBotaoVoltar.getWidth() * 0.7 * escala);
+                    int alturaBotVoltar = (int) 
+                            (imagemBotaoVoltar.getHeight() * 0.7 * escala);
+                    
+                    int larguraBotSalvar = (int) 
+                            (imagemBotaoSalvar.getWidth() * 0.7 * escala);
+                    int alturaBotSalvar = (int) 
+                            (imagemBotaoSalvar.getHeight() * 0.7 * escala);
 
                     /*----------------------COORDENADAS DOS ELEMENTOS-----------*/
                     int xNovaQuest = centroX - (larguraBotNewQuest / 2) - 500;
                     int yNovaQuest = (int) (h * 0.45) + 340;
+                    
                     int xCriarQuest = centroX - (larguraBotCQuest / 2) - 120;
                     int yCriarQuest = yNovaQuest;
+                    
                     int xVoltar = centroX - (larguraBotVoltar / 2) + 225;
                     int yVoltar = yCriarQuest;
+                    
                     int xSalvar = centroX - (larguraBotSalvar / 2) + 470;
                     int ySalvar = yVoltar;
+                    
                     int xBoxMat = centroX - (larguraBoxMat / 2) + 320;
                     int yBoxMat = (int) (h * 0.45) - 300;
+                    
                     int xBotFac = (centroX - (larguraBotMedio / 2) - 20);
                     int yBotFac = (int) (h * 0.45) - 85;
+                    
                     int xBotMed = (centroX - (larguraBotMedio / 2) + 250);
                     int yBotMed = (int) (h * 0.45) - 85;
+                    
                     int xBotDif = (centroX - (larguraBotMedio / 2) + 520);
                     int yBotDif = (int) (h * 0.45) - 85;
+                    
                     int xBoxPer = centroX - (larguraBoxPergunta / 2);
                     int yBoxPer = (int) (h * 0.45) - 170;
+                    
                     int xBoxAlt1 = centroX - (larguraBoxAlternativa1 / 2) - 400;
                     int yBoxAlt1 = (int) (h * 0.45) + 40;
+                    
                     int xBoxAlt3 = centroX - (larguraBoxAlternativa3 / 2) - 400;
-                    int yBoxAlt3 = yBoxAlt1 + alturaBoxAlternativa1 + (int)(90 * escala);
+                    int yBoxAlt3 = yBoxAlt1 + alturaBoxAlternativa1 + 
+                            (int)(90 * escala);
+                    
                     int xBoxAlt2 = centroX - (larguraBoxAlternativa2 / 2) + 345;
                     int yBoxAlt2 = yBoxAlt1;
+                    
                     int xBoxAlt4 = centroX - (larguraBoxAlternativa4 / 2) + 345;
                     int yBoxAlt4 = yBoxAlt3;
 
@@ -310,9 +423,13 @@ public class TelaAdicionarPergunta extends JFrame {
             botaoVoltar.setOpaque(false);
             botaoVoltar.setCursor(new Cursor(Cursor.HAND_CURSOR));
             botaoVoltar.addActionListener(e -> {
-                TelaQuestPersonalizado criarSala = new TelaQuestPersonalizado("", "", "");
+                TelaQuestPersonalizado criarSala = 
+                        new TelaQuestPersonalizado("", idProfessor, "");
+                
                 criarSala.setVisible(true);
-                Window janela = SwingUtilities.getWindowAncestor(PanelAdicionarPerguntas.this);
+                
+                Window janela = SwingUtilities.getWindowAncestor
+                            (PanelAdicionarPerguntas.this);
                 if (janela instanceof JFrame) {
                     janela.dispose();
                 }
@@ -330,12 +447,16 @@ public class TelaAdicionarPergunta extends JFrame {
                 String pergunta = campoTextoPergunta.getText().trim();
 
                 if (pergunta.isEmpty()) {
-                    JOptionPane.showMessageDialog(this, "Por favor, preencha a pergunta!", "Erro", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Por favor, "
+                            + "preencha a pergunta!", 
+                            "Erro", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
 
                 if (dificuldadeSelecionado == null) {
-                    JOptionPane.showMessageDialog(this, "Por favor, selecione uma dificuldade!", "Erro", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Por favor,"
+                            + " selecione uma dificuldade!", 
+                            "Erro", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
                 
@@ -354,7 +475,10 @@ public class TelaAdicionarPergunta extends JFrame {
 
                 SalaCriada salaCriada = new SalaCriada(PERSONALIZADA);
                 try {
-                    salaCriada.adicionarPergunta(idDificuldade, idMateria, pergunta);
+                    salaCriada.adicionarPergunta(idDificuldade, 
+                            idMateria, 
+                            pergunta);
+                    
                     salaCriada.adicionarAlternativa();
                     campoTextoPergunta.setText("");
                     dificuldadeSelecionado = null;
@@ -363,8 +487,12 @@ public class TelaAdicionarPergunta extends JFrame {
                     labelDificil.setVisible(false);
                     botaoSelecionado = null;
                 } catch (Exception ex) {
-                    Logger.getLogger(TelaAdicionarPergunta.class.getName()).log(Level.SEVERE, null, ex);
-                    JOptionPane.showMessageDialog(this, "Erro ao salvar a pergunta: " + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+                    Logger.getLogger(TelaAdicionarPergunta.class.getName())
+                            .log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(this, 
+                            "Erro ao salvar a pergunta: " 
+                                    + ex.getMessage(), "Erro"
+                            , JOptionPane.ERROR_MESSAGE);
                 }
             });
             painelConteudo.add(botaoSalvar);

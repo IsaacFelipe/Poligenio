@@ -34,6 +34,7 @@ public class TelaInicial extends JFrame {
     private CardLayout cardLayout;
     private JPanel painelInicial;
     private Sistema sistema;
+    private static String idProfessor;
     
     /*----------------------CONSTRUTOR DA TELA INICIAL----------------------*/
     public TelaInicial(String destinatario, String novaSenha, Sistema sistema) {

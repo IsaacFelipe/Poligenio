@@ -31,13 +31,14 @@ public class TelaQuestPadraoCriacao extends JFrame {
     }
 
     /*----------------------CONSTRUTOR DA TELA DE CRIAÇÃO DE QUESTÕES PADRÃO------*/
-    public TelaQuestPadraoCriacao(String materia, String serieSelecionadaText) {
+    public TelaQuestPadraoCriacao(String materia, String serieSelecionadaText, String idProfessor) {
         /*----------------------CONFIGURAÇÕES DA JANELA-------------------*/
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setUndecorated(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.materia = materia;
         this.serie = serieSelecionadaText;
+        this.idProfessor = idProfessor;
 
         /*----------------------CONFIGURA O LAYOUT DE CARTÕES-------------*/
         cardLayout = new CardLayout();
@@ -65,7 +66,7 @@ public class TelaQuestPadraoCriacao extends JFrame {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             TelaQuestPadraoCriacao tela = 
-                    new TelaQuestPadraoCriacao(materia, serieSelecionadaText);
+                    new TelaQuestPadraoCriacao(materia, serieSelecionadaText, idProfessor);
             tela.setVisible(true);
         });
     }
@@ -373,7 +374,7 @@ public class TelaQuestPadraoCriacao extends JFrame {
             botaoVoltar.setOpaque(false);
             botaoVoltar.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
             botaoVoltar.addActionListener((ActionEvent e) -> {
-                TelaSelecaoAnos criarSala = new TelaSelecaoAnos(materia);
+                TelaSelecaoAnos criarSala = new TelaSelecaoAnos(materia, idProfessor);
                 criarSala.setVisible(true);
                 Window janela = SwingUtilities.getWindowAncestor
                                         (PanelQuestPadraoCriacao.this);

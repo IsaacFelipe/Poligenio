@@ -16,6 +16,7 @@ public class TelaEsperaProfessor extends JFrame {
     /*----------------------DECLARAÇÃO DE VARIÁVEIS----------------------*/
     private CardLayout cardLayout;
     private JPanel painelEspera;
+    private static String idProfessor;
     
     /*----------------------CONFIGURA O LAYOUT DE NAVEGAÇÃO------------------*/
     public void setNavigation(CardLayout cardLayout, JPanel painelPrincipal) {
@@ -24,11 +25,12 @@ public class TelaEsperaProfessor extends JFrame {
     }
     
     /*----------------------CONSTRUTOR DA TELA DE ESPERA PROFESSOR-----------*/
-    public TelaEsperaProfessor() {
+    public TelaEsperaProfessor(String idProfessor) {
         /*----------------------CONFIGURAÇÕES DA JANELA-------------------*/
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setUndecorated(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.idProfessor = idProfessor;
 
         /*----------------------CONFIGURA O LAYOUT DE CARTÕES-------------*/
         cardLayout = new CardLayout();
@@ -45,14 +47,15 @@ public class TelaEsperaProfessor extends JFrame {
         } catch (IOException e) {
             /*----------------------TRATAMENTO DE EXCEÇÕES-------------------*/
             e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Erro ao inicializar a tela: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Erro ao inicializar a tela: " 
+                    + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }
     
     /*----------------------MÉTODO MAIN PARA EXECUTAR A TELA----------------*/
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            TelaEsperaProfessor tela = new TelaEsperaProfessor();
+            TelaEsperaProfessor tela = new TelaEsperaProfessor(idProfessor);
             tela.setVisible(true);
         });
     }

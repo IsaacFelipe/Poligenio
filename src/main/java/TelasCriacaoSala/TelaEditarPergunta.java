@@ -15,6 +15,7 @@ public class TelaEditarPergunta extends JFrame {
     /*----------------------DECLARAÇÃO DE VARIÁVEIS----------------------*/
     private CardLayout cardLayout;
     private JPanel painelEditarPergunta;
+    private static String idProfessor;
     
     /*----------------------CONFIGURA O LAYOUT DE NAVEGAÇÃO------------------*/
     public void setNavigation(CardLayout cardLayout, JPanel painelPrincipal) {
@@ -23,7 +24,7 @@ public class TelaEditarPergunta extends JFrame {
     }
     
     /*----------------------CONSTRUTOR DA TELA DE EDIÇÃO DE PERGUNTA---------*/
-    public TelaEditarPergunta() {
+    public TelaEditarPergunta(String idProfessor) {
         /*----------------------CONFIGURAÇÕES DA JANELA-------------------*/
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setUndecorated(true);
@@ -32,6 +33,7 @@ public class TelaEditarPergunta extends JFrame {
         /*----------------------CONFIGURA O LAYOUT DE CARTÕES-------------*/
         cardLayout = new CardLayout();
         painelEditarPergunta = new JPanel(cardLayout);
+        this.idProfessor = idProfessor;
 
         try {
             /*----------------------INSTANCIAÇÃO DO PAINEL----------------*/
@@ -51,7 +53,7 @@ public class TelaEditarPergunta extends JFrame {
     /*----------------------MÉTODO MAIN PARA EXECUTAR A TELA----------------*/
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            TelaEditarPergunta tela = new TelaEditarPergunta();
+            TelaEditarPergunta tela = new TelaEditarPergunta(idProfessor);
             tela.setVisible(true);
         });
     }
@@ -296,7 +298,7 @@ public class TelaEditarPergunta extends JFrame {
             botaoVoltar.setOpaque(false);
             botaoVoltar.setCursor(new Cursor(Cursor.HAND_CURSOR));
             botaoVoltar.addActionListener(e -> {
-                TelaListaPerguntas listaPerguntas = new TelaListaPerguntas();
+                TelaListaPerguntas listaPerguntas = new TelaListaPerguntas(idProfessor);
                 listaPerguntas.setVisible(true);
                 Window janela = SwingUtilities.getWindowAncestor(PanelEditarPergunta.this);
                 if (janela instanceof JFrame) {

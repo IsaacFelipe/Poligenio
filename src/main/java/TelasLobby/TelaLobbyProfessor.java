@@ -38,6 +38,7 @@ public class TelaLobbyProfessor extends JFrame {
         cardLayout = new CardLayout();
         painelLobbyProfessor = new JPanel(cardLayout);
         this.idProfessor = idProfessor;
+        
         /*----------------------INSTANCIA O SISTEMA----------------------*/
         Sistema sistema = Sistema.getInstance();
         
@@ -274,7 +275,7 @@ public class TelaLobbyProfessor extends JFrame {
             botaoQuestionarios.setCursor(new Cursor(Cursor.HAND_CURSOR));
             botaoQuestionarios.addActionListener(e -> {
                 /*----------------------ABRE TELA DE QUESTIONÁRIOS-----------*/
-                TelaQuestionario questionario = new TelaQuestionario();
+                TelaQuestionario questionario = new TelaQuestionario(idProfessor);
                 questionario.setVisible(true);
                 Window janela = SwingUtilities.getWindowAncestor
                             (PanelLobbyProfessor.this);

@@ -3,7 +3,6 @@ package TelasLobby;
 
 /*----------------------IMPORTAÇÕES NECESSÁRIAS-----------------------------*/
 import CodigoPoligenio.Professor;
-import CodigoPoligenio.Sistema;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -18,7 +17,7 @@ public class TelaCadastrar extends JFrame {
     /*----------------------DECLARAÇÃO DE VARIÁVEIS----------------------*/
     private CardLayout cardLayout;
     private JPanel painelCadastrar;
-    public static String idProfessor;
+    private static String idProfessor;
     
     /*----------------------CONFIGURA O LAYOUT DE NAVEGAÇÃO------------------*/
     public void setNavigation(CardLayout cardLayout, JPanel painelPrincipal) {

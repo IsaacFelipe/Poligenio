@@ -14,9 +14,10 @@ public class TelaListaPerguntas extends JFrame {
     /*----------------------DECLARAÇÃO DE VARIÁVEIS----------------------*/
     private CardLayout cardLayout;
     private JPanel painelListaPerguntas;
+    private static String idProfessor;
 
     /*----------------------CONSTRUTOR DA TELA DE LISTAGEM DE PERGUNTAS------*/
-    public TelaListaPerguntas() {
+    public TelaListaPerguntas(String idProfessor) {
         /*----------------------CONFIGURAÇÕES DA JANELA-------------------*/
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setUndecorated(true);
@@ -25,6 +26,7 @@ public class TelaListaPerguntas extends JFrame {
         /*----------------------CONFIGURA O LAYOUT DE CARTÕES-------------*/
         cardLayout = new CardLayout();
         painelListaPerguntas = new JPanel(cardLayout);
+        this.idProfessor = idProfessor;
 
         try {
             /*----------------------INSTANCIAÇÃO DO PAINEL----------------*/
@@ -44,7 +46,7 @@ public class TelaListaPerguntas extends JFrame {
     /*----------------------MÉTODO MAIN PARA EXECUTAR A TELA----------------*/
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            TelaListaPerguntas tela = new TelaListaPerguntas();
+            TelaListaPerguntas tela = new TelaListaPerguntas(idProfessor);
             tela.setVisible(true);
         });
     }
@@ -166,7 +168,7 @@ public class TelaListaPerguntas extends JFrame {
             botaoVoltar.setOpaque(false);
             botaoVoltar.setCursor(new Cursor(Cursor.HAND_CURSOR));
             botaoVoltar.addActionListener(e -> {
-                TelaCriarSala criarSala = new TelaCriarSala(""); // Placeholder ID
+                TelaCriarSala criarSala = new TelaCriarSala(idProfessor);
                 criarSala.setVisible(true);
                 Window janela = SwingUtilities.getWindowAncestor(PanelListaPerguntas.this);
                 if (janela instanceof JFrame) {
@@ -183,7 +185,7 @@ public class TelaListaPerguntas extends JFrame {
             botaoEditarPergunta.setOpaque(false);
             botaoEditarPergunta.setCursor(new Cursor(Cursor.HAND_CURSOR));
             botaoEditarPergunta.addActionListener(e -> {
-                TelaEditarPergunta editarPergunta = new TelaEditarPergunta();
+                TelaEditarPergunta editarPergunta = new TelaEditarPergunta(idProfessor);
                 editarPergunta.setVisible(true);
                 Window janela = SwingUtilities.getWindowAncestor(PanelListaPerguntas.this);
                 if (janela instanceof JFrame) {

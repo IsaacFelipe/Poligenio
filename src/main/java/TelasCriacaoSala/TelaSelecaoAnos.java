@@ -18,6 +18,7 @@ public class TelaSelecaoAnos extends JFrame {
     private CardLayout cardLayout;
     private JPanel painelSelecaoAnos;
     private static String materia;
+    private static String idProfessor;
 
     /*----------------------CONFIGURA O LAYOUT DE NAVEGAÇÃO------------------*/
     public void setNavigation(CardLayout cardLayout, JPanel painelPrincipal) {
@@ -26,12 +27,13 @@ public class TelaSelecaoAnos extends JFrame {
     }
 
     /*----------------------CONSTRUTOR DA TELA DE SELEÇÃO DE ANOS------------*/
-    public TelaSelecaoAnos(String materia) {
+    public TelaSelecaoAnos(String materia, String idProfessor) {
         /*----------------------CONFIGURAÇÕES DA JANELA-------------------*/
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setUndecorated(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.materia = materia;
+        this.idProfessor = idProfessor;
 
         /*----------------------CONFIGURA O LAYOUT DE CARTÕES-------------*/
         cardLayout = new CardLayout();
@@ -54,7 +56,7 @@ public class TelaSelecaoAnos extends JFrame {
     /*----------------------MÉTODO MAIN PARA EXECUTAR A TELA----------------*/
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            TelaSelecaoAnos tela = new TelaSelecaoAnos(materia);
+            TelaSelecaoAnos tela = new TelaSelecaoAnos(materia, idProfessor);
             tela.setVisible(true);
         });
     }
@@ -321,7 +323,7 @@ public class TelaSelecaoAnos extends JFrame {
                 public void actionPerformed(ActionEvent e) {
                     /*----------------------ABRE TELA DE CRIAÇÃO DE QUESTÕES PADRÃO--*/
                     TelaQuestPadraoCriacao questPadraoCriacao = 
-                            new TelaQuestPadraoCriacao(materia, serieSelecionadaText);
+                            new TelaQuestPadraoCriacao(materia, serieSelecionadaText, idProfessor);
                     questPadraoCriacao.setVisible(true);
                     Window janela = SwingUtilities.getWindowAncestor
                                 (PanelSelecaoAnos.this);
@@ -343,7 +345,7 @@ public class TelaSelecaoAnos extends JFrame {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     /*----------------------ABRE TELA DE QUESTÕES PADRÃO----------*/
-                    TelaQuestPadrao questPadrao = new TelaQuestPadrao();
+                    TelaQuestPadrao questPadrao = new TelaQuestPadrao(idProfessor);
                     questPadrao.setVisible(true);
                     Window janela = SwingUtilities.getWindowAncestor
                                 (PanelSelecaoAnos.this);

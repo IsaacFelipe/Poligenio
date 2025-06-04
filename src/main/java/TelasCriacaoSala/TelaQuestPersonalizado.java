@@ -317,7 +317,10 @@ public class TelaQuestPersonalizado extends JFrame {
                 
                 /*--------------------INSTANCIANDO NOVA TELA PARA SER ABERTA------------------*/                
                 TelaAdicionarPergunta addPergunta =
-                        new TelaAdicionarPergunta(materiaSala, idMateria);
+                        new TelaAdicionarPergunta(materiaSala, 
+                                idMateria, 
+                                idProfessor);
+                
                 addPergunta.setVisible(true);
                 
                 /*----------------------------FECHAR JANELA ATUAL-----------------------------*/                
@@ -369,7 +372,7 @@ public class TelaQuestPersonalizado extends JFrame {
             botaoVoltar.setOpaque(false);
             botaoVoltar.setCursor(new Cursor(Cursor.HAND_CURSOR));
             botaoVoltar.addActionListener((ActionEvent e) -> {
-                TelaCriarSala criarSala = new TelaCriarSala("");
+                TelaCriarSala criarSala = new TelaCriarSala(idProfessor);
                 criarSala.setVisible(true);
                 Window janela = SwingUtilities.getWindowAncestor
                                         (PanelQuestPersonalizada.this);

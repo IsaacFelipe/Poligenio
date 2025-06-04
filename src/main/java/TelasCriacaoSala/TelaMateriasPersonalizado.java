@@ -573,14 +573,18 @@ public class TelaMateriasPersonalizado extends JFrame {
             switch (tipo) {
                 case "geografia":
                     if (botaoSelecionado != botaoGeografiaMP) {
-                        int x = botaoGeografiaMP.getX() + (botaoGeografiaMP.getWidth()
+                        int x = botaoGeografiaMP.getX() 
+                                + (botaoGeografiaMP.getWidth()
                                 - imagemGeografiaSelecionado.getWidth()) / 2;
-                        int y = botaoGeografiaMP.getY() + (botaoGeografiaMP.getHeight()
+                        
+                        int y = botaoGeografiaMP.getY() 
+                                + (botaoGeografiaMP.getHeight()
                                 - imagemGeografiaSelecionado.getHeight()) / 2;
                         labelGeografiaSelecionado.setBounds(x, 
                                 y,
                                 imagemGeografiaSelecionado.getWidth(), 
                                 imagemGeografiaSelecionado.getHeight());
+                        
                         labelGeografiaSelecionado.setVisible(true);
                         labelHistoriaSelecionado.setVisible(false);
                         labelMatematicaSelecionado.setVisible(false);
@@ -590,20 +594,26 @@ public class TelaMateriasPersonalizado extends JFrame {
                         labelQuimicaSelecionado.setVisible(false);
                         labelBiologiaSelecionado.setVisible(false);
                         labelGeografiaSelecionado.repaint();
+                        
                         botaoSelecionado = botaoGeografiaMP;
                     }
                     break;
                     
                 case "história":
                     if (botaoSelecionado != botaoHistoriaMP) {
-                        int x = botaoHistoriaMP.getX() + (botaoHistoriaMP.getWidth()
+                        int x = botaoHistoriaMP.getX() 
+                                + (botaoHistoriaMP.getWidth()
                                 - imagemHistoriaSelecionado.getWidth()) / 2;
-                        int y = botaoHistoriaMP.getY() + (botaoHistoriaMP.getHeight()
+                        
+                        int y = botaoHistoriaMP.getY() 
+                                + (botaoHistoriaMP.getHeight()
                                 - imagemHistoriaSelecionado.getHeight()) / 2;
+                        
                         labelHistoriaSelecionado.setBounds(x, 
                                 y,
                                 imagemHistoriaSelecionado.getWidth(), 
                                 imagemHistoriaSelecionado.getHeight());
+                        
                         labelHistoriaSelecionado.setVisible(true);
                         labelGeografiaSelecionado.setVisible(false);
                         labelMatematicaSelecionado.setVisible(false);
@@ -613,20 +623,26 @@ public class TelaMateriasPersonalizado extends JFrame {
                         labelQuimicaSelecionado.setVisible(false);
                         labelBiologiaSelecionado.setVisible(false);
                         labelHistoriaSelecionado.repaint();
+                        
                         botaoSelecionado = botaoHistoriaMP;
                     }
                     break;
                 
                 case "matemática":
                     if (botaoSelecionado != botaoMatematicaMP) {
-                        int x = botaoMatematicaMP.getX() + (botaoMatematicaMP.getWidth()
+                        int x = botaoMatematicaMP.getX() 
+                                + (botaoMatematicaMP.getWidth()
                                 - imagemHistoriaSelecionado.getWidth()) / 2;
-                        int y = botaoMatematicaMP.getY() + (botaoMatematicaMP.getHeight()
+                        
+                        int y = botaoMatematicaMP.getY() 
+                                + (botaoMatematicaMP.getHeight()
                                 - imagemHistoriaSelecionado.getHeight()) / 2;
+                        
                         labelMatematicaSelecionado.setBounds(x, 
                                 y,
                                 imagemHistoriaSelecionado.getWidth(), 
                                 imagemHistoriaSelecionado.getHeight());
+                        
                         labelMatematicaSelecionado.setVisible(true);
                         labelGeografiaSelecionado.setVisible(false);
                         labelHistoriaSelecionado.setVisible(false);
@@ -636,20 +652,26 @@ public class TelaMateriasPersonalizado extends JFrame {
                         labelQuimicaSelecionado.setVisible(false);
                         labelBiologiaSelecionado.setVisible(false);
                         labelMatematicaSelecionado.repaint();
+                        
                         botaoSelecionado = botaoMatematicaMP;
                     }
                     break;
                     
                 case "inglês":
                     if (botaoSelecionado != botaoInglesMP) {
-                        int x = botaoInglesMP.getX() + (botaoInglesMP.getWidth()
+                        int x = botaoInglesMP.getX() 
+                                + (botaoInglesMP.getWidth()
                                 - imagemInglesSelecionado.getWidth()) / 2;
-                        int y = botaoInglesMP.getY() + (botaoInglesMP.getHeight()
+                        
+                        int y = botaoInglesMP.getY() 
+                                + (botaoInglesMP.getHeight()
                                 - imagemInglesSelecionado.getHeight()) / 2;
+                        
                         labelInglesSelecionado.setBounds(x, 
                                 y,
                                 imagemInglesSelecionado.getWidth(), 
                                 imagemInglesSelecionado.getHeight());
+                        
                         labelInglesSelecionado.setVisible(true);
                         labelGeografiaSelecionado.setVisible(false);
                         labelHistoriaSelecionado.setVisible(false);
@@ -659,20 +681,26 @@ public class TelaMateriasPersonalizado extends JFrame {
                         labelQuimicaSelecionado.setVisible(false);
                         labelBiologiaSelecionado.setVisible(false);
                         labelInglesSelecionado.repaint();
+                        
                         botaoSelecionado = botaoInglesMP;
                     }
                     break;
                     
                 case "português":
                     if (botaoSelecionado != botaoPortuguesMP) {
-                        int x = botaoPortuguesMP.getX() + (botaoPortuguesMP.getWidth()
+                        int x = botaoPortuguesMP.getX() 
+                                + (botaoPortuguesMP.getWidth()
                                 - imagemPortuguesSelecionado.getWidth()) / 2;
-                        int y = botaoPortuguesMP.getY() + (botaoPortuguesMP.getHeight()
+                        
+                        int y = botaoPortuguesMP.getY() 
+                                + (botaoPortuguesMP.getHeight()
                                 - imagemPortuguesSelecionado.getHeight()) / 2;
+                        
                         labelPortuguesSelecionado.setBounds(x, 
                                 y,
                                 imagemPortuguesSelecionado.getWidth(), 
                                 imagemPortuguesSelecionado.getHeight());
+                        
                         labelPortuguesSelecionado.setVisible(true);
                         labelGeografiaSelecionado.setVisible(false);
                         labelHistoriaSelecionado.setVisible(false);
@@ -682,20 +710,26 @@ public class TelaMateriasPersonalizado extends JFrame {
                         labelQuimicaSelecionado.setVisible(false);
                         labelBiologiaSelecionado.setVisible(false);
                         labelPortuguesSelecionado.repaint();
+                        
                         botaoSelecionado = botaoPortuguesMP;
                     }
                     break; 
                     
                 case "física":
                     if (botaoSelecionado != botaoFisicaMP) {
-                        int x = botaoFisicaMP.getX() + (botaoFisicaMP.getWidth()
+                        int x = botaoFisicaMP.getX() 
+                                + (botaoFisicaMP.getWidth()
                                 - imagemFisicaSelecionado.getWidth()) / 2;
-                        int y = botaoFisicaMP.getY() + (botaoFisicaMP.getHeight()
+                        
+                        int y = botaoFisicaMP.getY() 
+                                + (botaoFisicaMP.getHeight()
                                 - imagemFisicaSelecionado.getHeight()) / 2;
+                        
                         labelFisicaSelecionado.setBounds(x, 
                                 y,
                                 imagemFisicaSelecionado.getWidth(), 
                                 imagemFisicaSelecionado.getHeight());
+                        
                         labelFisicaSelecionado.setVisible(true);
                         labelGeografiaSelecionado.setVisible(false);
                         labelHistoriaSelecionado.setVisible(false);
@@ -705,20 +739,26 @@ public class TelaMateriasPersonalizado extends JFrame {
                         labelQuimicaSelecionado.setVisible(false);
                         labelBiologiaSelecionado.setVisible(false);
                         labelFisicaSelecionado.repaint();
+                        
                         botaoSelecionado = botaoFisicaMP;
                     }
                     break;  
                     
                 case "química":
                     if (botaoSelecionado != botaoQuimicaMP) {
-                        int x = botaoQuimicaMP.getX() + (botaoQuimicaMP.getWidth()
+                        int x = botaoQuimicaMP.getX() 
+                                + (botaoQuimicaMP.getWidth()
                                 - imagemQuimicaSelecionado.getWidth()) / 2;
-                        int y = botaoQuimicaMP.getY() + (botaoQuimicaMP.getHeight()
+                        
+                        int y = botaoQuimicaMP.getY() 
+                                + (botaoQuimicaMP.getHeight()
                                 - imagemQuimicaSelecionado.getHeight()) / 2;
+                        
                         labelQuimicaSelecionado.setBounds(x, 
                                 y,
                                 imagemQuimicaSelecionado.getWidth(), 
                                 imagemQuimicaSelecionado.getHeight());
+                        
                         labelQuimicaSelecionado.setVisible(true);
                         labelGeografiaSelecionado.setVisible(false);
                         labelHistoriaSelecionado.setVisible(false);
@@ -728,20 +768,26 @@ public class TelaMateriasPersonalizado extends JFrame {
                         labelFisicaSelecionado.setVisible(false);
                         labelBiologiaSelecionado.setVisible(false);
                         labelQuimicaSelecionado.repaint();
+                        
                         botaoSelecionado = botaoQuimicaMP;
                     }
                     break;
                     
                 case "biologia":
                     if (botaoSelecionado != botaoBiologiaMP) {
-                        int x = botaoBiologiaMP.getX() + (botaoBiologiaMP.getWidth()
+                        int x = botaoBiologiaMP.getX() 
+                                + (botaoBiologiaMP.getWidth()
                                 - imagemBiologiaSelecionado.getWidth()) / 2;
-                        int y = botaoBiologiaMP.getY() + (botaoBiologiaMP.getHeight()
+                        
+                        int y = botaoBiologiaMP.getY() 
+                                + (botaoBiologiaMP.getHeight()
                                 - imagemBiologiaSelecionado.getHeight()) / 2;
+                        
                         labelBiologiaSelecionado.setBounds(x, 
                                 y,
                                 imagemBiologiaSelecionado.getWidth(), 
                                 imagemBiologiaSelecionado.getHeight());
+                        
                         labelBiologiaSelecionado.setVisible(true);
                         labelGeografiaSelecionado.setVisible(false);
                         labelHistoriaSelecionado.setVisible(false);
@@ -751,6 +797,7 @@ public class TelaMateriasPersonalizado extends JFrame {
                         labelFisicaSelecionado.setVisible(false);
                         labelQuimicaSelecionado.setVisible(false);
                         labelBiologiaSelecionado.repaint();
+                        
                         botaoSelecionado = botaoBiologiaMP;
                     }
                 break;
@@ -793,7 +840,10 @@ public class TelaMateriasPersonalizado extends JFrame {
 /*------------VERIFICAÇÃO DE EXISTÊNCIA DA IMAGEM ANTES DE DESENHAR-----------*/
 
             if (imagemDeFundoMaterias != null) {
-                g2d.drawImage(imagemDeFundoMaterias, 0, 0, w, h, this);
+                g2d.drawImage(imagemDeFundoMaterias, 0, 
+                        0,
+                        w,
+                        h, this);
             }
         }
     }

@@ -17,6 +17,7 @@ public class TelaQuestionario extends JFrame {
     /*----------------------DECLARAÇÃO DE VARIÁVEIS----------------------*/
     private CardLayout cardLayout;
     private JPanel painelQuestionario;
+    private static String idProfessor;
     
     /*----------------------CONFIGURA O LAYOUT DE NAVEGAÇÃO------------------*/
     public void setNavigation(CardLayout cardLayout, JPanel painelPrincipal) {
@@ -25,11 +26,12 @@ public class TelaQuestionario extends JFrame {
     }
     
     /*----------------------CONSTRUTOR DA TELA DE QUESTIONÁRIO---------------*/
-    public TelaQuestionario() {
+    public TelaQuestionario(String idProfessor) {
         /*----------------------CONFIGURAÇÕES DA JANELA-------------------*/
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setUndecorated(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.idProfessor = idProfessor;
 
         /*----------------------CONFIGURA O LAYOUT DE CARTÕES-------------*/
         cardLayout = new CardLayout();
@@ -57,7 +59,7 @@ public class TelaQuestionario extends JFrame {
     /*----------------------MÉTODO MAIN PARA EXECUTAR A TELA----------------*/
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            TelaQuestionario tela = new TelaQuestionario();
+            TelaQuestionario tela = new TelaQuestionario(idProfessor);
             tela.setVisible(true);
         });
     }
@@ -220,7 +222,7 @@ public class TelaQuestionario extends JFrame {
             botaoEditar.setCursor(new Cursor(Cursor.HAND_CURSOR));
             /*botaoEditar.addActionListener(e -> {
                 //----------------------ABRE TELA DE LISTA DE PERGUNTAS------
-                TelaListaPerguntas questionario = new TelaListaPerguntas();
+                TelaListaPerguntas questionario = new TelaListaPerguntas(idProfessor);
                 questionario.setVisible(true);
                 Window janela = SwingUtilities.getWindowAncestor
                             (PanelQuestionario.this);

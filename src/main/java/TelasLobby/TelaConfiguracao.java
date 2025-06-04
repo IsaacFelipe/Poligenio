@@ -1,10 +1,9 @@
 /*----------------------PACOTE QUE PERTENCE A CLASSE--------------------------*/
 package TelasLobby;
 
-/*----------------------IMPORTAÇÕES NECESSÁRIAS-----------------------------*/
+/*------------------------IMPORTAÇÕES NECESSÁRIAS-----------------------------*/
 import CodigoPoligenio.Sistema;
 import TelasDeLogin.TelaInicial;
-import TelasDeLogin.TelaInicial.PanelInicial;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -13,14 +12,15 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
-/*----------------------CLASSE PRINCIPAL DA TELA DE CONFIGURAÇÃO-------------*/
+/*--------------------CLASSE PRINCIPAL DA TELA DE CONFIGURAÇÃO----------------*/
 public class TelaConfiguracao extends JFrame {
     
-    /*----------------------DECLARAÇÃO DE VARIÁVEIS----------------------*/
+/*---------------------------DECLARAÇÃO DE VARIÁVEIS--------------------------*/
     private CardLayout cardLayout;
     private JPanel painelConfiguracao;
+    private static String idProfessor;
     
-    /*----------------------CONFIGURA O LAYOUT DE NAVEGAÇÃO------------------*/
+/*-----------------------CONFIGURA O LAYOUT DE NAVEGAÇÃO----------------------*/
     public void setNavigation(CardLayout cardLayout, 
             JPanel painelPrincipal) throws IOException {
         
@@ -28,23 +28,26 @@ public class TelaConfiguracao extends JFrame {
         this.painelConfiguracao = painelPrincipal;
     }
     
-    /*----------------------CONSTRUTOR DA TELA DE CONFIGURAÇÃO---------------*/
-    public TelaConfiguracao() {
-        /*----------------------CONFIGURAÇÕES DA JANELA-------------------*/
+/*----------------------CONSTRUTOR DA TELA DE CONFIGURAÇÃO--------------------*/
+    public TelaConfiguracao(String idProfessor) {
+        
+/*---------------------------CONFIGURAÇÕES DA JANELA--------------------------*/
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setUndecorated(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        /*----------------------CONFIGURA O LAYOUT DE CARTÕES-------------*/
+/*------------------------CONFIGURA O LAYOUT DE CARTÕES-----------------------*/
         cardLayout = new CardLayout();
         painelConfiguracao = new JPanel(cardLayout);
-        /*----------------------INSTANCIA O SISTEMA----------------------*/
+        
+/*----------------------------INSTANCIA O SISTEMA-----------------------------*/
         Sistema sistema = Sistema.getInstance();
         
         try {
-            /*----------------------INSTANCIAÇÃO DA TELA INICIAL----------*/
+/*------------------------INSTANCIAÇÃO DA TELA INICIAL------------------------*/
             TelaInicial telaInicial = new TelaInicial("", "", sistema);
-            /*----------------------INSTANCIAÇÃO DO PAINEL----------------*/
+            
+/*---------------------------INSTANCIAÇÃO DO PAINEL---------------------------*/
             PanelConfiguracao telaConfigPanel = 
                     new PanelConfiguracao(cardLayout, 
                             painelConfiguracao, 
@@ -53,36 +56,38 @@ public class TelaConfiguracao extends JFrame {
             
             painelConfiguracao.add(telaInicial, "TelaInicial");
             painelConfiguracao.add(telaConfigPanel, "TelaConfiguracao");
-            /*----------------------CONFIGURAÇÃO DO PAINEL INICIAL-----------*/
+            
+/*-----------------------CONFIGURAÇÃO DO PAINEL INICIAL-----------------------*/
             add(painelConfiguracao);
             cardLayout.show(painelConfiguracao, "TelaConfiguracao");
-
-        } catch (IOException e) {
-            /*----------------------TRATAMENTO DE EXCEÇÕES-------------------*/
+        } 
+        
+/*---------------------------TRATAMENTO DE EXCEÇÕES---------------------------*/
+        catch (IOException e) {           
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, 
                     "Erro ao inicializar a tela: " 
-                            + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+                        + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }
     
-    /*----------------------MOSTRA TELA ESPECÍFICA NO CARD LAYOUT------------*/
+/*--------------------MOSTRA TELA ESPECÍFICA NO CARD LAYOUT-------------------*/
     public void mostrarTela(String nomeTela) {
         cardLayout.show(painelConfiguracao, nomeTela);
     }
     
-    /*----------------------MÉTODO MAIN PARA EXECUTAR A TELA----------------*/
+/*-----------------------MÉTODO MAIN PARA EXECUTAR A TELA---------------------*/
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            TelaConfiguracao tela = new TelaConfiguracao();
+            TelaConfiguracao tela = new TelaConfiguracao(idProfessor);
             tela.setVisible(true);
         });
     }
     
-    /*----------------------CLASSE INTERNA: PAINEL DE CONFIGURAÇÃO-----------*/
+/*-------------------CLASSE INTERNA: PAINEL DE CONFIGURAÇÃO-------------------*/
     public static class PanelConfiguracao extends JPanel {
 
-        /*----------------------DECLARAÇÃO DE VARIÁVEIS----------------------*/
+/*-------------------------DECLARAÇÃO DE VARIÁVEIS----------------------------*/
         private BufferedImage imagemDeFundoConfiguracao;
         private BufferedImage imagemBotaoAudioOn;
         private BufferedImage imagemBotaoAudioOff;
@@ -98,10 +103,10 @@ public class TelaConfiguracao extends JFrame {
         private final CardLayout cardLayout;
         private final JPanel container;
         private final TelaInicial telaInicial;
-        private boolean musicaTocando = true;
+        private final boolean musicaTocando = true;
         private final Sistema sistema;
         
-        /*----------------------CONSTRUTOR DO PAINEL DE CONFIGURAÇÃO---------*/
+/*----------------------CONSTRUTOR DO PAINEL DE CONFIGURAÇÃO------------------*/
         public PanelConfiguracao(CardLayout cardLayout, 
                 JPanel painelPrincipal, 
                 JPanel container, 
@@ -115,25 +120,29 @@ public class TelaConfiguracao extends JFrame {
             this.painelPrincipal = painelPrincipal;
             setLayout(new GridBagLayout());
 
-            /*----------------------CARREGAMENTO DAS IMAGENS------------------*/
+/*--------------------------CARREGAMENTO DAS IMAGENS--------------------------*/
             imagemDeFundoConfiguracao = ImageIO.read(getClass().getResource
         ("/ImagensTelaConfiguracao/telaConfiguracao.png"));
+            
             imagemBotaoAudioOn = ImageIO.read(getClass().getResource
         ("/ImagensTelaConfiguracao/botaoMusicaOn.png"));
+            
             imagemBotaoAudioOff = ImageIO.read(getClass().getResource
         ("/ImagensTelaConfiguracao/botaoMusicaOff.png"));
+            
             imagemBotaoSairConfig = ImageIO.read(getClass().getResource
         ("/ImagensTelaConfiguracao/botaoSairConfig.png"));
+            
             imagemBotaoDesconectar = ImageIO.read(getClass().getResource
         ("/ImagensTelaConfiguracao/botaoDesconectar.png"));
             
-            /*----------------------CRIAÇÃO DO PAINEL DE CONTEÚDO-------------*/
+/*------------------------CRIAÇÃO DO PAINEL DE CONTEÚDO-----------------------*/
             JPanel painelConteudo = new JPanel(null) {
                 @Override
                 protected void paintComponent(Graphics g) {
                     super.paintComponent(g);
 
-                    /*----------------------CONFIGURAÇÃO GRÁFICA----------------*/
+/*-----------------------------CONFIGURAÇÃO GRÁFICA---------------------------*/
                     Graphics2D g2d = (Graphics2D) g;
                     g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, 
                             RenderingHints.VALUE_INTERPOLATION_BILINEAR);
@@ -143,15 +152,17 @@ public class TelaConfiguracao extends JFrame {
                     int w = getWidth();
                     int h = getHeight();
 
-                    /*----------------------CALCULA O CENTRO DA TELA------------*/
+/*---------------------------CALCULA O CENTRO DA TELA-------------------------*/
                     int centroX = w / 2;
 
-                    /*----------------------DIMENSÕES DOS ELEMENTOS--------------*/
-                    double escala = 1.0; // Defina a escala conforme necessário
+/*---------------------------DIMENSÕES DOS ELEMENTOS--------------------------*/
+                    double escala = 1.0; //Definição de escala
+                    
                     int larguraAudioOn = (int) 
                             (imagemBotaoAudioOn.getWidth() * 0.7 * escala);
                     int alturaAudioOn = (int) 
                             (imagemBotaoAudioOn.getHeight() * 0.7 * escala);
+                    
                     int larguraAudioOff = (int) 
                             (imagemBotaoAudioOff.getWidth() * 0.7 * escala);
                     int alturaAudioOff = (int) 
@@ -167,7 +178,7 @@ public class TelaConfiguracao extends JFrame {
                     int alturaDesconectar = (int) 
                             (imagemBotaoDesconectar.getHeight() * 0.7 * escala);
                     
-                    /*----------------------POSICIONAMENTO DOS ELEMENTOS---------*/
+/*------------------------POSICIONAMENTO DOS ELEMENTOS------------------------*/
                     int xAudioON = centroX - (larguraAudioOn / 2) - 90;
                     int yAudioON = (int) (h * 0.45);
                     
@@ -175,7 +186,9 @@ public class TelaConfiguracao extends JFrame {
                     int yAudioOFF = (int) (h * 0.45) - 7;
                     
                     int xSair = centroX - (larguraSair / 2) - 150;
-                    int ySair = yAudioOFF + alturaAudioOff + (int)(170 * escala);
+                    int ySair = yAudioOFF 
+                            + alturaAudioOff 
+                            + (int)(170 * escala);
                     
                     int xDescon = centroX - (larguraDesconectar / 2) + 150;
                     int yDescon = yAudioON + alturaAudioOn + (int)(176 * escala);
