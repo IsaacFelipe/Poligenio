@@ -70,6 +70,8 @@ public class TelaAcesso extends JFrame{
         
         private JButton botaoVoltar;
         
+        private JTextField campoTextoCodigo;
+        
         /*----------------------CONSTRUTOR DO PAINEL DE ACESSO---------------*/
         public PanelAcesso() throws IOException {
             setLayout(new GridBagLayout());
@@ -118,6 +120,12 @@ public class TelaAcesso extends JFrame{
                             larguraBotVoltar, 
                             alturaBotVoltar);
                     
+                    campoTextoCodigo.setBounds(xVoltar + 
+                            (int)(82 * escala), 
+                            yVoltar + (int)(1 * escala),
+                            (int)(300 * escala), 
+                            (int)(50 * escala));
+                    
                     /*----------------------DESENHO DOS ELEMENTOS----------------*/
                     g2d.drawImage(imagemBotaoVoltar, 
                             xVoltar, 
@@ -137,6 +145,16 @@ public class TelaAcesso extends JFrame{
             botaoVoltar.setOpaque(false);
             botaoVoltar.setCursor(new Cursor(Cursor.HAND_CURSOR));
             painelConteudo.add(botaoVoltar);
+            
+            campoTextoCodigo = new JTextField();
+            campoTextoCodigo.setBorder(null);
+            campoTextoCodigo.setOpaque(false);
+            campoTextoCodigo.setForeground(Color.BLACK);
+            campoTextoCodigo.setFont(new Font("Koulen", Font.BOLD, 40));
+            campoTextoCodigo.setText(codigoSala);
+            campoTextoCodigo.setEditable(false);
+            campoTextoCodigo.setFocusable(false);
+            painelConteudo.add(campoTextoCodigo);
 
             /*----------------------CONFIGURAÇÃO DO LAYOUT--------------------*/
             setLayout(new BorderLayout());
