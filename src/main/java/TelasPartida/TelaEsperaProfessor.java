@@ -76,6 +76,7 @@ public class TelaEsperaProfessor extends JFrame {
         private JButton botaoDesconectar;
         private JButton botaoIniciar;
         
+        
         /*----------------------CONSTRUTOR DO PAINEL DE ESPERA---------------*/
         public PanelEspera() throws IOException {
             setLayout(new GridBagLayout());
@@ -186,7 +187,8 @@ public class TelaEsperaProfessor extends JFrame {
             botaoIdSala.setFocusPainted(false);
             botaoIdSala.setOpaque(false);
             botaoIdSala.setCursor(new Cursor(Cursor.HAND_CURSOR));
-            TelaAcesso criarSala = 
+            botaoIdSala.addActionListener(e -> {
+                TelaAcesso criarSala = 
                                 new TelaAcesso(idProfessor, codigoSala);
                         criarSala.setVisible(true);
                         Window janela = SwingUtilities.getWindowAncestor
@@ -194,6 +196,7 @@ public class TelaEsperaProfessor extends JFrame {
                         if (janela instanceof JFrame) {
                             janela.dispose();
                         }
+            });
             painelConteudo.add(botaoIdSala);
             
             /*----------------------CONFIGURAÇÃO DO BOTÃO DESCONECTAR--------*/
@@ -230,13 +233,20 @@ public class TelaEsperaProfessor extends JFrame {
             int h = getHeight();
 
             /*----------------------CONFIGURAÇÃO DE RENDERIZAÇÃO-------------*/
-            g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
-            g2d.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
-            g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-            g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-            g2d.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
-            g2d.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
-            g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_PURE);
+            g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
+                    RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+            g2d.setRenderingHint(RenderingHints.KEY_RENDERING,
+                    RenderingHints.VALUE_RENDER_QUALITY);
+            g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                    RenderingHints.VALUE_ANTIALIAS_ON);
+            g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
+                    RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+            g2d.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, 
+                    RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
+            g2d.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, 
+                    RenderingHints.VALUE_COLOR_RENDER_QUALITY);
+            g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL,
+                    RenderingHints.VALUE_STROKE_PURE);
             
             /*----------------------DESENHO DA IMAGEM DE FUNDO---------------*/
             if (imagemDeFundoEspera != null) {
