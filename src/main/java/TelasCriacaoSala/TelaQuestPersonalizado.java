@@ -107,6 +107,7 @@ public class TelaQuestPersonalizado extends JFrame {
         private JButton botaoVoltar;
         private JButton botaoBoxMaterias;
         private JButton botaoDicasOff;
+        
         private JTextField campoTextoNomeQuest;
         
         private boolean dicaAtivada = false;
@@ -319,7 +320,8 @@ public class TelaQuestPersonalizado extends JFrame {
                 TelaAdicionarPergunta addPergunta =
                         new TelaAdicionarPergunta(materiaSala, 
                                 idMateria, 
-                                idProfessor);
+                                idProfessor,
+                                codigoSala);
                 
                 addPergunta.setVisible(true);
                 

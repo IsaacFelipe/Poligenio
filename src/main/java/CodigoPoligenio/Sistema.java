@@ -49,8 +49,8 @@ public class Sistema {
             String resourcePath = "/MusicaPoligenio/musicaPoligenio.wav";
             InputStream audioSrc = getClass().getResourceAsStream(resourcePath);
             if (audioSrc == null) {
-                System.err.println("Erro: Não foi possível encontrar o recurso: " 
-                        + resourcePath);
+                System.err.println("Erro: Não foi possível encontrar "
+                        + "o recurso: " + resourcePath);
                 return;
             }
             InputStream bufferedIn = new BufferedInputStream(audioSrc);

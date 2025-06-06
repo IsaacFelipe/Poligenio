@@ -5,12 +5,14 @@ package CodigoPoligenio;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.ResultSet;
 
 /*----------------------CLASSE PARA GERENCIAMENTO DE SALA CRIADA-------------*/
 public class SalaCriada {
     
     /*----------------------DECLARAÇÃO DE VARIÁVEIS----------------------*/
     private TipoSala tipoSala;
+    private String idMateria;
     
     /*----------------------MÉTODO PARA OBTER TIPO DE SALA---------------*/
     public TipoSala getTipoSala() {
@@ -23,8 +25,9 @@ public class SalaCriada {
     }
 
     /*----------------------CONSTRUTOR DA CLASSE SALA CRIADA-------------*/
-    public SalaCriada(TipoSala tipoSala) {
+    public SalaCriada(TipoSala tipoSala, String idMateria) {
         this.tipoSala = tipoSala;
+        this.idMateria = idMateria;
     }
 
     /*----------------------MÉTODO PARA ADICIONAR PERGUNTA---------------*/
@@ -92,6 +95,35 @@ public class SalaCriada {
     /*----------------------MÉTODO PARA EXIBIR PERGUNTA---------------*/
     public void exibirPergunta() {
         
+    }
+ 
+/*------------------------MÉTODO PARA CONTAR AS PERGUNTAS---------------------*/    
+    public int contarPerguntas() throws Exception {
+        Connection conexao = null;
+        PreparedStatement stmt = null;
+        int totalPerguntas = 0;
+
+        try {
+            conexao = ConexaoBD.obterConexao();
+            String sql = "SELECT COUNT(*) AS total FROM perguntascriadas "
+                    + "WHERE id_Matéria = ?";
+            stmt = conexao.prepareStatement(sql);
+            stmt.setString(1, idMateria);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                totalPerguntas = rs.getInt("total");
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            throw new SQLException("Erro ao contar perguntas: " 
+                    + ex.getMessage());
+        } finally {
+            if (stmt != null) stmt.close();
+            if (conexao != null) conexao.close();
+        }
+
+        return totalPerguntas;
     }
 
     /*----------------------MÉTODO PARA ADICIONAR ALTERNATIVA---------*/

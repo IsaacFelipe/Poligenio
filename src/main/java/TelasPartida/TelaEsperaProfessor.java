@@ -17,6 +17,7 @@ public class TelaEsperaProfessor extends JFrame {
     private CardLayout cardLayout;
     private JPanel painelEspera;
     private static String idProfessor;
+    private static String codigoSala;
     
     /*----------------------CONFIGURA O LAYOUT DE NAVEGAÇÃO------------------*/
     public void setNavigation(CardLayout cardLayout, JPanel painelPrincipal) {
@@ -25,12 +26,13 @@ public class TelaEsperaProfessor extends JFrame {
     }
     
     /*----------------------CONSTRUTOR DA TELA DE ESPERA PROFESSOR-----------*/
-    public TelaEsperaProfessor(String idProfessor) {
+    public TelaEsperaProfessor(String idProfessor, String codigoSala) {
         /*----------------------CONFIGURAÇÕES DA JANELA-------------------*/
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setUndecorated(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.idProfessor = idProfessor;
+        this.codigoSala = codigoSala;
 
         /*----------------------CONFIGURA O LAYOUT DE CARTÕES-------------*/
         cardLayout = new CardLayout();
@@ -55,7 +57,8 @@ public class TelaEsperaProfessor extends JFrame {
     /*----------------------MÉTODO MAIN PARA EXECUTAR A TELA----------------*/
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            TelaEsperaProfessor tela = new TelaEsperaProfessor(idProfessor);
+            TelaEsperaProfessor tela = new TelaEsperaProfessor(idProfessor,
+                                                                codigoSala);
             tela.setVisible(true);
         });
     }
@@ -183,6 +186,14 @@ public class TelaEsperaProfessor extends JFrame {
             botaoIdSala.setFocusPainted(false);
             botaoIdSala.setOpaque(false);
             botaoIdSala.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            TelaAcesso criarSala = 
+                                new TelaAcesso(idProfessor, codigoSala);
+                        criarSala.setVisible(true);
+                        Window janela = SwingUtilities.getWindowAncestor
+                                        (PanelEspera.this);
+                        if (janela instanceof JFrame) {
+                            janela.dispose();
+                        }
             painelConteudo.add(botaoIdSala);
             
             /*----------------------CONFIGURAÇÃO DO BOTÃO DESCONECTAR--------*/

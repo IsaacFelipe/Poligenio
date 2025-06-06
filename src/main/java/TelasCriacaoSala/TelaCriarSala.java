@@ -237,7 +237,7 @@ public class TelaCriarSala extends JFrame {
             };
             painelConteudo.setOpaque(false);
 
-            /*----------------------CONFIGURAÇÃO DOS LABELS DE SELEÇÃO---------------*/
+/*---------------------CONFIGURAÇÃO DOS LABELS DE SELEÇÃO---------------------*/
             labelPadrSelecionado = 
                     new JLabel(new ImageIcon(imagemQuestPadrSelecionado));
             labelPadrSelecionado.setVisible(false);
@@ -256,7 +256,7 @@ public class TelaCriarSala extends JFrame {
                     imagemQuestPersSelecionado.getHeight());
             painelConteudo.add(labelPersSelecionado);
 
-            /*----------------------CONFIGURAÇÃO DO BOTÃO QUESTIONÁRIO PADRÃO----*/
+/*------------------CONFIGURAÇÃO DO BOTÃO QUESTIONÁRIO PADRÃO-----------------*/
             botaoQuestPadr = new JButton();
             botaoQuestPadr.setBorderPainted(false);
             botaoQuestPadr.setContentAreaFilled(false);
@@ -267,7 +267,7 @@ public class TelaCriarSala extends JFrame {
                     SelecionarBotao("padrao"));
             painelConteudo.add(botaoQuestPadr);
 
-            /*----------------------CONFIGURAÇÃO DO BOTÃO QUESTIONÁRIO PERSONALIZADO-*/
+/*----------------CONFIGURAÇÃO DO BOTÃO QUESTIONÁRIO PERSONALIZADO------------*/
             botaoQuestPers = new JButton();
             botaoQuestPers.setBorderPainted(false);
             botaoQuestPers.setContentAreaFilled(false);
@@ -278,7 +278,7 @@ public class TelaCriarSala extends JFrame {
                     SelecionarBotao("personalizado"));
             painelConteudo.add(botaoQuestPers);
 
-            /*---------------------CONFIGURAÇÃO DO BOTÃO CRIAR------------------*/
+/*-------------------------CONFIGURAÇÃO DO BOTÃO CRIAR------------------------*/
             botaoCriar = new JButton();
             botaoCriar.setBorderPainted(false);
             botaoCriar.setContentAreaFilled(false);
@@ -323,7 +323,7 @@ public class TelaCriarSala extends JFrame {
             });
             painelConteudo.add(botaoCriar);
 
-            /*----------------------CONFIGURAÇÃO DO BOTÃO VOLTAR-----------------*/
+/*------------------------CONFIGURAÇÃO DO BOTÃO VOLTAR------------------------*/
             botaoVoltar = new JButton();
             botaoVoltar.setBorderPainted(false);
             botaoVoltar.setContentAreaFilled(false);
@@ -345,12 +345,12 @@ public class TelaCriarSala extends JFrame {
             });
             painelConteudo.add(botaoVoltar);
 
-            /*----------------------CONFIGURAÇÃO DO LAYOUT-----------------------*/
+/*---------------------------CONFIGURAÇÃO DO LAYOUT---------------------------*/
             setLayout(new BorderLayout());
             add(painelConteudo, BorderLayout.CENTER);
         }
 
-        /*----------------------SELEÇÃO DE BOTÃO DE TIPO DE QUESTIONÁRIO-------*/
+/*-------------------SELEÇÃO DE BOTÃO DE TIPO DE QUESTIONÁRIO-----------------*/
         private void SelecionarBotao(String tipo) {
             tipoSelecionado = tipo;
             switch (tipo) {
@@ -406,7 +406,7 @@ public class TelaCriarSala extends JFrame {
             }
         }
 
-        /*----------------------PINTURA DO FUNDO DO PAINEL---------------------*/
+/*-------------------------PINTURA DO FUNDO DO PAINEL-------------------------*/
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
@@ -414,7 +414,7 @@ public class TelaCriarSala extends JFrame {
             int w = getWidth();
             int h = getHeight();
 
-            /*----------------------CONFIGURAÇÃO DE RENDERIZAÇÃO---------------*/
+/*------------------------CONFIGURAÇÃO DE RENDERIZAÇÃO------------------------*/
             g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, 
                     RenderingHints.VALUE_INTERPOLATION_BICUBIC);
             g2d.setRenderingHint(RenderingHints.KEY_RENDERING, 
@@ -430,7 +430,7 @@ public class TelaCriarSala extends JFrame {
             g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL,
                     RenderingHints.VALUE_STROKE_PURE);
 
-            /*----------------------DESENHO DA IMAGEM DE FUNDO-----------------*/
+/*------------------------DESENHO DA IMAGEM DE FUNDO--------------------------*/
             if (imagemDeFundoCriarSala != null) {
                 g2d.drawImage(imagemDeFundoCriarSala, 0, 
                         0, 

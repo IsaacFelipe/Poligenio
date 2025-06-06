@@ -1,8 +1,9 @@
-/*----------------------IMPORTAÇÕES NECESSÁRIAS-----------------------------*/
+/*------------------------IMPORTAÇÕES NECESSÁRIAS-----------------------------*/
 package TelasCriacaoSala;
 
 import CodigoPoligenio.SalaCriada;
 import static CodigoPoligenio.TipoSala.PERSONALIZADA;
+import TelasPartida.TelaEsperaProfessor;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -13,49 +14,52 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 
-/*----------------------CLASSE PRINCIPAL DA TELA DE ADIÇÃO DE PERGUNTA------*/
+/*---------------CLASSE PRINCIPAL DA TELA DE ADIÇÃO DE PERGUNTA---------------*/
 public class TelaAdicionarPergunta extends JFrame {
     
-    /*----------------------DECLARAÇÃO DE VARIÁVEIS----------------------*/
+/*-------------------------DECLARAÇÃO DE VARIÁVEIS----------------------------*/
     private CardLayout cardLayout;
     private JPanel painelAdicionarPergunta;
     private static String materiaSala;
     private static String idMateria;
     private static String idProfessor;
+    private static String codigoSala;
     
-    /*----------------------CONFIGURA O LAYOUT DE NAVEGAÇÃO------------------*/
+/*---------------------CONFIGURA O LAYOUT DE NAVEGAÇÃO------------------------*/
     public void setNavigation(CardLayout cardLayout, JPanel painelPrincipal) {
         this.cardLayout = cardLayout;
         this.painelAdicionarPergunta = painelPrincipal;
     }
     
-    /*----------------------CONSTRUTOR DA TELA DE ADIÇÃO DE PERGUNTA---------*/
+/*-----------------CONSTRUTOR DA TELA DE ADIÇÃO DE PERGUNTA-------------------*/
     public TelaAdicionarPergunta(String materiaSala,
             String idMateria,
-            String idProfessor) {
+            String idProfessor,
+            String codigoSala) {
         
-        /*----------------------CONFIGURAÇÕES DA JANELA-------------------*/
+/*--------------------------CONFIGURAÇÕES DA JANELA---------------------------*/
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setUndecorated(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.materiaSala = materiaSala;
         this.idMateria = idMateria;
         this.idProfessor = idProfessor;
+        this.codigoSala = codigoSala;
 
-        /*----------------------CONFIGURA O LAYOUT DE CARTÕES-------------*/
+/*-----------------------CONFIGURA O LAYOUT DE CARTÕES------------------------*/
         cardLayout = new CardLayout();
         painelAdicionarPergunta = new JPanel(cardLayout);
 
         try {
-            /*----------------------INSTANCIAÇÃO DO PAINEL----------------*/
+/*--------------------------INSTANCIAÇÃO DO PAINEL----------------------------*/
             PanelAdicionarPerguntas telaQuestionarioPanel = 
                     new PanelAdicionarPerguntas();
             
-            /*----------------------ADICIONANDO PAINEL AO LAYOUT-------------*/
+/*-----------------------ADICIONANDO PAINEL AO LAYOUT-------------------------*/
             painelAdicionarPergunta.add(telaQuestionarioPanel, 
                     "TelaAdicionarPergunta");
             
-            /*----------------------CONFIGURAÇÃO DO PAINEL INICIAL-----------*/
+/*----------------------CONFIGURAÇÃO DO PAINEL INICIAL------------------------*/
             add(painelAdicionarPergunta);
             cardLayout.show(painelAdicionarPergunta, "TelaAdicionarPergunta");
         } catch (IOException e) {
@@ -64,20 +68,21 @@ public class TelaAdicionarPergunta extends JFrame {
         }
     }
     
-    /*----------------------MÉTODO MAIN PARA EXECUTAR A TELA----------------*/
+/*----------------------MÉTODO MAIN PARA EXECUTAR A TELA----------------------*/
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             TelaAdicionarPergunta tela = new TelaAdicionarPergunta(materiaSala, 
                     idMateria, 
-                    idProfessor);
+                    idProfessor,
+                    codigoSala);
             tela.setVisible(true);
         });
     }
     
-    /*----------------------CLASSE INTERNA: PAINEL DE ADIÇÃO DE PERGUNTAS----*/
+/*---------------CLASSE INTERNA: PAINEL DE ADIÇÃO DE PERGUNTAS----------------*/
     public static class PanelAdicionarPerguntas extends JPanel {
 
-        /*----------------------DECLARAÇÃO DE VARIÁVEIS----------------------*/
+/*--------------------------DECLARAÇÃO DE VARIÁVEIS---------------------------*/
         private BufferedImage imagemDeFundoAdicionarPerguntas;
         private BufferedImage imagemBotaoNovaQuestao;
         private BufferedImage imagemBoxMostrarMateria;
@@ -135,11 +140,11 @@ public class TelaAdicionarPergunta extends JFrame {
         private String dificuldadeSelecionado = null;
         private String alternativaSelecionada = null;
         
-        /*----------------------CONSTRUTOR DO PAINEL DE ADIÇÃO DE PERGUNTAS--*/
+/*----------------CONSTRUTOR DO PAINEL DE ADIÇÃO DE PERGUNTAS-----------------*/
         public PanelAdicionarPerguntas() throws IOException {
             setLayout(new GridBagLayout());
 
-            /*----------------------CARREGAMENTO DAS IMAGENS------------------*/
+/*------------------------CARREGAMENTO DAS IMAGENS----------------------------*/
             imagemDeFundoAdicionarPerguntas = ImageIO.read
         (getClass().getResource
         ("/ImagensTelaAdicionarPergunta/telaAdicionarPergunta.png"));
@@ -696,6 +701,37 @@ public class TelaAdicionarPergunta extends JFrame {
             botaoCriarQuestionario.setFocusPainted(false);
             botaoCriarQuestionario.setOpaque(false);
             botaoCriarQuestionario.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            botaoCriarQuestionario.addActionListener(e -> {
+                SalaCriada salaCriada = 
+                        new SalaCriada(PERSONALIZADA, idMateria);
+                try {
+                    int numeroPerguntas = salaCriada.contarPerguntas();
+                    if (numeroPerguntas >= 5) {
+                        TelaEsperaProfessor criarSala = 
+                                new TelaEsperaProfessor(idProfessor, 
+                                                        codigoSala);
+                        criarSala.setVisible(true);
+                        Window janela = SwingUtilities.getWindowAncestor
+        (PanelAdicionarPerguntas.this);
+                        if (janela instanceof JFrame) {
+                            janela.dispose();
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(this, 
+                            "É necessário ter pelo menos 5 perguntas "
+                                    + "para criar um questionário!", 
+                            "Erro", 
+                            JOptionPane.ERROR_MESSAGE);
+                    }
+                } catch (Exception ex) {
+                    Logger.getLogger(TelaAdicionarPergunta.class.getName()).log
+        (Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(this, 
+                        "Erro ao verificar perguntas: " + ex.getMessage(), 
+                        "Erro", 
+                        JOptionPane.ERROR_MESSAGE);
+                }
+            });
             painelConteudo.add(botaoCriarQuestionario);
             
 /*---------------------CONFIGURAÇÃO DO BOTÃO DIFICULDADE FÁCIL----------------*/
@@ -708,7 +744,7 @@ public class TelaAdicionarPergunta extends JFrame {
             botaoDifFacil.addActionListener(e -> SelecionarBotao("facil"));
             painelConteudo.add(botaoDifFacil);
             
-/*---------------------CONFIGURAÇÃO DO BOTÃO DIFICULDADE MÉDIO----------------*/
+/*-------------------CONFIGURAÇÃO DO BOTÃO DIFICULDADE MÉDIO------------------*/
             botaoDifMedio = new JButton();
             botaoDifMedio.setBorderPainted(false);
             botaoDifMedio.setContentAreaFilled(false);
@@ -777,6 +813,13 @@ public class TelaAdicionarPergunta extends JFrame {
                     return;
                 }
                 
+                if (alternativaSelecionada == null) {
+                    JOptionPane.showMessageDialog(this, "Por favor,"
+                            + " selecione uma alternativa correta!", 
+                            "Erro", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+                
                 int idDificuldade = 0;
                 switch (dificuldadeSelecionado) {
                     case "facil":
@@ -806,7 +849,8 @@ public class TelaAdicionarPergunta extends JFrame {
                         break;    
                 }
 
-                SalaCriada salaCriada = new SalaCriada(PERSONALIZADA);
+                SalaCriada salaCriada = new SalaCriada(PERSONALIZADA, 
+                        idMateria);
                 try {
                 
                 int idPergunta = salaCriada.adicionarPergunta(idDificuldade, 
@@ -822,11 +866,24 @@ public class TelaAdicionarPergunta extends JFrame {
                                      respostaCorreta);
                                      
                     campoTextoPergunta.setText("");
+                    campoTextoAlternativa1.setText("");
+                    campoTextoAlternativa2.setText("");
+                    campoTextoAlternativa3.setText("");
+                    campoTextoAlternativa4.setText("");
+                    
                     dificuldadeSelecionado = null;
                     labelFacil.setVisible(false);
                     labelMedio.setVisible(false);
                     labelDificil.setVisible(false);
                     botaoSelecionado = null;
+                    
+                    alternativaSelecionada = null;
+                    labelAlternativaTrue.setVisible(false);
+                    alternativaCorreta = null;
+                    
+                    painelConteudo.revalidate();
+                    painelConteudo.repaint();
+                    
                 } catch (Exception ex) {
                     Logger.getLogger(TelaAdicionarPergunta.class.getName())
                             .log(Level.SEVERE, null, ex);
@@ -862,7 +919,8 @@ public class TelaAdicionarPergunta extends JFrame {
             campoTextoAlternativa1.setBorder(null);
             campoTextoAlternativa1.setOpaque(false);
             campoTextoAlternativa1.setForeground(Color.BLACK);
-            campoTextoAlternativa1.setFont(new Font("Jockey One", Font.BOLD, 35));
+            campoTextoAlternativa1.setFont(new Font("Jockey One"
+                    , Font.BOLD, 35));
             painelConteudo.add(campoTextoAlternativa1);
             
 /*----------------------CONFIGURAÇÃO DO CAMPO ALTERNATIVA 3-------------------*/
@@ -1074,7 +1132,7 @@ public class TelaAdicionarPergunta extends JFrame {
             }
         }
         
-        /*----------------------PINTURA DO FUNDO DO PAINEL-------------------*/
+/*------------------------PINTURA DO FUNDO DO PAINEL--------------------------*/
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
@@ -1082,7 +1140,7 @@ public class TelaAdicionarPergunta extends JFrame {
             int w = getWidth();
             int h = getHeight();
 
-            /*----------------------CONFIGURAÇÃO DE RENDERIZAÇÃO-------------*/
+/*----------------------CONFIGURAÇÃO DE RENDERIZAÇÃO--------------------------*/
             g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, 
                     RenderingHints.VALUE_INTERPOLATION_BICUBIC);
             g2d.setRenderingHint(RenderingHints.KEY_RENDERING, 
@@ -1098,7 +1156,7 @@ public class TelaAdicionarPergunta extends JFrame {
             g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, 
                     RenderingHints.VALUE_STROKE_PURE);
             
-            /*----------------------DESENHO DA IMAGEM DE FUNDO---------------*/
+/*------------------------DESENHO DA IMAGEM DE FUNDO--------------------------*/
             if (imagemDeFundoAdicionarPerguntas != null) {
                 g2d.drawImage(imagemDeFundoAdicionarPerguntas, 
                         0, 

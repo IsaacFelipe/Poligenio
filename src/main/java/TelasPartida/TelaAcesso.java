@@ -17,6 +17,7 @@ public class TelaAcesso extends JFrame{
     private CardLayout cardLayout;
     private JPanel painelAcesso;
     private static String idProfessor;
+    private static String codigoSala;
    
     /*----------------------CONFIGURA O LAYOUT DE NAVEGAÇÃO------------------*/
     public void setNavigation(CardLayout cardLayout, JPanel painelPrincipal) {
@@ -24,12 +25,13 @@ public class TelaAcesso extends JFrame{
     }
 
     /*----------------------CONSTRUTOR DA TELA DE ACESSO---------------------*/
-    public TelaAcesso(String idProfessor) {
+    public TelaAcesso(String idProfessor, String codigoSala) {
         /*----------------------CONFIGURAÇÕES DA JANELA-------------------*/
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setUndecorated(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.idProfessor = idProfessor;
+        this.codigoSala = codigoSala;
         
         /*----------------------CONFIGURA O LAYOUT DE CARTÕES-------------*/
         cardLayout = new CardLayout();
@@ -54,7 +56,7 @@ public class TelaAcesso extends JFrame{
     /*----------------------MÉTODO MAIN PARA EXECUTAR A TELA----------------*/
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            TelaAcesso tela = new TelaAcesso(idProfessor);
+            TelaAcesso tela = new TelaAcesso(idProfessor, codigoSala);
             tela.setVisible(true);
         });
     }
@@ -151,17 +153,28 @@ public class TelaAcesso extends JFrame{
             int h = getHeight();
 
             /*----------------------CONFIGURAÇÃO DE RENDERIZAÇÃO-------------*/
-            g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
-            g2d.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
-            g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-            g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-            g2d.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
-            g2d.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
-            g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_PURE);
+            g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, 
+                    RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+            g2d.setRenderingHint(RenderingHints.KEY_RENDERING,
+                    RenderingHints.VALUE_RENDER_QUALITY);
+            g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, 
+                    RenderingHints.VALUE_ANTIALIAS_ON);
+            g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, 
+                    RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+            g2d.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, 
+                    RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
+            g2d.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, 
+                    RenderingHints.VALUE_COLOR_RENDER_QUALITY);
+            g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, 
+                    RenderingHints.VALUE_STROKE_PURE);
             
             /*----------------------DESENHO DA IMAGEM DE FUNDO---------------*/
             if (imagemFundoAcesso != null) {
-                g2d.drawImage(imagemFundoAcesso, 0, 0, w, h, this);
+                g2d.drawImage(imagemFundoAcesso, 
+                        0,
+                        0, 
+                        w, 
+                        h, this);
             }
         } 
     }
