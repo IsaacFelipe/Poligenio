@@ -1,7 +1,7 @@
 /*----------------------PACOTE QUE PERTENCE A CLASSE--------------------------*/
 package TelasDeLogin;
 
-/*----------------------IMPORTAÇÕES NECESSÁRIAS-----------------------------*/
+/*-------------------------IMPORTAÇÕES NECESSÁRIAS----------------------------*/
 import CodigoPoligenio.Sistema;
 import javax.swing.*;
 import java.awt.*;
@@ -11,43 +11,41 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
-/*----------------------CLASSE PRINCIPAL DA TELA DE NOVA SENHA---------------*/
+/*-------------------CLASSE PRINCIPAL DA TELA DE NOVA SENHA-------------------*/
 public class TelaNovaSenha extends JFrame {
     
-    /*----------------------DECLARAÇÃO DE VARIÁVEIS----------------------*/
+/*--------------------------DECLARAÇÃO DE VARIÁVEIS---------------------------*/
     private JPanel TelaNovaSenha;
     private static String destinatario;
     
     
-    /*----------------------CONSTRUTOR DA TELA DE NOVA SENHA-----------------*/
+/*----------------------CONSTRUTOR DA TELA DE NOVA SENHA----------------------*/
     public TelaNovaSenha(String destinatario){
         
-        /*----------------------CONFIGURAÇÕES DA JANELA-------------------*/
+/*---------------------------CONFIGURAÇÕES DA JANELA--------------------------*/
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setUndecorated(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         TelaNovaSenha = new JPanel();
         
-        /*----------------------INSTANCIA O SISTEMA----------------------*/
+/*--------------------INSTANCIA O SISTEMA E PAINEL DA CLASSE------------------*/
         Sistema sistema = Sistema.getInstance();
         this.destinatario = destinatario;
-
         
         try {
-            /*----------------------INSTANCIAÇÃO DO PAINEL----------------*/
+
             PanelNovaSenha novaSenha = new PanelNovaSenha();
             setContentPane(novaSenha);
 
         } catch (IOException e) {
-            /*----------------------TRATAMENTO DE EXCEÇÕES-------------------*/
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Erro ao inicializar a tela: " 
                     + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }
     
-    /*----------------------MÉTODO MAIN PARA EXECUTAR A TELA----------------*/
+/*----------------------MÉTODO MAIN PARA EXECUTAR A TELA----------------------*/
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             TelaNovaSenha telaNovaSenha = new TelaNovaSenha(destinatario);
@@ -55,10 +53,10 @@ public class TelaNovaSenha extends JFrame {
         });
     }
     
-    /*----------------------CLASSE INTERNA: PAINEL DE NOVA SENHA-------------*/
+/*--------------------CLASSE INTERNA: PAINEL DE NOVA SENHA--------------------*/
     public static class PanelNovaSenha extends JPanel {
         
-        /*----------------------DECLARAÇÃO DE VARIÁVEIS----------------------*/
+/*--------------------------DECLARAÇÃO DE VARIÁVEIS---------------------------*/
         private BufferedImage imagemDeFundoNovaSenha;
         private BufferedImage imagemInputNovaSenha;
         private BufferedImage imagemInputConfirmarSenha;
@@ -71,11 +69,11 @@ public class TelaNovaSenha extends JFrame {
         private JButton botaoEnviar;
         private JButton botaoVoltarLogin;
         
-        /*----------------------CONSTRUTOR DO PAINEL DE NOVA SENHA-----------*/
+/*----------------------CONSTRUTOR DO PAINEL DE NOVA SENHA--------------------*/
         public PanelNovaSenha() throws IOException {
             setLayout(new GridBagLayout());
             
-            /*----------------------CARREGAMENTO DAS IMAGENS------------------*/
+/*--------------------------CARREGAMENTO DAS IMAGENS--------------------------*/
             imagemDeFundoNovaSenha = ImageIO.read(getClass().getResource
         ("/ImagensTelaNovaSenha/telaNovaSenha.png"));
             
@@ -91,13 +89,13 @@ public class TelaNovaSenha extends JFrame {
             imagemBotaoVoltarLogin = ImageIO.read(getClass().getResource
         ("/ImagensTelaNovaSenha/botaoVoltarLogin.png"));
             
-            /*----------------------CRIAÇÃO DO PAINEL DE CONTEÚDO-------------*/
+/*-----------------------CRIAÇÃO DO PAINEL DE CONTEÚDO------------------------*/
             JPanel painelConteudo = new JPanel(null) {
                 @Override
                 protected void paintComponent(Graphics g) {
                     super.paintComponent(g);
 
-                    /*----------------------CONFIGURAÇÃO GRÁFICA----------------*/
+/*----------------------------CONFIGURAÇÃO GRÁFICA----------------------------*/
                     Graphics2D g2d = (Graphics2D) g;
                     g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, 
                             RenderingHints.VALUE_INTERPOLATION_BILINEAR);
@@ -107,10 +105,9 @@ public class TelaNovaSenha extends JFrame {
                     int w = getWidth();
                     int h = getHeight();
 
-                    /*----------------------CALCULA O CENTRO DA TELA------------*/
                     int centroX = w / 2;
 
-                    /*----------------------DIMENSÕES DOS ELEMENTOS--------------*/
+/*--------------------------DIMENSÕES DOS ELEMENTOS---------------------------*/
                     double escala = 1.0;
                     int larguraInputNS = (int) 
                         (imagemInputNovaSenha.getWidth() * 0.7 * escala);
@@ -132,7 +129,7 @@ public class TelaNovaSenha extends JFrame {
                     int alturaBotaoVoltar = (int) 
                             (imagemBotaoVoltarLogin.getHeight() * 0.7 * escala);
                     
-                    /*----------------------POSICIONAMENTO DOS ELEMENTOS---------*/
+/*------------------------POSICIONAMENTO DOS ELEMENTOS------------------------*/
                     int xNovaSenha = centroX - (larguraInputNS / 2);
                     int yNovaSenha = (int) (h * 0.45) + 50;
                     
@@ -151,7 +148,7 @@ public class TelaNovaSenha extends JFrame {
                             alturaBotaoVoltar + 
                             (int)(90 * escala);
                     
-                    /*----------------------CONFIGURAÇÃO DOS CAMPOS E BOTÕES-----*/
+/*-----------------------CONFIGURAÇÃO DOS CAMPOS E BOTÕES---------------------*/
                     campoNovaSenha.setBounds(xNovaSenha + (int)(157 * escala), 
                             yNovaSenha + (int)(5 * escala), 
                             (int)(300 * escala), 
@@ -173,7 +170,7 @@ public class TelaNovaSenha extends JFrame {
                             larguraBotaoVoltar,
                             alturaBotaoVoltar);
                     
-                    /*----------------------DESENHO DOS ELEMENTOS----------------*/
+/*---------------------------DESENHO DOS ELEMENTOS----------------------------*/
                     g2d.drawImage(imagemInputNovaSenha, 
                             xNovaSenha, 
                             yNovaSenha, 
@@ -199,10 +196,10 @@ public class TelaNovaSenha extends JFrame {
                             alturaInputConfirmar, this);
                 }
             };
-            /*----------------------CONFIGURAÇÃO DO PAINEL DE CONTEÚDO-------*/
+/*---------------------CONFIGURAÇÃO DO PAINEL DE CONTEÚDO---------------------*/
             painelConteudo.setOpaque(false);
             
-            /*----------------------CONFIGURAÇÃO DO CAMPO NOVA SENHA---------*/
+/*----------------------CONFIGURAÇÃO DO CAMPO NOVA SENHA----------------------*/
             campoNovaSenha = new JPasswordField();
             campoNovaSenha.setBorder(null);
             campoNovaSenha.setOpaque(false);
@@ -210,7 +207,7 @@ public class TelaNovaSenha extends JFrame {
             campoNovaSenha.setFont(new Font("Jockey One", Font.BOLD, 24));
             painelConteudo.add(campoNovaSenha);
             
-            /*----------------------CONFIGURAÇÃO DO CAMPO CONFIRMAR SENHA----*/
+/*-------------------CONFIGURAÇÃO DO CAMPO CONFIRMAR SENHA--------------------*/
             campoConfirmarSenha = new JPasswordField();
             campoConfirmarSenha.setBorder(null);
             campoConfirmarSenha.setOpaque(false);
@@ -218,7 +215,7 @@ public class TelaNovaSenha extends JFrame {
             campoConfirmarSenha.setFont(new Font("Jockey One", Font.BOLD, 24));
             painelConteudo.add(campoConfirmarSenha);
             
-            /*----------------------CONFIGURAÇÃO DO BOTÃO ENVIAR-------------*/
+/*------------------------CONFIGURAÇÃO DO BOTÃO ENVIAR------------------------*/
             botaoEnviar = new JButton();
             botaoEnviar.setBorderPainted(false);
             botaoEnviar.setContentAreaFilled(false);
@@ -228,28 +225,28 @@ public class TelaNovaSenha extends JFrame {
             botaoEnviar.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    /*----------------------OBTÉM SENHAS DIGITADAS------------*/
+                    
+/*---------------------------OBTÉM SENHAS DIGITADAS---------------------------*/
                     String novaSenha = 
                             new String(campoNovaSenha.getPassword());
                     String confirmarSenha = 
                             new String(campoConfirmarSenha.getPassword());
 
-                    /*----------------------VERIFICA COINCIDÊNCIA DAS SENHAS--*/
+/*---------------------VERIFICA COINCIDÊNCIA DAS SENHAS-----------------------*/
                     if (!novaSenha.equals(confirmarSenha)) {
                         JOptionPane.showMessageDialog(null, 
                                 "As senhas não coincidem.");
                         return;
                     }
 
-                    /*----------------------INSTANCIA O SISTEMA---------------*/
                     Sistema sistema = Sistema.getInstance();
                     try {
-                        /*----------------------ATUALIZA A SENHA---------------*/
+                        
+ /*----------CHAMA O MÉTODO novaSenha PARA ATUALIZAR A SENHA NO BD------------*/
                         boolean sucesso = sistema.novaSenha(destinatario, 
                                     novaSenha);
 
                         if (sucesso) {
-                            /*----------------------SUCESSO NA ATUALIZAÇÃO-----*/
                             JOptionPane.showMessageDialog(null, 
                                     "Senha atualizada com sucesso.");
                             TelaInicial tec = new TelaInicial(destinatario, 
@@ -265,13 +262,11 @@ public class TelaNovaSenha extends JFrame {
                             campoNovaSenha.setText("");
                             campoConfirmarSenha.setText("");
                         } else {
-                            /*----------------------ERRO NA ATUALIZAÇÃO-------*/
                             JOptionPane.showMessageDialog(null, 
                                     "Erro ao atualizar a senha. "
                                             + "Verifique o e-mail.");
                         }
                     } catch (Exception ex) {
-                        /*----------------------TRATAMENTO DE EXCEÇÕES-----*/
                         JOptionPane.showMessageDialog(null, 
                                 "Erro ao atualizar a senha: " 
                                         + ex.getMessage());
@@ -280,7 +275,7 @@ public class TelaNovaSenha extends JFrame {
             });
             painelConteudo.add(botaoEnviar);
             
-            /*----------------------CONFIGURAÇÃO DO BOTÃO VOLTAR-------------*/
+/*-------------------------CONFIGURAÇÃO DO BOTÃO VOLTAR-----------------------*/
             botaoVoltarLogin = new JButton();
             botaoVoltarLogin.setBorderPainted(false);
             botaoVoltarLogin.setContentAreaFilled(false);
@@ -288,9 +283,10 @@ public class TelaNovaSenha extends JFrame {
             botaoVoltarLogin.setOpaque(false);
             botaoVoltarLogin.setCursor(new Cursor(Cursor.HAND_CURSOR));
             botaoVoltarLogin.addActionListener(e -> {
-                /*----------------------INSTANCIA O SISTEMA---------------*/
+                
+/*----------------------------INSTANCIA O SISTEMA-----------------------------*/
                 Sistema sistema = Sistema.getInstance();
-                /*----------------------ABRE TELA INICIAL-----------------*/
+
                 TelaInicial tec = new TelaInicial(destinatario, "", sistema);
                 tec.setVisible(true);
 
@@ -304,12 +300,12 @@ public class TelaNovaSenha extends JFrame {
             });
             painelConteudo.add(botaoVoltarLogin);
             
-            /*----------------------CONFIGURAÇÃO DO LAYOUT--------------------*/
+/*---------------------------CONFIGURAÇÃO DO LAYOUT---------------------------*/
             setLayout(new BorderLayout());
             add(painelConteudo, BorderLayout.CENTER);
         }
         
-        /*----------------------PINTURA DO FUNDO DO PAINEL-------------------*/
+/*-------------------------PINTURA DO FUNDO DO PAINEL-------------------------*/
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
@@ -318,10 +314,11 @@ public class TelaNovaSenha extends JFrame {
             int w = getWidth();
             int h = getHeight();
 
-            /*----------------------CONFIGURAÇÃO DE RENDERIZAÇÃO-------------*/
+/*------------------------CONFIGURAÇÃO DE RENDERIZAÇÃO------------------------*/
             g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
                     RenderingHints.VALUE_INTERPOLATION_BICUBIC);
-            g2d.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+            g2d.setRenderingHint(RenderingHints.KEY_RENDERING, 
+                    RenderingHints.VALUE_RENDER_QUALITY);
             g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                     RenderingHints.VALUE_ANTIALIAS_ON);
             g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
@@ -333,7 +330,7 @@ public class TelaNovaSenha extends JFrame {
             g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL,
                     RenderingHints.VALUE_STROKE_PURE);
             
-            /*----------------------DESENHO DA IMAGEM DE FUNDO---------------*/
+/*-------------------------DESENHO DA IMAGEM DE FUNDO-------------------------*/
             if (imagemDeFundoNovaSenha != null) {
                 g2d.drawImage(imagemDeFundoNovaSenha, 
                         0, 

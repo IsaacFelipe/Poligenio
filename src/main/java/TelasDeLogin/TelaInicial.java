@@ -17,21 +17,21 @@ import javax.imageio.ImageIO;
 /*----------------------CLASSE PRINCIPAL DA TELA INICIAL----------------------*/
 public class TelaInicial extends JFrame {
 
-    /*----------------------DECLARAÇÃO DE VARIÁVEIS----------------------*/
+/*--------------------------DECLARAÇÃO DE VARIÁVEIS---------------------------*/
     private JPanel painelInicial;
     private Sistema sistema;
     private static String idProfessor;
     
-    /*----------------------CONSTRUTOR DA TELA INICIAL----------------------*/
+/*-------------------------CONSTRUTOR DA TELA INICIAL-------------------------*/
     public TelaInicial(String destinatario, String novaSenha, Sistema sistema) {
         
-        /*----------------------CONFIGURAÇÕES DA JANELA-------------------*/
+/*--------------------------CONFIGURAÇÕES DA JANELA---------------------------*/
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setUndecorated(true);
         this.sistema = sistema;
 
-        /*----------------------CONFIGURA O LAYOUT DE CARTÕES-------------*/
+/*------------------------INSTANCIANDO O PAINEL DA CLASSE---------------------*/
         painelInicial = new JPanel();
         String email = "";
         
@@ -46,21 +46,20 @@ public class TelaInicial extends JFrame {
         }
     }
 
-    /*----------------------MÉTODO MAIN PARA EXECUTAR A TELA----------------*/
+/*-----------------------MÉTODO MAIN PARA EXECUTAR A TELA---------------------*/
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            /*----------------------INSTANCIA E EXECUTA O SISTEMA------------*/
             Sistema sistema = Sistema.getInstance();
-            sistema.tocarMusica();
+            //sistema.tocarMusica();
             TelaInicial tela = new TelaInicial("", "", sistema);
             tela.setVisible(true);
         });
     }
 
-    /*----------------------CLASSE INTERNA: PAINEL INICIAL-------------------*/
+/*-----------------------CLASSE INTERNA: PAINEL INICIAL-----------------------*/
     public static class PanelInicial extends JPanel {
 
-        /*----------------------DECLARAÇÃO DE VARIÁVEIS----------------------*/
+/*---------------------------DECLARAÇÃO DE VARIÁVEIS--------------------------*/
         private BufferedImage imagemDeFundo;
         private BufferedImage imagemBotaoEntrar;
         private BufferedImage imagemInputRA;
@@ -71,18 +70,18 @@ public class TelaInicial extends JFrame {
         private JButton botaoEntrar;
         private JButton botaoEsqSenha;
         private JButton botaoSair;
-        private JTextField campoTextoRA;
+        private JTextField campoTextoLogin;
         private JPasswordField campoTextoSenha;
         
         private JButton botaoSelecionado = null;
         
         private TelaInicial Inicial;
         
-        /*----------------------CONSTRUTOR DO PAINEL INICIAL-----------------*/
+/*-------------------------CONSTRUTOR DO PAINEL INICIAL-----------------------*/
         public PanelInicial() throws IOException {
             setLayout(new GridBagLayout());
 
-            /*----------------------CARREGAMENTO DAS IMAGENS------------------*/
+/*--------------------------CARREGAMENTO DAS IMAGENS--------------------------*/
             imagemDeFundo = ImageIO.read(getClass().getResource
         ("/ImagensTelaInicial/telaLogin.png"));
             
@@ -90,7 +89,7 @@ public class TelaInicial extends JFrame {
         ("/ImagensTelaInicial/botaoEntrarLogin.png"));
             
             imagemInputRA = ImageIO.read(getClass().getResource
-        ("/ImagensTelaInicial/inputBoxRA.png"));
+        ("/ImagensTelaInicial/inputBoxLogin.png"));
             
             imagemInputSenha = ImageIO.read(getClass().getResource
         ("/ImagensTelaInicial/inputBoxSenha.png"));
@@ -102,13 +101,13 @@ public class TelaInicial extends JFrame {
         ("/ImagensTelaInicial/botaoSairJogo.png"));
             
 
-            /*----------------------CRIAÇÃO DO PAINEL DE CONTEÚDO-------------*/
+/*------------------------CRIAÇÃO DO PAINEL DE CONTEÚDO-----------------------*/
             JPanel painelConteudo = new JPanel(null) {
                 @Override
                 protected void paintComponent(Graphics g) {
                     super.paintComponent(g);
 
-                    /*----------------------CONFIGURAÇÃO GRÁFICA----------------*/
+/*----------------------------CONFIGURAÇÃO GRÁFICA----------------------------*/
                     Graphics2D g2d = (Graphics2D) g;
                     g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, 
                             RenderingHints.VALUE_INTERPOLATION_BILINEAR);
@@ -118,11 +117,10 @@ public class TelaInicial extends JFrame {
                     int w = getWidth();
                     int h = getHeight();
 
-                    /*----------------------CALCULA O CENTRO DA TELA------------*/
                     int centroX = w / 2;
 
-                    /*----------------------DIMENSÕES DOS ELEMENTOS--------------*/
-                    double escala = 1.0; // Defina a escala conforme necessário
+/*---------------------------DIMENSÕES DOS ELEMENTOS--------------------------*/
+                    double escala = 1.0;
                     int larguraInput = (int) 
                             (imagemInputRA.getWidth() * 0.7 * escala);
                     int alturaInput = (int) 
@@ -143,7 +141,7 @@ public class TelaInicial extends JFrame {
                     int alturaSair = (int) 
                             (imagemBotaoSair.getHeight() * 0.7 * escala);
 
-                    /*----------------------POSICIONAMENTO DOS ELEMENTOS---------*/
+/*------------------------POSICIONAMENTO DOS ELEMENTOS------------------------*/
                     int xRA = centroX - (larguraInput / 2);
                     int yRA = (int) (h * 0.45) - 30;
                     
@@ -159,14 +157,14 @@ public class TelaInicial extends JFrame {
                     int xSair = centroX - (larguraSair / 2) + 600;
                     int ySair = (int) (h * 0.45) - 360;
 
-                    /*----------------------CONFIGURAÇÃO DOS BOTÕES E CAMPOS-----*/
-                    campoTextoRA.setBounds(xRA + (int)(77 * escala) - 5, 
-                            yRA + (int)(27 * escala) - 8, 
+/*----------------------CONFIGURAÇÃO DOS BOTÕES E CAMPOS----------------------*/
+                    campoTextoLogin.setBounds(xRA + (int)(95 * escala), 
+                            yRA + (int)(19 * escala), 
                             (int)(400 * escala), 
                             (int)(50 * escala));
                     
-                    campoTextoSenha.setBounds(xSenha + (int)(115 * escala) - 5, 
-                            ySenha + (int)(27 * escala) - 8, 
+                    campoTextoSenha.setBounds(xSenha + (int)(110 * escala), 
+                            ySenha + (int)(19 * escala), 
                             (int)(400 * escala), 
                             (int)(50 * escala));
                     
@@ -186,7 +184,7 @@ public class TelaInicial extends JFrame {
                             alturaSair);
                     
                     
-                    /*----------------------DESENHO DOS ELEMENTOS----------------*/
+/*-----------------------DESENHO DOS ELEMENTOS NA TELA------------------------*/
                     g2d.drawImage(imagemInputRA, 
                             xRA, 
                             yRA, 
@@ -219,18 +217,18 @@ public class TelaInicial extends JFrame {
                 }
             };
             
-            /*----------------------CONFIGURAÇÃO DO PAINEL DE CONTEÚDO-------*/
+/*----------------------CONFIGURAÇÃO DO PAINEL DE CONTEÚDO--------------------*/
             painelConteudo.setOpaque(false);
 
-            /*----------------------CONFIGURAÇÃO DO CAMPO RA-----------------*/
-            campoTextoRA = new JTextField();
-            campoTextoRA.setBorder(null);
-            campoTextoRA.setOpaque(false);
-            campoTextoRA.setForeground(Color.BLACK);
-            campoTextoRA.setFont(new Font("Jockey One", Font.BOLD, 24));
-            painelConteudo.add(campoTextoRA);
+ /*--------------------------CONFIGURAÇÃO DO CAMPO RA-------------------------*/
+            campoTextoLogin = new JTextField();
+            campoTextoLogin.setBorder(null);
+            campoTextoLogin.setOpaque(false);
+            campoTextoLogin.setForeground(Color.BLACK);
+            campoTextoLogin.setFont(new Font("Jockey One", Font.BOLD, 24));
+            painelConteudo.add(campoTextoLogin);
 
-            /*----------------------CONFIGURAÇÃO DO CAMPO SENHA--------------*/
+/*--------------------------CONFIGURAÇÃO DO CAMPO SENHA-----------------------*/
             campoTextoSenha = new JPasswordField();
             campoTextoSenha.setBorder(null);
             campoTextoSenha.setOpaque(false);
@@ -238,7 +236,7 @@ public class TelaInicial extends JFrame {
             campoTextoSenha.setFont(new Font("Jockey One", Font.BOLD, 24));
             painelConteudo.add(campoTextoSenha);
 
-            /*----------------------CONFIGURAÇÃO DO BOTÃO ENTRAR-------------*/
+/*--------------------------CONFIGURAÇÃO DO BOTÃO ENTRAR----------------------*/
             botaoEntrar = new JButton();
             botaoEntrar.setBorderPainted(false);
             botaoEntrar.setContentAreaFilled(false);
@@ -248,8 +246,7 @@ public class TelaInicial extends JFrame {
             botaoEntrar.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    /*----------------------OBTÉM DADOS DIGITADOS------------*/
-                    String nome = campoTextoRA.getText();
+                    String nome = campoTextoLogin.getText();
                     String Senha = new String(campoTextoSenha.getPassword());
                     
                     Professor professor = new Professor(nome, Senha);
@@ -257,7 +254,8 @@ public class TelaInicial extends JFrame {
                     
                     
                     if (aluno.fazerLogin(nome, Senha)) {
-                        /*----------------------LOGIN DO ALUNO----------------*/
+                        
+                        /*---------------LOGIN DO ALUNO--------------*/
                         Sistema.getInstance().notificarCadastro(aluno);
                         
                         TelaGifEntrada lobby = 
@@ -269,11 +267,12 @@ public class TelaInicial extends JFrame {
                         if (janela instanceof JFrame) {
                             janela.dispose();
                         } 
-                        campoTextoRA.setText("");
+                        campoTextoLogin.setText("");
                         campoTextoSenha.setText("");
                     } 
                     else if(professor.fazerLogin(nome, Senha)) {
-                        /*----------------------LOGIN DO PROFESSOR------------*/
+                        
+                        /*---------LOGIN DO PROFESSOR--------*/
                         String idProfessor = professor.getId();
                         Sistema.getInstance().notificarCadastro(professor);
                         
@@ -287,11 +286,10 @@ public class TelaInicial extends JFrame {
                         if (janela instanceof JFrame) {
                             janela.dispose();
                         } 
-                        campoTextoRA.setText("");
+                        campoTextoLogin.setText("");
                         campoTextoSenha.setText("");
                     }
                     else {
-                        /*----------------------MOSTRA ERRO DE LOGIN----------*/
                         JOptionPane.showMessageDialog(null, 
                                 "RA ou Senha incorretos!", 
                                 "Erro de Login", 
@@ -302,7 +300,7 @@ public class TelaInicial extends JFrame {
             });
             painelConteudo.add(botaoEntrar);
             
-            /*----------------------CONFIGURAÇÃO DO BOTÃO ESQUECI SENHA------*/
+/*---------------------CONFIGURAÇÃO DO BOTÃO ESQUECI SENHA--------------------*/
             botaoEsqSenha = new JButton();
             botaoEsqSenha.setBorderPainted(false);
             botaoEsqSenha.setContentAreaFilled(false);
@@ -310,7 +308,6 @@ public class TelaInicial extends JFrame {
             botaoEsqSenha.setOpaque(false);
             botaoEsqSenha.setCursor(new Cursor(Cursor.HAND_CURSOR));
             botaoEsqSenha.addActionListener(e -> {
-                /*----------------------NAVEGA PARA TELA DE RECUPERAÇÃO---*/
                 TelaRecuperarSenha recuperarSenha = new TelaRecuperarSenha();
                 recuperarSenha.setVisible(true);
                 
@@ -322,7 +319,7 @@ public class TelaInicial extends JFrame {
             });
             painelConteudo.add(botaoEsqSenha);
             
-            /*----------------------CONFIGURAÇÃO DO BOTÃO SAIR---------------*/
+/*-------------------------CONFIGURAÇÃO DO BOTÃO SAIR-------------------------*/
             botaoSair = new JButton();
             botaoSair.setBorderPainted(false);
             botaoSair.setContentAreaFilled(false);
@@ -330,7 +327,6 @@ public class TelaInicial extends JFrame {
             botaoSair.setOpaque(false);
             botaoSair.setCursor(new Cursor(Cursor.HAND_CURSOR));
             botaoSair.addActionListener(e -> {
-                /*----------------------FECHA A APLICAÇÃO-----------------*/
                 Window janela = SwingUtilities.getWindowAncestor(this);
                 if (janela instanceof JFrame) {
                     ((JFrame) janela).setDefaultCloseOperation
@@ -340,12 +336,12 @@ public class TelaInicial extends JFrame {
             });
             painelConteudo.add(botaoSair);
 
-            /*----------------------CONFIGURAÇÃO DO LAYOUT--------------------*/
+/*---------------------------CONFIGURAÇÃO DO LAYOUT---------------------------*/
             setLayout(new BorderLayout());
             add(painelConteudo, BorderLayout.CENTER);
         }
 
-        /*----------------------PINTURA DO FUNDO DO PAINEL-------------------*/
+/*-------------------------PINTURA DO FUNDO DO PAINEL-------------------------*/
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
@@ -354,7 +350,7 @@ public class TelaInicial extends JFrame {
             int w = getWidth();
             int h = getHeight();
 
-            /*----------------------CONFIGURAÇÃO DE RENDERIZAÇÃO-------------*/
+/*------------------------CONFIGURAÇÃO DE RENDERIZAÇÃO------------------------*/
             g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, 
                     RenderingHints.VALUE_INTERPOLATION_BICUBIC);
             g2d.setRenderingHint(RenderingHints.KEY_RENDERING, 
@@ -370,7 +366,7 @@ public class TelaInicial extends JFrame {
             g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, 
                     RenderingHints.VALUE_STROKE_PURE);
             
-            /*----------------------DESENHO DA IMAGEM DE FUNDO---------------*/
+/*--------------------------DESENHO DA IMAGEM DE FUNDO------------------------*/
             if (imagemDeFundo != null) {
                 g2d.drawImage(imagemDeFundo, 
                         0, 

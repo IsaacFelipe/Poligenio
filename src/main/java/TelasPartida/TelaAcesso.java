@@ -110,8 +110,8 @@ public class TelaAcesso extends JFrame{
                             alturaBotVoltar);
                     
                     campoTextoCodigo.setBounds(xVoltar + 
-                            (int)(82 * escala), 
-                            yVoltar + (int)(1 * escala),
+                            (int)(480 * escala), 
+                            yVoltar + (int)(-280 * escala),
                             (int)(300 * escala), 
                             (int)(50 * escala));
                     
@@ -133,13 +133,23 @@ public class TelaAcesso extends JFrame{
             botaoVoltar.setFocusPainted(false);
             botaoVoltar.setOpaque(false);
             botaoVoltar.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            botaoVoltar.addActionListener(e -> {
+                TelaEsperaProfessor tela = new TelaEsperaProfessor(idProfessor,
+                                                                codigoSala);
+                tela.setVisible(true);
+                Window janela = SwingUtilities.getWindowAncestor
+                                    (PanelAcesso.this);
+                if (janela instanceof JFrame) {
+                    janela.dispose();
+                }
+            });
             painelConteudo.add(botaoVoltar);
             
             campoTextoCodigo = new JTextField();
             campoTextoCodigo.setBorder(null);
             campoTextoCodigo.setOpaque(false);
-            campoTextoCodigo.setForeground(Color.BLACK);
-            campoTextoCodigo.setFont(new Font("Koulen", Font.BOLD, 40));
+            campoTextoCodigo.setForeground(Color.WHITE);
+            campoTextoCodigo.setFont(new Font("Koulen", Font.BOLD, 64));
             campoTextoCodigo.setText(codigoSala);
             campoTextoCodigo.setEditable(false);
             campoTextoCodigo.setFocusable(false);

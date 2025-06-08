@@ -28,18 +28,16 @@ public class TelaConfiguracao extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         painelConfiguracao = new JPanel();
+        this.idProfessor = idProfessor;
         
 /*----------------------------INSTANCIA O SISTEMA-----------------------------*/
         Sistema sistema = Sistema.getInstance();
         
         try {
-/*------------------------INSTANCIAÇÃO DA TELA INICIAL------------------------*/
-            TelaInicial telaInicial = new TelaInicial("", "", sistema);
             
 /*---------------------------INSTANCIAÇÃO DO PAINEL---------------------------*/
             PanelConfiguracao telaConfigPanel = 
                     new PanelConfiguracao(painelConfiguracao, 
-                            telaInicial, 
                             sistema);
             setContentPane(telaConfigPanel);
             
@@ -78,18 +76,15 @@ public class TelaConfiguracao extends JFrame {
         private JButton botaoDesconectar;
         
         private final JPanel painelPrincipal;
-        private final TelaInicial telaInicial;
         private final boolean musicaTocando = true;
         private final Sistema sistema;
         
 /*----------------------CONSTRUTOR DO PAINEL DE CONFIGURAÇÃO------------------*/
         public PanelConfiguracao( 
                 JPanel painelPrincipal, 
-                TelaInicial telaInicial, 
                 Sistema sistema) throws IOException {
             
             this.sistema = sistema;
-            this.telaInicial = telaInicial;
             this.painelPrincipal = painelPrincipal;
             setLayout(new GridBagLayout());
 
