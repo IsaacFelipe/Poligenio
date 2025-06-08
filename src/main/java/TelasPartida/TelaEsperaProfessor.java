@@ -14,19 +14,13 @@ import javax.imageio.ImageIO;
 public class TelaEsperaProfessor extends JFrame {
     
     /*----------------------DECLARAÇÃO DE VARIÁVEIS----------------------*/
-    private CardLayout cardLayout;
     private JPanel painelEspera;
     private static String idProfessor;
     private static String codigoSala;
     
-    /*----------------------CONFIGURA O LAYOUT DE NAVEGAÇÃO------------------*/
-    public void setNavigation(CardLayout cardLayout, JPanel painelPrincipal) {
-        this.cardLayout = cardLayout;
-        this.painelEspera = painelPrincipal;
-    }
-    
     /*----------------------CONSTRUTOR DA TELA DE ESPERA PROFESSOR-----------*/
     public TelaEsperaProfessor(String idProfessor, String codigoSala) {
+        
         /*----------------------CONFIGURAÇÕES DA JANELA-------------------*/
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setUndecorated(true);
@@ -34,20 +28,14 @@ public class TelaEsperaProfessor extends JFrame {
         this.idProfessor = idProfessor;
         this.codigoSala = codigoSala;
 
-        /*----------------------CONFIGURA O LAYOUT DE CARTÕES-------------*/
-        cardLayout = new CardLayout();
-        painelEspera = new JPanel(cardLayout);
+        painelEspera = new JPanel();
         
         try {
             /*----------------------INSTANCIAÇÃO DO PAINEL----------------*/
             PanelEspera telaEsperaPanel = new PanelEspera();
-            painelEspera.add(telaEsperaPanel, "TelaEsperaProfessor");
-            /*----------------------CONFIGURAÇÃO DO PAINEL INICIAL-----------*/
-            add(painelEspera);
-            cardLayout.show(painelEspera, "TelaEsperaProfessor");
+            setContentPane(telaEsperaPanel);
 
         } catch (IOException e) {
-            /*----------------------TRATAMENTO DE EXCEÇÕES-------------------*/
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Erro ao inicializar a tela: " 
                     + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
@@ -139,7 +127,9 @@ public class TelaEsperaProfessor extends JFrame {
                     int yDesc = (int) (h * 0.45) - 250;
                     
                     int xIniciar = centroX - (larguraIniciar / 2) + 375;
-                    int yIniciar = yDesc - alturaDesconectar - (int)(10 * escala);
+                    int yIniciar = yDesc - 
+                            alturaDesconectar - 
+                            (int)(10 * escala);
                     
                     /*----------------------CONFIGURAÇÃO DOS BOTÕES--------------*/
                     botaoIdSala.setBounds(xId, 
@@ -177,7 +167,6 @@ public class TelaEsperaProfessor extends JFrame {
                             alturaIniciar, this);
                 }
             };
-            /*----------------------CONFIGURAÇÃO DO PAINEL DE CONTEÚDO-------*/
             painelConteudo.setOpaque(false);
             
             /*----------------------CONFIGURAÇÃO DO BOTÃO ID SALA------------*/
@@ -250,7 +239,10 @@ public class TelaEsperaProfessor extends JFrame {
             
             /*----------------------DESENHO DA IMAGEM DE FUNDO---------------*/
             if (imagemDeFundoEspera != null) {
-                g2d.drawImage(imagemDeFundoEspera, 0, 0, w, h, this);
+                g2d.drawImage(imagemDeFundoEspera, 0, 
+                        0, 
+                        w, 
+                        h, this);
             }
         }  
     }

@@ -15,7 +15,6 @@ import javax.imageio.ImageIO;
 public class TelaQuestPersonalizado extends JFrame {
 
     /*----------------------DECLARAÇÃO DE VARIÁVEIS----------------------*/
-    private CardLayout cardLayout;
     private JPanel painelQuestPersonalizada;
     private static String materiaSelecionada;
     private static String textoNomeQuiz;
@@ -23,11 +22,6 @@ public class TelaQuestPersonalizado extends JFrame {
     private static String idProfessor;
     private static String idMateria;
     private static JTextField campoTextoNomeMateria;
-
-    /*----------------------CONFIGURA O LAYOUT DE NAVEGAÇÃO------------------*/
-    public void setNavigation(CardLayout cardLayout, JPanel painelPrincipal) {
-        this.cardLayout = cardLayout;
-    }
 
     /*----------------------CONSTRUTOR DA TELA DE QUESTÕES PERSONALIZADAS------*/
     public TelaQuestPersonalizado(String textoNomeQuiz, 
@@ -42,21 +36,14 @@ public class TelaQuestPersonalizado extends JFrame {
         this.idProfessor = idProfessor;
         this.idMateria = idMateria;
 
-        /*----------------------CONFIGURA O LAYOUT DE CARTÕES-------------*/
-        cardLayout = new CardLayout();
-        painelQuestPersonalizada = new JPanel(cardLayout);
+        painelQuestPersonalizada = new JPanel();
 
         try {
             /*----------------------INSTANCIAÇÃO DO PAINEL----------------*/
-            PanelQuestPersonalizada panelQuestPersonalizada = new 
-                    PanelQuestPersonalizada(painelQuestPersonalizada);
+            PanelQuestPersonalizada questPersonalizada = new 
+                    PanelQuestPersonalizada();
+            setContentPane(questPersonalizada);
             
-            /*----------------------ADICIONANDO PAINEL AO LAYOUT-------------*/
-            painelQuestPersonalizada.add(panelQuestPersonalizada, 
-                    "TelaQuestPersonalizado");
-            
-            /*----------------------CONFIGURAÇÃO DO PAINEL INICIAL-----------*/
-            add(painelQuestPersonalizada);
         } catch (IOException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Erro ao inicializar a tela: " 
@@ -80,10 +67,6 @@ public class TelaQuestPersonalizado extends JFrame {
         campoTextoNomeMateria.setText(materia);
     }
 
-    /*----------------------MOSTRA TELA ESPECÍFICA NO CARD LAYOUT------------*/
-    public void mostrarTela(String nomeTela) {
-        cardLayout.show(painelQuestPersonalizada, nomeTela);
-    }
 
     /*----------------------CLASSE INTERNA: PAINEL DE QUESTÕES PERSONALIZADAS--*/
     public static class PanelQuestPersonalizada extends JPanel {
@@ -101,8 +84,6 @@ public class TelaQuestPersonalizado extends JFrame {
         
         private JLabel labelDicasOn;
 
-        private final JPanel container;
-
         private JButton botaoCriar;
         private JButton botaoVoltar;
         private JButton botaoBoxMaterias;
@@ -113,8 +94,7 @@ public class TelaQuestPersonalizado extends JFrame {
         private boolean dicaAtivada = false;
 
         /*----------------------CONSTRUTOR DO PAINEL DE QUESTÕES PERSONALIZADAS--*/
-        public PanelQuestPersonalizada(JPanel container) throws IOException {
-            this.container = container;
+        public PanelQuestPersonalizada() throws IOException {
             setLayout(new GridBagLayout());
 
             /*----------------------CARREGAMENTO DAS IMAGENS------------------*/
@@ -223,12 +203,14 @@ public class TelaQuestPersonalizado extends JFrame {
                             larguraBotDicaOff, 
                             alturaBotDicaOff);
                     
-                    campoTextoNomeQuest.setBounds(xNQuiz + (int)(75 * escala), 
+                    campoTextoNomeQuest.setBounds(xNQuiz + 
+                            (int)(75 * escala), 
                             yNQuiz + (int)(16 * escala), 
                             (int)(680 * escala), 
                             (int)(50 * escala));
                     
-                    campoTextoNomeMateria.setBounds(xBoxMat + (int)(320 * escala), 
+                    campoTextoNomeMateria.setBounds(xBoxMat + 
+                            (int)(320 * escala), 
                             yBoxMat + (int)(16 * escala), 
                             (int)(200 * escala), 
                             (int)(50 * escala));

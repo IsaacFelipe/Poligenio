@@ -4,10 +4,6 @@ package TelasLobby;
 /*----------------------IMPORTAÇÕES NECESSÁRIAS-----------------------------*/
 import CodigoPoligenio.Sistema;
 import TelasCriacaoSala.TelaCriarSala;
-import TelasCriacaoSala.TelaCriarSala.PanelCriarSala;
-import TelasDeLogin.TelaInicial;
-import TelasLobby.TelaCadastrar.PanelCadastrar;
-import TelasLobby.TelaConfiguracao.PanelConfiguracao;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -18,14 +14,8 @@ import javax.imageio.ImageIO;
 public class TelaLobbyProfessor extends JFrame {
     
     /*----------------------DECLARAÇÃO DE VARIÁVEIS----------------------*/
-    private CardLayout cardLayout;
     private JPanel painelLobbyProfessor;
     private static String idProfessor;
-    
-    /*----------------------CONFIGURA O LAYOUT DE NAVEGAÇÃO------------------*/
-    public void setNavigation(CardLayout cardLayout, JPanel painelPrincipal) {
-        this.cardLayout = cardLayout;
-    }
     
     /*----------------------CONSTRUTOR DA TELA DE LOBBY PROFESSOR------------*/
     public TelaLobbyProfessor(String idProfessor){
@@ -34,9 +24,7 @@ public class TelaLobbyProfessor extends JFrame {
         setUndecorated(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        /*----------------------CONFIGURA O LAYOUT DE CARTÕES-------------*/
-        cardLayout = new CardLayout();
-        painelLobbyProfessor = new JPanel(cardLayout);
+        painelLobbyProfessor = new JPanel();
         this.idProfessor = idProfessor;
         
         /*----------------------INSTANCIA O SISTEMA----------------------*/
@@ -44,29 +32,10 @@ public class TelaLobbyProfessor extends JFrame {
         
         try {
             /*----------------------INSTANCIAÇÃO DOS PAINÉIS----------------*/
-            PanelCadastrar telaCadastrarPanel = 
-                    new PanelCadastrar(painelLobbyProfessor);
             PanelLobbyProfessor telaLobbyProfPanel = 
-                    new PanelLobbyProfessor(painelLobbyProfessor);
-            PanelCriarSala telaCriarSalaPanel = 
-                    new PanelCriarSala(painelLobbyProfessor);
-            TelaInicial telaInicial = 
-                    new TelaInicial("", "", sistema);
-            PanelConfiguracao telaConfigPanel = new PanelConfiguracao
-                    (cardLayout, 
-                    painelLobbyProfessor, 
-                    painelLobbyProfessor, 
-                    telaInicial, 
-                    sistema);
+                    new PanelLobbyProfessor();
+            setContentPane(telaLobbyProfPanel);
             
-            painelLobbyProfessor.add(telaLobbyProfPanel, "TelaLobbyProfessor");
-            painelLobbyProfessor.add(telaCriarSalaPanel, "TelaCriarSala");
-            painelLobbyProfessor.add(telaConfigPanel, "TelaConfiguracao");
-            painelLobbyProfessor.add(telaCadastrarPanel, "TelaCadastrar");
-            
-            /*----------------------CONFIGURAÇÃO DO PAINEL INICIAL-----------*/
-            add(painelLobbyProfessor);
-            cardLayout.show(painelLobbyProfessor, "TelaLobbyProfessor");
 
         } catch (IOException e) {
             /*----------------------TRATAMENTO DE EXCEÇÕES-------------------*/
@@ -74,11 +43,6 @@ public class TelaLobbyProfessor extends JFrame {
             JOptionPane.showMessageDialog(this, "Erro ao inicializar a tela: " 
                     + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         }
-    }
-    
-    /*----------------------MOSTRA TELA ESPECÍFICA NO CARD LAYOUT------------*/
-    public void mostrarTela(String nomeTela) {
-        cardLayout.show(painelLobbyProfessor, nomeTela);
     }
 
     /*----------------------MÉTODO MAIN PARA EXECUTAR A TELA----------------*/
@@ -105,11 +69,8 @@ public class TelaLobbyProfessor extends JFrame {
         private JButton botaoQuestionarios;
         private JButton botaoCadastrar;
         
-        private final JPanel container;
-        
         /*----------------------CONSTRUTOR DO PAINEL DE LOBBY PROFESSOR------*/
-        public PanelLobbyProfessor(JPanel container) throws IOException {
-            this.container = container;
+        public PanelLobbyProfessor() throws IOException {
             setLayout(new GridBagLayout());
             
             /*----------------------CARREGAMENTO DAS IMAGENS------------------*/
@@ -171,7 +132,7 @@ public class TelaLobbyProfessor extends JFrame {
                     
                     /*----------------------POSICIONAMENTO DOS ELEMENTOS---------*/
                     int xJogar = centroX - (larguraBotCriar / 2) - 330;
-                    int yJogar = (int) (h * 0.45) - 30; // 45% da altura da tela
+                    int yJogar = (int) (h * 0.45) - 30;
                     
                     int xConfig = centroX - (larguraBotConfig / 2) - 330;
                     int yConfig = yJogar + alturaBotCriar + (int)(10 * escala); 
@@ -261,8 +222,15 @@ public class TelaLobbyProfessor extends JFrame {
             botaoConfig.addActionListener(e -> {
                 /*----------------------NAVEGA PARA TELA DE CONFIGURAÇÃO-----*/
                 ControleLobby.setOrigem(ControleLobby.Origem.LOBBY_PROFESSOR);
-                CardLayout cardLayout = (CardLayout) container.getLayout();
-                cardLayout.show(container, "TelaConfiguracao");
+                TelaConfiguracao configuracao = 
+                                new TelaConfiguracao(idProfessor);
+                        configuracao.setVisible(true);
+                        
+                        Window janela = SwingUtilities.getWindowAncestor
+                                (PanelLobbyProfessor.this);
+                        if (janela instanceof JFrame) {
+                            janela.dispose();
+                        } 
             });
             painelConteudo.add(botaoConfig);
             
@@ -275,7 +243,8 @@ public class TelaLobbyProfessor extends JFrame {
             botaoQuestionarios.setCursor(new Cursor(Cursor.HAND_CURSOR));
             botaoQuestionarios.addActionListener(e -> {
                 /*----------------------ABRE TELA DE QUESTIONÁRIOS-----------*/
-                TelaQuestionario questionario = new TelaQuestionario(idProfessor);
+                TelaQuestionario questionario = 
+                        new TelaQuestionario(idProfessor);
                 questionario.setVisible(true);
                 Window janela = SwingUtilities.getWindowAncestor
                             (PanelLobbyProfessor.this);

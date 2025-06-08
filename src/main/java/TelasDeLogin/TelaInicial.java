@@ -5,19 +5,6 @@ package TelasDeLogin;
 import CodigoPoligenio.Aluno;
 import CodigoPoligenio.Professor;
 import CodigoPoligenio.Sistema;
-import TelasCriacaoSala.TelaQuestPersonalizado.PanelQuestPersonalizada;
-import TelasCriacaoSala.TelaQuestPadrao.PanelQuestPadrao;
-import TelasCriacaoSala.TelaCriarSala.PanelCriarSala;
-import TelasLobby.TelaConfiguracao.PanelConfiguracao;
-import TelasLobby.TelaCodigo.PanelCodigo;
-import TelasLobby.TelaCadastrar.PanelCadastrar;
-import TelasDeLogin.TelaRecuperarSenha.PanelRecuperarSenha;
-import TelasLobby.TelaLobbyAluno.PanelLobbyAluno;
-import TelasLobby.TelaLobbyProfessor.PanelLobbyProfessor;
-import TelasDeLogin.TelaEmailCodigo.PanelEmailCodigo;
-import TelasLobby.TelaLobbyAluno;
-import TelasLobby.TelaLobbyProfessor;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -31,7 +18,6 @@ import javax.imageio.ImageIO;
 public class TelaInicial extends JFrame {
 
     /*----------------------DECLARAÇÃO DE VARIÁVEIS----------------------*/
-    private CardLayout cardLayout;
     private JPanel painelInicial;
     private Sistema sistema;
     private static String idProfessor;
@@ -46,81 +32,18 @@ public class TelaInicial extends JFrame {
         this.sistema = sistema;
 
         /*----------------------CONFIGURA O LAYOUT DE CARTÕES-------------*/
-        cardLayout = new CardLayout();
-        painelInicial = new JPanel(cardLayout);
-        painelInicial.setName("painelInicial");
+        painelInicial = new JPanel();
         String email = "";
         
         try {
-            /*----------------------INSTANCIAÇÃO DOS PAINÉIS----------------*/
-            PanelInicial panelInicial = 
-                    new PanelInicial(painelInicial);
-            PanelRecuperarSenha panelRecuperarSenha = 
-                    new PanelRecuperarSenha(painelInicial);
-            PanelCadastrar panelCadastrar = 
-                    new PanelCadastrar(painelInicial);
-            PanelLobbyAluno telaLobbyAlunoPanel = 
-                    new PanelLobbyAluno(painelInicial);
-            PanelLobbyProfessor telaLobbyProfPanel = 
-                    new PanelLobbyProfessor(painelInicial);
-            PanelEmailCodigo telaEmailCodigoPanel = 
-                    new PanelEmailCodigo(painelInicial, sistema);
-            PanelCadastrar telaInicioPanel = 
-                    new PanelCadastrar(painelInicial);
-            PanelQuestPadrao painelQuestPadraoTela = 
-                    new PanelQuestPadrao(painelInicial);
-
+            PanelInicial panelInicial = new PanelInicial();
+            setContentPane(panelInicial);
             
-            /*----------------------ADICIONA PAINÉIS AO LAYOUT-------------*/
-            painelInicial.add(panelInicial, "TelaInicial");
-            painelInicial.add(panelRecuperarSenha, "TelaRecuperarSenha");
-            painelInicial.add(panelCadastrar, "TelaCadastrar");
-            painelInicial.add(telaLobbyAlunoPanel, "TelaLobbyAluno");
-            painelInicial.add(telaLobbyProfPanel, "TelaLobbyProfessor");
-            painelInicial.add(telaInicioPanel, "TelaCadastrar");
-            painelInicial.add(painelQuestPadraoTela, "TelaQuestPadrao");
-
-            painelInicial.add(new PanelCriarSala(painelInicial), 
-                    "TelaCriarSala");
-            
-            painelInicial.add(new PanelConfiguracao(cardLayout, 
-                    painelInicial, 
-                    painelInicial, 
-                    this, 
-                    sistema), 
-                    "TelaConfiguracao");
-            
-            /*----------------------ADICIONANDO OS PAINÉIS COM REFERÊNCIA AO INICIAL-------------*/
-            painelInicial.add(new PanelCodigo(painelInicial), 
-                    "TelaCodigo");
-            
-            painelInicial.add(new PanelQuestPersonalizada(painelInicial), 
-                    "TelaQuestPersonalizado");
-            
-            painelInicial.add(new PanelQuestPadrao(painelInicial), 
-                    "TelaQuestPadrao");
-            
-            painelInicial.add(new PanelEmailCodigo(painelInicial, sistema), 
-                    "TelaEmailCodigo");
-            
-            painelInicial.add(new PanelCadastrar(painelInicial), 
-                    "TelaCadastrar");
-            
-            /*----------------------CONFIGURAÇÃO DO PAINEL INICIAL-----------*/
-            add(painelInicial);
-            cardLayout.show(painelInicial, "TelaInicial");
-
         } catch (IOException e) {
-            /*----------------------TRATAMENTO DE EXCEÇÕES-------------------*/
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Erro ao inicializar a tela: " 
                     + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         }
-    }
-
-    /*----------------------MOSTRA TELA ESPECÍFICA NO CARD LAYOUT------------*/
-    public void mostrarTela(String nomeTela) {
-        cardLayout.show(painelInicial, nomeTela);
     }
 
     /*----------------------MÉTODO MAIN PARA EXECUTAR A TELA----------------*/
@@ -132,11 +55,6 @@ public class TelaInicial extends JFrame {
             TelaInicial tela = new TelaInicial("", "", sistema);
             tela.setVisible(true);
         });
-    }
-
-    /*----------------------RETORNA O PAINEL PRINCIPAL----------------------*/
-    public JPanel getPainelPrincipal() {
-        return painelInicial;
     }
 
     /*----------------------CLASSE INTERNA: PAINEL INICIAL-------------------*/
@@ -159,11 +77,9 @@ public class TelaInicial extends JFrame {
         private JButton botaoSelecionado = null;
         
         private TelaInicial Inicial;
-        private final JPanel container;
         
         /*----------------------CONSTRUTOR DO PAINEL INICIAL-----------------*/
-        public PanelInicial(JPanel container) throws IOException {
-            this.container = container;
+        public PanelInicial() throws IOException {
             setLayout(new GridBagLayout());
 
             /*----------------------CARREGAMENTO DAS IMAGENS------------------*/
@@ -395,8 +311,14 @@ public class TelaInicial extends JFrame {
             botaoEsqSenha.setCursor(new Cursor(Cursor.HAND_CURSOR));
             botaoEsqSenha.addActionListener(e -> {
                 /*----------------------NAVEGA PARA TELA DE RECUPERAÇÃO---*/
-                CardLayout cl = (CardLayout) container.getLayout();
-                cl.show(container, "TelaRecuperarSenha");
+                TelaRecuperarSenha recuperarSenha = new TelaRecuperarSenha();
+                recuperarSenha.setVisible(true);
+                
+                Window janela = SwingUtilities.getWindowAncestor
+                                (PanelInicial.this);
+                            if (janela instanceof JFrame) {
+                                janela.dispose();
+                            }   
             });
             painelConteudo.add(botaoEsqSenha);
             

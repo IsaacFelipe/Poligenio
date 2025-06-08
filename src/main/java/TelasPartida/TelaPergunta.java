@@ -12,7 +12,6 @@ import javax.imageio.ImageIO;
 public class TelaPergunta extends JFrame {
     
     /*----------------------DECLARAÇÃO DE VARIÁVEIS----------------------*/
-    private CardLayout cardLayout;
     private JPanel painelPergunta;
     private static String idProfessor;
 
@@ -24,15 +23,12 @@ public class TelaPergunta extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.idProfessor = idProfessor;
 
-        /*----------------------CONFIGURA O LAYOUT DE CARTÕES-------------*/
-        cardLayout = new CardLayout();
-        painelPergunta = new JPanel(cardLayout);
+        painelPergunta = new JPanel();
 
         try {
             /*----------------------INSTANCIAÇÃO DO PAINEL----------------*/
             PanelPergunta panelPergunta = new PanelPergunta();
-            /*----------------------CONFIGURAÇÃO DO PAINEL INICIAL-----------*/
-            add(panelPergunta);
+            setContentPane(panelPergunta);
 
         } catch (IOException e) {
             /*----------------------TRATAMENTO DE EXCEÇÕES-------------------*/
@@ -206,13 +202,13 @@ public class TelaPergunta extends JFrame {
                             alturaBotAjuda);
                     
                     /*----------------------CONFIGURAÇÃO DOS CAMPOS DE TEXTO-----*/
-                    campoTextoAcerto.setBounds(xAcerto + (int)(77 * escala) - 12, 
-                            yAcerto + (int)(27 * escala) - 15, 
+                    campoTextoAcerto.setBounds(xAcerto + (int)(65 * escala), 
+                            yAcerto + (int)(12 * escala), 
                             (int)(150 * escala), 
                             (int)(50 * escala));
                     
                     campoTextoErro.setBounds(xErro + (int)(77 * escala), 
-                            yErro + (int)(27 * escala) - 15, 
+                            yErro + (int)(12 * escala), 
                             (int)(150 * escala), 
                             (int)(50 * escala));
                     
@@ -261,7 +257,6 @@ public class TelaPergunta extends JFrame {
                     
                 }
             };
-            /*----------------------CONFIGURAÇÃO DO PAINEL DE CONTEÚDO-------*/
             painelConteudo.setOpaque(false);
             
             /*----------------------CONFIGURAÇÃO DO BOTÃO ALTERNATIVA A------*/
@@ -346,17 +341,27 @@ public class TelaPergunta extends JFrame {
             int h = getHeight();
 
             /*----------------------CONFIGURAÇÃO DE RENDERIZAÇÃO-------------*/
-            g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
-            g2d.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
-            g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-            g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-            g2d.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
-            g2d.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
-            g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_PURE);
+            g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
+                    RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+            g2d.setRenderingHint(RenderingHints.KEY_RENDERING, 
+                    RenderingHints.VALUE_RENDER_QUALITY);
+            g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, 
+                    RenderingHints.VALUE_ANTIALIAS_ON);
+            g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
+                    RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+            g2d.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION,
+                    RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
+            g2d.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, 
+                    RenderingHints.VALUE_COLOR_RENDER_QUALITY);
+            g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL,
+                    RenderingHints.VALUE_STROKE_PURE);
             
             /*----------------------DESENHO DA IMAGEM DE FUNDO---------------*/
             if (imagemFundoPergunta != null) {
-                g2d.drawImage(imagemFundoPergunta, 0, 0, w, h, this);
+                g2d.drawImage(imagemFundoPergunta, 0, 
+                        0, 
+                        w, 
+                        h, this);
             }
         } 
     }

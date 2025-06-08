@@ -12,15 +12,9 @@ import javax.imageio.ImageIO;
 public class TelaQuestPadrao extends JFrame {
 
     /*----------------------DECLARAÇÃO DE VARIÁVEIS----------------------*/
-    private CardLayout cardLayout;
     private JPanel painelQuestPadrao;
     private static String materia;
     private static String idProfessor;
-
-    /*----------------------CONFIGURA O LAYOUT DE NAVEGAÇÃO------------------*/
-    public void setNavigation(CardLayout cardLayout, JPanel painelPrincipal) {
-        this.cardLayout = cardLayout;
-    }
 
     /*----------------------CONSTRUTOR DA TELA DE QUESTÕES PADRÃO------------*/
     public TelaQuestPadrao(String idProfessor) {
@@ -29,23 +23,17 @@ public class TelaQuestPadrao extends JFrame {
         setUndecorated(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        /*----------------------CONFIGURA O LAYOUT DE CARTÕES-------------*/
-        cardLayout = new CardLayout();
-        painelQuestPadrao = new JPanel(cardLayout);
+        painelQuestPadrao = new JPanel();
         this.idProfessor = idProfessor;
 
         try {
             /*----------------------INSTANCIAÇÃO DO PAINEL----------------*/
-            PanelQuestPadrao painelQuestPadraoTela = new PanelQuestPadrao(painelQuestPadrao);
-
-            /*----------------------ADICIONANDO PAINEL AO LAYOUT-------------*/
-            painelQuestPadrao.add(painelQuestPadraoTela, "TelaQuestPadrao");
-
-            /*----------------------CONFIGURAÇÃO DO PAINEL INICIAL-----------*/
-            add(painelQuestPadrao);
+            PanelQuestPadrao questPadrao = new PanelQuestPadrao();
+            setContentPane(questPadrao);
         } catch (IOException e) {
             e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Erro ao inicializar a tela: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Erro ao inicializar a tela: " 
+                    + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -55,11 +43,6 @@ public class TelaQuestPadrao extends JFrame {
             TelaQuestPadrao tela = new TelaQuestPadrao(idProfessor);
             tela.setVisible(true);
         });
-    }
-
-    /*----------------------MOSTRA TELA ESPECÍFICA NO CARD LAYOUT------------*/
-    public void mostrarTela(String nomeTela) {
-        cardLayout.show(painelQuestPadrao, nomeTela);
     }
 
     /*----------------------CLASSE INTERNA: PAINEL DE QUESTÕES PADRÃO--------*/
@@ -100,29 +83,51 @@ public class TelaQuestPadrao extends JFrame {
         private JButton botaoCriar;
         private JButton botaoVoltar;
 
-        private final JPanel container;
-
         private boolean materias = false;
 
         /*----------------------CONSTRUTOR DO PAINEL DE QUESTÕES PADRÃO------*/
-        public PanelQuestPadrao(JPanel container) throws IOException {
-            this.container = container;
+        public PanelQuestPadrao() throws IOException {
             setLayout(new GridBagLayout());
 
             /*----------------------CARREGAMENTO DAS IMAGENS------------------*/
-            imagemDeFundoQuestPadrao = ImageIO.read(getClass().getResource("/ImagensQuestPadrao/telaQuestPadrao.png"));
-            imagemMatematicaPadrao = ImageIO.read(getClass().getResource("/ImagensQuestPadrao/matematicaPadrao.png"));
-            imagemPortuguesPadrao = ImageIO.read(getClass().getResource("/ImagensQuestPadrao/portuguesPadrao.png"));
-            imagemHistoriaPadrao = ImageIO.read(getClass().getResource("/ImagensQuestPadrao/historiaPadrao.png"));
-            imagemGeografiaPadrao = ImageIO.read(getClass().getResource("/ImagensQuestPadrao/geografiaPadrao.png"));
-            imagemCienciasPadrao = ImageIO.read(getClass().getResource("/ImagensQuestPadrao/cienciasPadrao.png"));
-            imagemBotaoCriar = ImageIO.read(getClass().getResource("/ImagensQuestPadrao/botaoCriarQuestPadrao.png"));
-            imagemBotaoVoltar = ImageIO.read(getClass().getResource("/ImagensQuestPadrao/botaoVoltarQuestPadrao.png"));
-            imagemGeografiaSelecionado = ImageIO.read(getClass().getResource("/ImagensQuestPadrao/botaoGeografiaSelect.png"));
-            imagemHistoriaSelecionado = ImageIO.read(getClass().getResource("/ImagensQuestPadrao/botaoHistoriaSelect.png"));
-            imagemMatematicaSelecionado = ImageIO.read(getClass().getResource("/ImagensQuestPadrao/botaoMatematicaSelect.png"));
-            imagemCienciasSelecionado = ImageIO.read(getClass().getResource("/ImagensQuestPadrao/botaoCienciasSelect.png"));
-            imagemPortuguesSelecionado = ImageIO.read(getClass().getResource("/ImagensQuestPadrao/botaoPortuguesSelect.png"));
+            imagemDeFundoQuestPadrao = ImageIO.read(getClass().getResource
+        ("/ImagensQuestPadrao/telaQuestPadrao.png"));
+            
+            imagemMatematicaPadrao = ImageIO.read(getClass().getResource
+        ("/ImagensQuestPadrao/matematicaPadrao.png"));
+            
+            imagemPortuguesPadrao = ImageIO.read(getClass().getResource
+        ("/ImagensQuestPadrao/portuguesPadrao.png"));
+            
+            imagemHistoriaPadrao = ImageIO.read(getClass().getResource
+        ("/ImagensQuestPadrao/historiaPadrao.png"));
+            
+            imagemGeografiaPadrao = ImageIO.read(getClass().getResource
+        ("/ImagensQuestPadrao/geografiaPadrao.png"));
+            
+            imagemCienciasPadrao = ImageIO.read(getClass().getResource
+        ("/ImagensQuestPadrao/cienciasPadrao.png"));
+            
+            imagemBotaoCriar = ImageIO.read(getClass().getResource
+        ("/ImagensQuestPadrao/botaoCriarQuestPadrao.png"));
+            
+            imagemBotaoVoltar = ImageIO.read(getClass().getResource
+        ("/ImagensQuestPadrao/botaoVoltarQuestPadrao.png"));
+            
+            imagemGeografiaSelecionado = ImageIO.read(getClass().getResource
+        ("/ImagensQuestPadrao/botaoGeografiaSelect.png"));
+            
+            imagemHistoriaSelecionado = ImageIO.read(getClass().getResource
+        ("/ImagensQuestPadrao/botaoHistoriaSelect.png"));
+            
+            imagemMatematicaSelecionado = ImageIO.read(getClass().getResource
+        ("/ImagensQuestPadrao/botaoMatematicaSelect.png"));
+            
+            imagemCienciasSelecionado = ImageIO.read(getClass().getResource
+        ("/ImagensQuestPadrao/botaoCienciasSelect.png"));
+            
+            imagemPortuguesSelecionado = ImageIO.read(getClass().getResource
+        ("/ImagensQuestPadrao/botaoPortuguesSelect.png"));
 
             /*----------------------CRIAÇÃO DO PAINEL DE CONTEÚDO-------------*/
             JPanel painelConteudo = new JPanel() {
@@ -132,8 +137,10 @@ public class TelaQuestPadrao extends JFrame {
 
                     /*----------------------CONFIGURAÇÃO GRÁFICA----------------*/
                     Graphics2D g2d = (Graphics2D) g;
-                    g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-                    g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+                    g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
+                            RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+                    g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                            RenderingHints.VALUE_ANTIALIAS_ON);
 
                     int w = getWidth();
                     int h = getHeight();
@@ -141,83 +148,197 @@ public class TelaQuestPadrao extends JFrame {
 
                     /*----------------------DIMENSIONAMENTO E POSICIONAMENTO----*/
                     double escala = 1.0;
-                    int larguraMatematicaPadrao = (int) (imagemMatematicaPadrao.getWidth() * 0.7 * escala);
-                    int alturaMatematicaPadrao = (int) (imagemMatematicaPadrao.getHeight() * 0.7 * escala);
-                    int larguraPortuguesPadrao = (int) (imagemPortuguesPadrao.getWidth() * 0.7 * escala);
-                    int alturaPortuguesPadrao = (int) (imagemPortuguesPadrao.getHeight() * 0.7 * escala);
-                    int larguraHistoriaPadrao = (int) (imagemHistoriaPadrao.getWidth() * 0.7 * escala);
-                    int alturaHistoriaPadrao = (int) (imagemHistoriaPadrao.getHeight() * 0.7 * escala);
-                    int larguraGeografiaPadrao = (int) (imagemGeografiaPadrao.getWidth() * 0.7 * escala);
-                    int alturaGeografiaPadrao = (int) (imagemGeografiaPadrao.getHeight() * 0.7 * escala);
-                    int larguraCienciasPadrao = (int) (imagemCienciasPadrao.getWidth() * 0.7 * escala);
-                    int alturaCienciasPadrao = (int) (imagemCienciasPadrao.getHeight() * 0.7 * escala);
-                    int larguraCriarPadrao = (int) (imagemBotaoCriar.getWidth() * 0.7 * escala);
-                    int alturaCriarPadrao = (int) (imagemBotaoCriar.getHeight() * 0.7 * escala);
-                    int larguraVoltarPadrao = (int) (imagemBotaoVoltar.getWidth() * 0.7 * escala);
-                    int alturaVoltarPadrao = (int) (imagemBotaoVoltar.getHeight() * 0.7 * escala);
+                    int larguraMatematicaPadrao = (int) 
+                            (imagemMatematicaPadrao.getWidth() * 0.7 * escala);
+                    int alturaMatematicaPadrao = (int) 
+                            (imagemMatematicaPadrao.getHeight() * 0.7 * escala);
+                    
+                    int larguraPortuguesPadrao = (int) 
+                            (imagemPortuguesPadrao.getWidth() * 0.7 * escala);
+                    int alturaPortuguesPadrao = (int) 
+                            (imagemPortuguesPadrao.getHeight() * 0.7 * escala);
+                    
+                    int larguraHistoriaPadrao = (int)
+                            (imagemHistoriaPadrao.getWidth() * 0.7 * escala);
+                    int alturaHistoriaPadrao = (int) 
+                            (imagemHistoriaPadrao.getHeight() * 0.7 * escala);
+                    
+                    int larguraGeografiaPadrao = (int)
+                            (imagemGeografiaPadrao.getWidth() * 0.7 * escala);
+                    int alturaGeografiaPadrao = (int)
+                            (imagemGeografiaPadrao.getHeight() * 0.7 * escala);
+                    
+                    int larguraCienciasPadrao = (int) 
+                            (imagemCienciasPadrao.getWidth() * 0.7 * escala);
+                    int alturaCienciasPadrao = (int) 
+                            (imagemCienciasPadrao.getHeight() * 0.7 * escala);
+                    
+                    int larguraCriarPadrao = (int) 
+                            (imagemBotaoCriar.getWidth() * 0.7 * escala);
+                    int alturaCriarPadrao = (int)
+                            (imagemBotaoCriar.getHeight() * 0.7 * escala);
+                    
+                    int larguraVoltarPadrao = (int) 
+                            (imagemBotaoVoltar.getWidth() * 0.7 * escala);
+                    int alturaVoltarPadrao = (int) 
+                            (imagemBotaoVoltar.getHeight() * 0.7 * escala);
 
                     /*----------------------COORDENADAS DOS ELEMENTOS-----------*/
                     int xMat = centroX - (larguraMatematicaPadrao / 2) - 300;
                     int yMat = (int) (h * 0.60) - 240;
+                    
                     int xPort = centroX - (larguraMatematicaPadrao / 2) - 300;
-                    int yPort = yMat + alturaMatematicaPadrao + (int)(10 * escala);
+                    int yPort = yMat + 
+                            alturaMatematicaPadrao + 
+                            (int)(10 * escala);
+                    
                     int xHist = centroX - (larguraMatematicaPadrao / 2) + 280;
                     int yHist = (int) (h * 0.60) - 240;
+                    
                     int xGeo = centroX - (larguraMatematicaPadrao / 2) + 280;
-                    int yGeo = yHist + alturaHistoriaPadrao + (int)(10 * escala);
+                    int yGeo = yHist + 
+                            alturaHistoriaPadrao + 
+                            (int)(10 * escala);
+                    
                     int xCie = centroX - (larguraCienciasPadrao / 2) - 15;
                     int yCie = (int) (h * 0.45) + 130;
+                    
                     int xCriar = centroX - (larguraCriarPadrao / 2) - 280;
-                    int yCriar = yCie + alturaCienciasPadrao + (int)(95 * escala);
+                    int yCriar = yCie + 
+                            alturaCienciasPadrao + 
+                            (int)(95 * escala);
+                    
                     int xVoltar = centroX - (larguraCriarPadrao / 2) + 265;
-                    int yVoltar = yCie + alturaCienciasPadrao + (int)(95 * escala);
+                    int yVoltar = yCie + 
+                            alturaCienciasPadrao + 
+                            (int)(95 * escala);
 
                     /*----------------------POSICIONAMENTO DOS CAMPOS------------*/
-                    botaoMatematica.setBounds(xMat, yMat, larguraMatematicaPadrao, alturaMatematicaPadrao);
-                    botaoPortugues.setBounds(xPort, yPort, larguraPortuguesPadrao, alturaPortuguesPadrao);
-                    botaoHistoria.setBounds(xHist, yHist, larguraHistoriaPadrao, alturaHistoriaPadrao);
-                    botaoGeografia.setBounds(xGeo, yGeo, larguraGeografiaPadrao, alturaGeografiaPadrao);
-                    botaoCiencias.setBounds(xCie, yCie, larguraCienciasPadrao, alturaCienciasPadrao);
-                    botaoCriar.setBounds(xCriar, yCriar, larguraCriarPadrao, alturaCriarPadrao);
-                    botaoVoltar.setBounds(xVoltar, yVoltar, larguraVoltarPadrao, alturaVoltarPadrao);
+                    botaoMatematica.setBounds(xMat, 
+                            yMat, 
+                            larguraMatematicaPadrao,
+                            alturaMatematicaPadrao);
+                    
+                    botaoPortugues.setBounds(xPort,
+                            yPort,
+                            larguraPortuguesPadrao,
+                            alturaPortuguesPadrao);
+                    
+                    botaoHistoria.setBounds(xHist,
+                            yHist, 
+                            larguraHistoriaPadrao,
+                            alturaHistoriaPadrao);
+                    
+                    botaoGeografia.setBounds(xGeo,
+                            yGeo, 
+                            larguraGeografiaPadrao,
+                            alturaGeografiaPadrao);
+                    
+                    botaoCiencias.setBounds(xCie, 
+                            yCie,
+                            larguraCienciasPadrao,
+                            alturaCienciasPadrao);
+                    botaoCriar.setBounds(xCriar,
+                            yCriar,
+                            larguraCriarPadrao, 
+                            alturaCriarPadrao);
+                    
+                    botaoVoltar.setBounds(xVoltar,
+                            yVoltar
+                            , larguraVoltarPadrao,
+                            alturaVoltarPadrao);
 
                     /*----------------------DESENHO DOS ELEMENTOS----------------*/
-                    g2d.drawImage(imagemMatematicaPadrao, xMat, yMat, larguraMatematicaPadrao, alturaMatematicaPadrao, this);
-                    g2d.drawImage(imagemPortuguesPadrao, xPort, yPort, larguraPortuguesPadrao, alturaPortuguesPadrao, this);
-                    g2d.drawImage(imagemHistoriaPadrao, xHist, yHist, larguraHistoriaPadrao, alturaHistoriaPadrao, this);
-                    g2d.drawImage(imagemGeografiaPadrao, xGeo, yGeo, larguraGeografiaPadrao, alturaGeografiaPadrao, this);
-                    g2d.drawImage(imagemCienciasPadrao, xCie, yCie, larguraCienciasPadrao, alturaCienciasPadrao, this);
-                    g2d.drawImage(imagemBotaoCriar, xCriar, yCriar, larguraCriarPadrao, alturaCriarPadrao, this);
-                    g2d.drawImage(imagemBotaoVoltar, xVoltar, yVoltar, larguraVoltarPadrao, alturaVoltarPadrao, this);
+                    g2d.drawImage(imagemMatematicaPadrao, 
+                            xMat, 
+                            yMat, 
+                            larguraMatematicaPadrao,
+                            alturaMatematicaPadrao, this);
+                    
+                    g2d.drawImage(imagemPortuguesPadrao, 
+                            xPort,
+                            yPort, 
+                            larguraPortuguesPadrao, 
+                            alturaPortuguesPadrao, this);
+                    
+                    g2d.drawImage(imagemHistoriaPadrao, 
+                            xHist, 
+                            yHist, 
+                            larguraHistoriaPadrao,
+                            alturaHistoriaPadrao, this);
+                    
+                    g2d.drawImage(imagemGeografiaPadrao, 
+                            xGeo, 
+                            yGeo, 
+                            larguraGeografiaPadrao,
+                            alturaGeografiaPadrao, this);
+                    
+                    g2d.drawImage(imagemCienciasPadrao,
+                            xCie,
+                            yCie, 
+                            larguraCienciasPadrao,
+                            alturaCienciasPadrao, this);
+                    
+                    g2d.drawImage(imagemBotaoCriar,
+                            xCriar,
+                            yCriar, 
+                            larguraCriarPadrao,
+                            alturaCriarPadrao, this);
+                    
+                    g2d.drawImage(imagemBotaoVoltar, 
+                            xVoltar, 
+                            yVoltar, 
+                            larguraVoltarPadrao, 
+                            alturaVoltarPadrao, this);
                 }
             };
             painelConteudo.setOpaque(false);
             painelConteudo.setLayout(null);
 
             /*----------------------CONFIGURAÇÃO DOS LABELS DE SELEÇÃO---------*/
-            labelGeografiaSelecionado = new JLabel(new ImageIcon(imagemGeografiaSelecionado));
+            labelGeografiaSelecionado = 
+                    new JLabel(new ImageIcon(imagemGeografiaSelecionado));
             labelGeografiaSelecionado.setVisible(false);
-            labelGeografiaSelecionado.setBounds(0, 0, imagemGeografiaSelecionado.getWidth(), imagemGeografiaSelecionado.getHeight());
+            labelGeografiaSelecionado.setBounds(0, 
+                    0, 
+                    imagemGeografiaSelecionado.getWidth(),
+                    imagemGeografiaSelecionado.getHeight());
             painelConteudo.add(labelGeografiaSelecionado);
 
-            labelHistoriaSelecionado = new JLabel(new ImageIcon(imagemHistoriaSelecionado));
+            labelHistoriaSelecionado = 
+                    new JLabel(new ImageIcon(imagemHistoriaSelecionado));
             labelHistoriaSelecionado.setVisible(false);
-            labelHistoriaSelecionado.setBounds(0, 0, imagemHistoriaSelecionado.getWidth(), imagemHistoriaSelecionado.getHeight());
+            labelHistoriaSelecionado.setBounds(0, 
+                    0, 
+                    imagemHistoriaSelecionado.getWidth(), 
+                    imagemHistoriaSelecionado.getHeight());
             painelConteudo.add(labelHistoriaSelecionado);
 
-            labelMatematicaSelecionado = new JLabel(new ImageIcon(imagemMatematicaSelecionado));
+            labelMatematicaSelecionado =
+                    new JLabel(new ImageIcon(imagemMatematicaSelecionado));
             labelMatematicaSelecionado.setVisible(false);
-            labelMatematicaSelecionado.setBounds(0, 0, imagemMatematicaSelecionado.getWidth(), imagemMatematicaSelecionado.getHeight());
+            labelMatematicaSelecionado.setBounds(0,
+                    0,
+                    imagemMatematicaSelecionado.getWidth(), 
+                    imagemMatematicaSelecionado.getHeight());
             painelConteudo.add(labelMatematicaSelecionado);
 
-            labelCienciasSelecionado = new JLabel(new ImageIcon(imagemCienciasSelecionado));
+            labelCienciasSelecionado = 
+                    new JLabel(new ImageIcon(imagemCienciasSelecionado));
             labelCienciasSelecionado.setVisible(false);
-            labelCienciasSelecionado.setBounds(0, 0, imagemCienciasSelecionado.getWidth(), imagemCienciasSelecionado.getHeight());
+            labelCienciasSelecionado.setBounds(0,
+                    0, 
+                    imagemCienciasSelecionado.getWidth(),
+                    imagemCienciasSelecionado.getHeight());
             painelConteudo.add(labelCienciasSelecionado);
 
-            labelPortuguesSelecionado = new JLabel(new ImageIcon(imagemPortuguesSelecionado));
+            labelPortuguesSelecionado = 
+                    new JLabel(new ImageIcon(imagemPortuguesSelecionado));
             labelPortuguesSelecionado.setVisible(false);
-            labelPortuguesSelecionado.setBounds(0, 0, imagemPortuguesSelecionado.getWidth(), imagemPortuguesSelecionado.getHeight());
+            labelPortuguesSelecionado.setBounds(0, 
+                    0,
+                    imagemPortuguesSelecionado.getWidth(),
+                    imagemPortuguesSelecionado.getHeight());
             painelConteudo.add(labelPortuguesSelecionado);
 
             /*----------------------CONFIGURAÇÃO DO BOTÃO MATEMÁTICA----------*/
@@ -296,9 +417,11 @@ public class TelaQuestPadrao extends JFrame {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     String materiaEscolhida = materia;
-                    TelaSelecaoAnos questPadraoCriacao = new TelaSelecaoAnos(materia, idProfessor);
+                    TelaSelecaoAnos questPadraoCriacao = 
+                            new TelaSelecaoAnos(materia, idProfessor);
                     questPadraoCriacao.setVisible(true);
-                    Window janela = SwingUtilities.getWindowAncestor(PanelQuestPadrao.this);
+                    Window janela = SwingUtilities.getWindowAncestor
+                                        (PanelQuestPadrao.this);
                     if (janela instanceof JFrame) {
                         janela.dispose();
                     }
@@ -316,9 +439,11 @@ public class TelaQuestPadrao extends JFrame {
             botaoVoltar.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    TelaCriarSala lobbyProfessor = new TelaCriarSala(idProfessor);
+                    TelaCriarSala lobbyProfessor = 
+                            new TelaCriarSala(idProfessor);
                     lobbyProfessor.setVisible(true);
-                    Window janela = SwingUtilities.getWindowAncestor(PanelQuestPadrao.this);
+                    Window janela = SwingUtilities.getWindowAncestor
+                                        (PanelQuestPadrao.this);
                     if (janela instanceof JFrame) {
                         janela.dispose();
                     }
@@ -345,10 +470,21 @@ public class TelaQuestPadrao extends JFrame {
             switch (tipo) {
                 case "geografia":
                     if (botaoSelecionado != botaoGeografia) {
-                        int x = botaoGeografia.getX() + (botaoGeografia.getWidth() - imagemGeografiaSelecionado.getWidth()) / 2;
-                        int y = botaoGeografia.getY() + (botaoGeografia.getHeight() - imagemGeografiaSelecionado.getHeight()) / 2;
-                        labelGeografiaSelecionado.setBounds(x, y, imagemGeografiaSelecionado.getWidth(), imagemGeografiaSelecionado.getHeight());
+                        int x = botaoGeografia.getX() + 
+                                (botaoGeografia.getWidth() - 
+                                imagemGeografiaSelecionado.getWidth()) / 2;
+                        
+                        int y = botaoGeografia.getY() + 
+                                (botaoGeografia.getHeight() - 
+                                imagemGeografiaSelecionado.getHeight()) / 2;
+                        
+                        labelGeografiaSelecionado.setBounds(x, 
+                                y, 
+                                imagemGeografiaSelecionado.getWidth(), 
+                                imagemGeografiaSelecionado.getHeight());
+                        
                         labelGeografiaSelecionado.setVisible(true);
+                        
                         labelGeografiaSelecionado.repaint();
                         botaoSelecionado = botaoGeografia;
                     }
@@ -356,10 +492,21 @@ public class TelaQuestPadrao extends JFrame {
 
                 case "história":
                     if (botaoSelecionado != botaoHistoria) {
-                        int x = botaoHistoria.getX() + (botaoHistoria.getWidth() - imagemHistoriaSelecionado.getWidth()) / 2;
-                        int y = botaoHistoria.getY() + (botaoHistoria.getHeight() - imagemHistoriaSelecionado.getHeight()) / 2;
-                        labelHistoriaSelecionado.setBounds(x, y, imagemHistoriaSelecionado.getWidth(), imagemHistoriaSelecionado.getHeight());
+                        int x = botaoHistoria.getX() + 
+                                (botaoHistoria.getWidth() - 
+                                imagemHistoriaSelecionado.getWidth()) / 2;
+                        
+                        int y = botaoHistoria.getY() + 
+                                (botaoHistoria.getHeight() - 
+                                imagemHistoriaSelecionado.getHeight()) / 2;
+                        
+                        labelHistoriaSelecionado.setBounds(x,
+                                y,
+                                imagemHistoriaSelecionado.getWidth(), 
+                                imagemHistoriaSelecionado.getHeight());
+                        
                         labelHistoriaSelecionado.setVisible(true);
+                        
                         labelHistoriaSelecionado.repaint();
                         botaoSelecionado = botaoHistoria;
                     }
@@ -367,10 +514,21 @@ public class TelaQuestPadrao extends JFrame {
 
                 case "matemática":
                     if (botaoSelecionado != botaoMatematica) {
-                        int x = botaoMatematica.getX() + (botaoMatematica.getWidth() - imagemMatematicaSelecionado.getWidth()) / 2;
-                        int y = botaoMatematica.getY() + (botaoMatematica.getHeight() - imagemMatematicaSelecionado.getHeight()) / 2;
-                        labelMatematicaSelecionado.setBounds(x, y, imagemMatematicaSelecionado.getWidth(), imagemMatematicaSelecionado.getHeight());
+                        int x = botaoMatematica.getX() + 
+                                (botaoMatematica.getWidth() -
+                                imagemMatematicaSelecionado.getWidth()) / 2;
+                        
+                        int y = botaoMatematica.getY() + 
+                                (botaoMatematica.getHeight() - 
+                                imagemMatematicaSelecionado.getHeight()) / 2;
+                        
+                        labelMatematicaSelecionado.setBounds(x,
+                                y,
+                                imagemMatematicaSelecionado.getWidth(), 
+                                imagemMatematicaSelecionado.getHeight());
+                        
                         labelMatematicaSelecionado.setVisible(true);
+                        
                         labelMatematicaSelecionado.repaint();
                         botaoSelecionado = botaoMatematica;
                     }
@@ -378,10 +536,21 @@ public class TelaQuestPadrao extends JFrame {
 
                 case "ciências":
                     if (botaoSelecionado != botaoCiencias) {
-                        int x = botaoCiencias.getX() + (botaoCiencias.getWidth() - imagemCienciasSelecionado.getWidth()) / 2;
-                        int y = botaoCiencias.getY() + (botaoCiencias.getHeight() - imagemCienciasSelecionado.getHeight()) / 2;
-                        labelCienciasSelecionado.setBounds(x, y, imagemCienciasSelecionado.getWidth(), imagemCienciasSelecionado.getHeight());
+                        int x = botaoCiencias.getX() + 
+                                (botaoCiencias.getWidth() -
+                                imagemCienciasSelecionado.getWidth()) / 2;
+                        
+                        int y = botaoCiencias.getY() + 
+                                (botaoCiencias.getHeight() - 
+                                imagemCienciasSelecionado.getHeight()) / 2;
+                        
+                        labelCienciasSelecionado.setBounds(x, 
+                                y, 
+                                imagemCienciasSelecionado.getWidth(),
+                                imagemCienciasSelecionado.getHeight());
+                        
                         labelCienciasSelecionado.setVisible(true);
+                        
                         labelCienciasSelecionado.repaint();
                         botaoSelecionado = botaoCiencias;
                     }
@@ -389,10 +558,21 @@ public class TelaQuestPadrao extends JFrame {
 
                 case "português":
                     if (botaoSelecionado != botaoPortugues) {
-                        int x = botaoPortugues.getX() + (botaoPortugues.getWidth() - imagemPortuguesSelecionado.getWidth()) / 2;
-                        int y = botaoPortugues.getY() + (botaoPortugues.getHeight() - imagemPortuguesSelecionado.getHeight()) / 2;
-                        labelPortuguesSelecionado.setBounds(x, y, imagemPortuguesSelecionado.getWidth(), imagemPortuguesSelecionado.getHeight());
+                        int x = botaoPortugues.getX() + 
+                                (botaoPortugues.getWidth() - 
+                                imagemPortuguesSelecionado.getWidth()) / 2;
+                        
+                        int y = botaoPortugues.getY() + 
+                                (botaoPortugues.getHeight() - 
+                                imagemPortuguesSelecionado.getHeight()) / 2;
+                        
+                        labelPortuguesSelecionado.setBounds(x, 
+                                y, 
+                                imagemPortuguesSelecionado.getWidth(),
+                                imagemPortuguesSelecionado.getHeight());
+                        
                         labelPortuguesSelecionado.setVisible(true);
+                        
                         labelPortuguesSelecionado.repaint();
                         botaoSelecionado = botaoPortugues;
                     }
@@ -413,17 +593,28 @@ public class TelaQuestPadrao extends JFrame {
             int h = getHeight();
 
             /*----------------------CONFIGURAÇÃO DE RENDERIZAÇÃO-------------*/
-            g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
-            g2d.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
-            g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-            g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-            g2d.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
-            g2d.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
-            g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_PURE);
+            g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
+                    RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+            g2d.setRenderingHint(RenderingHints.KEY_RENDERING,
+                    RenderingHints.VALUE_RENDER_QUALITY);
+            g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                    RenderingHints.VALUE_ANTIALIAS_ON);
+            g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
+                    RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+            g2d.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, 
+                    RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
+            g2d.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING,
+                    RenderingHints.VALUE_COLOR_RENDER_QUALITY);
+            g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL,
+                    RenderingHints.VALUE_STROKE_PURE);
 
             /*----------------------DESENHO DA IMAGEM DE FUNDO---------------*/
             if (imagemDeFundoQuestPadrao != null) {
-                g2d.drawImage(imagemDeFundoQuestPadrao, 0, 0, w, h, this);
+                g2d.drawImage(imagemDeFundoQuestPadrao, 
+                        0, 
+                        0, 
+                        w, 
+                        h, this);
             }
         }
     }

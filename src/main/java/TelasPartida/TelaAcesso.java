@@ -14,18 +14,13 @@ import javax.imageio.ImageIO;
 public class TelaAcesso extends JFrame{
     
     /*----------------------DECLARAÇÃO DE VARIÁVEIS----------------------*/
-    private CardLayout cardLayout;
     private JPanel painelAcesso;
     private static String idProfessor;
     private static String codigoSala;
-   
-    /*----------------------CONFIGURA O LAYOUT DE NAVEGAÇÃO------------------*/
-    public void setNavigation(CardLayout cardLayout, JPanel painelPrincipal) {
-        this.cardLayout = cardLayout;
-    }
 
     /*----------------------CONSTRUTOR DA TELA DE ACESSO---------------------*/
     public TelaAcesso(String idProfessor, String codigoSala) {
+        
         /*----------------------CONFIGURAÇÕES DA JANELA-------------------*/
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setUndecorated(true);
@@ -33,20 +28,14 @@ public class TelaAcesso extends JFrame{
         this.idProfessor = idProfessor;
         this.codigoSala = codigoSala;
         
-        /*----------------------CONFIGURA O LAYOUT DE CARTÕES-------------*/
-        cardLayout = new CardLayout();
-        painelAcesso = new JPanel(cardLayout);
+        painelAcesso = new JPanel();
 
         try {
             /*----------------------INSTANCIAÇÃO DO PAINEL----------------*/
            PanelAcesso panelRank = new PanelAcesso();
-           painelAcesso.add(panelRank, "TelaAcesso");
-           /*----------------------CONFIGURAÇÃO DO PAINEL INICIAL-----------*/
-           add(painelAcesso);
-           cardLayout.show(painelAcesso, "TelaAcesso");
+           setContentPane(panelRank);
 
         } catch (IOException e) {
-            /*----------------------TRATAMENTO DE EXCEÇÕES-------------------*/
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Erro ao inicializar a tela: " 
                     + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
@@ -103,7 +92,7 @@ public class TelaAcesso extends JFrame{
                     int centroX = w / 2;
 
                     /*----------------------DIMENSÕES DOS ELEMENTOS--------------*/
-                    double escala = 1.0; // Defina a escala conforme necessário
+                    double escala = 1.0;
                     
                     int larguraBotVoltar = (int) 
                             (imagemBotaoVoltar.getWidth() * 0.7 * escala);
@@ -112,7 +101,7 @@ public class TelaAcesso extends JFrame{
                     
                     /*----------------------POSICIONAMENTO DOS ELEMENTOS---------*/
                     int xVoltar = centroX - (larguraBotVoltar / 2);
-                    int yVoltar = (int) (h * 0.45) + 300; // 45% da altura da tela
+                    int yVoltar = (int) (h * 0.45) + 300;
                     
                     /*----------------------CONFIGURAÇÃO DOS BOTÕES--------------*/
                     botaoVoltar.setBounds(xVoltar, 

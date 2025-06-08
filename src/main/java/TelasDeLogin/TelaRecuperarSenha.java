@@ -15,14 +15,7 @@ import CodigoPoligenio.Sistema;
 public class TelaRecuperarSenha extends JFrame {
     
     /*----------------------DECLARAÇÃO DE VARIÁVEIS----------------------*/
-    private CardLayout cardLayout;
     private JPanel painelRecuperarSenha;
-    
-    /*----------------------CONFIGURA O LAYOUT DE NAVEGAÇÃO------------------*/
-    public void setNavigation(CardLayout cardLayout, JPanel painelPrincipal) {
-        this.cardLayout = cardLayout;
-        this.painelRecuperarSenha = painelPrincipal;
-    }
     
     /*----------------------CONSTRUTOR DA TELA DE RECUPERAÇÃO DE SENHA-------*/
     public TelaRecuperarSenha() {
@@ -30,23 +23,21 @@ public class TelaRecuperarSenha extends JFrame {
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setUndecorated(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        Sistema sistema = Sistema.getInstance();
 
         /*----------------------CONFIGURA O LAYOUT DE CARTÕES-------------*/
-        cardLayout = new CardLayout();
-        painelRecuperarSenha = new JPanel(cardLayout);
+        painelRecuperarSenha = new JPanel();
 
         try {
             /*----------------------INSTANCIAÇÃO DO PAINEL----------------*/
-            PanelRecuperarSenha telaInicioPanel = new PanelRecuperarSenha(painelRecuperarSenha);
-            painelRecuperarSenha.add(telaInicioPanel, "TelaRecuperarSenha");
-            /*----------------------CONFIGURAÇÃO DO PAINEL INICIAL-----------*/
-            add(painelRecuperarSenha);
-            cardLayout.show(painelRecuperarSenha, "TelaRecuperarSenha");
+            PanelRecuperarSenha recuperarSenha = new PanelRecuperarSenha();
+            setContentPane(recuperarSenha);
 
         } catch (IOException e) {
             /*----------------------TRATAMENTO DE EXCEÇÕES-------------------*/
             e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Erro ao inicializar a tela: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Erro ao inicializar a tela: " 
+                    + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }
     
@@ -56,11 +47,6 @@ public class TelaRecuperarSenha extends JFrame {
             TelaRecuperarSenha tela = new TelaRecuperarSenha();
             tela.setVisible(true);
         });
-    }
-    
-    /*----------------------MOSTRA TELA ESPECÍFICA NO CARD LAYOUT------------*/
-    public void mostrarTela(String nomeTela) {
-        cardLayout.show(painelRecuperarSenha, nomeTela);
     }
     
     /*----------------------CLASSE INTERNA: PAINEL DE RECUPERAÇÃO DE SENHA---*/
@@ -78,20 +64,27 @@ public class TelaRecuperarSenha extends JFrame {
         private JButton botaoVoltar;
         private JButton botaoSair;
         
-        private final JPanel container;
         private String emailUsuario;
          
         /*----------------------CONSTRUTOR DO PAINEL DE RECUPERAÇÃO DE SENHA-*/
-        public PanelRecuperarSenha(JPanel container) throws IOException {
-            this.container = container;
+        public PanelRecuperarSenha() throws IOException {
             setLayout(new GridBagLayout());
 
             /*----------------------CARREGAMENTO DAS IMAGENS------------------*/
-            imagemDeFundoRecSenha = ImageIO.read(getClass().getResource("/ImagensTelaRecuperarSenha/telaRecuperarSenha.png"));
-            imagemInputEmail = ImageIO.read(getClass().getResource("/ImagensTelaRecuperarSenha/caixaEmailRec.png"));
-            imagemBotãoEnviar = ImageIO.read(getClass().getResource("/ImagensTelaRecuperarSenha/botãoEnviarRec.png"));
-            imagemBotãoVoltarLog = ImageIO.read(getClass().getResource("/ImagensTelaRecuperarSenha/botãoVoltaLog.png"));
-            imagemBotaoSair = ImageIO.read(getClass().getResource("/ImagensTelaRecuperarSenha/botaoSairJogo.png"));
+            imagemDeFundoRecSenha = ImageIO.read(getClass().getResource
+        ("/ImagensTelaRecuperarSenha/telaRecuperarSenha.png"));
+            
+            imagemInputEmail = ImageIO.read(getClass().getResource
+        ("/ImagensTelaRecuperarSenha/caixaEmailRec.png"));
+            
+            imagemBotãoEnviar = ImageIO.read(getClass().getResource
+        ("/ImagensTelaRecuperarSenha/botãoEnviarRec.png"));
+            
+            imagemBotãoVoltarLog = ImageIO.read(getClass().getResource
+        ("/ImagensTelaRecuperarSenha/botãoVoltaLog.png"));
+            
+            imagemBotaoSair = ImageIO.read(getClass().getResource
+        ("/ImagensTelaRecuperarSenha/botaoSairJogo.png"));
             
             /*----------------------CRIAÇÃO DO PAINEL DE CONTEÚDO-------------*/
             JPanel painelConteudo = new JPanel(null) {
@@ -101,8 +94,10 @@ public class TelaRecuperarSenha extends JFrame {
 
                     /*----------------------CONFIGURAÇÃO GRÁFICA----------------*/
                     Graphics2D g2d = (Graphics2D) g;
-                    g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-                    g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+                    g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
+                            RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+                    g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                            RenderingHints.VALUE_ANTIALIAS_ON);
 
                     int w = getWidth();
                     int h = getHeight();
@@ -112,27 +107,38 @@ public class TelaRecuperarSenha extends JFrame {
 
                     /*----------------------DIMENSÕES DOS ELEMENTOS--------------*/
                     double escala = 0.4; // Defina a escala conforme necessário
-                    int larguraInputEmail = (int) (imagemInputEmail.getWidth() * 0.5 * escala);
-                    int alturaInputEmail = (int) (imagemInputEmail.getHeight() * 0.5 * escala);
-                    int larguraBotaoEnviar = (int) (imagemBotãoEnviar.getWidth() * 0.5 * escala);
-                    int alturaBotaoEnviar = (int) (imagemBotãoEnviar.getHeight() * 0.5 * escala);
-                    int larguraBotaoVoltar = (int) (imagemBotãoVoltarLog.getWidth() * 0.5 * escala);
-                    int alturaBotaoVoltar = (int) (imagemBotãoVoltarLog.getHeight() * 0.5 * escala);
-                    int larguraSair = (int) (imagemBotaoSair.getWidth() * 1.75 * escala);
-                    int alturaSair = (int) (imagemBotaoSair.getHeight() * 1.75 * escala);
+                    int larguraInputEmail = (int) 
+                            (imagemInputEmail.getWidth() * 0.5 * escala);
+                    int alturaInputEmail = (int)
+                            (imagemInputEmail.getHeight() * 0.5 * escala);
+                    
+                    int larguraBotaoEnviar = (int)
+                            (imagemBotãoEnviar.getWidth() * 0.5 * escala);
+                    int alturaBotaoEnviar = (int) 
+                            (imagemBotãoEnviar.getHeight() * 0.5 * escala);
+                    
+                    int larguraBotaoVoltar = (int)
+                            (imagemBotãoVoltarLog.getWidth() * 0.5 * escala);
+                    int alturaBotaoVoltar = (int)
+                            (imagemBotãoVoltarLog.getHeight() * 0.5 * escala);
+                    
+                    int larguraSair = (int)
+                            (imagemBotaoSair.getWidth() * 1.75 * escala);
+                    int alturaSair = (int) 
+                            (imagemBotaoSair.getHeight() * 1.75 * escala);
 
                     /*----------------------POSICIONAMENTO DOS ELEMENTOS---------*/
                     int xEmail = centroX - (larguraInputEmail / 2);
-                    int yEmail = (int) (h * 0.60) + 10; // Posição vertical do campo email
+                    int yEmail = (int) (h * 0.60) + 10;
                     
                     int xBotaoEnviar = centroX - (larguraBotaoEnviar / 2);
-                    int yBotaoEnviar = yEmail + alturaInputEmail + 50; // 40px abaixo do email
+                    int yBotaoEnviar = yEmail + alturaInputEmail + 50;
                     
                     int xBotaoVoltar = centroX - (larguraBotaoVoltar / 2);
-                    int yBotaoVoltar = yBotaoEnviar + alturaBotaoEnviar + 30; // 20px abaixo do botão enviar
+                    int yBotaoVoltar = yBotaoEnviar + alturaBotaoEnviar + 30;
                     
                     int xSair = centroX - (larguraSair / 2) + 600;
-                    int ySair = (int) (h * 0.45) - 360; // 45% da altura da tela
+                    int ySair = (int) (h * 0.45) - 360;
 
                     /*----------------------CONFIGURAÇÃO DOS BOTÕES E CAMPO------*/
                     campoEmail.setBounds(
@@ -142,15 +148,45 @@ public class TelaRecuperarSenha extends JFrame {
                     (int)(500 * escala)
                 );
                 
-                    botaoEnviar.setBounds(xBotaoEnviar, yBotaoEnviar, larguraBotaoEnviar, alturaBotaoEnviar);
-                    botaoVoltar.setBounds(xBotaoVoltar, yBotaoVoltar, larguraBotaoVoltar, alturaBotaoVoltar);
-                    botaoSair.setBounds(xSair, ySair, larguraSair, alturaSair);
+                    botaoEnviar.setBounds(xBotaoEnviar,
+                            yBotaoEnviar,
+                            larguraBotaoEnviar,
+                            alturaBotaoEnviar);
+                    
+                    botaoVoltar.setBounds(xBotaoVoltar,
+                            yBotaoVoltar,
+                            larguraBotaoVoltar,
+                            alturaBotaoVoltar);
+                    
+                    botaoSair.setBounds(xSair,
+                            ySair, 
+                            larguraSair,
+                            alturaSair);
 
                     /*----------------------DESENHO DOS ELEMENTOS----------------*/
-                    g2d.drawImage(imagemInputEmail, xEmail, yEmail, larguraInputEmail, alturaInputEmail, this);
-                    g2d.drawImage(imagemBotãoEnviar, xBotaoEnviar, yBotaoEnviar, larguraBotaoEnviar, alturaBotaoEnviar, this);
-                    g2d.drawImage(imagemBotaoSair, xSair, ySair, larguraSair, alturaSair, this);
-                    g2d.drawImage(imagemBotãoVoltarLog, xBotaoVoltar, yBotaoVoltar, larguraBotaoVoltar, alturaBotaoVoltar, this);
+                    g2d.drawImage(imagemInputEmail, 
+                            xEmail,
+                            yEmail, 
+                            larguraInputEmail,
+                            alturaInputEmail, this);
+                    
+                    g2d.drawImage(imagemBotãoEnviar,
+                            xBotaoEnviar, 
+                            yBotaoEnviar,
+                            larguraBotaoEnviar,
+                            alturaBotaoEnviar, this);
+                    
+                    g2d.drawImage(imagemBotaoSair, 
+                            xSair, 
+                            ySair,
+                            larguraSair, 
+                            alturaSair, this);
+                    
+                    g2d.drawImage(imagemBotãoVoltarLog,
+                            xBotaoVoltar, 
+                            yBotaoVoltar, 
+                            larguraBotaoVoltar,
+                            alturaBotaoVoltar, this);
                 }
             };
             /*----------------------CONFIGURAÇÃO DO PAINEL DE CONTEÚDO-------*/
@@ -174,32 +210,32 @@ public class TelaRecuperarSenha extends JFrame {
             botaoEnviar.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    /*----------------------OBTÉM O EMAIL DIGITADO------------*/
                     String destinatario = campoEmail.getText();
                     
-                    /*----------------------INSTANCIA O SISTEMA---------------*/
                     CodigoPoligenio.Sistema email = Sistema.getInstance();
                     try {
                         /*----------------------VALIDA OS DADOS---------------*/
                         boolean enviado = email.validarDados(destinatario);
                         if (enviado) {
-                            /*----------------------ABRE TELA DE CÓDIGO-------*/
-                            TelaEmailCodigo tec = new TelaEmailCodigo(destinatario);
+                            TelaEmailCodigo tec =
+                                    new TelaEmailCodigo(destinatario);
                             tec.setVisible(true);
                             
                             /*----------------------FECHA A JANELA ATUAL------*/
-                            Window janela = SwingUtilities.getWindowAncestor(PanelRecuperarSenha.this);
+                            Window janela = SwingUtilities.getWindowAncestor
+                                                (PanelRecuperarSenha.this);
                             if (janela instanceof JFrame) {
                                 janela.dispose();
                             }          
                             campoEmail.setText("");
                         } else {
                             /*----------------------MOSTRA ERRO DE EMAIL------*/
-                            JOptionPane.showMessageDialog(null, "E-mail não encontrado no sistema.");
+                            JOptionPane.showMessageDialog(null, 
+                                    "E-mail não encontrado no sistema.");
                         }
                     } catch (Exception ex) {
-                        /*----------------------TRATAMENTO DE EXCEÇÕES-----*/
-                        JOptionPane.showMessageDialog(null, "Erro ao autenticar: " + ex.getMessage());
+                        JOptionPane.showMessageDialog(null, 
+                                "Erro ao autenticar: " + ex.getMessage());
                     } 
                 }
             });
@@ -213,9 +249,15 @@ public class TelaRecuperarSenha extends JFrame {
             botaoVoltar.setOpaque(false);
             botaoVoltar.setCursor(new Cursor(Cursor.HAND_CURSOR));
             botaoVoltar.addActionListener(e -> {
-                /*----------------------NAVEGA PARA TELA INICIAL----------*/
-                CardLayout cl = (CardLayout) container.getLayout();
-                cl.show(container, "TelaInicial");
+                Sistema sistema = Sistema.getInstance();
+                TelaInicial lobbyProfessor = 
+                        new TelaInicial("", "", sistema);
+                lobbyProfessor.setVisible(true);
+                Window janela = SwingUtilities.getWindowAncestor
+                                    (PanelRecuperarSenha.this);
+                    if (janela instanceof JFrame) {
+                        janela.dispose();
+                    } 
                 campoEmail.setText("");
             });
             painelConteudo.add(botaoVoltar);

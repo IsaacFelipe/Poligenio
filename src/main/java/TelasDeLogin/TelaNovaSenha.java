@@ -15,24 +15,20 @@ import javax.imageio.ImageIO;
 public class TelaNovaSenha extends JFrame {
     
     /*----------------------DECLARAÇÃO DE VARIÁVEIS----------------------*/
-    private CardLayout cardLayout;
     private JPanel TelaNovaSenha;
     private static String destinatario;
     
-    /*----------------------CONFIGURA O LAYOUT DE NAVEGAÇÃO------------------*/
-    public void setNavigation(CardLayout cardLayout, JPanel painelPrincipal) {
-        this.cardLayout = cardLayout;
-    }
     
     /*----------------------CONSTRUTOR DA TELA DE NOVA SENHA-----------------*/
     public TelaNovaSenha(String destinatario){
+        
         /*----------------------CONFIGURAÇÕES DA JANELA-------------------*/
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setUndecorated(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        /*----------------------CONFIGURA O LAYOUT DE CARTÕES-------------*/
-        cardLayout = new CardLayout();
-        TelaNovaSenha = new JPanel(cardLayout);
+        
+        TelaNovaSenha = new JPanel();
+        
         /*----------------------INSTANCIA O SISTEMA----------------------*/
         Sistema sistema = Sistema.getInstance();
         this.destinatario = destinatario;
@@ -40,16 +36,14 @@ public class TelaNovaSenha extends JFrame {
         
         try {
             /*----------------------INSTANCIAÇÃO DO PAINEL----------------*/
-            PanelNovaSenha telaNovaSenhaPanel = new PanelNovaSenha(TelaNovaSenha);
-            TelaNovaSenha.add(telaNovaSenhaPanel, "TelaNovaSenha");
-            /*----------------------CONFIGURAÇÃO DO PAINEL INICIAL-----------*/
-            add(TelaNovaSenha);
-            cardLayout.show(TelaNovaSenha, "TelaNovaSenha");
+            PanelNovaSenha novaSenha = new PanelNovaSenha();
+            setContentPane(novaSenha);
 
         } catch (IOException e) {
             /*----------------------TRATAMENTO DE EXCEÇÕES-------------------*/
             e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Erro ao inicializar a tela: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Erro ao inicializar a tela: " 
+                    + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }
     
@@ -59,11 +53,6 @@ public class TelaNovaSenha extends JFrame {
             TelaNovaSenha telaNovaSenha = new TelaNovaSenha(destinatario);
             telaNovaSenha.setVisible(true);
         });
-    }
-    
-    /*----------------------MOSTRA TELA ESPECÍFICA NO CARD LAYOUT------------*/
-    public void mostrarTela(String nomeTela) {
-            cardLayout.show(TelaNovaSenha, nomeTela);
     }
     
     /*----------------------CLASSE INTERNA: PAINEL DE NOVA SENHA-------------*/
@@ -82,19 +71,25 @@ public class TelaNovaSenha extends JFrame {
         private JButton botaoEnviar;
         private JButton botaoVoltarLogin;
         
-        private final JPanel container;
-        
         /*----------------------CONSTRUTOR DO PAINEL DE NOVA SENHA-----------*/
-        public PanelNovaSenha(JPanel container) throws IOException {
-            this.container = container;
+        public PanelNovaSenha() throws IOException {
             setLayout(new GridBagLayout());
             
             /*----------------------CARREGAMENTO DAS IMAGENS------------------*/
-            imagemDeFundoNovaSenha = ImageIO.read(getClass().getResource("/ImagensTelaNovaSenha/telaNovaSenha.png"));
-            imagemInputNovaSenha = ImageIO.read(getClass().getResource("/ImagensTelaNovaSenha/inputNovaSenha.png"));
-            imagemInputConfirmarSenha = ImageIO.read(getClass().getResource("/ImagensTelaNovaSenha/inputConfirmarSenha.png"));
-            imagemBotaoEnviarNovaSenha = ImageIO.read(getClass().getResource("/ImagensTelaNovaSenha/botaoEnviarNS.png"));
-            imagemBotaoVoltarLogin = ImageIO.read(getClass().getResource("/ImagensTelaNovaSenha/botaoVoltarLogin.png"));
+            imagemDeFundoNovaSenha = ImageIO.read(getClass().getResource
+        ("/ImagensTelaNovaSenha/telaNovaSenha.png"));
+            
+            imagemInputNovaSenha = ImageIO.read(getClass().getResource
+        ("/ImagensTelaNovaSenha/inputNovaSenha.png"));
+            
+            imagemInputConfirmarSenha = ImageIO.read(getClass().getResource
+        ("/ImagensTelaNovaSenha/inputConfirmarSenha.png"));
+            
+            imagemBotaoEnviarNovaSenha = ImageIO.read(getClass().getResource
+        ("/ImagensTelaNovaSenha/botaoEnviarNS.png"));
+            
+            imagemBotaoVoltarLogin = ImageIO.read(getClass().getResource
+        ("/ImagensTelaNovaSenha/botaoVoltarLogin.png"));
             
             /*----------------------CRIAÇÃO DO PAINEL DE CONTEÚDO-------------*/
             JPanel painelConteudo = new JPanel(null) {
@@ -104,8 +99,10 @@ public class TelaNovaSenha extends JFrame {
 
                     /*----------------------CONFIGURAÇÃO GRÁFICA----------------*/
                     Graphics2D g2d = (Graphics2D) g;
-                    g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-                    g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+                    g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, 
+                            RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+                    g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                            RenderingHints.VALUE_ANTIALIAS_ON);
 
                     int w = getWidth();
                     int h = getHeight();
@@ -114,42 +111,74 @@ public class TelaNovaSenha extends JFrame {
                     int centroX = w / 2;
 
                     /*----------------------DIMENSÕES DOS ELEMENTOS--------------*/
-                    double escala = 1.0; // Defina a escala conforme necessário
-                    int larguraInputNS = (int) (imagemInputNovaSenha.getWidth() * 0.7 * escala);
-                    int alturaInputNS = (int) (imagemInputNovaSenha.getHeight() * 0.7 * escala);
-                    int larguraInputConfirmar = (int) (imagemInputConfirmarSenha.getWidth() * 0.7 * escala);
-                    int alturaInputConfirmar = (int) (imagemInputConfirmarSenha.getHeight() * 0.7 * escala);
-                    int larguraBotaoEnviar = (int) (imagemBotaoEnviarNovaSenha.getWidth() * 0.7 * escala);
-                    int alturaBotaoEnviar = (int) (imagemBotaoEnviarNovaSenha.getHeight() * 0.7 * escala);
-                    int larguraBotaoVoltar = (int) (imagemBotaoVoltarLogin.getWidth() * 0.7 * escala);
-                    int alturaBotaoVoltar = (int) (imagemBotaoVoltarLogin.getHeight() * 0.7 * escala);
+                    double escala = 1.0;
+                    int larguraInputNS = (int) 
+                        (imagemInputNovaSenha.getWidth() * 0.7 * escala);
+                    int alturaInputNS = (int) 
+                        (imagemInputNovaSenha.getHeight() * 0.7 * escala);
+                    
+                    int larguraInputConfirmar = (int) 
+                        (imagemInputConfirmarSenha.getWidth() * 0.7 * escala);
+                    int alturaInputConfirmar = (int) 
+                        (imagemInputConfirmarSenha.getHeight() * 0.7 * escala);
+                    
+                    int larguraBotaoEnviar = (int) 
+                        (imagemBotaoEnviarNovaSenha.getWidth() * 0.7 * escala);
+                    int alturaBotaoEnviar = (int) 
+                        (imagemBotaoEnviarNovaSenha.getHeight() * 0.7 * escala);
+                    
+                    int larguraBotaoVoltar = (int)
+                            (imagemBotaoVoltarLogin.getWidth() * 0.7 * escala);
+                    int alturaBotaoVoltar = (int) 
+                            (imagemBotaoVoltarLogin.getHeight() * 0.7 * escala);
                     
                     /*----------------------POSICIONAMENTO DOS ELEMENTOS---------*/
                     int xNovaSenha = centroX - (larguraInputNS / 2);
-                    int yNovaSenha = (int) (h * 0.45) + 50; // 45% da altura da tela
+                    int yNovaSenha = (int) (h * 0.45) + 50;
+                    
                     int xConfirmSenha = centroX - (larguraInputConfirmar / 2);
-                    int yConfirmSenha = yNovaSenha + alturaInputNS + (int)(20 * escala);
+                    int yConfirmSenha = yNovaSenha + 
+                            alturaInputNS + 
+                            (int)(20 * escala);
+                    
                     int xBotaoEnviar = centroX - (larguraBotaoEnviar / 2);
-                    int yBotaoEnviar = yConfirmSenha + alturaInputConfirmar + (int)(60 * escala);
+                    int yBotaoEnviar = yConfirmSenha +
+                            alturaInputConfirmar + 
+                            (int)(60 * escala);
+                    
                     int xBotaoVoltar = centroX - (larguraBotaoVoltar / 2);
-                    int yBotaoVoltar = yBotaoEnviar + alturaBotaoVoltar + (int)(90 * escala);
+                    int yBotaoVoltar = yBotaoEnviar + 
+                            alturaBotaoVoltar + 
+                            (int)(90 * escala);
                     
                     /*----------------------CONFIGURAÇÃO DOS CAMPOS E BOTÕES-----*/
-                    campoNovaSenha.setBounds(xNovaSenha + (int)(77 * escala) + 80, 
-                            yNovaSenha + (int)(27 * escala) - 22, 
+                    campoNovaSenha.setBounds(xNovaSenha + (int)(157 * escala), 
+                            yNovaSenha + (int)(5 * escala), 
                             (int)(300 * escala), 
                             (int)(50 * escala));
                     
-                    campoConfirmarSenha.setBounds(xConfirmSenha + (int)(77 * escala) + 185, 
-                            yConfirmSenha + (int)(27 * escala) - 22, 
+                    campoConfirmarSenha.setBounds(xConfirmSenha + 
+                            (int)(262 * escala), 
+                            yConfirmSenha + (int)(5 * escala), 
                             (int)(200 * escala), 
                             (int)(50 * escala));
                     
-                    botaoEnviar.setBounds(xBotaoEnviar, yBotaoEnviar, larguraBotaoEnviar, alturaBotaoEnviar);
-                    botaoVoltarLogin.setBounds(xBotaoVoltar, yBotaoVoltar, larguraBotaoVoltar, alturaBotaoVoltar);
+                    botaoEnviar.setBounds(xBotaoEnviar, 
+                            yBotaoEnviar,
+                            larguraBotaoEnviar, 
+                            alturaBotaoEnviar);
+                    
+                    botaoVoltarLogin.setBounds(xBotaoVoltar,
+                            yBotaoVoltar, 
+                            larguraBotaoVoltar,
+                            alturaBotaoVoltar);
                     
                     /*----------------------DESENHO DOS ELEMENTOS----------------*/
-                    g2d.drawImage(imagemInputNovaSenha, xNovaSenha, yNovaSenha, larguraInputNS, alturaInputNS, this);
+                    g2d.drawImage(imagemInputNovaSenha, 
+                            xNovaSenha, 
+                            yNovaSenha, 
+                            larguraInputNS, 
+                            alturaInputNS, this);
                     
                     g2d.drawImage(imagemBotaoVoltarLogin, 
                             xBotaoVoltar, 
@@ -200,12 +229,15 @@ public class TelaNovaSenha extends JFrame {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     /*----------------------OBTÉM SENHAS DIGITADAS------------*/
-                    String novaSenha = new String(campoNovaSenha.getPassword());
-                    String confirmarSenha = new String(campoConfirmarSenha.getPassword());
+                    String novaSenha = 
+                            new String(campoNovaSenha.getPassword());
+                    String confirmarSenha = 
+                            new String(campoConfirmarSenha.getPassword());
 
                     /*----------------------VERIFICA COINCIDÊNCIA DAS SENHAS--*/
                     if (!novaSenha.equals(confirmarSenha)) {
-                        JOptionPane.showMessageDialog(null, "As senhas não coincidem.");
+                        JOptionPane.showMessageDialog(null, 
+                                "As senhas não coincidem.");
                         return;
                     }
 
@@ -213,15 +245,20 @@ public class TelaNovaSenha extends JFrame {
                     Sistema sistema = Sistema.getInstance();
                     try {
                         /*----------------------ATUALIZA A SENHA---------------*/
-                        boolean sucesso = sistema.novaSenha(destinatario, novaSenha);
+                        boolean sucesso = sistema.novaSenha(destinatario, 
+                                    novaSenha);
 
                         if (sucesso) {
                             /*----------------------SUCESSO NA ATUALIZAÇÃO-----*/
-                            JOptionPane.showMessageDialog(null, "Senha atualizada com sucesso.");
-                            TelaInicial tec = new TelaInicial(destinatario, novaSenha, sistema);
+                            JOptionPane.showMessageDialog(null, 
+                                    "Senha atualizada com sucesso.");
+                            TelaInicial tec = new TelaInicial(destinatario, 
+                                    novaSenha, 
+                                    sistema);
                             tec.setVisible(true);
 
-                            Window janela = SwingUtilities.getWindowAncestor(PanelNovaSenha.this);
+                            Window janela = SwingUtilities.getWindowAncestor
+                                                (PanelNovaSenha.this);
                             if (janela instanceof JFrame) {
                                 janela.dispose();
                             }
@@ -229,11 +266,15 @@ public class TelaNovaSenha extends JFrame {
                             campoConfirmarSenha.setText("");
                         } else {
                             /*----------------------ERRO NA ATUALIZAÇÃO-------*/
-                            JOptionPane.showMessageDialog(null, "Erro ao atualizar a senha. Verifique o e-mail.");
+                            JOptionPane.showMessageDialog(null, 
+                                    "Erro ao atualizar a senha. "
+                                            + "Verifique o e-mail.");
                         }
                     } catch (Exception ex) {
                         /*----------------------TRATAMENTO DE EXCEÇÕES-----*/
-                        JOptionPane.showMessageDialog(null, "Erro ao atualizar a senha: " + ex.getMessage());
+                        JOptionPane.showMessageDialog(null, 
+                                "Erro ao atualizar a senha: " 
+                                        + ex.getMessage());
                     }
                 }
             });
@@ -253,7 +294,8 @@ public class TelaNovaSenha extends JFrame {
                 TelaInicial tec = new TelaInicial(destinatario, "", sistema);
                 tec.setVisible(true);
 
-                Window janela = SwingUtilities.getWindowAncestor(PanelNovaSenha.this);
+                Window janela = SwingUtilities.getWindowAncestor
+                                    (PanelNovaSenha.this);
                 if (janela instanceof JFrame) {
                     janela.dispose();
                 }
@@ -277,17 +319,27 @@ public class TelaNovaSenha extends JFrame {
             int h = getHeight();
 
             /*----------------------CONFIGURAÇÃO DE RENDERIZAÇÃO-------------*/
-            g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+            g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
+                    RenderingHints.VALUE_INTERPOLATION_BICUBIC);
             g2d.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
-            g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-            g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-            g2d.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
-            g2d.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
-            g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_PURE);
+            g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                    RenderingHints.VALUE_ANTIALIAS_ON);
+            g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
+                    RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+            g2d.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, 
+                    RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
+            g2d.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING,
+                    RenderingHints.VALUE_COLOR_RENDER_QUALITY);
+            g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL,
+                    RenderingHints.VALUE_STROKE_PURE);
             
             /*----------------------DESENHO DA IMAGEM DE FUNDO---------------*/
             if (imagemDeFundoNovaSenha != null) {
-                g2d.drawImage(imagemDeFundoNovaSenha, 0, 0, w, h, this);
+                g2d.drawImage(imagemDeFundoNovaSenha, 
+                        0, 
+                        0, 
+                        w, 
+                        h, this);
             }
         }
     }  

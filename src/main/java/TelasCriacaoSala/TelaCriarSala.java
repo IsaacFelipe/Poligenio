@@ -1,8 +1,6 @@
 /*-------------------------IMPORTAÇÕES NECESSÁRIAS----------------------------*/
 package TelasCriacaoSala;
 
-import TelasCriacaoSala.TelaQuestPadrao.PanelQuestPadrao;
-import TelasCriacaoSala.TelaQuestPersonalizado.PanelQuestPersonalizada;
 import TelasLobby.TelaLobbyProfessor;
 import javax.swing.*;
 import java.awt.*;
@@ -16,59 +14,31 @@ import javax.imageio.ImageIO;
 public class TelaCriarSala extends JFrame {
 
     /*----------------------DECLARAÇÃO DE VARIÁVEIS----------------------*/
-    private CardLayout cardLayout;
     private JPanel painelCriarSala;
     private static String idProfessor;
     
-    /*----------------------CONFIGURA O LAYOUT DE NAVEGAÇÃO------------------*/
-    public void setNavigation(CardLayout cardLayout, JPanel painelPrincipal) {
-        this.cardLayout = cardLayout;
-    }
-
     /*----------------------CONSTRUTOR DA TELA DE CRIAÇÃO DE SALA------------*/
     public TelaCriarSala(String idProfessor) {
+        
         /*----------------------CONFIGURAÇÕES DA JANELA-------------------*/
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setUndecorated(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.idProfessor = idProfessor;
 
-        /*----------------------CONFIGURA O LAYOUT DE CARTÕES-------------*/
-        cardLayout = new CardLayout();
-        painelCriarSala = new JPanel(cardLayout);
+        painelCriarSala = new JPanel();
 
         try {
             /*----------------------INSTANCIAÇÃO DOS PAINÉIS----------------*/
-            PanelCriarSala telaCriarSala = 
-                    new PanelCriarSala(painelCriarSala);
-            
-            PanelQuestPadrao painelQuestPadrao = 
-                    new PanelQuestPadrao(painelCriarSala);
-            
-            PanelQuestPersonalizada panelQuestPersonalizada = 
-                    new PanelQuestPersonalizada(painelCriarSala);
+            PanelCriarSala criarSala = 
+                    new PanelCriarSala();
+            setContentPane(criarSala);
 
-            /*----------------------ADICIONANDO PAINÉIS AO LAYOUT------------*/
-            painelCriarSala.add(telaCriarSala, "TelaCriarSala");
-            
-            painelCriarSala.add(panelQuestPersonalizada, 
-                    "TelaQuestPersonalizado");
-            
-            painelCriarSala.add(painelQuestPadrao, "TelaQuestPadrao");
-            
-            /*----------------------CONFIGURAÇÃO DO PAINEL INICIAL-----------*/
-            add(painelCriarSala);
-            cardLayout.show(painelCriarSala, "TelaCriarSala");
         } catch (IOException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Erro ao inicializar a tela: " 
                     + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         }
-    }
-    
-    /*----------------------ALTERA A TELA VISÍVEL NO CARDLAYOUT-------------*/
-    public void mostrarTela(String nomeTela) {
-        cardLayout.show(painelCriarSala, nomeTela);
     }
 
     /*----------------------MÉTODO MAIN PARA EXECUTAR A TELA----------------*/
@@ -101,13 +71,11 @@ public class TelaCriarSala extends JFrame {
         private JButton botaoVoltar;
 
         private TelaCriarSala CriarSala;
-        private final JPanel container;
         
         private String tipoSelecionado = null;
 
         /*----------------------CONSTRUTOR DO PAINEL DE CRIAÇÃO DE SALA------*/
-        public PanelCriarSala(JPanel container) throws IOException {
-            this.container = container;
+        public PanelCriarSala() throws IOException {
             setLayout(new GridBagLayout());
 
             /*----------------------CARREGAMENTO DAS IMAGENS------------------*/

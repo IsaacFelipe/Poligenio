@@ -12,15 +12,9 @@ public class TelaGifEntrada extends JFrame {
     Sistema sistema = Sistema.getInstance();
     
     /*----------------------DECLARAÇÃO DE VARIÁVEIS----------------------*/
-    private CardLayout cardLayout;
     private JPanel painelGif;
     private String idProfessor;
     private String tipoUsuario;
-
-    /*----------------------CONFIGURA O LAYOUT DE NAVEGAÇÃO------------------*/
-    public void setNavigation(CardLayout cardLayout, JPanel painelPrincipal) {
-        this.cardLayout = cardLayout;
-    }
 
     /*----------------------CONSTRUTOR DA TELA DE ACESSO---------------------*/
     public TelaGifEntrada(String idProfessor, String tipoUsuario) {
@@ -31,19 +25,12 @@ public class TelaGifEntrada extends JFrame {
         this.idProfessor = idProfessor;
         this.tipoUsuario = tipoUsuario;
 
-        /*----------------------CONFIGURA O LAYOUT DE CARTÕES-------------*/
-        cardLayout = new CardLayout();
-        painelGif = new JPanel(cardLayout);
-                
+        painelGif = new JPanel();     
 
         try {
             /*----------------------INSTANCIAÇÃO DO PAINEL----------------*/
             PanelGif panelGif = new PanelGif(tipoUsuario, idProfessor);
-            painelGif.add(panelGif, "TelaGifEntrada");
-
-            /*----------------------CONFIGURAÇÃO DO PAINEL INICIAL-----------*/
-            add(painelGif);
-            cardLayout.show(painelGif, "TelaGifEntrada");
+            setContentPane(panelGif);
 
         } catch (IOException e) {
             /*----------------------TRATAMENTO DE EXCEÇÕES-------------------*/
@@ -90,12 +77,17 @@ public class TelaGifEntrada extends JFrame {
 
             int duracaoGif = 22000;
 
-            javax.swing.Timer timer = new javax.swing.Timer(duracaoGif, (ActionEvent e) -> {
+            javax.swing.Timer timer = 
+                    new javax.swing.Timer(duracaoGif, (ActionEvent e) -> {
+                        
                 if (tipoUsuario.equalsIgnoreCase("professor")) {
-                    TelaLobbyProfessor lobbyProfessor = new TelaLobbyProfessor(idProfessor);
+                    TelaLobbyProfessor lobbyProfessor = 
+                            new TelaLobbyProfessor(idProfessor);
                     lobbyProfessor.setVisible(true);
-                    sistema.tocarMusica();
-                } else if (tipoUsuario.equalsIgnoreCase("aluno")) {
+                    sistema.tocarMusica();   
+                } 
+                
+                else if (tipoUsuario.equalsIgnoreCase("aluno")) {
                     TelaLobbyAluno lobbyAluno = new TelaLobbyAluno();
                     lobbyAluno.setVisible(true);
                     sistema.tocarMusica();

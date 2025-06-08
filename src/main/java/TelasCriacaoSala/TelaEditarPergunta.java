@@ -13,15 +13,8 @@ import javax.imageio.ImageIO;
 public class TelaEditarPergunta extends JFrame {
 
     /*----------------------DECLARAÇÃO DE VARIÁVEIS----------------------*/
-    private CardLayout cardLayout;
     private JPanel painelEditarPergunta;
     private static String idProfessor;
-    
-    /*---------------------CONFIGURA O LAYOUT DE NAVEGAÇÃO------------------*/
-    public void setNavigation(CardLayout cardLayout, JPanel painelPrincipal) {
-        this.cardLayout = cardLayout;
-        this.painelEditarPergunta = painelPrincipal;
-    }
     
     /*----------------------CONSTRUTOR DA TELA DE EDIÇÃO DE PERGUNTA---------*/
     public TelaEditarPergunta(String idProfessor) {
@@ -30,23 +23,14 @@ public class TelaEditarPergunta extends JFrame {
         setUndecorated(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        /*----------------------CONFIGURA O LAYOUT DE CARTÕES-------------*/
-        cardLayout = new CardLayout();
-        painelEditarPergunta = new JPanel(cardLayout);
+        painelEditarPergunta = new JPanel();
         this.idProfessor = idProfessor;
 
         try {
             /*----------------------INSTANCIAÇÃO DO PAINEL----------------*/
-            PanelEditarPergunta telaEditQuestionarioPanel = 
+            PanelEditarPergunta editarQuestionario = 
                     new PanelEditarPergunta();
-            
-            /*----------------------ADICIONANDO PAINEL AO LAYOUT-------------*/
-            painelEditarPergunta.add(telaEditQuestionarioPanel, 
-                    "TelaEditarPergunta");
-            
-            /*----------------------CONFIGURAÇÃO DO PAINEL INICIAL-----------*/
-            add(painelEditarPergunta);
-            cardLayout.show(painelEditarPergunta, "TelaEditarPergunta");
+            setContentPane(editarQuestionario);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(this, "Erro ao inicializar a tela: " 
                     + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
@@ -193,54 +177,100 @@ public class TelaEditarPergunta extends JFrame {
 
                     /*----------------------DIMENSIONAMENTO E POSICIONAMENTO----*/
                     double escala = 1.0;
-                    int larguraBoxMateria = (int) (imagemBoxMaterias.getWidth() * 0.7 * escala);
-                    int alturaBoxMateria = (int) (imagemBoxMaterias.getHeight() * 0.7 * escala);
-                    int larguraBoxPergunta = (int) (imagemBoxPergunta.getWidth() * 0.7 * escala);
-                    int alturaBoxPergunta = (int) (imagemBoxPergunta.getHeight() * 0.7 * escala);
-                    int larguraBoxAlternativa1 = (int) (imagemTextoAlternativa1.getWidth() * 0.7 * escala);
-                    int alturaBoxAlternativa1 = (int) (imagemTextoAlternativa1.getHeight() * 0.7 * escala);
-                    int larguraBoxAlternativa3 = (int) (imagemTextoAlternativa3.getWidth() * 0.7 * escala);
-                    int alturaBoxAlternativa3 = (int) (imagemTextoAlternativa3.getHeight() * 0.7 * escala);
-                    int larguraBoxAlternativa2 = (int) (imagemTextoAlternativa2.getWidth() * 0.7 * escala);
-                    int alturaBoxAlternativa2 = (int) (imagemTextoAlternativa2.getHeight() * 0.7 * escala);
-                    int larguraBoxAlternativa4 = (int) (imagemTextoAlternativa4.getWidth() * 0.7 * escala);
-                    int alturaBoxAlternativa4 = (int) (imagemTextoAlternativa4.getHeight() * 0.7 * escala);
-                    int larguraBotFacil = (int) (imagemBotaoDifFacil.getWidth() * 0.7 * escala);
-                    int alturaBotFacil = (int) (imagemBotaoDifFacil.getHeight() * 0.7 * escala);
-                    int larguraBotMedio = (int) (imagemBotaoDifMedio.getWidth() * 0.7 * escala);
-                    int alturaBotMedio = (int) (imagemBotaoDifMedio.getHeight() * 0.7 * escala);
-                    int larguraBotDificil = (int) (imagemBotaoDifDificil.getWidth() * 0.7 * escala);
-                    int alturaBotDificil = (int) (imagemBotaoDifDificil.getHeight() * 0.7 * escala);
-                    int larguraBotVoltar = (int) (imagemBotaoVoltar.getWidth() * 0.7 * escala);
-                    int alturaBotVoltar = (int) (imagemBotaoVoltar.getHeight() * 0.7 * escala);
-                    int larguraBotApagarQuest = (int) (imagemBotaoApagarPergunta.getWidth() * 0.7 * escala);
-                    int alturaBotApagarQuest = (int) (imagemBotaoApagarPergunta.getHeight() * 0.7 * escala);
-                    int larguraBotSalvar = (int) (imagemBotaoSalvar.getWidth() * 0.7 * escala);
-                    int alturaBotSalvar = (int) (imagemBotaoSalvar.getHeight() * 0.7 * escala);
+                    int larguraBoxMateria = (int) 
+                            (imagemBoxMaterias.getWidth() * 0.7 * escala);
+                    int alturaBoxMateria = (int)
+                            (imagemBoxMaterias.getHeight() * 0.7 * escala);
+                    
+                    int larguraBoxPergunta = (int)
+                            (imagemBoxPergunta.getWidth() * 0.7 * escala);
+                    int alturaBoxPergunta = (int)
+                            (imagemBoxPergunta.getHeight() * 0.7 * escala);
+                    
+                    int larguraBoxAlternativa1 = (int)
+                            (imagemTextoAlternativa1.getWidth() * 0.7 * escala);
+                    int alturaBoxAlternativa1 = (int)
+                            (imagemTextoAlternativa1.getHeight() * 0.7 * escala);
+                    
+                    int larguraBoxAlternativa3 = (int) 
+                            (imagemTextoAlternativa3.getWidth() * 0.7 * escala);
+                    int alturaBoxAlternativa3 = (int)
+                            (imagemTextoAlternativa3.getHeight() * 0.7 * escala);
+                    
+                    int larguraBoxAlternativa2 = (int)
+                            (imagemTextoAlternativa2.getWidth() * 0.7 * escala);
+                    int alturaBoxAlternativa2 = (int)
+                            (imagemTextoAlternativa2.getHeight() * 0.7 * escala);
+                    
+                    int larguraBoxAlternativa4 = (int)
+                            (imagemTextoAlternativa4.getWidth() * 0.7 * escala);
+                    int alturaBoxAlternativa4 = (int)
+                            (imagemTextoAlternativa4.getHeight() * 0.7 * escala);
+                    
+                    int larguraBotFacil = (int) 
+                            (imagemBotaoDifFacil.getWidth() * 0.7 * escala);
+                    int alturaBotFacil = (int) 
+                            (imagemBotaoDifFacil.getHeight() * 0.7 * escala);
+                    
+                    int larguraBotMedio = (int)
+                            (imagemBotaoDifMedio.getWidth() * 0.7 * escala);
+                    int alturaBotMedio = (int)
+                            (imagemBotaoDifMedio.getHeight() * 0.7 * escala);
+                    
+                    int larguraBotDificil = (int) 
+                            (imagemBotaoDifDificil.getWidth() * 0.7 * escala);
+                    int alturaBotDificil = (int) 
+                            (imagemBotaoDifDificil.getHeight() * 0.7 * escala);
+                    
+                    int larguraBotVoltar = (int) 
+                            (imagemBotaoVoltar.getWidth() * 0.7 * escala);
+                    int alturaBotVoltar = (int)
+                            (imagemBotaoVoltar.getHeight() * 0.7 * escala);
+                    
+                    int larguraBotApagarQuest = (int) 
+                            (imagemBotaoApagarPergunta.getWidth() * 0.7 * escala);
+                    int alturaBotApagarQuest = (int)
+                            (imagemBotaoApagarPergunta.getHeight() * 0.7 * escala);
+                    
+                    int larguraBotSalvar = (int)
+                            (imagemBotaoSalvar.getWidth() * 0.7 * escala);
+                    int alturaBotSalvar = (int) 
+                            (imagemBotaoSalvar.getHeight() * 0.7 * escala);
 
                     /*----------------------COORDENADAS DOS ELEMENTOS-----------*/
                     int xBoxMateria = centroX - (larguraBoxMateria / 2) + 300;
                     int yBoxMateria = (int) (h * 0.45) - 320;
+                    
                     int xBoxPer = centroX - (larguraBoxPergunta / 2);
                     int yBoxPer = (int) (h * 0.45) - 170;
+                    
                     int xBoxAlt1 = centroX - (larguraBoxAlternativa1 / 2) - 400;
                     int yBoxAlt1 = (int) (h * 0.45) + 40;
+                    
                     int xBoxAlt3 = centroX - (larguraBoxAlternativa3 / 2) - 400;
                     int yBoxAlt3 = yBoxAlt1 + alturaBoxAlternativa1 + (int)(90 * escala);
+                    
                     int xBoxAlt2 = centroX - (larguraBoxAlternativa2 / 2) + 345;
                     int yBoxAlt2 = yBoxAlt1;
+                    
                     int xBoxAlt4 = centroX - (larguraBoxAlternativa4 / 2) + 345;
                     int yBoxAlt4 = yBoxAlt3;
+                    
                     int xBotFac = (centroX - (larguraBotMedio / 2) - 20);
                     int yBotFac = (int) (h * 0.45) - 90;
+                    
                     int xBotMed = (centroX - (larguraBotMedio / 2) + 250);
                     int yBotMed = (int) (h * 0.45) - 90;
+                    
                     int xBotDif = (centroX - (larguraBotMedio / 2) + 520);
                     int yBotDif = (int) (h * 0.45) - 90;
+                    
                     int xVoltar = centroX - (larguraBotVoltar / 2) + 365;
                     int yVoltar = (int) (h * 0.45) + 400;
+                    
                     int xApagar = centroX - (larguraBotApagarQuest / 2) - 20;
                     int yApagar = yVoltar;
+                    
                     int xSalvar = centroX - (larguraBotApagarQuest / 2) - 365;
                     int ySalvar = yApagar;
 
@@ -462,7 +492,9 @@ public class TelaEditarPergunta extends JFrame {
                     break;
                 default:
                     if (botaoSelecionado == null) {
-                        JOptionPane.showMessageDialog(this, "Escolha um tipo de questionário ", "Erro", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(this, 
+                                "Escolha um tipo de questionário ", 
+                                "Erro", JOptionPane.ERROR_MESSAGE);
                     }
             }
         }
@@ -476,17 +508,28 @@ public class TelaEditarPergunta extends JFrame {
             int h = getHeight();
 
             /*----------------------CONFIGURAÇÃO DE RENDERIZAÇÃO-------------*/
-            g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
-            g2d.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
-            g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-            g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-            g2d.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
-            g2d.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
-            g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_PURE);
+            g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, 
+                    RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+            g2d.setRenderingHint(RenderingHints.KEY_RENDERING, 
+                    RenderingHints.VALUE_RENDER_QUALITY);
+            g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, 
+                    RenderingHints.VALUE_ANTIALIAS_ON);
+            g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
+                    RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+            g2d.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, 
+                    RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
+            g2d.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, 
+                    RenderingHints.VALUE_COLOR_RENDER_QUALITY);
+            g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, 
+                    RenderingHints.VALUE_STROKE_PURE);
             
             /*----------------------DESENHO DA IMAGEM DE FUNDO---------------*/
             if (imagemDeFundoEditarPerguntas != null) {
-                g2d.drawImage(imagemDeFundoEditarPerguntas, 0, 0, w, h, this);
+                g2d.drawImage(imagemDeFundoEditarPerguntas,
+                        0,
+                        0, 
+                        w,
+                        h, this);
             }
         }
     }

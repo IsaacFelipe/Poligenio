@@ -2,7 +2,6 @@
 package TelasLobby;
 
 /*----------------------IMPORTAÇÕES NECESSÁRIAS-----------------------------*/
-import TelasCriacaoSala.TelaListaPerguntas;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -15,15 +14,8 @@ import javax.imageio.ImageIO;
 public class TelaQuestionario extends JFrame {
     
     /*----------------------DECLARAÇÃO DE VARIÁVEIS----------------------*/
-    private CardLayout cardLayout;
     private JPanel painelQuestionario;
     private static String idProfessor;
-    
-    /*----------------------CONFIGURA O LAYOUT DE NAVEGAÇÃO------------------*/
-    public void setNavigation(CardLayout cardLayout, JPanel painelPrincipal) {
-        this.cardLayout = cardLayout;
-        this.painelQuestionario = painelPrincipal;
-    }
     
     /*----------------------CONSTRUTOR DA TELA DE QUESTIONÁRIO---------------*/
     public TelaQuestionario(String idProfessor) {
@@ -33,23 +25,15 @@ public class TelaQuestionario extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.idProfessor = idProfessor;
 
-        /*----------------------CONFIGURA O LAYOUT DE CARTÕES-------------*/
-        cardLayout = new CardLayout();
-        painelQuestionario = new JPanel(cardLayout);
+        painelQuestionario = new JPanel();
 
         try {
             /*----------------------INSTANCIAÇÃO DO PAINEL----------------*/
             PanelQuestionario telaQuestionarioPanel = 
                     new PanelQuestionario();
-            
-            painelQuestionario.add(telaQuestionarioPanel, "TelaQuestionario");
-            
-            /*----------------------CONFIGURAÇÃO DO PAINEL INICIAL-----------*/
-            add(painelQuestionario);
-            cardLayout.show(painelQuestionario, "TelaQuestionario");
+            setContentPane(telaQuestionarioPanel);
 
         } catch (IOException e) {
-            /*----------------------TRATAMENTO DE EXCEÇÕES-------------------*/
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Erro ao inicializar a tela: " 
                     + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
@@ -119,7 +103,7 @@ public class TelaQuestionario extends JFrame {
                     int centroX = w / 2;
 
                     /*----------------------DIMENSÕES DOS ELEMENTOS--------------*/
-                    double escala = 1.1; // Defina a escala conforme necessário
+                    double escala = 1.0;
                     
                     int larguraBotUsarQuest = (int) 
                         (imagemBotaoUsarQuestionario.getWidth() * 0.7 * escala);
@@ -139,11 +123,11 @@ public class TelaQuestionario extends JFrame {
                     int larguraBotNovoQuest = (int) 
                         (imagemBotaoNovoQuestionario.getWidth() * 0.7 * escala);
                     int alturaBotNovoQuest = (int) 
-                       (imagemBotaoNovoQuestionario.getHeight() * 0.7 * escala);
+                        (imagemBotaoNovoQuestionario.getHeight() * 0.7 * escala);
                     
                     /*----------------------POSICIONAMENTO DOS ELEMENTOS---------*/
-                    int xUsarQuest = centroX - (larguraBotUsarQuest / 2) - 370;
-                    int yUsarQuest = (int) (h * 0.45) + 355;
+                    int xUsarQuest = centroX - (larguraBotUsarQuest / 2) - 340;
+                    int yUsarQuest = (int) (h * 0.45) + 315;
                     
                     int xEditar = centroX - (larguraBotUsarQuest / 2) - 90;
                     int yEditar = yUsarQuest;
@@ -151,8 +135,8 @@ public class TelaQuestionario extends JFrame {
                     int xVoltar = centroX - (larguraBotVoltar / 2) + 110;
                     int yVoltar = yUsarQuest;
                     
-                    int xNovoQuest = centroX - (larguraBotUsarQuest / 2) + 370;
-                    int yNovoQuest = (int) (h * 0.45) + 355;
+                    int xNovoQuest = centroX - (larguraBotUsarQuest / 2) + 340;
+                    int yNovoQuest = (int) (h * 0.45) + 315;
                     
                     /*----------------------CONFIGURAÇÃO DOS BOTÕES--------------*/
                     botaoUsarQuestionario.setBounds(xUsarQuest, 

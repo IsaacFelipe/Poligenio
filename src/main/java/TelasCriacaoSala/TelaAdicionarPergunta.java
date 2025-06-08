@@ -18,18 +18,11 @@ import javax.imageio.ImageIO;
 public class TelaAdicionarPergunta extends JFrame {
     
 /*-------------------------DECLARAÇÃO DE VARIÁVEIS----------------------------*/
-    private CardLayout cardLayout;
     private JPanel painelAdicionarPergunta;
     private static String materiaSala;
     private static String idMateria;
     private static String idProfessor;
     private static String codigoSala;
-    
-/*---------------------CONFIGURA O LAYOUT DE NAVEGAÇÃO------------------------*/
-    public void setNavigation(CardLayout cardLayout, JPanel painelPrincipal) {
-        this.cardLayout = cardLayout;
-        this.painelAdicionarPergunta = painelPrincipal;
-    }
     
 /*-----------------CONSTRUTOR DA TELA DE ADIÇÃO DE PERGUNTA-------------------*/
     public TelaAdicionarPergunta(String materiaSala,
@@ -46,22 +39,13 @@ public class TelaAdicionarPergunta extends JFrame {
         this.idProfessor = idProfessor;
         this.codigoSala = codigoSala;
 
-/*-----------------------CONFIGURA O LAYOUT DE CARTÕES------------------------*/
-        cardLayout = new CardLayout();
-        painelAdicionarPergunta = new JPanel(cardLayout);
+        painelAdicionarPergunta = new JPanel();
 
         try {
 /*--------------------------INSTANCIAÇÃO DO PAINEL----------------------------*/
-            PanelAdicionarPerguntas telaQuestionarioPanel = 
+            PanelAdicionarPerguntas adicionarPergunta = 
                     new PanelAdicionarPerguntas();
-            
-/*-----------------------ADICIONANDO PAINEL AO LAYOUT-------------------------*/
-            painelAdicionarPergunta.add(telaQuestionarioPanel, 
-                    "TelaAdicionarPergunta");
-            
-/*----------------------CONFIGURAÇÃO DO PAINEL INICIAL------------------------*/
-            add(painelAdicionarPergunta);
-            cardLayout.show(painelAdicionarPergunta, "TelaAdicionarPergunta");
+            setContentPane(adicionarPergunta);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(this, "Erro ao inicializar a tela: " 
                     + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);

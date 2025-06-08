@@ -1,7 +1,7 @@
 /*----------------------PACOTE QUE PERTENCE A CLASSE--------------------------*/
 package TelasLobby;
 
-/*----------------------IMPORTAÇÕES NECESSÁRIAS-----------------------------*/
+/*------------------------IMPORTAÇÕES NECESSÁRIAS-----------------------------*/
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -10,54 +10,36 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
-/*----------------------CLASSE PRINCIPAL DA TELA DE CÓDIGO-------------------*/
+/*--------------------CLASSE PRINCIPAL DA TELA DE CÓDIGO----------------------*/
 public class TelaCodigo extends JFrame {
 
-    /*----------------------DECLARAÇÃO DE VARIÁVEIS----------------------*/
-    private CardLayout cardLayout;
+/*-------------------------DECLARAÇÃO DE VARIÁVEIS----------------------------*/
     private JPanel painelCodigo;
-    
-    /*----------------------CONFIGURA O LAYOUT DE NAVEGAÇÃO------------------*/
-    public void setNavigation(CardLayout cardLayout, JPanel painelPrincipal) {
-        this.cardLayout = cardLayout;
-    }
 
-    /*----------------------CONSTRUTOR DA TELA DE CÓDIGO--------------------*/
+/*-----------------------CONSTRUTOR DA TELA DE CÓDIGO-------------------------*/
     public TelaCodigo() {
-        /*----------------------CONFIGURAÇÕES DA JANELA-------------------*/
+        
+/*--------------------------CONFIGURAÇÕES DA JANELA---------------------------*/
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setUndecorated(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        /*----------------------CONFIGURA O LAYOUT DE CARTÕES-------------*/
-        cardLayout = new CardLayout();
-        painelCodigo = new JPanel(cardLayout);
+        painelCodigo = new JPanel();
 
         try {
-            /*----------------------INSTANCIAÇÃO DO PAINEL----------------*/
-            PanelCodigo telaCodigoPanel = new PanelCodigo(painelCodigo);
-            
-            painelCodigo.add(telaCodigoPanel, "TelaCodigo");
-            
-            /*----------------------CONFIGURAÇÃO DO PAINEL INICIAL-----------*/
-            add(painelCodigo);
-            cardLayout.show(painelCodigo, "TelaCodigo");
+/*---------------------------INSTANCIAÇÃO DO PAINEL---------------------------*/
+            PanelCodigo telaCodigoPanel = new PanelCodigo();
+            setContentPane(telaCodigoPanel);
 
         } catch (IOException e) {
-            /*----------------------TRATAMENTO DE EXCEÇÕES-------------------*/
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, 
                     "Erro ao inicializar a tela: " 
                     + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }
-    
-    /*----------------------MOSTRA TELA ESPECÍFICA NO CARD LAYOUT------------*/
-    public void mostrarTela(String nomeTela) {
-        cardLayout.show(painelCodigo, nomeTela);
-    }
 
-    /*----------------------MÉTODO MAIN PARA EXECUTAR A TELA----------------*/
+/*----------------------MÉTODO MAIN PARA EXECUTAR A TELA----------------------*/
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             TelaCodigo tela = new TelaCodigo();
@@ -65,10 +47,10 @@ public class TelaCodigo extends JFrame {
         });
     }
 
-    /*----------------------CLASSE INTERNA: PAINEL DE CÓDIGO-----------------*/
+/*-----------------------CLASSE INTERNA: PAINEL DE CÓDIGO---------------------*/
     public static class PanelCodigo extends JPanel {
         
-        /*----------------------DECLARAÇÃO DE VARIÁVEIS----------------------*/
+/*---------------------------DECLARAÇÃO DE VARIÁVEIS--------------------------*/
         private int xInput, yInput, larguraInputCod, alturaInputCod;
 
         private BufferedImage imagemDeFundoCodigo;
@@ -79,15 +61,12 @@ public class TelaCodigo extends JFrame {
         private JButton botaoEntrarCod;
         private JButton botaoVoltarCod;
         private JTextField campoTextoCodigo;
-        
-        private final JPanel container;
 
-        /*----------------------CONSTRUTOR DO PAINEL DE CÓDIGO---------------*/
-        public PanelCodigo(JPanel container) throws IOException {
-            this.container = container;
+/*------------------------CONSTRUTOR DO PAINEL DE CÓDIGO----------------------*/
+        public PanelCodigo() throws IOException {
             setLayout(new GridBagLayout());
 
-            /*----------------------CARREGAMENTO DAS IMAGENS------------------*/
+/*---------------------------CARREGAMENTO DAS IMAGENS-------------------------*/
             imagemDeFundoCodigo = ImageIO.read
     (getClass().getResource("/ImagensTelaCodigo/telaCodigo.png"));
             
@@ -100,13 +79,13 @@ public class TelaCodigo extends JFrame {
             imagemInputCodigo = ImageIO.read
     (getClass().getResource("/ImagensTelaCodigo/inputCodigo.png"));
 
-            /*----------------------CRIAÇÃO DO PAINEL DE CONTEÚDO-------------*/
+/*------------------------CRIAÇÃO DO PAINEL DE CONTEÚDO-----------------------*/
             JPanel painelConteudo = new JPanel(null) {
                 @Override
                 protected void paintComponent(Graphics g) {
                     super.paintComponent(g);
 
-                    /*----------------------CONFIGURAÇÃO GRÁFICA----------------*/
+/*-----------------------------CONFIGURAÇÃO GRÁFICA---------------------------*/
                     Graphics2D g2d = (Graphics2D) g;
                     g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
                             RenderingHints.VALUE_INTERPOLATION_BILINEAR);
@@ -115,28 +94,27 @@ public class TelaCodigo extends JFrame {
 
                     int w = getWidth();
                     int h = getHeight();
-
-                    /*----------------------CALCULA O CENTRO DA TELA------------*/
                     int centroX = w / 2;
 
-                    /*----------------------DIMENSÕES DOS ELEMENTOS--------------*/
-                    double escala = 1.0; // Defina a escala conforme necessário
+/*----------------------------DIMENSÕES DOS ELEMENTOS-------------------------*/
+/*----------------------------DE ACORDO COM UMA ESCALA------------------------*/
+                    double escala = 1.0;
                     int larguraEntarCod = (int) 
-                            (imagemBotaoEntrarCodigo.getWidth() * 0.7 * escala);
+                        (imagemBotaoEntrarCodigo.getWidth() * 0.7 * escala);
                     int alturaEntrarCod = (int) 
-                            (imagemBotaoEntrarCodigo.getHeight() * 0.7 * escala);
+                        (imagemBotaoEntrarCodigo.getHeight() * 0.7 * escala);
                     
                     int larguraBotVoltCod = (int) 
-                            (imagemBotaoVoltarCodigo.getWidth() * 0.7 * escala);
+                        (imagemBotaoVoltarCodigo.getWidth() * 0.7 * escala);
                     int alturaBotVoltCod = (int) 
-                            (imagemBotaoVoltarCodigo.getHeight() * 0.7 * escala);
+                        (imagemBotaoVoltarCodigo.getHeight() * 0.7 * escala);
                     
                     larguraInputCod = (int) 
-                            (imagemInputCodigo.getWidth() * 0.7 * escala);
+                        (imagemInputCodigo.getWidth() * 0.7 * escala);
                     alturaInputCod = (int) 
-                            (imagemInputCodigo.getHeight() * 0.7 * escala);
+                        (imagemInputCodigo.getHeight() * 0.7 * escala);
 
-                    /*----------------------POSICIONAMENTO DOS ELEMENTOS---------*/
+/*---------------------POSICIONAMENTO DOS ELEMENTOS NA TELA-------------------*/
                     xInput = centroX - (larguraInputCod/2) - 15;
                     yInput = (int) (h * 0.45) - 40;
                     
@@ -145,7 +123,7 @@ public class TelaCodigo extends JFrame {
                     int xVolt = centroX - (larguraBotVoltCod / 2) - 15;
                     int yVolt = yEntrar + alturaEntrarCod + (int)(5 * escala); 
 
-                    /*----------------------CONFIGURAÇÃO DOS BOTÕES E CAMPO------*/
+/*------------------------CONFIGURAÇÃO DOS BOTÕES E CAMPO---------------------*/
                     botaoEntrarCod.setBounds(xEntrar, 
                             yEntrar, 
                             larguraEntarCod, 
@@ -162,7 +140,7 @@ public class TelaCodigo extends JFrame {
                             (int)(400 * escala), 
                             (int)(50 * escala));
 
-                    /*----------------------DESENHO DOS ELEMENTOS----------------*/
+/*--------------------------DESENHO DOS ELEMENTOS-----------------------------*/
                     g2d.drawImage(imagemBotaoEntrarCodigo, 
                             xEntrar, 
                             yEntrar, 
@@ -182,10 +160,10 @@ public class TelaCodigo extends JFrame {
                             alturaInputCod, this);
                 }
             };
-            /*----------------------CONFIGURAÇÃO DO PAINEL DE CONTEÚDO-------*/
+/*----------------------CONFIGURAÇÃO DO PAINEL DE CONTEÚDO--------------------*/
             painelConteudo.setOpaque(false);
 
-            /*----------------------CONFIGURAÇÃO DO BOTÃO ENTRAR-------------*/
+/*-------------------------CONFIGURAÇÃO DO BOTÃO ENTRAR-----------------------*/
             botaoEntrarCod = new JButton();
             botaoEntrarCod.setBorderPainted(false);
             botaoEntrarCod.setContentAreaFilled(false);
@@ -194,7 +172,7 @@ public class TelaCodigo extends JFrame {
             botaoEntrarCod.setCursor(new Cursor(Cursor.HAND_CURSOR));
             painelConteudo.add(botaoEntrarCod);
 
-            /*----------------------CONFIGURAÇÃO DO BOTÃO VOLTAR-------------*/
+/*--------------------------CONFIGURAÇÃO DO BOTÃO VOLTAR----------------------*/
             botaoVoltarCod = new JButton();
             botaoVoltarCod.setBorderPainted(false);
             botaoVoltarCod.setContentAreaFilled(false);
@@ -202,7 +180,6 @@ public class TelaCodigo extends JFrame {
             botaoVoltarCod.setOpaque(false);
             botaoVoltarCod.setCursor(new Cursor(Cursor.HAND_CURSOR));
             botaoVoltarCod.addActionListener(e -> {
-                /*----------------------ABRE TELA DO LOBBY ALUNO---------*/
                 TelaLobbyAluno criarSala = new TelaLobbyAluno();
                 criarSala.setVisible(true);
                 Window janela = SwingUtilities.getWindowAncestor
@@ -213,7 +190,7 @@ public class TelaCodigo extends JFrame {
             });
             painelConteudo.add(botaoVoltarCod);
 
-            /*----------------------CONFIGURAÇÃO DO CAMPO CÓDIGO-------------*/
+/*---------------------------CONFIGURAÇÃO DO CAMPO CÓDIGO---------------------*/
             campoTextoCodigo = new JTextField();
             campoTextoCodigo.setBorder(null);
             campoTextoCodigo.setOpaque(false);
@@ -221,23 +198,26 @@ public class TelaCodigo extends JFrame {
             campoTextoCodigo.setFont(new Font("Jockey One", Font.BOLD, 30));
             painelConteudo.add(campoTextoCodigo);
             
-            /*----------------------CONFIGURAÇÃO DO EVENTO DE CLIQUE---------*/
+/*-------------------------CONFIGURAÇÃO DO EVENTO DE CLIQUE-------------------*/
             painelConteudo.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    Rectangle areaInput = new Rectangle(xInput, yInput, larguraInputCod, alturaInputCod);
+                    Rectangle areaInput = new Rectangle(xInput, 
+                            yInput, 
+                            larguraInputCod,
+                            alturaInputCod);
                     if (areaInput.contains(e.getPoint())) {
                         campoTextoCodigo.requestFocusInWindow();
                     }
                 }       
             });
                     
-            /*----------------------CONFIGURAÇÃO DO LAYOUT--------------------*/
+/*----------------------------CONFIGURAÇÃO DO LAYOUT--------------------------*/
             setLayout(new BorderLayout());
             add(painelConteudo, BorderLayout.CENTER);
         }
 
-        /*----------------------PINTURA DO FUNDO DO PAINEL-------------------*/
+/*-------------------------PINTURA DO FUNDO DO PAINEL-------------------------*/
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
@@ -246,7 +226,7 @@ public class TelaCodigo extends JFrame {
             int w = getWidth();
             int h = getHeight();
 
-            /*----------------------CONFIGURAÇÃO DE RENDERIZAÇÃO-------------*/
+/*-------------------------CONFIGURAÇÃO DE RENDERIZAÇÃO-----------------------*/
             g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, 
                     RenderingHints.VALUE_INTERPOLATION_BICUBIC);
             g2d.setRenderingHint(RenderingHints.KEY_RENDERING, 
@@ -262,9 +242,12 @@ public class TelaCodigo extends JFrame {
             g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, 
                     RenderingHints.VALUE_STROKE_PURE);
 
-            /*----------------------DESENHO DA IMAGEM DE FUNDO---------------*/
+/*------------------------DESENHO DA IMAGEM DE FUNDO--------------------------*/
             if (imagemDeFundoCodigo != null) {
-                g2d.drawImage(imagemDeFundoCodigo, 0, 0, w, h, this);
+                g2d.drawImage(imagemDeFundoCodigo, 0,
+                        0,
+                        w,
+                        h, this);
             }
         }
     }

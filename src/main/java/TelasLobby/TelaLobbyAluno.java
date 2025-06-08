@@ -16,7 +16,6 @@ import javax.imageio.ImageIO;
 public class TelaLobbyAluno extends JFrame {
 
 /*--------------------------DECLARAÇÃO DE VARIÁVEIS---------------------------*/
-    private CardLayout cardLayout;
     private JPanel painelLobbyAluno;
 
 /*----------------------CONSTRUTOR DA TELA DE LOBBY ALUNO---------------------*/
@@ -26,32 +25,15 @@ public class TelaLobbyAluno extends JFrame {
         setUndecorated(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        /*----------------------CONFIGURA O LAYOUT DE CARTÕES-------------*/
-        cardLayout = new CardLayout();
-        painelLobbyAluno = new JPanel(cardLayout);
+        painelLobbyAluno = new JPanel();
         /*----------------------INSTANCIA O SISTEMA----------------------*/
         Sistema sistema = Sistema.getInstance();
 
         try {
             /*----------------------INSTANCIAÇÃO DOS PAINÉIS----------------*/
             PanelLobbyAluno telaLobbyAlunoPanel = 
-                    new PanelLobbyAluno(painelLobbyAluno);
-            PanelCodigo telaCodigoPanel = new PanelCodigo(painelLobbyAluno);
-            TelaInicial telaInicial = new TelaInicial("", "", sistema);
-            PanelConfiguracao telaConfigPanel = new PanelConfiguracao(
-                    cardLayout, 
-                    painelLobbyAluno, 
-                    painelLobbyAluno, 
-                    telaInicial, 
-                    sistema);
-
-            painelLobbyAluno.add(telaLobbyAlunoPanel, "TelaLobbyAluno");
-            painelLobbyAluno.add(telaCodigoPanel, "TelaCodigo");
-            painelLobbyAluno.add(telaConfigPanel, "TelaConfiguracao");
-
-            /*----------------------CONFIGURAÇÃO DO PAINEL INICIAL-----------*/
-            add(painelLobbyAluno);
-            cardLayout.show(painelLobbyAluno, "TelaLobbyAluno");
+                    new PanelLobbyAluno();
+            setContentPane(telaLobbyAlunoPanel);
 
         } catch (IOException e) {
             /*----------------------TRATAMENTO DE EXCEÇÕES-------------------*/
@@ -59,11 +41,6 @@ public class TelaLobbyAluno extends JFrame {
             JOptionPane.showMessageDialog(this, "Erro ao inicializar a tela: " 
                     + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         }
-    }
-    
-    /*----------------------MOSTRA TELA ESPECÍFICA NO CARD LAYOUT------------*/
-    public void mostrarTela(String nomeTela) {
-        cardLayout.show(painelLobbyAluno, nomeTela);
     }
 
     /*----------------------MÉTODO MAIN PARA EXECUTAR A TELA----------------*/
@@ -87,11 +64,8 @@ public class TelaLobbyAluno extends JFrame {
         private JButton botaoConfig;
         private JTextField campoCash;
 
-        private final JPanel container;
-
         /*----------------------CONSTRUTOR DO PAINEL DE LOBBY ALUNO----------*/
-        public PanelLobbyAluno(JPanel container) throws IOException {
-            this.container = container;
+        public PanelLobbyAluno() throws IOException {
             setLayout(new GridBagLayout());
 
             /*----------------------CARREGAMENTO DAS IMAGENS------------------*/
@@ -221,8 +195,15 @@ public class TelaLobbyAluno extends JFrame {
             botaoConfig.addActionListener(e -> {
                 /*----------------------NAVEGA PARA TELA DE CONFIGURAÇÃO-----*/
                 ControleLobby.setOrigem(ControleLobby.Origem.LOBBY_ALUNO);
-                CardLayout cardLayout = (CardLayout) container.getLayout();
-                cardLayout.show(container, "TelaConfiguracao");
+                TelaConfiguracao configuracao = 
+                                new TelaConfiguracao("");
+                        configuracao.setVisible(true);
+                        
+                        Window janela = SwingUtilities.getWindowAncestor
+                                (PanelLobbyAluno.this);
+                        if (janela instanceof JFrame) {
+                            janela.dispose();
+                        } 
             });
             painelConteudo.add(botaoConfig);
 

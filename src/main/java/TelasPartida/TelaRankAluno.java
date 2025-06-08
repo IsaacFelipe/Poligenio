@@ -11,35 +11,26 @@ import javax.imageio.ImageIO;
 /*----------------------CLASSE PRINCIPAL DA TELA DE RANK ALUNO---------------*/
 public class TelaRankAluno extends JFrame {
 
-    /*----------------------DECLARAÇÃO DE VARIÁVEIS----------------------*/
-    private CardLayout cardLayout;
+/*---------------------------DECLARAÇÃO DE VARIÁVEIS--------------------------*/
     private JPanel painelPrincipal;
     private static String idProfessor;
 
-    /*----------------------CONSTRUTOR DA TELA DE RANK ALUNO-----------------*/
+/*-----------------------CONSTRUTOR DA TELA DE RANK ALUNO---------------------*/
     public TelaRankAluno(String idProfessor) {
         
-        /*----------------------CONFIGURAÇÕES DA JANELA-------------------*/
+/*---------------------------CONFIGURAÇÕES DA JANELA--------------------------*/
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setUndecorated(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.idProfessor = idProfessor;
 
-        /*----------------------CONFIGURA O LAYOUT DE CARTÕES-------------*/
-        cardLayout = new CardLayout();
-        painelPrincipal = new JPanel(cardLayout);
+        painelPrincipal = new JPanel();
 
         try {
             /*----------------------INSTANCIAÇÃO DO PAINEL----------------*/
             PanelRankAluno panelRank = new PanelRankAluno();
-            painelPrincipal.add(panelRank, "TelaRankAluno");
-            
-            /*----------------------CONFIGURAÇÃO DO PAINEL INICIAL-----------*/
-            add(painelPrincipal);
-            cardLayout.show(painelPrincipal, "TelaRankAluno");
-
+            setContentPane(panelRank);
         } 
-        /*----------------------TRATAMENTO DE EXCEÇÕES-------------------*/
         catch (IOException e) {           
             JOptionPane.showMessageDialog(this, "Erro: " 
                     + e.getMessage(), 
@@ -95,15 +86,15 @@ public class TelaRankAluno extends JFrame {
                     int centroX = w / 2;
 
                     /*----------------------DIMENSÕES DOS ELEMENTOS--------------*/
-                    double escala = 1.0; // Defina a escala conforme necessário
+                    double escala = 1.0;
                     int larguraBotaoRetornar = (int) 
                             (imagemBotaoRetornar.getWidth() * 0.7 * escala);
                     int alturaBotaoRetornar = (int) 
                             (imagemBotaoRetornar.getHeight() * 0.7 * escala);
                     
                     /*----------------------POSICIONAMENTO DOS ELEMENTOS---------*/
-                    int xRetornar = centroX - (larguraBotaoRetornar / 2) + 550;
-                    int yRetornar = (int) (h * 0.45) + 450;
+                    int xRetornar = centroX - (larguraBotaoRetornar / 2) + 375;
+                    int yRetornar = (int) (h * 0.45) + 300;
 
                     /*----------------------CONFIGURAÇÃO DOS BOTÕES--------------*/
                     botaoRetornar.setBounds(xRetornar,
@@ -139,13 +130,33 @@ public class TelaRankAluno extends JFrame {
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
+            Graphics2D g2d = (Graphics2D) g;
+
+            int w = getWidth();
+            int h = getHeight();
+
+            /*----------------------CONFIGURAÇÃO DE RENDERIZAÇÃO-------------*/
+            g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, 
+                    RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+            g2d.setRenderingHint(RenderingHints.KEY_RENDERING, 
+                    RenderingHints.VALUE_RENDER_QUALITY);
+            g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, 
+                    RenderingHints.VALUE_ANTIALIAS_ON);
+            g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, 
+                    RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+            g2d.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, 
+                    RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
+            g2d.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, 
+                    RenderingHints.VALUE_COLOR_RENDER_QUALITY);
+            g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, 
+                    RenderingHints.VALUE_STROKE_PURE);
             /*----------------------DESENHO DA IMAGEM DE FUNDO---------------*/
             if (imagemFundoTelaRank != null) {
                 g.drawImage(imagemFundoTelaRank, 
                         0, 
                         0, 
-                        getWidth(), 
-                        getHeight(), this);
+                        w, 
+                        h, this);
             }
         }
     }

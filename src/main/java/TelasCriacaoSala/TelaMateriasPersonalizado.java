@@ -15,14 +15,9 @@ import javax.imageio.ImageIO;
 /*-----------------------CRIAÇÃO DA CLASSE E VARIÁVEIS------------------------*/
 public class TelaMateriasPersonalizado extends JFrame {
     
-    private CardLayout cardLayout;
     private JPanel painelMateriaPersonalizado;
     private static String textoNomeQuiz;
     private static String idProfessor;
-    
-    public void setNavigation(CardLayout cardLayout, JPanel painelPrincipal) {
-        this.cardLayout = cardLayout;
-    }
 
     public TelaMateriasPersonalizado(String textoNomeQuiz,String idProfessor) {
         setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -31,17 +26,12 @@ public class TelaMateriasPersonalizado extends JFrame {
         this.textoNomeQuiz = textoNomeQuiz;
         this.idProfessor = idProfessor;
 
-        cardLayout = new CardLayout();
-        painelMateriaPersonalizado = new JPanel(cardLayout);
+        painelMateriaPersonalizado = new JPanel();
 
         try {
-            PanelMateriaPersonalizada panelMateriaPersonalizada = 
+            PanelMateriaPersonalizada materiaPersonalizada = 
                     new PanelMateriaPersonalizada();
-            
-            painelMateriaPersonalizado.add(panelMateriaPersonalizada, 
-                    "TelaMateriasPersonalizado");
-            
-            add(painelMateriaPersonalizado);
+            setContentPane(materiaPersonalizada);
 
         } 
         catch (IOException e) {

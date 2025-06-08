@@ -16,17 +16,8 @@ import javax.imageio.ImageIO;
 public class TelaConfiguracao extends JFrame {
     
 /*---------------------------DECLARAÇÃO DE VARIÁVEIS--------------------------*/
-    private CardLayout cardLayout;
     private JPanel painelConfiguracao;
     private static String idProfessor;
-    
-/*-----------------------CONFIGURA O LAYOUT DE NAVEGAÇÃO----------------------*/
-    public void setNavigation(CardLayout cardLayout, 
-            JPanel painelPrincipal) throws IOException {
-        
-        this.cardLayout = cardLayout;
-        this.painelConfiguracao = painelPrincipal;
-    }
     
 /*----------------------CONSTRUTOR DA TELA DE CONFIGURAÇÃO--------------------*/
     public TelaConfiguracao(String idProfessor) {
@@ -36,9 +27,7 @@ public class TelaConfiguracao extends JFrame {
         setUndecorated(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-/*------------------------CONFIGURA O LAYOUT DE CARTÕES-----------------------*/
-        cardLayout = new CardLayout();
-        painelConfiguracao = new JPanel(cardLayout);
+        painelConfiguracao = new JPanel();
         
 /*----------------------------INSTANCIA O SISTEMA-----------------------------*/
         Sistema sistema = Sistema.getInstance();
@@ -49,17 +38,11 @@ public class TelaConfiguracao extends JFrame {
             
 /*---------------------------INSTANCIAÇÃO DO PAINEL---------------------------*/
             PanelConfiguracao telaConfigPanel = 
-                    new PanelConfiguracao(cardLayout, 
-                            painelConfiguracao, 
-                            painelConfiguracao, 
-                            telaInicial, sistema);
+                    new PanelConfiguracao(painelConfiguracao, 
+                            telaInicial, 
+                            sistema);
+            setContentPane(telaConfigPanel);
             
-            painelConfiguracao.add(telaInicial, "TelaInicial");
-            painelConfiguracao.add(telaConfigPanel, "TelaConfiguracao");
-            
-/*-----------------------CONFIGURAÇÃO DO PAINEL INICIAL-----------------------*/
-            add(painelConfiguracao);
-            cardLayout.show(painelConfiguracao, "TelaConfiguracao");
         } 
         
 /*---------------------------TRATAMENTO DE EXCEÇÕES---------------------------*/
@@ -69,11 +52,6 @@ public class TelaConfiguracao extends JFrame {
                     "Erro ao inicializar a tela: " 
                         + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         }
-    }
-    
-/*--------------------MOSTRA TELA ESPECÍFICA NO CARD LAYOUT-------------------*/
-    public void mostrarTela(String nomeTela) {
-        cardLayout.show(painelConfiguracao, nomeTela);
     }
     
 /*-----------------------MÉTODO MAIN PARA EXECUTAR A TELA---------------------*/
@@ -100,23 +78,18 @@ public class TelaConfiguracao extends JFrame {
         private JButton botaoDesconectar;
         
         private final JPanel painelPrincipal;
-        private final CardLayout cardLayout;
-        private final JPanel container;
         private final TelaInicial telaInicial;
         private final boolean musicaTocando = true;
         private final Sistema sistema;
         
 /*----------------------CONSTRUTOR DO PAINEL DE CONFIGURAÇÃO------------------*/
-        public PanelConfiguracao(CardLayout cardLayout, 
+        public PanelConfiguracao( 
                 JPanel painelPrincipal, 
-                JPanel container, 
                 TelaInicial telaInicial, 
                 Sistema sistema) throws IOException {
             
             this.sistema = sistema;
             this.telaInicial = telaInicial;
-            this.container = container;
-            this.cardLayout = cardLayout;
             this.painelPrincipal = painelPrincipal;
             setLayout(new GridBagLayout());
 
@@ -310,12 +283,25 @@ public class TelaConfiguracao extends JFrame {
                 /*----------------------NAVEGA PARA TELA DE ORIGEM-----------*/
                 switch (ControleLobby.getOrigem()) {
                     case LOBBY_PROFESSOR:
-                        cardLayout.show(painelPrincipal, 
-                                "TelaLobbyProfessor");
+                        TelaLobbyProfessor lobbyProfessor = 
+                                new TelaLobbyProfessor(idProfessor);
+                        lobbyProfessor.setVisible(true);
+                        
+                        Window janelaProf = SwingUtilities.getWindowAncestor
+                                            (PanelConfiguracao.this);
+                        if (janelaProf instanceof JFrame) {
+                            janelaProf.dispose();
+                        }
                         break;
                     case LOBBY_ALUNO:
-                        cardLayout.show(painelPrincipal, 
-                                "TelaLobbyAluno");
+                        TelaLobbyAluno lobbyAluno = new TelaLobbyAluno();
+                        lobbyAluno.setVisible(true);
+                        
+                        Window janelaAluno = SwingUtilities.getWindowAncestor
+                                            (PanelConfiguracao.this);
+                        if (janelaAluno instanceof JFrame) {
+                            janelaAluno.dispose();
+                        }
                         break;
                 }
             });

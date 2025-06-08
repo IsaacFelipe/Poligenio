@@ -1,8 +1,6 @@
 /*----------------------IMPORTAÇÕES NECESSÁRIAS-----------------------------*/
 package TelasCriacaoSala;
 
-import TelasCriacaoSala.TelaQuestPadrao;
-import TelasCriacaoSala.TelaQuestPadraoCriacao;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -15,16 +13,10 @@ import javax.imageio.ImageIO;
 public class TelaSelecaoAnos extends JFrame {
     
     /*----------------------DECLARAÇÃO DE VARIÁVEIS----------------------*/
-    private CardLayout cardLayout;
     private JPanel painelSelecaoAnos;
     private static String materia;
     private static String idProfessor;
 
-    /*----------------------CONFIGURA O LAYOUT DE NAVEGAÇÃO------------------*/
-    public void setNavigation(CardLayout cardLayout, JPanel painelPrincipal) {
-        this.cardLayout = cardLayout;
-        this.painelSelecaoAnos = painelPrincipal;
-    }
 
     /*----------------------CONSTRUTOR DA TELA DE SELEÇÃO DE ANOS------------*/
     public TelaSelecaoAnos(String materia, String idProfessor) {
@@ -35,21 +27,17 @@ public class TelaSelecaoAnos extends JFrame {
         this.materia = materia;
         this.idProfessor = idProfessor;
 
-        /*----------------------CONFIGURA O LAYOUT DE CARTÕES-------------*/
-        cardLayout = new CardLayout();
-        painelSelecaoAnos = new JPanel(cardLayout);
+        painelSelecaoAnos = new JPanel();
 
         try {
             /*----------------------INSTANCIAÇÃO DO PAINEL----------------*/
-            PanelSelecaoAnos telaEsperoPanel = new PanelSelecaoAnos();
-            painelSelecaoAnos.add(telaEsperoPanel, "TelaSelecaoAnos");
-
-            /*----------------------CONFIGURAÇÃO DO PAINEL INICIAL-----------*/
-            add(painelSelecaoAnos);
-            cardLayout.show(painelSelecaoAnos, "TelaSelecaoAnos");
+            PanelSelecaoAnos selecaoAnos = new PanelSelecaoAnos();
+            setContentPane(selecaoAnos);
+            
         } catch (IOException e) {
             e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Erro ao inicializar a tela: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Erro ao inicializar a tela: " 
+                    + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -176,16 +164,24 @@ public class TelaSelecaoAnos extends JFrame {
                     int ySexSet = (int) (h * 0.45) - 130;
                     
                     int xOitNono = centroX - (larguraOitavoENono / 2) - 18;
-                    int yOitNono = ySexSet + alturaOitavoENono + (int)(20 * escala);
+                    int yOitNono = ySexSet + 
+                            alturaOitavoENono + 
+                            (int)(20 * escala);
                     
                     int xEnsMed = centroX - (larguraEnsinoMedio / 2) - 18;
-                    int yEnsMed = yOitNono + alturaOitavoENono + (int)(20 * escala);
+                    int yEnsMed = yOitNono + 
+                            alturaOitavoENono + 
+                            (int)(20 * escala);
                     
                     int xSelec = centroX - (larguraSelecionar / 2) - 310;
-                    int ySelec = yEnsMed + alturaEnsinoMedio + (int)(85 * escala);
+                    int ySelec = yEnsMed + 
+                            alturaEnsinoMedio + 
+                            (int)(85 * escala);
                     
                     int xVoltar = centroX - (larguraVoltar / 2) + 300;
-                    int yVoltar = yEnsMed + alturaEnsinoMedio + (int)(85 * escala);
+                    int yVoltar = yEnsMed + 
+                            alturaEnsinoMedio + 
+                            (int)(85 * escala);
 
                     /*----------------------CONFIGURAÇÃO DOS BOTÕES--------------*/
                     botaoSextoESetimo.setBounds(xSexSet, 
@@ -323,7 +319,8 @@ public class TelaSelecaoAnos extends JFrame {
                 public void actionPerformed(ActionEvent e) {
                     /*----------------------ABRE TELA DE CRIAÇÃO DE QUESTÕES PADRÃO--*/
                     TelaQuestPadraoCriacao questPadraoCriacao = 
-                            new TelaQuestPadraoCriacao(materia, serieSelecionadaText, idProfessor);
+                            new TelaQuestPadraoCriacao(materia, 
+                                    serieSelecionadaText, idProfessor);
                     questPadraoCriacao.setVisible(true);
                     Window janela = SwingUtilities.getWindowAncestor
                                 (PanelSelecaoAnos.this);
@@ -345,7 +342,8 @@ public class TelaSelecaoAnos extends JFrame {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     /*----------------------ABRE TELA DE QUESTÕES PADRÃO----------*/
-                    TelaQuestPadrao questPadrao = new TelaQuestPadrao(idProfessor);
+                    TelaQuestPadrao questPadrao = 
+                            new TelaQuestPadrao(idProfessor);
                     questPadrao.setVisible(true);
                     Window janela = SwingUtilities.getWindowAncestor
                                 (PanelSelecaoAnos.this);
@@ -368,17 +366,23 @@ public class TelaSelecaoAnos extends JFrame {
                 case "Sexto e Sétimo":
                     if (botaoSelecionado != botaoSextoESetimo) {
                         /*----------------------CONFIGURA SELEÇÃO SEXTO E SÉTIMO--*/
-                        int x = botaoSextoESetimo.getX() + (botaoSextoESetimo.getWidth()
+                        int x = botaoSextoESetimo.getX() + 
+                                (botaoSextoESetimo.getWidth()
                                 - imagemBotaoSextoESetimoSel.getWidth()) / 2;
-                        int y = botaoSextoESetimo.getY() + (botaoSextoESetimo.getHeight()
+                        
+                        int y = botaoSextoESetimo.getY() + 
+                                (botaoSextoESetimo.getHeight()
                                 - imagemBotaoSextoESetimoSel.getHeight()) / 2;
+                        
                         labelSexESetSelect.setBounds(x, 
                                 y,
                                 imagemBotaoSextoESetimoSel.getWidth(), 
                                 imagemBotaoSextoESetimoSel.getHeight());
+                        
                         labelSexESetSelect.setVisible(true);
                         labelOitavoENonoSelect.setVisible(false);
                         labelEnsinoMedioSelect.setVisible(false);
+                        
                         labelSexESetSelect.repaint();
                         botaoSelecionado = botaoSextoESetimo;
                     }
@@ -387,17 +391,21 @@ public class TelaSelecaoAnos extends JFrame {
                 case "Oitavo e Nono":
                     if (botaoSelecionado != botaoOitavoENono) {
                         /*----------------------CONFIGURA SELEÇÃO OITAVO E NONO--*/
-                        int x = botaoOitavoENono.getX() + (botaoOitavoENono.getWidth()
+                        int x = botaoOitavoENono.getX() + 
+                                (botaoOitavoENono.getWidth()
                                 - imagemBotaoOitavoENonoSel.getWidth()) / 2;
-                        int y = botaoOitavoENono.getY() + (botaoOitavoENono.getHeight()
+                        int y = botaoOitavoENono.getY() + 
+                                (botaoOitavoENono.getHeight()
                                 - imagemBotaoOitavoENonoSel.getHeight()) / 2;
                         labelOitavoENonoSelect.setBounds(x, 
                                 y,
                                 imagemBotaoOitavoENonoSel.getWidth(), 
                                 imagemBotaoOitavoENonoSel.getHeight());
+                        
                         labelOitavoENonoSelect.setVisible(true);
                         labelSexESetSelect.setVisible(false);
                         labelEnsinoMedioSelect.setVisible(false);
+                        
                         labelOitavoENonoSelect.repaint();
                         botaoSelecionado = botaoOitavoENono;
                     }
@@ -406,17 +414,23 @@ public class TelaSelecaoAnos extends JFrame {
                 case "Ensino Médio":
                     if (botaoSelecionado != botaoEnsinoMedio) {
                         /*----------------------CONFIGURA SELEÇÃO ENSINO MÉDIO--*/
-                        int x = botaoEnsinoMedio.getX() + (botaoEnsinoMedio.getWidth()
+                        int x = botaoEnsinoMedio.getX() + 
+                                (botaoEnsinoMedio.getWidth()
                                 - imagemBotaoEnsinoMedioSel.getWidth()) / 2;
-                        int y = botaoEnsinoMedio.getY() + (botaoEnsinoMedio.getHeight()
+                        
+                        int y = botaoEnsinoMedio.getY() + 
+                                (botaoEnsinoMedio.getHeight()
                                 - imagemBotaoEnsinoMedioSel.getHeight()) / 2;
+                        
                         labelEnsinoMedioSelect.setBounds(x, 
                                 y,
                                 imagemBotaoEnsinoMedioSel.getWidth(), 
                                 imagemBotaoEnsinoMedioSel.getHeight());
+                        
                         labelEnsinoMedioSelect.setVisible(true);
                         labelSexESetSelect.setVisible(false);
                         labelOitavoENonoSelect.setVisible(false);
+                        
                         labelOitavoENonoSelect.repaint();
                         botaoSelecionado = botaoEnsinoMedio;
                     }
@@ -434,17 +448,28 @@ public class TelaSelecaoAnos extends JFrame {
             int h = getHeight();
 
             /*----------------------CONFIGURAÇÃO DE RENDERIZAÇÃO-------------*/
-            g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
-            g2d.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
-            g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-            g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-            g2d.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
-            g2d.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
-            g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_PURE);
+            g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
+                    RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+            g2d.setRenderingHint(RenderingHints.KEY_RENDERING,
+                    RenderingHints.VALUE_RENDER_QUALITY);
+            g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                    RenderingHints.VALUE_ANTIALIAS_ON);
+            g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
+                    RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+            g2d.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION,
+                    RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
+            g2d.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING,
+                    RenderingHints.VALUE_COLOR_RENDER_QUALITY);
+            g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL,
+                    RenderingHints.VALUE_STROKE_PURE);
 
             /*----------------------DESENHO DA IMAGEM DE FUNDO---------------*/
             if (imagemDeFundoSelecaoAnos != null) {
-                g2d.drawImage(imagemDeFundoSelecaoAnos, 0, 0, w, h, this);
+                g2d.drawImage(imagemDeFundoSelecaoAnos, 
+                        0, 
+                        0,
+                        w, 
+                        h, this);
             }
         }  
     }

@@ -15,7 +15,6 @@ import javax.imageio.ImageIO;
 public class TelaQuestPadraoCriacao extends JFrame {
 
     /*----------------------DECLARAÇÃO DE VARIÁVEIS----------------------*/
-    private CardLayout cardLayout;
     private JPanel painelQuestPadraoCriacao;
     private static String materiaSelecionada;
     private static String serieSelecionadaText;
@@ -25,13 +24,11 @@ public class TelaQuestPadraoCriacao extends JFrame {
     private static JTextField campoTextoNomeMateria;
     private static JTextField campoTextoSerie;
 
-    /*----------------------CONFIGURA O LAYOUT DE NAVEGAÇÃO------------------*/
-    public void setNavigation(CardLayout cardLayout, JPanel painelPrincipal) {
-        this.cardLayout = cardLayout;
-    }
-
     /*----------------------CONSTRUTOR DA TELA DE CRIAÇÃO DE QUESTÕES PADRÃO------*/
-    public TelaQuestPadraoCriacao(String materia, String serieSelecionadaText, String idProfessor) {
+    public TelaQuestPadraoCriacao(String materia, 
+            String serieSelecionadaText,
+            String idProfessor) {
+        
         /*----------------------CONFIGURAÇÕES DA JANELA-------------------*/
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setUndecorated(true);
@@ -40,21 +37,14 @@ public class TelaQuestPadraoCriacao extends JFrame {
         this.serie = serieSelecionadaText;
         this.idProfessor = idProfessor;
 
-        /*----------------------CONFIGURA O LAYOUT DE CARTÕES-------------*/
-        cardLayout = new CardLayout();
-        painelQuestPadraoCriacao = new JPanel(cardLayout);
+        painelQuestPadraoCriacao = new JPanel();
 
         try {
             /*----------------------INSTANCIAÇÃO DO PAINEL----------------*/
-            PanelQuestPadraoCriacao panelQuestPersonalizada = new 
+            PanelQuestPadraoCriacao questPadraoCriacao = new 
                     PanelQuestPadraoCriacao(painelQuestPadraoCriacao);
+            setContentPane(questPadraoCriacao);
             
-            /*----------------------ADICIONANDO PAINEL AO LAYOUT-------------*/
-            painelQuestPadraoCriacao.add(panelQuestPersonalizada, 
-                    "TelaQuestPadraoCriacao");
-            
-            /*----------------------CONFIGURAÇÃO DO PAINEL INICIAL-----------*/
-            add(painelQuestPadraoCriacao);
         } catch (IOException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Erro ao inicializar a tela: " 
@@ -66,7 +56,9 @@ public class TelaQuestPadraoCriacao extends JFrame {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             TelaQuestPadraoCriacao tela = 
-                    new TelaQuestPadraoCriacao(materia, serieSelecionadaText, idProfessor);
+                    new TelaQuestPadraoCriacao(materia, 
+                            serieSelecionadaText, 
+                            idProfessor);
             tela.setVisible(true);
         });
     }
@@ -81,11 +73,6 @@ public class TelaQuestPadraoCriacao extends JFrame {
     public void setSerieSelecionada(String serieSelecionadaText) {
         this.serie = serieSelecionadaText;
         campoTextoSerie.setText(serieSelecionadaText);
-    }
-
-    /*----------------------MOSTRA TELA ESPECÍFICA NO CARD LAYOUT------------*/
-    public void mostrarTela(String nomeTela) {
-        cardLayout.show(painelQuestPadraoCriacao, nomeTela);
     }
 
     /*----------------------CLASSE INTERNA: PAINEL DE CRIAÇÃO DE QUESTÕES PADRÃO--*/
@@ -207,7 +194,9 @@ public class TelaQuestPadraoCriacao extends JFrame {
                     int yBoxMat = yNQuiz + alturaNomeQuiz + (int)(40 * escala);
                     
                     int xBoxSerie = centroX - (larguraBoxMateria / 3) + 60;
-                    int yBoxSerie = yBoxMat + alturaBoxMateria + (int)(32 * escala);
+                    int yBoxSerie = yBoxMat + 
+                            alturaBoxMateria + 
+                            (int)(32 * escala);
                     
                     int xCriar = centroX - (larguraCriarQuest / 2) - 320;
                     int yCriar = (int) (h * 0.45) + 340;
@@ -244,7 +233,8 @@ public class TelaQuestPadraoCriacao extends JFrame {
                             (int)(680 * escala), 
                             (int)(50 * escala));
                     
-                    campoTextoNomeMateria.setBounds(xBoxMat + (int)(320 * escala), 
+                    campoTextoNomeMateria.setBounds(xBoxMat + 
+                            (int)(320 * escala), 
                             yBoxMat + (int)(16 * escala), 
                             (int)(200 * escala), 
                             (int)(50 * escala));
@@ -308,7 +298,9 @@ public class TelaQuestPadraoCriacao extends JFrame {
             campoTextoNomeQuest.setBorder(null);
             campoTextoNomeQuest.setOpaque(false);
             campoTextoNomeQuest.setForeground(Color.BLACK);
-            campoTextoNomeQuest.setFont(new Font("Jockey One", Font.BOLD, 32));
+            campoTextoNomeQuest.setFont(new Font("Jockey One",
+                    Font.BOLD, 
+                    32));
             campoTextoNomeQuest.setHorizontalAlignment(JTextField.CENTER);
             painelConteudo.add(campoTextoNomeQuest);
 
@@ -317,7 +309,9 @@ public class TelaQuestPadraoCriacao extends JFrame {
             campoTextoSerie.setBorder(null);
             campoTextoSerie.setOpaque(false);
             campoTextoSerie.setForeground(Color.BLACK);
-            campoTextoSerie.setFont(new Font("Jockey One", Font.BOLD, 32));
+            campoTextoSerie.setFont(new Font("Jockey One",
+                    Font.BOLD, 
+                    32));
             campoTextoSerie.setHorizontalAlignment(JTextField.CENTER);
             campoTextoSerie.setEditable(false);
             campoTextoSerie.setFocusable(false);
@@ -329,7 +323,9 @@ public class TelaQuestPadraoCriacao extends JFrame {
             campoTextoNomeMateria.setBorder(null);
             campoTextoNomeMateria.setOpaque(false);
             campoTextoNomeMateria.setForeground(Color.BLACK);
-            campoTextoNomeMateria.setFont(new Font("Jockey One", Font.BOLD, 32));
+            campoTextoNomeMateria.setFont(new Font("Jockey One",
+                    Font.BOLD,
+                    32));
             campoTextoNomeMateria.setHorizontalAlignment(JTextField.CENTER);
             campoTextoNomeMateria.setEditable(false);
             campoTextoNomeMateria.setFocusable(false);
@@ -374,13 +370,16 @@ public class TelaQuestPadraoCriacao extends JFrame {
             botaoVoltar.setOpaque(false);
             botaoVoltar.setCursor(new Cursor(Cursor.HAND_CURSOR)); 
             botaoVoltar.addActionListener((ActionEvent e) -> {
-                TelaSelecaoAnos criarSala = new TelaSelecaoAnos(materia, idProfessor);
+                TelaSelecaoAnos criarSala = 
+                        new TelaSelecaoAnos(materia, idProfessor);
                 criarSala.setVisible(true);
+                
                 Window janela = SwingUtilities.getWindowAncestor
                                         (PanelQuestPadraoCriacao.this);
                 if (janela instanceof JFrame) {
                     janela.dispose();                     
                 }
+                
             });
             painelConteudo.add(botaoVoltar);
 
