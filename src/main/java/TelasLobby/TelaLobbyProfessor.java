@@ -1,7 +1,7 @@
 /*----------------------PACOTE QUE PERTENCE A CLASSE--------------------------*/
 package TelasLobby;
 
-/*----------------------IMPORTAÇÕES NECESSÁRIAS-----------------------------*/
+/*-------------------------IMPORTAÇÕES NECESSÁRIAS----------------------------*/
 import CodigoPoligenio.Sistema;
 import TelasCriacaoSala.TelaCriarSala;
 import javax.swing.*;

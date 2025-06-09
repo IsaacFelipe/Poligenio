@@ -1,7 +1,7 @@
 /*----------------------PACOTE QUE PERTENCE A CLASSE--------------------------*/
 package TelasDeLogin;
 
-/*----------------------IMPORTAÇÕES NECESSÁRIAS-----------------------------*/
+/*-------------------------IMPORTAÇÕES NECESSÁRIAS----------------------------*/
 import CodigoPoligenio.Aluno;
 import CodigoPoligenio.Professor;
 import CodigoPoligenio.Sistema;

@@ -2,6 +2,7 @@
 package TelasPartida;
 
 /*----------------------IMPORTAÇÕES NECESSÁRIAS-----------------------------*/
+import TelasLobby.TelaLobbyProfessor;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -195,6 +196,16 @@ public class TelaEsperaProfessor extends JFrame {
             botaoDesconectar.setFocusPainted(false);
             botaoDesconectar.setOpaque(false);
             botaoDesconectar.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            botaoDesconectar.addActionListener(e -> {
+                TelaLobbyProfessor telaLobbyProfessor = 
+                        new TelaLobbyProfessor(idProfessor);
+                telaLobbyProfessor.setVisible(true);
+                Window janela = SwingUtilities.getWindowAncestor
+                                    (PanelEspera.this);
+                if (janela instanceof JFrame) {
+                    janela.dispose();
+                }
+            });
             painelConteudo.add(botaoDesconectar);
             
             /*----------------------CONFIGURAÇÃO DO BOTÃO INICIAR------------*/
@@ -204,7 +215,16 @@ public class TelaEsperaProfessor extends JFrame {
             botaoIniciar.setFocusPainted(false);
             botaoIniciar.setOpaque(false);
             botaoIniciar.setCursor(new Cursor(Cursor.HAND_CURSOR));
-            
+            botaoIniciar.addActionListener(e -> {
+                TelaGifContagem telaLobbyProfessor = 
+                        new TelaGifContagem(idProfessor);
+                telaLobbyProfessor.setVisible(true);
+                Window janela = SwingUtilities.getWindowAncestor
+                                    (PanelEspera.this);
+                if (janela instanceof JFrame) {
+                    janela.dispose();
+                }
+            });
             painelConteudo.add(botaoIniciar);
             
             /*----------------------CONFIGURAÇÃO DO LAYOUT--------------------*/

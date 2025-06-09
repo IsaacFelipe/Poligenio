@@ -10,28 +10,29 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
-/*----------------------CLASSE PRINCIPAL DA TELA DE ACESSO-------------------*/
+/*----------------------CLASSE PRINCIPAL DA TELA DE ACESSO--------------------*/
 public class TelaAcesso extends JFrame{
     
-    /*----------------------DECLARAÇÃO DE VARIÁVEIS----------------------*/
+/*---------------------------DECLARAÇÃO DE VARIÁVEIS--------------------------*/
     private JPanel painelAcesso;
     private static String idProfessor;
     private static String codigoSala;
 
-    /*----------------------CONSTRUTOR DA TELA DE ACESSO---------------------*/
+/*----------------------CONSTRUTOR DA TELA DE ACESSO--------------------------*/
     public TelaAcesso(String idProfessor, String codigoSala) {
         
-        /*----------------------CONFIGURAÇÕES DA JANELA-------------------*/
+/*------------------------CONFIGURAÇÕES DA JANELA-----------------------------*/
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setUndecorated(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.idProfessor = idProfessor;
         this.codigoSala = codigoSala;
         
+/*--------------------------INSTANCIAÇÃO DO PAINEL----------------------------*/        
         painelAcesso = new JPanel();
 
         try {
-            /*----------------------INSTANCIAÇÃO DO PAINEL----------------*/
+
            PanelAcesso panelRank = new PanelAcesso();
            setContentPane(panelRank);
 
@@ -42,7 +43,7 @@ public class TelaAcesso extends JFrame{
         }
     }
 
-    /*----------------------MÉTODO MAIN PARA EXECUTAR A TELA----------------*/
+/*----------------------MÉTODO MAIN PARA EXECUTAR A TELA----------------------*/
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             TelaAcesso tela = new TelaAcesso(idProfessor, codigoSala);
@@ -50,10 +51,10 @@ public class TelaAcesso extends JFrame{
         });
     }
     
-    /*----------------------CLASSE INTERNA: PAINEL DE ACESSO-----------------*/
+/*----------------------CLASSE INTERNA: PAINEL DE ACESSO----------------------*/
     public static class PanelAcesso extends JPanel {
 
-        /*----------------------DECLARAÇÃO DE VARIÁVEIS----------------------*/
+/*--------------------------DECLARAÇÃO DE VARIÁVEIS---------------------------*/
         private BufferedImage imagemFundoAcesso;
         private BufferedImage imagemBotaoVoltar;
         
@@ -61,24 +62,24 @@ public class TelaAcesso extends JFrame{
         
         private JTextField campoTextoCodigo;
         
-        /*----------------------CONSTRUTOR DO PAINEL DE ACESSO---------------*/
+/*-----------------------CONSTRUTOR DO PAINEL DE ACESSO-----------------------*/
         public PanelAcesso() throws IOException {
             setLayout(new GridBagLayout());
             
-            /*----------------------CARREGAMENTO DAS IMAGENS------------------*/
+/*--------------------------CARREGAMENTO DAS IMAGENS--------------------------*/
             imagemFundoAcesso = ImageIO.read(getClass().getResource
                 ("/ImagensTelaAcesso/telaAcesso.png"));
             
             imagemBotaoVoltar = ImageIO.read(getClass().getResource
                 ("/ImagensTelaAcesso/botaoVoltar.png"));
             
-            /*----------------------CRIAÇÃO DO PAINEL DE CONTEÚDO-------------*/
+/*-----------------------CRIAÇÃO DO PAINEL DE CONTEÚDO------------------------*/
          JPanel painelConteudo = new JPanel(null) {
                 @Override
                 protected void paintComponent(Graphics g) {
                     super.paintComponent(g);
 
-                    /*----------------------CONFIGURAÇÃO GRÁFICA----------------*/
+/*----------------------------CONFIGURAÇÃO GRÁFICA----------------------------*/
                     Graphics2D g2d = (Graphics2D) g;
                     g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, 
                             RenderingHints.VALUE_INTERPOLATION_BILINEAR);
@@ -88,10 +89,9 @@ public class TelaAcesso extends JFrame{
                     int w = getWidth();
                     int h = getHeight();
 
-                    /*----------------------CALCULA O CENTRO DA TELA------------*/
                     int centroX = w / 2;
 
-                    /*----------------------DIMENSÕES DOS ELEMENTOS--------------*/
+/*---------------------------DIMENSÕES DOS ELEMENTOS--------------------------*/
                     double escala = 1.0;
                     
                     int larguraBotVoltar = (int) 
@@ -99,11 +99,11 @@ public class TelaAcesso extends JFrame{
                     int alturaBotVoltar = (int) 
                             (imagemBotaoVoltar.getHeight() * 0.7 * escala);
                     
-                    /*----------------------POSICIONAMENTO DOS ELEMENTOS---------*/
+/*------------------------POSICIONAMENTO DOS ELEMENTOS------------------------*/
                     int xVoltar = centroX - (larguraBotVoltar / 2);
                     int yVoltar = (int) (h * 0.45) + 300;
                     
-                    /*----------------------CONFIGURAÇÃO DOS BOTÕES--------------*/
+/*---------------------------CONFIGURAÇÃO DOS BOTÕES--------------------------*/
                     botaoVoltar.setBounds(xVoltar, 
                             yVoltar, 
                             larguraBotVoltar, 
@@ -115,7 +115,7 @@ public class TelaAcesso extends JFrame{
                             (int)(300 * escala), 
                             (int)(50 * escala));
                     
-                    /*----------------------DESENHO DOS ELEMENTOS----------------*/
+/*----------------------------DESENHO DOS ELEMENTOS---------------------------*/
                     g2d.drawImage(imagemBotaoVoltar, 
                             xVoltar, 
                             yVoltar, 
@@ -123,10 +123,11 @@ public class TelaAcesso extends JFrame{
                             alturaBotVoltar, this);
                 }
             };
-            /*----------------------CONFIGURAÇÃO DO PAINEL DE CONTEÚDO-------*/
+         
+/*----------------------CONFIGURAÇÃO DO PAINEL DE CONTEÚDO--------------------*/
             painelConteudo.setOpaque(false);
 
-            /*----------------------CONFIGURAÇÃO DO BOTÃO VOLTAR-------------*/
+/*-------------------------CONFIGURAÇÃO DO BOTÃO VOLTAR-----------------------*/
             botaoVoltar = new JButton();
             botaoVoltar.setBorderPainted(false);
             botaoVoltar.setContentAreaFilled(false);
@@ -155,12 +156,12 @@ public class TelaAcesso extends JFrame{
             campoTextoCodigo.setFocusable(false);
             painelConteudo.add(campoTextoCodigo);
 
-            /*----------------------CONFIGURAÇÃO DO LAYOUT--------------------*/
+/*--------------------------CONFIGURAÇÃO DO LAYOUT----------------------------*/
             setLayout(new BorderLayout());
             add(painelConteudo, BorderLayout.CENTER);
         }
         
-        /*----------------------PINTURA DO FUNDO DO PAINEL-------------------*/
+/*------------------------PINTURA DO FUNDO DO PAINEL--------------------------*/
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
@@ -169,7 +170,7 @@ public class TelaAcesso extends JFrame{
             int w = getWidth();
             int h = getHeight();
 
-            /*----------------------CONFIGURAÇÃO DE RENDERIZAÇÃO-------------*/
+/*-----------------------CONFIGURAÇÃO DE RENDERIZAÇÃO-------------------------*/
             g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, 
                     RenderingHints.VALUE_INTERPOLATION_BICUBIC);
             g2d.setRenderingHint(RenderingHints.KEY_RENDERING,
@@ -185,7 +186,7 @@ public class TelaAcesso extends JFrame{
             g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, 
                     RenderingHints.VALUE_STROKE_PURE);
             
-            /*----------------------DESENHO DA IMAGEM DE FUNDO---------------*/
+/*-------------------------DESENHO DA IMAGEM DE FUNDO-------------------------*/
             if (imagemFundoAcesso != null) {
                 g2d.drawImage(imagemFundoAcesso, 
                         0,
