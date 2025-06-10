@@ -68,6 +68,11 @@ public class TelaPergunta extends JFrame {
         private JTextField campoTextoAcerto;
         private JTextField campoTextoErro;
         
+        private JTextField campoTextoAltA;
+        private JTextField campoTextoAltB;
+        private JTextField campoTextoAltC;
+        private JTextField campoTextoAltD;
+        
         /*----------------------CONSTRUTOR DO PAINEL DE PERGUNTA-------------*/
          public PanelPergunta() throws IOException {
             setLayout(new GridBagLayout());
@@ -212,6 +217,26 @@ public class TelaPergunta extends JFrame {
                             (int)(150 * escala), 
                             (int)(50 * escala));
                     
+                    campoTextoAltA.setBounds(xAltA + (int)(77 * escala), 
+                            yAltA + (int)(15 * escala), 
+                            (int)(300 * escala), 
+                            (int)(50 * escala));
+                    
+                    campoTextoAltB.setBounds(xAltB + (int)(77 * escala), 
+                            yAltB + (int)(15 * escala), 
+                            (int)(300 * escala), 
+                            (int)(50 * escala));
+                    
+                    campoTextoAltC.setBounds(xAltC + (int)(77 * escala), 
+                            yAltC + (int)(15 * escala), 
+                            (int)(300 * escala), 
+                            (int)(50 * escala));
+                    
+                    campoTextoAltD.setBounds(xAltD + (int)(77 * escala), 
+                            yAltD + (int)(15 * escala), 
+                            (int)(300 * escala), 
+                            (int)(50 * escala));
+                    
                     /*----------------------DESENHO DOS ELEMENTOS----------------*/
                     g2d.drawImage(imagemBotaoAlternativaA, 
                             xAltA, 
@@ -325,6 +350,46 @@ public class TelaPergunta extends JFrame {
             campoTextoErro.setEditable(false);
             campoTextoErro.setFocusable(false);
             painelConteudo.add(campoTextoErro);
+            
+            campoTextoAltA = new JTextField();
+            campoTextoAltA.setBorder(null);
+            campoTextoAltA.setOpaque(false);
+            campoTextoAltA.setForeground(Color.BLACK);
+            campoTextoAltA.setFont(new Font("Jockey One", Font.BOLD, 40));
+            campoTextoAltA.setText("Batata");
+            campoTextoAltA.setEditable(false);
+            campoTextoAltA.setFocusable(false);
+            painelConteudo.add(campoTextoAltA);
+            
+            campoTextoAltB = new JTextField();
+            campoTextoAltB.setBorder(null);
+            campoTextoAltB.setOpaque(false);
+            campoTextoAltB.setForeground(Color.BLACK);
+            campoTextoAltB.setFont(new Font("Jockey One", Font.BOLD, 40));
+            campoTextoAltB.setText("Batata");
+            campoTextoAltB.setEditable(false);
+            campoTextoAltB.setFocusable(false);
+            painelConteudo.add(campoTextoAltB);
+            
+            campoTextoAltC = new JTextField();
+            campoTextoAltC.setBorder(null);
+            campoTextoAltC.setOpaque(false);
+            campoTextoAltC.setForeground(Color.BLACK);
+            campoTextoAltC.setFont(new Font("Jockey One", Font.BOLD, 40));
+            campoTextoAltC.setText("Batata");
+            campoTextoAltC.setEditable(false);
+            campoTextoAltC.setFocusable(false);
+            painelConteudo.add(campoTextoAltC);
+            
+            campoTextoAltD = new JTextField();
+            campoTextoAltD.setBorder(null);
+            campoTextoAltD.setOpaque(false);
+            campoTextoAltD.setForeground(Color.BLACK);
+            campoTextoAltD.setFont(new Font("Jockey One", Font.BOLD, 40));
+            campoTextoAltD.setText("Batata");
+            campoTextoAltD.setEditable(false);
+            campoTextoAltD.setFocusable(false);
+            painelConteudo.add(campoTextoAltD);
             
             /*----------------------CONFIGURAÇÃO DO LAYOUT--------------------*/
             setLayout(new BorderLayout());

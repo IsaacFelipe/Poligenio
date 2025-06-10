@@ -35,21 +35,6 @@ public class Aluno extends AbstractPessoa implements InterfaceJogador {
         this.serie = serie;
     }
     
-    /*----------------------MÉTODO PARA ENTRAR EM PARTIDA----------------*/
-    public void entrarEmPartida(){
-        
-    }
-    
-    /*----------------------MÉTODO PARA INSERIR CÓDIGO DA PARTIDA--------*/
-    public void inserirCodigoPartida(){
-        
-    }
-    
-    /*----------------------MÉTODO PARA INSERIR CÓDIGO DE EMAIL----------*/
-    public void inserirCodigoEmail(){
-        
-    }
-    
     /*----------------------MÉTODO PARA AUTENTICAR USUÁRIO---------------*/
     @Override
     public void autenticarUsuario() {
@@ -74,11 +59,13 @@ public class Aluno extends AbstractPessoa implements InterfaceJogador {
     public boolean fazerLogin(String nome, String Senha) {
         Connection conn = null;
         PreparedStatement stmt = null;
+        PreparedStatement updateStmt = null;
         ResultSet rs = null;
 
         try {
             conn = ConexaoBD.obterConexao();
-            String sql = "SELECT * FROM jogador WHERE nome_jogador = ? AND senha = ?";
+            String sql = "SELECT * FROM jogador WHERE nome_jogador = ? "
+                    + "AND senha = ?";
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, nome);
             stmt.setString(2, Senha);
@@ -87,6 +74,14 @@ public class Aluno extends AbstractPessoa implements InterfaceJogador {
             if (rs.next()) {
                 this.nome = rs.getString("nome_jogador");
                 this.senha = Senha;
+                int jogadorId = rs.getInt("id_jogador");
+                
+                String updateSql = "UPDATE jogador SET logado = 1 "
+                        + "WHERE id_jogador = ?";
+                updateStmt = conn.prepareStatement(updateSql);
+                updateStmt.setInt(1, jogadorId);
+                updateStmt.executeUpdate();
+                
                 return true;
             } else {
                 return false;

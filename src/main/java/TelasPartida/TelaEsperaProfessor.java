@@ -216,8 +216,10 @@ public class TelaEsperaProfessor extends JFrame {
             botaoIniciar.setOpaque(false);
             botaoIniciar.setCursor(new Cursor(Cursor.HAND_CURSOR));
             botaoIniciar.addActionListener(e -> {
+                String origem = "Professor";
+                
                 TelaGifContagem telaLobbyProfessor = 
-                        new TelaGifContagem(idProfessor);
+                        new TelaGifContagem(idProfessor, origem);
                 telaLobbyProfessor.setVisible(true);
                 Window janela = SwingUtilities.getWindowAncestor
                                     (PanelEspera.this);

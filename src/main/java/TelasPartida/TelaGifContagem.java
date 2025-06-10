@@ -14,14 +14,16 @@ public class TelaGifContagem extends JFrame {
     /*----------------------DECLARAÇÃO DE VARIÁVEIS----------------------*/
     private JPanel painelGif;
     private static String idProfessor;
+    private static String origem;
 
     /*----------------------CONSTRUTOR DA TELA DE ACESSO---------------------*/
-    public TelaGifContagem(String idProfessor) {
+    public TelaGifContagem(String idProfessor, String origem) {
         /*----------------------CONFIGURAÇÕES DA JANELA-------------------*/
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setUndecorated(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.idProfessor = idProfessor;
+        this.origem = origem;
 
         painelGif = new JPanel();     
 
@@ -42,7 +44,7 @@ public class TelaGifContagem extends JFrame {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             // Passe parâmetros fictícios ou reais
-            TelaGifContagem tela = new TelaGifContagem(idProfessor);
+            TelaGifContagem tela = new TelaGifContagem(idProfessor, origem);
             tela.setVisible(true);
         });
     }
@@ -71,21 +73,33 @@ public class TelaGifContagem extends JFrame {
 
             add(labelGif);
 
-            int duracaoGif = 17400;
+            int duracaoGif = 15700;
 
             javax.swing.Timer timer = 
                     new javax.swing.Timer(duracaoGif, (ActionEvent e) -> {
-                        
-                    TelaGifPartidaEmAndamento gifPartidaAndamento = 
-                            new TelaGifPartidaEmAndamento(idProfessor);
-                    gifPartidaAndamento.setVisible(true);
+                     
+                        if ("Aluno".equals(origem)) {
+                            TelaPergunta pergunta = 
+                                    new TelaPergunta(idProfessor);
+                            pergunta.setVisible(true);
 
-                Window janela = SwingUtilities.getWindowAncestor(PanelGif.this);
-                if (janela instanceof JFrame) {
-                    janela.dispose();
-                }
-            });
+                            Window window = SwingUtilities.getWindowAncestor
+                                                (PanelGif.this);
+                            if (window instanceof JFrame) {
+                                window.dispose();
+                        } else if ("Professor".equals(origem)) {
+                            TelaGifPartidaEmAndamento gifPartidaAndamento = 
+                                    new TelaGifPartidaEmAndamento(idProfessor);
+                            gifPartidaAndamento.setVisible(true);
 
+                            Window janela = SwingUtilities.getWindowAncestor
+                                                (PanelGif.this);
+                                if (janela instanceof JFrame) {
+                                    janela.dispose();
+                                }
+                            }
+                        }
+                    });
             timer.setRepeats(false);
             timer.start();
         }

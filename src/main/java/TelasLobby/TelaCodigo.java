@@ -2,12 +2,17 @@
 package TelasLobby;
 
 /*------------------------IMPORTAÇÕES NECESSÁRIAS-----------------------------*/
+import CodigoPoligenio.Sistema;
+import TelasPartida.TelaEsperaAluno;
+import TelasPartida.TelaGifContagem;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 
 /*--------------------CLASSE PRINCIPAL DA TELA DE CÓDIGO----------------------*/
@@ -17,7 +22,7 @@ public class TelaCodigo extends JFrame {
     private JPanel painelCodigo;
 
 /*-----------------------CONSTRUTOR DA TELA DE CÓDIGO-------------------------*/
-    public TelaCodigo() {
+    public TelaCodigo() throws Exception {
         
 /*--------------------------CONFIGURAÇÕES DA JANELA---------------------------*/
         setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -42,8 +47,15 @@ public class TelaCodigo extends JFrame {
 /*----------------------MÉTODO MAIN PARA EXECUTAR A TELA----------------------*/
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            TelaCodigo tela = new TelaCodigo();
-            tela.setVisible(true);
+            TelaCodigo tela;
+            try {
+                tela = new TelaCodigo();
+                tela.setVisible(true);
+            } catch (Exception ex) {
+                Logger.getLogger(TelaCodigo.class.getName()).log
+        (Level.SEVERE, null, ex);
+            }
+            
         });
     }
 
@@ -63,7 +75,7 @@ public class TelaCodigo extends JFrame {
         private JTextField campoTextoCodigo;
 
 /*------------------------CONSTRUTOR DO PAINEL DE CÓDIGO----------------------*/
-        public PanelCodigo() throws IOException {
+        public PanelCodigo() throws IOException, Exception {
             setLayout(new GridBagLayout());
 
 /*---------------------------CARREGAMENTO DAS IMAGENS-------------------------*/
@@ -97,7 +109,7 @@ public class TelaCodigo extends JFrame {
                     int centroX = w / 2;
 
 /*----------------------------DIMENSÕES DOS ELEMENTOS-------------------------*/
-/*----------------------------DE ACORDO COM UMA ESCALA------------------------*/
+/*---------------------------DE ACORDO COM UMA ESCALA-------------------------*/
                     double escala = 1.0;
                     int larguraEntarCod = (int) 
                         (imagemBotaoEntrarCodigo.getWidth() * 0.7 * escala);
@@ -162,6 +174,14 @@ public class TelaCodigo extends JFrame {
             };
 /*----------------------CONFIGURAÇÃO DO PAINEL DE CONTEÚDO--------------------*/
             painelConteudo.setOpaque(false);
+            
+/*---------------------------CONFIGURAÇÃO DO CAMPO CÓDIGO---------------------*/
+            campoTextoCodigo = new JTextField();
+            campoTextoCodigo.setBorder(null);
+            campoTextoCodigo.setOpaque(false);
+            campoTextoCodigo.setForeground(Color.BLACK);
+            campoTextoCodigo.setFont(new Font("Jockey One", Font.BOLD, 30));
+            painelConteudo.add(campoTextoCodigo);            
 
 /*-------------------------CONFIGURAÇÃO DO BOTÃO ENTRAR-----------------------*/
             botaoEntrarCod = new JButton();
@@ -170,6 +190,42 @@ public class TelaCodigo extends JFrame {
             botaoEntrarCod.setFocusPainted(false);
             botaoEntrarCod.setOpaque(false);
             botaoEntrarCod.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            botaoEntrarCod.addActionListener(e -> {
+                String codigoSala = campoTextoCodigo.getText().trim();
+                String origem = "Aluno";
+                try {
+                    boolean codigoValido = 
+                            Sistema.getInstance().verificarCodigoSala
+                                                    (codigoSala);
+
+                    if (codigoValido) {
+                        JOptionPane.showMessageDialog(this, "Código existente!",
+                                "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                        
+                        TelaEsperaAluno esperaAluno = new TelaEsperaAluno( 
+                                origem);
+                        esperaAluno.setVisible(true);
+                        Window janela = SwingUtilities.getWindowAncestor
+                                            (painelConteudo);
+                        if (janela instanceof JFrame) {
+                            janela.dispose();
+                        }
+
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Código inválido!", 
+                                "Erro", JOptionPane.ERROR_MESSAGE);
+                    }
+
+                } catch (Exception ex) {
+                    Logger.getLogger(TelaCodigo.class.getName()).log
+                                        (Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(this, 
+                            "Erro ao verificar código.", 
+                            "Erro", 
+                            JOptionPane.ERROR_MESSAGE);
+                }
+            });
+            
             painelConteudo.add(botaoEntrarCod);
 
 /*--------------------------CONFIGURAÇÃO DO BOTÃO VOLTAR----------------------*/
@@ -190,13 +246,7 @@ public class TelaCodigo extends JFrame {
             });
             painelConteudo.add(botaoVoltarCod);
 
-/*---------------------------CONFIGURAÇÃO DO CAMPO CÓDIGO---------------------*/
-            campoTextoCodigo = new JTextField();
-            campoTextoCodigo.setBorder(null);
-            campoTextoCodigo.setOpaque(false);
-            campoTextoCodigo.setForeground(Color.BLACK);
-            campoTextoCodigo.setFont(new Font("Jockey One", Font.BOLD, 30));
-            painelConteudo.add(campoTextoCodigo);
+
             
 /*-------------------------CONFIGURAÇÃO DO EVENTO DE CLIQUE-------------------*/
             painelConteudo.addMouseListener(new MouseAdapter() {

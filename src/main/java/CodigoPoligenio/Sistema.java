@@ -227,7 +227,11 @@ public class Sistema {
     /*----------------------MÉTODO PARA PROCESSAR CÓDIGO DE E-MAIL-------*/
     private void processarCodigoEmail(String destinatario) throws SQLException {
         String codigo = gerarCodigoEmail();
-        System.out.println("Código gerado para email " + destinatario + ": " + codigo);
+        System.out.println("Código gerado para email " + 
+                destinatario + 
+                ": " 
+                + codigo);
+        
         salvarCodigo(destinatario, codigo);
         enviarEmail(destinatario, codigo);
         this.emailRecuperacao = destinatario;
@@ -265,13 +269,42 @@ public class Sistema {
     }
 
     /*----------------------MÉTODO PARA VERIFICAR USUÁRIO LOGADO--------*/
-    public void verificarUsuarioLogado() {
-        
-    }
+    public boolean verificarUsuarioLogado(int idJogador) throws Exception {
+        Connection conexao = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
 
-    /*----------------------MÉTODO PARA SOLICITAR CÓDIGO DA PARTIDA-----*/
-    public void solicitarCodigoPartida() {
-        
+        try {
+            conexao = ConexaoBD.obterConexao();
+
+            String sql = "SELECT logado FROM jogador WHERE id_jogador = ?";
+            ps = conexao.prepareStatement(sql);
+            ps.setInt(1, idJogador);
+
+            rs = ps.executeQuery();
+
+            if (rs.next()) {
+                int logado = rs.getInt("logado");
+                return logado == 1;
+            } else {
+                return false;
+            }
+
+        } catch (SQLException erro) {
+            JOptionPane.showMessageDialog(null, 
+                "Erro ao consultar status de login no banco: " 
+                        + erro.getMessage());
+            return false;
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (ps != null) ps.close();
+                if (conexao != null) conexao.close();
+            } catch (SQLException erro) {
+                JOptionPane.showMessageDialog(null, 
+                    "Erro ao fechar conexão: " + erro.getMessage());
+            }
+        }
     }
 
     /*----------------------MÉTODO PARA INSERIR JOGADOR-----------------*/
@@ -426,10 +459,13 @@ public class Sistema {
     public boolean novaSenha(String destinatario, 
             String novaSenha) throws Exception{
         
-        try (Connection conn = DriverManager.getConnection(url, usuario, senha)) {
+        try (Connection conn = DriverManager.getConnection(url, 
+                usuario, 
+                senha)) {
+            
             String sqlAluno = "UPDATE jogador SET senha = ? "
                     + "WHERE email_jogador = ?";
-            try (PreparedStatement stmtAluno = conn.prepareStatement(sqlAluno)) {
+            try (PreparedStatement stmtAluno = conn.prepareStatement(sqlAluno)){
                 stmtAluno.setString(1, novaSenha);
                 stmtAluno.setString(2, destinatario);
                 int rowsAluno = stmtAluno.executeUpdate();
@@ -449,5 +485,37 @@ public class Sistema {
             }
         }
         return false;
+    }
+
+   public boolean verificarCodigoSala(String codigoSala) throws Exception {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        try {
+            conn = ConexaoBD.obterConexao();
+            String sql = "SELECT * FROM sala WHERE `código_sala` = ?";
+            stmt = conn.prepareStatement(sql);
+            stmt.setString(1, codigoSala);
+            rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                return true;
+            } else {
+                return false;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (stmt != null) stmt.close();
+                if (conn != null) conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

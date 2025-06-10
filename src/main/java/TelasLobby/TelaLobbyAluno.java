@@ -10,6 +10,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 
 /*------------------CLASSE PRINCIPAL DA TELA DE LOBBY ALUNO-------------------*/
@@ -175,8 +177,15 @@ public class TelaLobbyAluno extends JFrame {
             botaoJogar.setCursor(new Cursor(Cursor.HAND_CURSOR));
             botaoJogar.addActionListener(e -> {
                 /*----------------------ABRE TELA DE CÓDIGO------------------*/
-                TelaCodigo criarSala = new TelaCodigo();
-                criarSala.setVisible(true);
+                TelaCodigo criarSala;
+                try {
+                    criarSala = new TelaCodigo();
+                    criarSala.setVisible(true);
+                } catch (Exception ex) {
+                    Logger.getLogger(TelaLobbyAluno.class.getName())
+                            .log(Level.SEVERE, null, ex);
+                }
+                
                 Window janela = SwingUtilities.getWindowAncestor
                             (PanelLobbyAluno.this);
                 if (janela instanceof JFrame) {
