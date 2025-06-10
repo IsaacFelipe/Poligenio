@@ -7,18 +7,19 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+import TelasLobby.TelaLobbyProfessor;
 
 /*----------------------CLASSE PRINCIPAL DA TELA DE RANK ALUNO---------------*/
 public class TelaRankAluno extends JFrame {
 
-/*---------------------------DECLARAÇÃO DE VARIÁVEIS--------------------------*/
+    /*---------------------------DECLARAÇÃO DE VARIÁVEIS--------------------------*/
     private JPanel painelPrincipal;
     private static String idProfessor;
 
-/*-----------------------CONSTRUTOR DA TELA DE RANK ALUNO---------------------*/
+    /*-----------------------CONSTRUTOR DA TELA DE RANK ALUNO---------------------*/
     public TelaRankAluno(String idProfessor) {
         
-/*---------------------------CONFIGURAÇÕES DA JANELA--------------------------*/
+        /*---------------------------CONFIGURAÇÕES DA JANELA--------------------------*/
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setUndecorated(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -53,7 +54,6 @@ public class TelaRankAluno extends JFrame {
         /*----------------------DECLARAÇÃO DE VARIÁVEIS----------------------*/
         private BufferedImage imagemFundoTelaRank;
         private BufferedImage imagemBotaoRetornar;
-        
         private JButton botaoRetornar;
 
         /*----------------------CONSTRUTOR DO PAINEL DE RANK ALUNO-----------*/
@@ -62,11 +62,10 @@ public class TelaRankAluno extends JFrame {
  
             /*----------------------CARREGAMENTO DAS IMAGENS------------------*/
             imagemFundoTelaRank = ImageIO.read
-        (getClass().getResource("/ImagensTelaRankAluno/telaRankAluno.jpg"));
+                (getClass().getResource("/ImagensTelaRankAluno/telaRankAluno.jpg"));
             
             imagemBotaoRetornar = ImageIO.read
-        (getClass().getResource
-        ("/ImagensTelaRankAluno/botaoRetonarRankAluno.png"));
+                (getClass().getResource("/ImagensTelaRankAluno/botaoRetonarRankAluno.png"));
 
             /*----------------------CRIAÇÃO DO PAINEL DE CONTEÚDO-------------*/
             JPanel painelConteudo = new JPanel(null) {
@@ -93,8 +92,8 @@ public class TelaRankAluno extends JFrame {
                             (imagemBotaoRetornar.getHeight() * 0.7 * escala);
                     
                     /*----------------------POSICIONAMENTO DOS ELEMENTOS---------*/
-                    int xRetornar = centroX - (larguraBotaoRetornar / 2) + 375;
-                    int yRetornar = (int) (h * 0.45) + 300;
+                    int xRetornar = centroX - (larguraBotaoRetornar / 2) + 450;
+                    int yRetornar = (int) (h * 0.45) + 350;
 
                     /*----------------------CONFIGURAÇÃO DOS BOTÕES--------------*/
                     botaoRetornar.setBounds(xRetornar,
@@ -119,6 +118,17 @@ public class TelaRankAluno extends JFrame {
             botaoRetornar.setBorderPainted(false);
             botaoRetornar.setFocusPainted(false);
             botaoRetornar.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+            // Adiciona o ActionListener para o botão Retornar
+            botaoRetornar.addActionListener(e -> {
+                // Fecha a TelaRankAluno atual
+                SwingUtilities.getWindowAncestor(this).dispose();
+                
+                // Abre a TelaLobbyProfessor, passando o idProfessor
+                TelaLobbyProfessor telaLobby = new TelaLobbyProfessor(idProfessor);
+                telaLobby.setVisible(true);
+            });
+
             painelConteudo.add(botaoRetornar);
 
             /*----------------------CONFIGURAÇÃO DO LAYOUT--------------------*/
