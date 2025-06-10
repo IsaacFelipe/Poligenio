@@ -49,7 +49,7 @@ public class TelaGifEntrada extends JFrame {
         });
     }
 
-/*-----------------------CLASSE INTERNA: PAINEL DE ACESSO---------------------*/
+    /*-----------------------CLASSE INTERNA: PAINEL DE ACESSO---------------------*/
     public class PanelGif extends JPanel {
 
         /*----------------------DECLARAÇÃO DE VARIÁVEIS----------------------*/
@@ -58,46 +58,52 @@ public class TelaGifEntrada extends JFrame {
         private String idProfessor;
 
         /*----------------------CONSTRUTOR DO PAINEL DE ACESSO---------------*/
-        public PanelGif(String tipoUsuario, 
-                String idProfessor) throws IOException {
+        public PanelGif(String tipoUsuario, String idProfessor) throws IOException {
             this.tipoUsuario = tipoUsuario;
             this.idProfessor = idProfessor;
 
             setLayout(new GridBagLayout());
+            GridBagConstraints gbc = new GridBagConstraints();
+            gbc.gridx = 0;
+            gbc.gridy = 0;
+            gbc.anchor = GridBagConstraints.CENTER;
 
             /*----------------------CARREGAMENTO DAS IMAGENS------------------*/
             ImageIcon gifIcon = new ImageIcon(getClass().getResource
                     ("/ImagensTelaGifEntrada/gifEntrada.gif"));
             
+            Image scaledImage = gifIcon.getImage().getScaledInstance(1620, 880, Image.SCALE_DEFAULT);
+            gifIcon = new ImageIcon(scaledImage);
+            
             sistema.pararMusica();
 
-            labelGif = new JLabel(gifIcon);
+            labelGif = new JLabel(gifIcon, SwingConstants.CENTER);
+            labelGif.setHorizontalAlignment(SwingConstants.CENTER);
+            labelGif.setVerticalAlignment(SwingConstants.CENTER);
 
-            add(labelGif);
+            add(labelGif, gbc);
 
             int duracaoGif = 22000;
 
             javax.swing.Timer timer = 
                     new javax.swing.Timer(duracaoGif, (ActionEvent e) -> {
-                        
-                if (tipoUsuario.equalsIgnoreCase("professor")) {
-                    TelaLobbyProfessor lobbyProfessor = 
-                            new TelaLobbyProfessor(idProfessor);
-                    lobbyProfessor.setVisible(true);
-                    sistema.tocarMusica();   
-                } 
-                
-                else if (tipoUsuario.equalsIgnoreCase("aluno")) {
-                    TelaLobbyAluno lobbyAluno = new TelaLobbyAluno();
-                    lobbyAluno.setVisible(true);
-                    sistema.tocarMusica();
-                }
+                        if (tipoUsuario.equalsIgnoreCase("professor")) {
+                            TelaLobbyProfessor lobbyProfessor = 
+                                    new TelaLobbyProfessor(idProfessor);
+                            lobbyProfessor.setVisible(true);
+                            sistema.tocarMusica();   
+                        } 
+                        else if (tipoUsuario.equalsIgnoreCase("aluno")) {
+                            TelaLobbyAluno lobbyAluno = new TelaLobbyAluno();
+                            lobbyAluno.setVisible(true);
+                            sistema.tocarMusica();
+                        }
 
-                Window janela = SwingUtilities.getWindowAncestor(PanelGif.this);
-                if (janela instanceof JFrame) {
-                    janela.dispose();
-                }
-            });
+                        Window janela = SwingUtilities.getWindowAncestor(PanelGif.this);
+                        if (janela instanceof JFrame) {
+                            janela.dispose();
+                        }
+                    });
 
             timer.setRepeats(false);
             timer.start();

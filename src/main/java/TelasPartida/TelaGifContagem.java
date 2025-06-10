@@ -43,65 +43,98 @@ public class TelaGifContagem extends JFrame {
     /*----------------------MÉTODO MAIN PARA EXECUTAR A TELA----------------*/
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            // Passe parâmetros fictícios ou reais
-            TelaGifContagem tela = new TelaGifContagem(idProfessor, origem);
+            // Exemplo com parâmetros para teste
+            TelaGifContagem tela = new TelaGifContagem("prof123", "Professor");
             tela.setVisible(true);
         });
     }
 
-/*-----------------------CLASSE INTERNA: PAINEL DE ACESSO---------------------*/
+    /*-----------------------CLASSE INTERNA: PAINEL DE ACESSO---------------------*/
     public class PanelGif extends JPanel {
 
         /*----------------------DECLARAÇÃO DE VARIÁVEIS----------------------*/
         private JLabel labelGif;
-        private String tipoUsuario;
         private String idProfessor;
+        private javax.swing.Timer timer;
 
         /*----------------------CONSTRUTOR DO PAINEL DE ACESSO---------------*/
         public PanelGif(String idProfessor) throws IOException {
             this.idProfessor = idProfessor;
 
-            setLayout(new GridBagLayout());
+            setLayout(new BorderLayout());
+
+            /*----------------------CRIAR JLayeredPane PARA CAMADAS------------------*/
+            JLayeredPane layeredPane = new JLayeredPane();
 
             /*----------------------CARREGAMENTO DAS IMAGENS------------------*/
-            ImageIcon gifIcon = new ImageIcon(getClass().getResource
-                    ("/ImagensTelaGifContagem/gifContagem.gif"));
+            java.net.URL gifUrl = getClass().getResource("/ImagensTelaGifContagem/gifContagem.gif");
+            if (gifUrl == null) {
+                throw new IOException("GIF file not found at /ImagensTelaGifContagem/gifContagem.gif");
+            }
+            ImageIcon gifIcon = new ImageIcon(gifUrl);
             
+            Image scaledImage = gifIcon.getImage().getScaledInstance(1620, 880, Image.SCALE_DEFAULT);
+            gifIcon = new ImageIcon(scaledImage);
+
             sistema.pararMusica();
 
-            labelGif = new JLabel(gifIcon);
+            labelGif = new JLabel(gifIcon, SwingConstants.CENTER);
+            labelGif.setHorizontalAlignment(SwingConstants.CENTER);
+            labelGif.setVerticalAlignment(SwingConstants.CENTER);
+            labelGif.setBounds(0, 0, getWidth(), getHeight()); // Ajusta ao tamanho do painel
 
-            add(labelGif);
+            /*----------------------BOTÃO INVISÍVEL----------------------*/
+            JButton skipButton = new JButton();
+            skipButton.setOpaque(false);
+            skipButton.setContentAreaFilled(false);
+            skipButton.setBorderPainted(false);
+            skipButton.setFocusPainted(false);
+            skipButton.setBounds(0, 0, getWidth(), getHeight()); // Preenche o painel
+
+            /*----------------------ADICIONAR AO JLayeredPane------------------*/
+            layeredPane.add(labelGif, JLayeredPane.DEFAULT_LAYER); // GIF na camada inferior
+            layeredPane.add(skipButton, JLayeredPane.PALETTE_LAYER); // Botão na camada superior
+
+            add(layeredPane, BorderLayout.CENTER);
+
+            /*----------------------AJUSTAR TAMANHO COM RESIZE------------------*/
+            addComponentListener(new java.awt.event.ComponentAdapter() {
+                public void componentResized(java.awt.event.ComponentEvent evt) {
+                    labelGif.setBounds(0, 0, getWidth(), getHeight());
+                    skipButton.setBounds(0, 0, getWidth(), getHeight());
+                }
+            });
 
             int duracaoGif = 15700;
 
-            javax.swing.Timer timer = 
-                    new javax.swing.Timer(duracaoGif, (ActionEvent e) -> {
-                     
-                        if ("Aluno".equals(origem)) {
-                            TelaPergunta pergunta = 
-                                    new TelaPergunta(idProfessor);
-                            pergunta.setVisible(true);
+            timer = new javax.swing.Timer(duracaoGif, (ActionEvent e) -> {
+                transitionToNextScreen();
+            });
 
-                            Window window = SwingUtilities.getWindowAncestor
-                                                (PanelGif.this);
-                            if (window instanceof JFrame) {
-                                window.dispose();
-                        } else if ("Professor".equals(origem)) {
-                            TelaGifPartidaEmAndamento gifPartidaAndamento = 
-                                    new TelaGifPartidaEmAndamento(idProfessor);
-                            gifPartidaAndamento.setVisible(true);
+            skipButton.addActionListener((ActionEvent e) -> {
+                timer.stop(); // Para o timer para evitar transição dupla
+                transitionToNextScreen();
+            });
 
-                            Window janela = SwingUtilities.getWindowAncestor
-                                                (PanelGif.this);
-                                if (janela instanceof JFrame) {
-                                    janela.dispose();
-                                }
-                            }
-                        }
-                    });
             timer.setRepeats(false);
             timer.start();
+        }
+
+        /*----------------------MÉTODO PARA TRANSIÇÃO----------------------*/
+        private void transitionToNextScreen() {
+
+            TelaGifPartidaEmAndamento gifPartidaAndamento = 
+                    new TelaGifPartidaEmAndamento(idProfessor);
+            gifPartidaAndamento.setVisible(true);
+            fecharJanela();
+        }
+
+        /*----------------------MÉTODO PARA FECHAR JANELA----------------------*/
+        private void fecharJanela() {
+            Window window = SwingUtilities.getWindowAncestor(this);
+            if (window instanceof JFrame) {
+                window.dispose();
+            }
         }
     }
 }

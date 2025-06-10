@@ -1,55 +1,62 @@
-/*----------------------PACOTE QUE PERTENCE A CLASSE--------------------------*/
 package TelasPartida;
 
-/*----------------------IMPORTAÇÕES NECESSÁRIAS-----------------------------*/
+import CodigoPoligenio.SalaCriada;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+import java.util.Random;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-/*----------------------CLASSE PRINCIPAL DA TELA DE PERGUNTA-----------------*/
 public class TelaPergunta extends JFrame {
     
-    /*----------------------DECLARAÇÃO DE VARIÁVEIS----------------------*/
     private JPanel painelPergunta;
     private static String idProfessor;
+    private static JTextField campoTextoAltA;
+    private static JTextField campoTextoAltB;
+    private static JTextField campoTextoAltC;
+    private static JTextField campoTextoAltD;
+    public static JButton botaoAlternativaA;
+    public static JButton botaoAlternativaB;
+    public static JButton botaoAlternativaC;
+    public static JButton botaoAlternativaD;
 
-    /*----------------------CONSTRUTOR DA TELA DE PERGUNTA-------------------*/
-    public TelaPergunta(String idProfessor) {
-        /*----------------------CONFIGURAÇÕES DA JANELA-------------------*/
+    public TelaPergunta(String idProfessor) throws Exception {
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setUndecorated(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.idProfessor = idProfessor;
 
-        painelPergunta = new JPanel();
-
         try {
-            /*----------------------INSTANCIAÇÃO DO PAINEL----------------*/
-            PanelPergunta panelPergunta = new PanelPergunta();
-            setContentPane(panelPergunta);
-
+            painelPergunta = new PanelPergunta(this, 0);
+            add(painelPergunta);
         } catch (IOException e) {
-            /*----------------------TRATAMENTO DE EXCEÇÕES-------------------*/
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Erro ao inicializar a tela: " 
                     + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }
 
-    /*----------------------MÉTODO MAIN PARA EXECUTAR A TELA----------------*/
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            TelaPergunta tela = new TelaPergunta(idProfessor);
-            tela.setVisible(true);
+            TelaPergunta tela;
+            try {
+                tela = new TelaPergunta(idProfessor);
+                tela.setVisible(true);
+            } catch (Exception ex) {
+                Logger.getLogger(TelaPergunta.class.getName()).log
+        (Level.SEVERE, null, ex);
+            }
+            
         });
     }
 
-    /*----------------------CLASSE INTERNA: PAINEL DE PERGUNTA---------------*/
     public static class PanelPergunta extends JPanel {
-
-        /*----------------------DECLARAÇÃO DE VARIÁVEIS----------------------*/
         private BufferedImage imagemFundoPergunta;
         private BufferedImage imagemBotaoAlternativaA;
         private BufferedImage imagemBotaoAlternativaB;
@@ -59,56 +66,73 @@ public class TelaPergunta extends JFrame {
         private BufferedImage imagemBoxPontuacaoAcerto;
         private BufferedImage imagemBotaoAjuda;
         
-        private JButton botaoAlternativaA;
-        private JButton botaoAlternativaB;
-        private JButton botaoAlternativaC;
-        private JButton botaoAlternativaD;
-        private JButton botaoAjuda;
+
+        private static JButton botaoAjuda;
         
         private JTextField campoTextoAcerto;
         private JTextField campoTextoErro;
+        private JTextField campoPergunta;
         
-        private JTextField campoTextoAltA;
-        private JTextField campoTextoAltB;
-        private JTextField campoTextoAltC;
-        private JTextField campoTextoAltD;
-        
-        /*----------------------CONSTRUTOR DO PAINEL DE PERGUNTA-------------*/
-         public PanelPergunta() throws IOException {
+        private JFrame parentFrame;
+        private Random random = new Random();
+        private JButton respostaCorreta;
+
+        public PanelPergunta(JFrame parentFrame, int indiceRespostaCorreta)
+                throws IOException, Exception {
+            this.parentFrame = parentFrame;
             setLayout(new GridBagLayout());
             
-            /*----------------------CARREGAMENTO DAS IMAGENS------------------*/
-            imagemFundoPergunta = ImageIO.read
-        (getClass().getResource("/ImagensTelaPergunta/telaPergunta.png"));
+
+            imagemFundoPergunta = ImageIO.read(getClass().getResource
+        ("/ImagensTelaPergunta/telaPergunta.png"));
             
-            imagemBotaoAlternativaA = ImageIO.read
-        (getClass().getResource("/ImagensTelaPergunta/botaoAlternativa.png"));
+            imagemBotaoAlternativaA = ImageIO.read(getClass().getResource
+        ("/ImagensTelaPergunta/botaoAlternativa.png"));
             
-            imagemBotaoAlternativaB = ImageIO.read
-        (getClass().getResource("/ImagensTelaPergunta/botaoAlternativa.png"));
+            imagemBotaoAlternativaB = ImageIO.read(getClass().getResource
+        ("/ImagensTelaPergunta/botaoAlternativa.png"));
             
-            imagemBotaoAlternativaC = ImageIO.read
-        (getClass().getResource("/ImagensTelaPergunta/botaoAlternativa.png"));
+            imagemBotaoAlternativaC = ImageIO.read(getClass().getResource
+        ("/ImagensTelaPergunta/botaoAlternativa.png"));
             
-            imagemBotaoAlternativaD = ImageIO.read
-        (getClass().getResource("/ImagensTelaPergunta/botaoAlternativa.png"));
+            imagemBotaoAlternativaD = ImageIO.read(getClass().getResource
+        ("/ImagensTelaPergunta/botaoAlternativa.png"));
             
-            imagemBoxPontuacaoErro = ImageIO.read
-        (getClass().getResource("/ImagensTelaPergunta/boxPontuacao.png"));
+            imagemBoxPontuacaoErro = ImageIO.read(getClass().getResource
+        ("/ImagensTelaPergunta/boxPontuacao.png"));
             
-            imagemBoxPontuacaoAcerto = ImageIO.read
-        (getClass().getResource("/ImagensTelaPergunta/boxPontuacao.png"));
+            imagemBoxPontuacaoAcerto = ImageIO.read(getClass().getResource
+        ("/ImagensTelaPergunta/boxPontuacao.png"));
             
-            imagemBotaoAjuda = ImageIO.read
-        (getClass().getResource("/ImagensTelaPergunta/botaoAjuda.png"));
+            imagemBotaoAjuda = ImageIO.read(getClass().getResource
+        ("/ImagensTelaPergunta/botaoAjuda.png"));
             
-            /*----------------------CRIAÇÃO DO PAINEL DE CONTEÚDO-------------*/
+            botaoAlternativaA = new JButton();
+            botaoAlternativaB = new JButton();
+            botaoAlternativaC = new JButton();
+            botaoAlternativaD = new JButton();
+            
+            switch (indiceRespostaCorreta) {
+                case 1:
+                    respostaCorreta = botaoAlternativaA;
+                    break;
+                case 2:
+                    respostaCorreta = botaoAlternativaB;
+                    break;
+                case 3:
+                    respostaCorreta = botaoAlternativaC;
+                    break;
+                case 4:
+                    respostaCorreta = botaoAlternativaD;
+                    break;
+                default:
+                    respostaCorreta = botaoAlternativaA; // Valor padrão
+            }
+            
             JPanel painelConteudo = new JPanel(null) {
                 @Override
                 protected void paintComponent(Graphics g) {
                     super.paintComponent(g);
-
-                    /*----------------------CONFIGURAÇÃO GRÁFICA----------------*/
                     Graphics2D g2d = (Graphics2D) g;
                     g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, 
                             RenderingHints.VALUE_INTERPOLATION_BILINEAR);
@@ -117,56 +141,51 @@ public class TelaPergunta extends JFrame {
 
                     int w = getWidth();
                     int h = getHeight();
-
-                    /*----------------------CALCULA O CENTRO DA TELA------------*/
                     int centroX = w / 2;
-
-                    /*----------------------DIMENSÕES DOS ELEMENTOS--------------*/
-                    double escala = 1.0; // Defina a escala conforme necessário
-                    int larguraBotAltA = (int) 
+                    double escala = 1.0;
+                    int larguraBotAltA = (int)
                             (imagemBotaoAlternativaA.getWidth() * 0.7 * escala);
-                    int alturaBotAltA = (int) 
+                    int alturaBotAltA = (int)
                             (imagemBotaoAlternativaA.getHeight() * 0.7 * escala);
                     
-                    int larguraBotAltB = (int) 
+                    int larguraBotAltB = (int)
                             (imagemBotaoAlternativaB.getWidth() * 0.7 * escala);
-                    int alturaBotAltB = (int) 
+                    int alturaBotAltB = (int)
                             (imagemBotaoAlternativaB.getHeight() * 0.7 * escala);
                     
-                    int larguraBotAltC = (int) 
+                    int larguraBotAltC = (int)
                             (imagemBotaoAlternativaC.getWidth() * 0.7 * escala);
-                    int alturaBotAltC = (int) 
+                    int alturaBotAltC = (int)
                             (imagemBotaoAlternativaC.getHeight() * 0.7 * escala);
                     
-                    int larguraBotAltD = (int) 
+                    int larguraBotAltD = (int)
                             (imagemBotaoAlternativaD.getWidth() * 0.7 * escala);
-                    int alturaBotAltD = (int) 
+                    int alturaBotAltD = (int)
                             (imagemBotaoAlternativaD.getHeight() * 0.7 * escala);
                     
-                    int larguraBoxAcerto = (int) 
+                    int larguraBoxAcerto = (int)
                             (imagemBoxPontuacaoAcerto.getWidth() * 0.2 * escala);
-                    int alturaBoxAcerto = (int) 
+                    int alturaBoxAcerto = (int)
                             (imagemBoxPontuacaoAcerto.getHeight() * 0.2 * escala);
                     
-                    int larguraBoxErro = (int) 
+                    int larguraBoxErro = (int)
                             (imagemBoxPontuacaoErro.getWidth() * 0.2 * escala);
-                    int alturaBoxErro = (int) 
+                    int alturaBoxErro = (int)
                             (imagemBoxPontuacaoErro.getHeight() * 0.2 * escala);
                     
-                    int larguraBotAjuda = (int) 
+                    int larguraBotAjuda = (int)
                             (imagemBotaoAjuda.getWidth() * 0.2 * escala);
-                    int alturaBotAjuda = (int) 
+                    int alturaBotAjuda = (int)
                             (imagemBotaoAjuda.getHeight() * 0.2 * escala);
                     
-                    /*----------------------POSICIONAMENTO DOS ELEMENTOS---------*/
                     int xAltA = centroX - (larguraBotAltA / 2) - 480;
-                    int yAltA = (int) (h * 0.45) + 80;
+                    int yAltA = (int)(h * 0.45) + 80;
                     
                     int xAltB = centroX - (larguraBotAltB / 2);
                     int yAltB = yAltA;
                     
                     int xAltC = centroX - (larguraBotAltC / 2) - 480;
-                    int yAltC = yAltA + alturaBotAltA + (int) (30 * escala);
+                    int yAltC = yAltA + alturaBotAltA + (int)(30 * escala);
                     
                     int xAltD = centroX - (larguraBotAltD / 2);
                     int yAltD = yAltB + alturaBotAltB + (int)(30 * escala);
@@ -180,40 +199,43 @@ public class TelaPergunta extends JFrame {
                     int xAjuda = centroX - (larguraBotAjuda / 2);
                     int yAjuda = yAltD + alturaBotAltD + (int)(10 * escala);
                     
-                    /*----------------------CONFIGURAÇÃO DOS BOTÕES--------------*/
-                    botaoAlternativaA.setBounds(xAltA, 
+                    botaoAlternativaA.setBounds(xAltA,
                             yAltA, 
-                            larguraBotAltA,
+                            larguraBotAltA, 
                             alturaBotAltA);
                     
-                    botaoAlternativaB.setBounds(xAltB,
-                            yAltB, 
+                    botaoAlternativaB.setBounds(xAltB, 
+                            yAltB,
                             larguraBotAltB, 
                             alturaBotAltB);
                     
                     botaoAlternativaC.setBounds(xAltC, 
                             yAltC, 
-                            larguraBotAltC,
+                            larguraBotAltC, 
                             alturaBotAltC);
                     
-                    botaoAlternativaD.setBounds(xAltD, 
+                    botaoAlternativaD.setBounds(xAltD,
                             yAltD, 
-                            larguraBotAltD, 
+                            larguraBotAltD,
                             alturaBotAltD);
                     
-                    botaoAjuda.setBounds(xAjuda, 
+                    botaoAjuda.setBounds(xAjuda,
                             yAjuda, 
                             larguraBotAjuda, 
                             alturaBotAjuda);
                     
-                    /*----------------------CONFIGURAÇÃO DOS CAMPOS DE TEXTO-----*/
-                    campoTextoAcerto.setBounds(xAcerto + (int)(65 * escala), 
-                            yAcerto + (int)(12 * escala), 
+                    campoPergunta.setBounds(xAcerto + (int)(-100 * escala),
+                            yAcerto + (int)(-740 * escala), 
+                            (int)(1500 * escala), 
+                            (int)(50 * escala));
+                    
+                    campoTextoAcerto.setBounds(xAcerto + (int)(77 * escala) - 12,
+                            yAcerto + (int)(27 * escala) - 15, 
                             (int)(150 * escala), 
                             (int)(50 * escala));
                     
                     campoTextoErro.setBounds(xErro + (int)(77 * escala), 
-                            yErro + (int)(12 * escala), 
+                            yErro + (int)(27 * escala) - 15,
                             (int)(150 * escala), 
                             (int)(50 * escala));
                     
@@ -237,55 +259,70 @@ public class TelaPergunta extends JFrame {
                             (int)(300 * escala), 
                             (int)(50 * escala));
                     
-                    /*----------------------DESENHO DOS ELEMENTOS----------------*/
-                    g2d.drawImage(imagemBotaoAlternativaA, 
-                            xAltA, 
-                            yAltA, 
-                            larguraBotAltA, 
-                            alturaBotAltA, this);
+                    if (botaoAlternativaA.isVisible()) {
+                        g2d.drawImage(imagemBotaoAlternativaA, 
+                                xAltA,
+                                yAltA, 
+                                larguraBotAltA, 
+                                alturaBotAltA, this);
+                    }
                     
-                    g2d.drawImage(imagemBotaoAlternativaB, 
-                            xAltB, 
-                            yAltB, 
-                            larguraBotAltB, 
-                            alturaBotAltB, this);
+                    if (botaoAlternativaB.isVisible()) {
+                        g2d.drawImage(imagemBotaoAlternativaB, 
+                                xAltB, 
+                                yAltB, 
+                                larguraBotAltB,
+                                alturaBotAltB, this);
+                    }
                     
-                    g2d.drawImage(imagemBotaoAlternativaC, 
-                            xAltC, 
-                            yAltC, 
-                            larguraBotAltC, 
-                            alturaBotAltC, this);
+                    if (botaoAlternativaC.isVisible()) {
+                        g2d.drawImage(imagemBotaoAlternativaC,
+                                xAltC,
+                                yAltC,
+                                larguraBotAltC, 
+                                alturaBotAltC, this);
+                    }
                     
-                    g2d.drawImage(imagemBotaoAlternativaD, 
-                            xAltD, 
-                            yAltD, 
-                            larguraBotAltD, 
-                            alturaBotAltD, this);
+                    if (botaoAlternativaD.isVisible()) {
+                        g2d.drawImage(imagemBotaoAlternativaD, 
+                                xAltD,
+                                yAltD, 
+                                larguraBotAltD,
+                                alturaBotAltD, this);
+                    }
                     
-                    g2d.drawImage(imagemBoxPontuacaoAcerto, 
-                            xAcerto, 
-                            yAcerto, 
+                    g2d.drawImage(imagemBoxPontuacaoAcerto,
+                            xAcerto,
+                            yAcerto,
                             larguraBoxAcerto, 
                             alturaBoxAcerto, this);
                     
                     g2d.drawImage(imagemBoxPontuacaoErro, 
-                            xErro, 
+                            xErro,
                             yErro, 
-                            larguraBoxErro, 
+                            larguraBoxErro,
                             alturaBoxErro, this);
                     
-                    g2d.drawImage(imagemBotaoAjuda, 
-                            xAjuda, 
+                    g2d.drawImage(imagemBotaoAjuda,
+                            xAjuda,
                             yAjuda, 
                             larguraBotAjuda, 
                             alturaBotAjuda, this);
-                    
                 }
             };
             painelConteudo.setOpaque(false);
             
-            /*----------------------CONFIGURAÇÃO DO BOTÃO ALTERNATIVA A------*/
-            botaoAlternativaA = new JButton();
+            Map<String, String> perguntaComAlternativas = 
+                    SalaCriada.exibirPerguntaComAlternativas();
+            
+            String id = perguntaComAlternativas.get("id");
+            String pergunta = perguntaComAlternativas.get("pergunta");
+            String altA = perguntaComAlternativas.get("A");
+            String altB = perguntaComAlternativas.get("B");
+            String altC = perguntaComAlternativas.get("C");
+            String altD = perguntaComAlternativas.get("D");
+            String correta = perguntaComAlternativas.get("correta");
+            
             botaoAlternativaA.setBorderPainted(false);
             botaoAlternativaA.setContentAreaFilled(false);
             botaoAlternativaA.setFocusPainted(false);
@@ -293,8 +330,6 @@ public class TelaPergunta extends JFrame {
             botaoAlternativaA.setCursor(new Cursor(Cursor.HAND_CURSOR));
             painelConteudo.add(botaoAlternativaA);
             
-            /*----------------------CONFIGURAÇÃO DO BOTÃO ALTERNATIVA B------*/
-            botaoAlternativaB = new JButton();
             botaoAlternativaB.setBorderPainted(false);
             botaoAlternativaB.setContentAreaFilled(false);
             botaoAlternativaB.setFocusPainted(false);
@@ -302,8 +337,6 @@ public class TelaPergunta extends JFrame {
             botaoAlternativaB.setCursor(new Cursor(Cursor.HAND_CURSOR));
             painelConteudo.add(botaoAlternativaB);
             
-            /*----------------------CONFIGURAÇÃO DO BOTÃO ALTERNATIVA C------*/
-            botaoAlternativaC = new JButton();
             botaoAlternativaC.setBorderPainted(false);
             botaoAlternativaC.setContentAreaFilled(false);
             botaoAlternativaC.setFocusPainted(false);
@@ -311,8 +344,6 @@ public class TelaPergunta extends JFrame {
             botaoAlternativaC.setCursor(new Cursor(Cursor.HAND_CURSOR));
             painelConteudo.add(botaoAlternativaC);
             
-            /*----------------------CONFIGURAÇÃO DO BOTÃO ALTERNATIVA D------*/
-            botaoAlternativaD = new JButton();
             botaoAlternativaD.setBorderPainted(false);
             botaoAlternativaD.setContentAreaFilled(false);
             botaoAlternativaD.setFocusPainted(false);
@@ -320,16 +351,31 @@ public class TelaPergunta extends JFrame {
             botaoAlternativaD.setCursor(new Cursor(Cursor.HAND_CURSOR));
             painelConteudo.add(botaoAlternativaD);
             
-            /*----------------------CONFIGURAÇÃO DO BOTÃO AJUDA--------------*/
             botaoAjuda = new JButton();
             botaoAjuda.setBorderPainted(false);
             botaoAjuda.setContentAreaFilled(false);
             botaoAjuda.setFocusPainted(false);
             botaoAjuda.setOpaque(false);
             botaoAjuda.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            botaoAjuda.addActionListener(e -> {
+                try {
+                    JDialog dialogAjuda = new JDialog(parentFrame, true);
+                    PanelAjuda panelAjuda = new PanelAjuda(dialogAjuda, this);
+                    dialogAjuda.add(panelAjuda);
+                    dialogAjuda.setUndecorated(true);
+                    dialogAjuda.setBackground(new Color(0, 0, 0, 0));
+                    dialogAjuda.pack();
+                    dialogAjuda.setLocationRelativeTo(parentFrame);
+                    dialogAjuda.setVisible(true);
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                    JOptionPane.showMessageDialog(parentFrame, 
+                            "Erro ao abrir a tela de ajuda: " + ex.getMessage(), 
+                            "Erro", JOptionPane.ERROR_MESSAGE);
+                }
+            });
             painelConteudo.add(botaoAjuda);
             
-            /*----------------------CONFIGURAÇÃO DO CAMPO TEXTO ACERTO-------*/
             campoTextoAcerto = new JTextField();
             campoTextoAcerto.setBorder(null);
             campoTextoAcerto.setOpaque(false);
@@ -340,7 +386,16 @@ public class TelaPergunta extends JFrame {
             campoTextoAcerto.setFocusable(false);
             painelConteudo.add(campoTextoAcerto);
             
-            /*----------------------CONFIGURAÇÃO DO CAMPO TEXTO ERRO---------*/
+            campoPergunta = new JTextField();
+            campoPergunta.setBorder(null);
+            campoPergunta.setOpaque(false);
+            campoPergunta.setForeground(Color.BLACK);
+            campoPergunta.setFont(new Font("Jockey One", Font.BOLD, 30));
+            campoPergunta.setText(pergunta);
+            campoPergunta.setEditable(false);
+            campoPergunta.setFocusable(false);
+            painelConteudo.add(campoPergunta);
+            
             campoTextoErro = new JTextField();
             campoTextoErro.setBorder(null);
             campoTextoErro.setOpaque(false);
@@ -356,7 +411,7 @@ public class TelaPergunta extends JFrame {
             campoTextoAltA.setOpaque(false);
             campoTextoAltA.setForeground(Color.BLACK);
             campoTextoAltA.setFont(new Font("Jockey One", Font.BOLD, 40));
-            campoTextoAltA.setText("Batata");
+            campoTextoAltA.setText(altA);
             campoTextoAltA.setEditable(false);
             campoTextoAltA.setFocusable(false);
             painelConteudo.add(campoTextoAltA);
@@ -366,7 +421,7 @@ public class TelaPergunta extends JFrame {
             campoTextoAltB.setOpaque(false);
             campoTextoAltB.setForeground(Color.BLACK);
             campoTextoAltB.setFont(new Font("Jockey One", Font.BOLD, 40));
-            campoTextoAltB.setText("Batata");
+            campoTextoAltB.setText(altB);
             campoTextoAltB.setEditable(false);
             campoTextoAltB.setFocusable(false);
             painelConteudo.add(campoTextoAltB);
@@ -376,7 +431,7 @@ public class TelaPergunta extends JFrame {
             campoTextoAltC.setOpaque(false);
             campoTextoAltC.setForeground(Color.BLACK);
             campoTextoAltC.setFont(new Font("Jockey One", Font.BOLD, 40));
-            campoTextoAltC.setText("Batata");
+            campoTextoAltC.setText(altC);
             campoTextoAltC.setEditable(false);
             campoTextoAltC.setFocusable(false);
             painelConteudo.add(campoTextoAltC);
@@ -386,48 +441,223 @@ public class TelaPergunta extends JFrame {
             campoTextoAltD.setOpaque(false);
             campoTextoAltD.setForeground(Color.BLACK);
             campoTextoAltD.setFont(new Font("Jockey One", Font.BOLD, 40));
-            campoTextoAltD.setText("Batata");
+            campoTextoAltD.setText(altD);
             campoTextoAltD.setEditable(false);
             campoTextoAltD.setFocusable(false);
             painelConteudo.add(campoTextoAltD);
             
-            /*----------------------CONFIGURAÇÃO DO LAYOUT--------------------*/
             setLayout(new BorderLayout());
             add(painelConteudo, BorderLayout.CENTER);
         }
         
-        /*----------------------PINTURA DO FUNDO DO PAINEL-------------------*/
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
             Graphics2D g2d = (Graphics2D) g;
-
-            int w = getWidth();
-            int h = getHeight();
-
-            /*----------------------CONFIGURAÇÃO DE RENDERIZAÇÃO-------------*/
-            g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
+            g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, 
                     RenderingHints.VALUE_INTERPOLATION_BICUBIC);
-            g2d.setRenderingHint(RenderingHints.KEY_RENDERING, 
+            g2d.setRenderingHint(RenderingHints.KEY_RENDERING,
                     RenderingHints.VALUE_RENDER_QUALITY);
-            g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, 
+            g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                     RenderingHints.VALUE_ANTIALIAS_ON);
             g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
                     RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
             g2d.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION,
                     RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
-            g2d.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, 
+            g2d.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING,
                     RenderingHints.VALUE_COLOR_RENDER_QUALITY);
             g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL,
                     RenderingHints.VALUE_STROKE_PURE);
             
-            /*----------------------DESENHO DA IMAGEM DE FUNDO---------------*/
             if (imagemFundoPergunta != null) {
-                g2d.drawImage(imagemFundoPergunta, 0, 
-                        0, 
-                        w, 
-                        h, this);
+                g2d.drawImage(imagemFundoPergunta, 
+                        0, 0, getWidth(), getHeight(), this);
             }
         } 
+    }
+
+    public static class PanelAjuda extends JPanel {
+        private BufferedImage imagemFundoAjuda;
+        private BufferedImage imagemBotaoAjuda1;
+        private BufferedImage imagemBotaoAjuda2;
+        private BufferedImage imagemBotaoAjuda3;
+        
+        private JButton botaoAjuda1;
+        private JButton botaoAjuda2;
+        private JButton botaoAjuda3;
+        
+        private JDialog parentDialog;
+        private PanelPergunta parentPanel;
+        
+        public PanelAjuda(JDialog parentDialog, PanelPergunta parentPanel) 
+                throws IOException {
+            this.parentDialog = parentDialog;
+            this.parentPanel = parentPanel;
+            setLayout(null);
+            setOpaque(false);
+            setBackground(new Color(0, 0, 0, 0));
+            
+            imagemFundoAjuda = ImageIO.read(getClass().getResource
+        ("/ImagensTelaPergunta/telaAjuda.png"));
+            
+            imagemBotaoAjuda1 = ImageIO.read(getClass().getResource
+        ("/ImagensTelaPergunta/elimineDuasRespostas.png"));
+            
+            imagemBotaoAjuda2 = ImageIO.read(getClass().getResource
+        ("/ImagensTelaPergunta/duplaChance.png"));
+            
+            imagemBotaoAjuda3 = ImageIO.read(getClass().getResource
+        ("/ImagensTelaPergunta/botaoFecharAjuda.png"));
+            
+            double escala = 1.0;
+            int larguraFundoAjuda = (int)
+                    (imagemFundoAjuda.getWidth() * 1 * escala);
+            int alturaFundoAjuda = (int)
+                    (imagemFundoAjuda.getHeight() * 1 * escala);
+            
+            setPreferredSize(new Dimension(larguraFundoAjuda, alturaFundoAjuda));
+            
+            JPanel painelConteudo = new JPanel(null) {
+                @Override
+                protected void paintComponent(Graphics g) {
+                    super.paintComponent(g);
+                    Graphics2D g2d = (Graphics2D) g;
+                    g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, 
+                            RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+                    g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                            RenderingHints.VALUE_ANTIALIAS_ON);
+
+                    int w = getWidth();
+                    int h = getHeight();
+                    int centroX = w / 2;
+                    int centroY = h / 2;
+
+                    int larguraBotAjuda1 = (int)
+                            (imagemBotaoAjuda1.getWidth() * 0.2 * escala);
+                    int alturaBotAjuda1 = (int)
+                            (imagemBotaoAjuda1.getHeight() * 0.2 * escala);
+                    
+                    int larguraBotAjuda2 = (int)
+                            (imagemBotaoAjuda2.getWidth() * 0.2 * escala);
+                    int alturaBotAjuda2 = (int)
+                            (imagemBotaoAjuda2.getHeight() * 0.2 * escala);
+                    
+                    int larguraBotAjuda3 = (int)
+                            (imagemBotaoAjuda3.getWidth() * 0.15 * escala);
+                    int alturaBotAjuda3 = (int)
+                            (imagemBotaoAjuda3.getHeight() * 0.15 * escala);
+                    
+                    int xFundo = 0;
+                    int yFundo = 0;
+                    int xBotAjuda1 = centroX - (larguraBotAjuda1 / 2);
+                    int yBotAjuda1 = centroY - (alturaBotAjuda1 / 2) - (int)(75 * escala);
+                    
+                    int xBotAjuda2 = centroX - (larguraBotAjuda2 / 2);
+                    int yBotAjuda2 = centroY - (alturaBotAjuda2 / 2) - (int)(-100 * escala);
+                    
+                    int xBotAjuda3 = centroX - (larguraBotAjuda3 / 2) + 450;
+                    int yBotAjuda3 = centroY - (alturaBotAjuda3 / 2) + (int)(-250 * escala);
+                    
+                    botaoAjuda1.setBounds(xBotAjuda1,
+                            yBotAjuda1,
+                            larguraBotAjuda1,
+                            alturaBotAjuda1);
+                    
+                    botaoAjuda2.setBounds(xBotAjuda2,
+                            yBotAjuda2, 
+                            larguraBotAjuda2, 
+                            alturaBotAjuda2);
+                    
+                    botaoAjuda3.setBounds(xBotAjuda3,
+                            yBotAjuda3, 
+                            larguraBotAjuda3, 
+                            alturaBotAjuda3);
+                    
+                    g2d.drawImage(imagemFundoAjuda, xFundo, yFundo, larguraFundoAjuda, alturaFundoAjuda, this);
+                    g2d.drawImage(imagemBotaoAjuda1, xBotAjuda1, yBotAjuda1, larguraBotAjuda1, alturaBotAjuda1, this);
+                    g2d.drawImage(imagemBotaoAjuda2, xBotAjuda2, yBotAjuda2, larguraBotAjuda2, alturaBotAjuda2, this);
+                    g2d.drawImage(imagemBotaoAjuda3, xBotAjuda3, yBotAjuda3, larguraBotAjuda3, alturaBotAjuda3, this);
+                }
+            };
+            painelConteudo.setOpaque(false);
+            painelConteudo.setBounds(0, 0, larguraFundoAjuda, alturaFundoAjuda);
+            
+            botaoAjuda1 = new JButton();
+            botaoAjuda1.setBorderPainted(false);
+            botaoAjuda1.setContentAreaFilled(false);
+            botaoAjuda1.setFocusPainted(false);
+            botaoAjuda1.setOpaque(false);
+            botaoAjuda1.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            botaoAjuda1.addActionListener(e -> {
+                ArrayList<JButton> buttons = new ArrayList<>();
+                buttons.add(botaoAlternativaA);
+                buttons.add(botaoAlternativaB);
+                buttons.add(botaoAlternativaC);
+                buttons.add(botaoAlternativaD);
+
+                buttons.removeIf(button -> !button.isVisible());
+                
+                ArrayList<JComponent> textos = new ArrayList<>();
+                textos.add(campoTextoAltA);
+                textos.add(campoTextoAltB);
+                textos.add(campoTextoAltC);
+                textos.add(campoTextoAltD);
+
+                if (parentPanel.respostaCorreta != null && buttons.contains(parentPanel.respostaCorreta)) {
+                    buttons.remove(parentPanel.respostaCorreta);
+                }
+
+                if (buttons.size() >= 2) {
+                    java.util.Collections.shuffle(buttons, parentPanel.random);
+
+                    for (int i = 0; i < 2; i++) {
+                        JButton btn = buttons.get(i);
+                        btn.setVisible(false);
+
+                        int idx = -1;
+                        if (btn == botaoAlternativaA) idx = 0;
+                        else if (btn == botaoAlternativaB) idx = 1;
+                        else if (btn == botaoAlternativaC) idx = 2;
+                        else if (btn == botaoAlternativaD) idx = 3;
+
+                        if (idx != -1) {
+                            textos.get(idx).setVisible(false);
+                        }
+                    }
+                    parentPanel.repaint();
+                } else {
+                    JOptionPane.showMessageDialog(parentDialog, 
+                        "Não há alternativas suficientes para eliminar!", 
+                        "Aviso", JOptionPane.WARNING_MESSAGE);
+                }
+
+                parentDialog.dispose();
+            });
+            painelConteudo.add(botaoAjuda1);
+            
+            botaoAjuda2 = new JButton();
+            botaoAjuda2.setBorderPainted(false);
+            botaoAjuda2.setContentAreaFilled(false);
+            botaoAjuda2.setFocusPainted(false);
+            botaoAjuda2.setOpaque(false);
+            botaoAjuda2.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            botaoAjuda2.addActionListener(e -> {
+                parentDialog.dispose();
+            });
+            painelConteudo.add(botaoAjuda2);
+            
+            botaoAjuda3 = new JButton();
+            botaoAjuda3.setBorderPainted(false);
+            botaoAjuda3.setContentAreaFilled(false);
+            botaoAjuda3.setFocusPainted(false);
+            botaoAjuda3.setOpaque(false);
+            botaoAjuda3.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            botaoAjuda3.addActionListener(e -> {
+                parentDialog.dispose();
+            });
+            painelConteudo.add(botaoAjuda3);
+            
+            add(painelConteudo);
+        }
     }
 }

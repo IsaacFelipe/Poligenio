@@ -6,6 +6,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.ResultSet;
+import java.util.HashMap;
+import java.util.Map;
+import javax.swing.JOptionPane;
 
 /*----------------------CLASSE PARA GERENCIAMENTO DE SALA CRIADA-------------*/
 public class SalaCriada {
@@ -82,19 +85,52 @@ public class SalaCriada {
         
     }
 
-    /*----------------------MÉTODO PARA LER PERGUNTA-------------------*/
-    public void lerPergunta() {
-        
-    }
-
     /*----------------------MÉTODO PARA EXIBIR ALTERNATIVAS------------*/
-    public void exibirAlternativas() {
-        
-    }
+    public static Map<String, String> exibirPerguntaComAlternativas() 
+            throws Exception {
+        Map<String, String> dados = new HashMap<>();
+         
+        String sql = """
+            SELECT p.id_Pergunta AS id_pergunta, p.texto_pergunta,
+                   a.alternativaA, a.alternativaB, 
+                   a.alternativaC, a.alternativaD, a.respostaCriada
+            FROM perguntascriadas p
+            INNER JOIN alternativascriadas a ON p.id_Pergunta = a.id_pergunta
+            ORDER BY RAND()
+            LIMIT 1;
+        """;
 
-    /*----------------------MÉTODO PARA EXIBIR PERGUNTA---------------*/
-    public void exibirPergunta() {
-        
+        try (Connection conn = ConexaoBD.obterConexao();
+             PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+
+            if (rs.next()) {
+                dados.put("id", rs.getString("id_pergunta")); // <-- usa o alias aqui
+                dados.put("pergunta", rs.getString("texto_pergunta"));
+                dados.put("A", rs.getString("alternativaA"));
+                dados.put("B", rs.getString("alternativaB"));
+                dados.put("C", rs.getString("alternativaC"));
+                dados.put("D", rs.getString("alternativaD"));
+
+                int correta = rs.getInt("respostaCriada");
+                String letraCorreta = switch (correta) {
+                    case 1 -> "A";
+                    case 2 -> "B";
+                    case 3 -> "C";
+                    case 4 -> "D";
+                    default -> null;
+                };
+
+                if (letraCorreta != null) {
+                    dados.put("correta", letraCorreta);
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return dados;
     }
  
 /*------------------------MÉTODO PARA CONTAR AS PERGUNTAS---------------------*/    

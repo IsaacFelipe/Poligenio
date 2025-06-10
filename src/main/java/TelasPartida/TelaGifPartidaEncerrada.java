@@ -8,7 +8,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
 
-public class TelaGifPartidaEmAndamento extends JFrame {
+public class TelaGifPartidaEncerrada extends JFrame {
     Sistema sistema = Sistema.getInstance();
     
     /*----------------------DECLARAÇÃO DE VARIÁVEIS----------------------*/
@@ -17,19 +17,19 @@ public class TelaGifPartidaEmAndamento extends JFrame {
     private String tipoUsuario;
 
     /*----------------------CONSTRUTOR DA TELA DE ACESSO---------------------*/
-    public TelaGifPartidaEmAndamento(String idProfessor) {
+    public TelaGifPartidaEncerrada(String idProfessor, String tipoUsuario) {
         /*----------------------CONFIGURAÇÕES DA JANELA-------------------*/
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setUndecorated(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.idProfessor = idProfessor;
-        this.tipoUsuario = "professor"; // Assumindo professor, ajustar se necessário
+        this.tipoUsuario = tipoUsuario;
 
         painelGif = new JPanel();     
 
         try {
             /*----------------------INSTANCIAÇÃO DO PAINEL----------------*/
-            PanelGif panelGif = new PanelGif(idProfessor, tipoUsuario);
+            PanelGif panelGif = new PanelGif(tipoUsuario, idProfessor);
             setContentPane(panelGif);
 
         } catch (IOException e) {
@@ -43,7 +43,8 @@ public class TelaGifPartidaEmAndamento extends JFrame {
     /*----------------------MÉTODO MAIN PARA EXECUTAR A TELA----------------*/
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            TelaGifPartidaEmAndamento tela = new TelaGifPartidaEmAndamento("prof123");
+            // Exemplo com parâmetros para teste
+            TelaGifPartidaEncerrada tela = new TelaGifPartidaEncerrada("prof123", "professor");
             tela.setVisible(true);
         });
     }
@@ -58,9 +59,9 @@ public class TelaGifPartidaEmAndamento extends JFrame {
         private javax.swing.Timer timer;
 
         /*----------------------CONSTRUTOR DO PAINEL DE ACESSO---------------*/
-        public PanelGif(String idProfessor, String tipoUsuario) throws IOException {
-            this.idProfessor = idProfessor;
+        public PanelGif(String tipoUsuario, String idProfessor) throws IOException {
             this.tipoUsuario = tipoUsuario;
+            this.idProfessor = idProfessor;
 
             setLayout(new BorderLayout());
 
@@ -68,13 +69,15 @@ public class TelaGifPartidaEmAndamento extends JFrame {
             JLayeredPane layeredPane = new JLayeredPane();
 
             /*----------------------CARREGAMENTO DAS IMAGENS------------------*/
-            java.net.URL gifUrl = getClass().getResource("/ImagensTelaGifPartidaEmAndamento/gifPartidaEmAndamento.gif");
+            java.net.URL gifUrl = getClass().getResource
+        ("/ImagensTelaGifPartidaEncerrada/gifPartidaEncerrada.gif");
             if (gifUrl == null) {
-                throw new IOException("GIF file not found at /ImagensTelaGifPartidaEmAndamento/gifPartidaEmAndamento.gif");
+                throw new IOException("GIF file not found at /ImagensTelaGifPartidaEncerrada/gifPartidaEncerrada.gif");
             }
             ImageIcon gifIcon = new ImageIcon(gifUrl);
             
-            Image scaledImage = gifIcon.getImage().getScaledInstance(1620, 880, Image.SCALE_DEFAULT);
+            Image scaledImage = gifIcon.getImage().getScaledInstance
+        (1620, 880, Image.SCALE_DEFAULT);
             gifIcon = new ImageIcon(scaledImage);
 
             sistema.pararMusica();
@@ -93,8 +96,8 @@ public class TelaGifPartidaEmAndamento extends JFrame {
             skipButton.setBounds(0, 0, getWidth(), getHeight());
 
             /*----------------------ADICIONAR AO JLayeredPane------------------*/
-            layeredPane.add(labelGif, JLayeredPane.DEFAULT_LAYER); // GIF na camada inferior
-            layeredPane.add(skipButton, JLayeredPane.PALETTE_LAYER); // Botão na camada superior
+            layeredPane.add(labelGif, JLayeredPane.DEFAULT_LAYER);
+            layeredPane.add(skipButton, JLayeredPane.PALETTE_LAYER);
 
             add(layeredPane, BorderLayout.CENTER);
 
@@ -106,7 +109,7 @@ public class TelaGifPartidaEmAndamento extends JFrame {
                 }
             });
 
-            int duracaoGif = 17400;
+            int duracaoGif = 22000;
 
             timer = new javax.swing.Timer(duracaoGif, (ActionEvent e) -> {
                 transitionToNextScreen();
@@ -123,9 +126,9 @@ public class TelaGifPartidaEmAndamento extends JFrame {
 
         /*----------------------MÉTODO PARA TRANSIÇÃO----------------------*/
         private void transitionToNextScreen() {
-            TelaGifPartidaEncerrada gifPartidaEncerrada = 
-                    new TelaGifPartidaEncerrada(idProfessor, tipoUsuario);
-            gifPartidaEncerrada.setVisible(true);
+            TelaRankAluno rankAluno = new TelaRankAluno(idProfessor);
+            rankAluno.setVisible(true);
+            sistema.tocarMusica();
             fecharJanela();
         }
 

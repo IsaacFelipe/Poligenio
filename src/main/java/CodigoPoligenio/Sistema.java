@@ -237,16 +237,6 @@ public class Sistema {
         this.emailRecuperacao = destinatario;
     }
 
-    /*----------------------MÉTODO PARA CARREGAR RANKING----------------*/
-    public void carregarRanking() {
-        
-    }
-
-    /*----------------------MÉTODO PARA INICIAR PARTIDA-----------------*/
-    public void iniciarPartida() {
-        
-    }
-
     /*----------------------MÉTODO PARA NOTIFICAR CADASTRO--------------*/
     public void notificarCadastro(AbstractPessoa pessoa) {
         if (notificouCadastro) return;
@@ -307,11 +297,6 @@ public class Sistema {
         }
     }
 
-    /*----------------------MÉTODO PARA INSERIR JOGADOR-----------------*/
-    public void inserirJogador() {
-        
-    }
-
     /*----------------------MÉTODO PARA GERAR RANKING-------------------*/
     public void gerarRanking() {
         
@@ -329,11 +314,6 @@ public class Sistema {
 
     /*----------------------MÉTODO PARA CALCULAR PONTUAÇÃO-------------*/
     public void calcularPontuacao() {
-        
-    }
-
-    /*----------------------MÉTODO PARA REMOVER JOGADOR----------------*/
-    public void removerJogador() {
         
     }
     
