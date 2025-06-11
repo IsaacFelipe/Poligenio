@@ -1,4 +1,4 @@
-/*----------------------IMPORTAÇÕES NECESSÁRIAS-----------------------------*/
+/*-------------------------IMPORTACOES NECESSARIAS----------------------------*/
 package TelasCriacaoSala;
 
 import javax.swing.*;
@@ -9,18 +9,18 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
-/*----------------------CLASSE PRINCIPAL DA TELA DE SELEÇÃO DE ANOS---------*/
+/*---------------CLASSE PRINCIPAL DA TELA DE SELECAO DE ANOS------------------*/
 public class TelaSelecaoAnos extends JFrame {
     
-    /*----------------------DECLARAÇÃO DE VARIÁVEIS----------------------*/
+/*--------------------------DECLARACAO DE VARIAVEIS---------------------------*/
     private JPanel painelSelecaoAnos;
     private static String materia;
     private static String idProfessor;
 
-
-    /*----------------------CONSTRUTOR DA TELA DE SELEÇÃO DE ANOS------------*/
+/*-------------------CONSTRUTOR DA TELA DE SELECAO DE ANOS--------------------*/
     public TelaSelecaoAnos(String materia, String idProfessor) {
-        /*----------------------CONFIGURAÇÕES DA JANELA-------------------*/
+        
+/*--------------------------CONFIGURACOES DA JANELA---------------------------*/
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setUndecorated(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -30,7 +30,8 @@ public class TelaSelecaoAnos extends JFrame {
         painelSelecaoAnos = new JPanel();
 
         try {
-            /*----------------------INSTANCIAÇÃO DO PAINEL----------------*/
+            
+/*------------------------INSTANCIACAO DO PAINEL------------------------------*/
             PanelSelecaoAnos selecaoAnos = new PanelSelecaoAnos();
             setContentPane(selecaoAnos);
             
@@ -41,7 +42,7 @@ public class TelaSelecaoAnos extends JFrame {
         }
     }
 
-    /*----------------------MÉTODO MAIN PARA EXECUTAR A TELA----------------*/
+/*--------------------METODO MAIN PARA EXECUTAR A TELA------------------------*/
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             TelaSelecaoAnos tela = new TelaSelecaoAnos(materia, idProfessor);
@@ -49,10 +50,10 @@ public class TelaSelecaoAnos extends JFrame {
         });
     }
 
-    /*----------------------CLASSE INTERNA: PAINEL DE SELEÇÃO DE ANOS--------*/
+/*-----------------CLASSE INTERNA: PAINEL DE SELECAO DE ANOS------------------*/
     public static class PanelSelecaoAnos extends JPanel {
 
-        /*----------------------DECLARAÇÃO DE VARIÁVEIS----------------------*/
+/*--------------------------DECLARACAO DE VARIAVEIS---------------------------*/
         private BufferedImage imagemDeFundoSelecaoAnos;
         private BufferedImage imagemBotaoSextoESetimo;
         private BufferedImage imagemBotaoOitavoENono;
@@ -80,11 +81,11 @@ public class TelaSelecaoAnos extends JFrame {
         private JButton botaoSelecionar;
         private JButton botaoVoltar;
 
-        /*----------------------CONSTRUTOR DO PAINEL DE SELEÇÃO DE ANOS------*/
+/*-----------------CONSTRUTOR DO PAINEL DE SELECAO DE ANOS--------------------*/
         public PanelSelecaoAnos() throws IOException {
             setLayout(new GridBagLayout());
 
-            /*----------------------CARREGAMENTO DAS IMAGENS------------------*/
+/*------------------------CARREGAMENTO DAS IMAGENS----------------------------*/
             imagemDeFundoSelecaoAnos = ImageIO.read(getClass().getResource
         ("/ImagensTelaSelecaoAnos/telaSelecaoAnos.png"));
             
@@ -112,13 +113,13 @@ public class TelaSelecaoAnos extends JFrame {
             imagemBotaoEnsinoMedioSel = ImageIO.read(getClass().getResource
         ("/ImagensTelaSelecaoAnos/botaoEnsinoMedioSelect.png"));
 
-            /*----------------------CRIAÇÃO DO PAINEL DE CONTEÚDO-------------*/
+/*-----------------------CRIACAO DO PAINEL DE CONTEUDO------------------------*/
             JPanel painelConteudo = new JPanel(null) {
                 @Override
                 protected void paintComponent(Graphics g) {
                     super.paintComponent(g);
 
-                    /*----------------------CONFIGURAÇÃO GRÁFICA----------------*/
+/*--------------------------CONFIGURACAO GRAFICA------------------------------*/
                     Graphics2D g2d = (Graphics2D) g;
                     g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, 
                             RenderingHints.VALUE_INTERPOLATION_BILINEAR);
@@ -128,38 +129,48 @@ public class TelaSelecaoAnos extends JFrame {
                     int w = getWidth();
                     int h = getHeight();
 
-                    /*----------------------CENTRO DA TELA-----------------------*/
+/*----------------------------CENTRO DA TELA----------------------------------*/
                     int centroX = w / 2;
 
-                    /*----------------------DIMENSÕES DOS ELEMENTOS--------------*/
+/*------------------------DIMENSOES DOS ELEMENTOS-----------------------------*/
                     double escala = 1.0;
                     
                     int larguraSextoESetimo = (int) 
-                            (imagemBotaoSextoESetimo.getWidth() * 0.7 * escala);
+                            (imagemBotaoSextoESetimo.getWidth() * 
+                            0.7 * escala);
                     int alturaSextoESetimo = (int) 
-                            (imagemBotaoSextoESetimo.getHeight() * 0.7 * escala);
+                            (imagemBotaoSextoESetimo.getHeight() * 
+                            0.7 * escala);
                     
                     int larguraOitavoENono = (int) 
-                            (imagemBotaoOitavoENono.getWidth() * 0.7 * escala);
+                            (imagemBotaoOitavoENono.getWidth() * 
+                            0.7 * escala);
                     int alturaOitavoENono = (int) 
-                            (imagemBotaoOitavoENono.getHeight() * 0.7 * escala);
+                            (imagemBotaoOitavoENono.getHeight() * 
+                            0.7 * escala);
                     
                     int larguraEnsinoMedio = (int) 
-                            (imagemBotaoEnsinoMedio.getWidth() * 0.7 * escala);
+                            (imagemBotaoEnsinoMedio.getWidth() * 
+                            0.7 * escala);
                     int alturaEnsinoMedio = (int) 
-                            (imagemBotaoEnsinoMedio.getHeight() * 0.7 * escala);
+                            (imagemBotaoEnsinoMedio.getHeight() * 
+                            0.7 * escala);
                     
                     int larguraSelecionar = (int) 
-                            (imagemBotaoSelecionar.getWidth() * 0.7 * escala);
+                            (imagemBotaoSelecionar.getWidth() * 
+                            0.7 * escala);
                     int alturaSelecionar = (int) 
-                            (imagemBotaoSelecionar.getHeight() * 0.7 * escala);
+                            (imagemBotaoSelecionar.getHeight() * 
+                            0.7 * escala);
                     
                     int larguraVoltar = (int) 
-                            (imagemBotaoVoltar.getWidth() * 0.7 * escala);
+                            (imagemBotaoVoltar.getWidth() * 
+                            0.7 * escala);
                     int alturaVoltar = (int) 
-                            (imagemBotaoVoltar.getHeight() * 0.7 * escala);
+                            (imagemBotaoVoltar.getHeight() * 
+                            0.7 * escala);
 
-                    /*----------------------POSICIONAMENTO DOS ELEMENTOS---------*/
+/*----------------------POSICIONAMENTO DOS ELEMENTOS--------------------------*/
                     int xSexSet = centroX - (larguraSextoESetimo / 2) - 18;
                     int ySexSet = (int) (h * 0.45) - 130;
                     
@@ -183,7 +194,7 @@ public class TelaSelecaoAnos extends JFrame {
                             alturaEnsinoMedio + 
                             (int)(85 * escala);
 
-                    /*----------------------CONFIGURAÇÃO DOS BOTÕES--------------*/
+/*------------------------CONFIGURACAO DOS BOTOES-----------------------------*/
                     botaoSextoESetimo.setBounds(xSexSet, 
                             ySexSet, 
                             larguraSextoESetimo, 
@@ -209,7 +220,7 @@ public class TelaSelecaoAnos extends JFrame {
                             larguraVoltar, 
                             alturaVoltar);
 
-                    /*----------------------DESENHO DOS ELEMENTOS----------------*/
+/*------------------------DESENHO DOS ELEMENTOS-------------------------------*/
                     g2d.drawImage(imagemBotaoSextoESetimo, 
                             xSexSet, 
                             ySexSet, 
@@ -243,7 +254,7 @@ public class TelaSelecaoAnos extends JFrame {
             };
             painelConteudo.setOpaque(false);
 
-            /*----------------------CONFIGURAÇÃO DOS LABELS DE SELEÇÃO---------*/
+/*----------------------CONFIGURACAO DOS LABELS DE SELECAO--------------------*/
             labelSexESetSelect = new JLabel
                 (new ImageIcon(imagemBotaoSextoESetimoSel));
             labelSexESetSelect.setVisible(false);
@@ -268,7 +279,7 @@ public class TelaSelecaoAnos extends JFrame {
                     imagemBotaoEnsinoMedioSel.getHeight());
             painelConteudo.add(labelEnsinoMedioSelect);
 
-            /*----------------------CONFIGURAÇÃO DO BOTÃO SEXTO E SÉTIMO--------*/
+/*--------------------CONFIGURACAO DO BOTAO SEXTO E SETIMO--------------------*/
             botaoSextoESetimo = new JButton();
             botaoSextoESetimo.setBorderPainted(false);
             botaoSextoESetimo.setContentAreaFilled(false);
@@ -276,12 +287,12 @@ public class TelaSelecaoAnos extends JFrame {
             botaoSextoESetimo.setOpaque(false);
             botaoSextoESetimo.setCursor(new Cursor(Cursor.HAND_CURSOR));
             botaoSextoESetimo.addActionListener((ActionEvent e) -> {
-                SelecionarBotao("Sexto e Sétimo");
+                SelecionarBotao("Sexto e Setimo");
                 serieSelecionadaText = "6° e 7°";
             });
             painelConteudo.add(botaoSextoESetimo);
 
-            /*----------------------CONFIGURAÇÃO DO BOTÃO OITAVO E NONO---------*/
+/*--------------------CONFIGURACAO DO BOTAO OITAVO E NONO---------------------*/
             botaoOitavoENono = new JButton();
             botaoOitavoENono.setBorderPainted(false);
             botaoOitavoENono.setContentAreaFilled(false);
@@ -294,7 +305,7 @@ public class TelaSelecaoAnos extends JFrame {
             });
             painelConteudo.add(botaoOitavoENono);
 
-            /*----------------------CONFIGURAÇÃO DO BOTÃO ENSINO MÉDIO----------*/
+/*--------------------CONFIGURACAO DO BOTAO ENSINO MEDIO----------------------*/
             botaoEnsinoMedio = new JButton();
             botaoEnsinoMedio.setBorderPainted(false);
             botaoEnsinoMedio.setContentAreaFilled(false);
@@ -302,12 +313,12 @@ public class TelaSelecaoAnos extends JFrame {
             botaoEnsinoMedio.setOpaque(false);
             botaoEnsinoMedio.setCursor(new Cursor(Cursor.HAND_CURSOR));
             botaoEnsinoMedio.addActionListener((ActionEvent e) -> {
-                SelecionarBotao("Ensino Médio");
-                serieSelecionadaText = "Ensino Médio";
+                SelecionarBotao("Ensino Medio");
+                serieSelecionadaText = "Ensino Medio";
             });
             painelConteudo.add(botaoEnsinoMedio);
 
-            /*----------------------CONFIGURAÇÃO DO BOTÃO SELECIONAR------------*/
+/*--------------------CONFIGURACAO DO BOTAO SELECIONAR------------------------*/
             botaoSelecionar = new JButton();
             botaoSelecionar.setBorderPainted(false);
             botaoSelecionar.setContentAreaFilled(false);
@@ -317,7 +328,8 @@ public class TelaSelecaoAnos extends JFrame {
             botaoSelecionar.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    /*----------------------ABRE TELA DE CRIAÇÃO DE QUESTÕES PADRÃO--*/
+                    
+/*------------------ABRE TELA DE CRIACAO DE QUESTOES PADRAO-------------------*/
                     TelaQuestPadraoCriacao questPadraoCriacao = 
                             new TelaQuestPadraoCriacao(materia, 
                                     serieSelecionadaText, idProfessor);
@@ -331,7 +343,7 @@ public class TelaSelecaoAnos extends JFrame {
             });
             painelConteudo.add(botaoSelecionar);
 
-            /*----------------------CONFIGURAÇÃO DO BOTÃO VOLTAR----------------*/
+/*----------------------CONFIGURACAO DO BOTAO VOLTAR--------------------------*/
             botaoVoltar = new JButton();
             botaoVoltar.setBorderPainted(false);
             botaoVoltar.setContentAreaFilled(false);
@@ -341,7 +353,8 @@ public class TelaSelecaoAnos extends JFrame {
             botaoVoltar.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    /*----------------------ABRE TELA DE QUESTÕES PADRÃO----------*/
+                    
+/*----------------------ABRE TELA DE QUESTOES PADRAO--------------------------*/
                     TelaQuestPadrao questPadrao = 
                             new TelaQuestPadrao(idProfessor);
                     questPadrao.setVisible(true);
@@ -354,18 +367,19 @@ public class TelaSelecaoAnos extends JFrame {
             });
             painelConteudo.add(botaoVoltar);
 
-            /*----------------------CONFIGURAÇÃO DO LAYOUT--------------------*/
+/*--------------------------CONFIGURACAO DO LAYOUT----------------------------*/
             setLayout(new BorderLayout());
             add(painelConteudo, BorderLayout.CENTER);
         }
 
-        /*----------------------SELEÇÃO DE BOTÃO DE SÉRIE---------------------*/
+/*----------------------METODO PARA SELECIONAR BOTAO--------------------------*/
         private void SelecionarBotao(String tipo) {
             serie = tipo;
             switch (tipo) {
-                case "Sexto e Sétimo":
+                case "Sexto e Setimo":
                     if (botaoSelecionado != botaoSextoESetimo) {
-                        /*----------------------CONFIGURA SELEÇÃO SEXTO E SÉTIMO--*/
+                        
+/*------------------CONFIGURACAO SELECAO SEXTO E SETIMO-----------------------*/
                         int x = botaoSextoESetimo.getX() + 
                                 (botaoSextoESetimo.getWidth()
                                 - imagemBotaoSextoESetimoSel.getWidth()) / 2;
@@ -390,7 +404,8 @@ public class TelaSelecaoAnos extends JFrame {
                     
                 case "Oitavo e Nono":
                     if (botaoSelecionado != botaoOitavoENono) {
-                        /*----------------------CONFIGURA SELEÇÃO OITAVO E NONO--*/
+                        
+/*------------------CONFIGURACAO SELECAO OITAVO E NONO------------------------*/
                         int x = botaoOitavoENono.getX() + 
                                 (botaoOitavoENono.getWidth()
                                 - imagemBotaoOitavoENonoSel.getWidth()) / 2;
@@ -411,9 +426,10 @@ public class TelaSelecaoAnos extends JFrame {
                     }
                     break;   
                     
-                case "Ensino Médio":
+                case "Ensino Medio":
                     if (botaoSelecionado != botaoEnsinoMedio) {
-                        /*----------------------CONFIGURA SELEÇÃO ENSINO MÉDIO--*/
+                        
+/*------------------CONFIGURACAO SELECAO ENSINO MEDIO-------------------------*/
                         int x = botaoEnsinoMedio.getX() + 
                                 (botaoEnsinoMedio.getWidth()
                                 - imagemBotaoEnsinoMedioSel.getWidth()) / 2;
@@ -424,21 +440,21 @@ public class TelaSelecaoAnos extends JFrame {
                         
                         labelEnsinoMedioSelect.setBounds(x, 
                                 y,
-                                imagemBotaoEnsinoMedioSel.getWidth(), 
+                                imagemBotaoEnsinoMedioSel.getWidth(),
                                 imagemBotaoEnsinoMedioSel.getHeight());
                         
                         labelEnsinoMedioSelect.setVisible(true);
                         labelSexESetSelect.setVisible(false);
                         labelOitavoENonoSelect.setVisible(false);
                         
-                        labelOitavoENonoSelect.repaint();
+                        labelEnsinoMedioSelect.repaint();
                         botaoSelecionado = botaoEnsinoMedio;
                     }
                     break;        
             }
         }
 
-        /*----------------------PINTURA DO FUNDO DO PAINEL-------------------*/
+/*------------------------PINTURA DO FUNDO DO PAINEL--------------------------*/
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
@@ -447,7 +463,7 @@ public class TelaSelecaoAnos extends JFrame {
             int w = getWidth();
             int h = getHeight();
 
-            /*----------------------CONFIGURAÇÃO DE RENDERIZAÇÃO-------------*/
+/*------------------------CONFIGURACAO DE RENDERIZACAO------------------------*/
             g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
                     RenderingHints.VALUE_INTERPOLATION_BICUBIC);
             g2d.setRenderingHint(RenderingHints.KEY_RENDERING,
@@ -463,11 +479,11 @@ public class TelaSelecaoAnos extends JFrame {
             g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL,
                     RenderingHints.VALUE_STROKE_PURE);
 
-            /*----------------------DESENHO DA IMAGEM DE FUNDO---------------*/
+/*------------------------DESENHO DA IMAGEM DE FUNDO--------------------------*/
             if (imagemDeFundoSelecaoAnos != null) {
                 g2d.drawImage(imagemDeFundoSelecaoAnos, 
                         0, 
-                        0,
+                        0, 
                         w, 
                         h, this);
             }

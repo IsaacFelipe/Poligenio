@@ -1,7 +1,7 @@
-/*----------------------PACOTE QUE PERTENCE AO ENUM--------------------------*/
+/*----------------------PACOTE QUE PERTENCE AO ENUM---------------------------*/
 package CodigoPoligenio;
 
-/*----------------------ENUMERAÇÃO PARA DEFINIÇÃO DE MATÉRIAS---------------*/
+/*----------------------ENUMERAÇÃO PARA DEFINIÇÃO DE MATÉRIAS-----------------*/
 public enum Materia {
     MATEMATICA,
     PORTUGUES,

@@ -1,7 +1,7 @@
 /*----------------------PACOTE QUE PERTENCE A CLASSE--------------------------*/
 package CodigoPoligenio;
 
-/*----------------------IMPORTAÇÕES NECESSÁRIAS-----------------------------*/
+/*----------------------IMPORTAÇÕES NECESSÁRIAS-------------------------------*/
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,13 +9,14 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/*----------------------CLASSE PROFESSOR QUE HERDA DE ABSTRACTPESSOA---------*/
-public class Professor extends AbstractPessoa implements InterfaceAdministrador {
+/*----------------------CLASSE PROFESSOR QUE HERDA DE ABSTRACTPESSOA----------*/
+public class Professor extends AbstractPessoa implements InterfaceAdministrador
+{
     
-    /*----------------------DECLARAÇÃO DE VARIÁVEIS----------------------*/
+/*----------------------DECLARAÇÃO DE VARIÁVEIS-------------------------------*/
     private String especialidade;
     
-    /*----------------------MÉTODOS GET E SET PARA ESPECIALIDADE---------*/
+/*----------------------MÉTODOS GET E SET PARA ESPECIALIDADE------------------*/
     public String getEspecialidade(){
         return especialidade;
     }
@@ -24,26 +25,26 @@ public class Professor extends AbstractPessoa implements InterfaceAdministrador 
         this.especialidade = especialidade;
     }
     
-    /*----------------------CONSTRUTOR SIMPLES DA CLASSE PROFESSOR-------*/
+/*----------------------CONSTRUTOR SIMPLES DA CLASSE PROFESSOR----------------*/
     public Professor(String nome, String senha) {
         super(nome, null, null, senha);
     }
     
-    /*----------------------CONSTRUTOR COMPLETO DA CLASSE PROFESSOR------*/
+/*----------------------CONSTRUTOR COMPLETO DA CLASSE PROFESSOR---------------*/
     public Professor(String nome, String id, String email, 
             String especialidade, String senha) {
         super(nome, id, email, senha);
         this.especialidade = especialidade;
     }
     
-    /*----------------------MÉTODO PARA AUTENTICAR USUÁRIO---------------*/
+/*----------------------MÉTODO PARA AUTENTICAR USUÁRIO------------------------*/
     @Override
     public void autenticarUsuario() {
         System.out.println("Email = " + getEmail() + " \nId = " + getId() + 
         " \nNome = " + getNome() + " \nEspecialidade = " + getEspecialidade());
     }
 
-    /*----------------------MÉTODO PARA CADASTRAR JOGADOR----------------*/
+/*----------------------MÉTODO PARA CADASTRAR JOGADOR-------------------------*/
     @Override
     public boolean cadastrarJogador(String nome, 
             String raAluno, String email, 
@@ -83,7 +84,7 @@ public class Professor extends AbstractPessoa implements InterfaceAdministrador 
         return false;
     }
 
-    /*----------------------MÉTODO PARA CRIAR SALA----------------------*/
+/*----------------------MÉTODO PARA CRIAR SALA--------------------------------*/
     @Override
     public void criarSala(String idProfessor, String codigoSala) {
         System.out.print(idProfessor);
@@ -113,7 +114,8 @@ public class Professor extends AbstractPessoa implements InterfaceAdministrador 
         } catch (SQLException ex) {
             ex.printStackTrace();
         } catch (Exception ex) {
-            Logger.getLogger(Professor.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Professor.class.getName()).log(Level.SEVERE, 
+                    null, ex);
         } finally {
             try {
                 if (stmt != null) stmt.close();
@@ -124,19 +126,19 @@ public class Professor extends AbstractPessoa implements InterfaceAdministrador 
         }
     }
 
-    /*----------------------MÉTODO PARA CONSULTAR RANKING---------------*/
+/*----------------------MÉTODO PARA CONSULTAR RANKING-------------------------*/
     @Override
     public void consultarRanking() {
     
     }
 
-    /*----------------------MÉTODO PARA INICIAR PARTIDA-----------------*/
+/*----------------------MÉTODO PARA INICIAR PARTIDA---------------------------*/
     @Override
     public void iniciarPartida() {
     
     }
 
-    /*----------------------MÉTODO PARA REALIZAR LOGIN------------------*/
+/*----------------------MÉTODO PARA REALIZAR LOGIN----------------------------*/
     @Override
     public boolean fazerLogin(String nome, String Senha) {
         Connection conn = null;
@@ -181,25 +183,25 @@ public class Professor extends AbstractPessoa implements InterfaceAdministrador 
         return false;
     }
 
-    /*----------------------MÉTODO PARA SOLICITAR RANKING---------------*/
+/*----------------------MÉTODO PARA SOLICITAR RANKING-------------------------*/
     @Override
     public void solicitarRanking() {
     
     }
 
-    /*----------------------MÉTODO PARA GERENCIAR DICA-----------------*/
+/*----------------------MÉTODO PARA GERENCIAR DICA----------------------------*/
     @Override
     public void gerenciarDica() {
     
     }
 
-    /*----------------------MÉTODO PARA GERENCIAR QUESTÃO--------------*/
+/*----------------------MÉTODO PARA GERENCIAR QUESTÃO-------------------------*/
     @Override
     public void gerenciarQuestao() {
     
     }
 
-    /*----------------------MÉTODO PARA ENCERRAR PARTIDA---------------*/
+/*----------------------MÉTODO PARA ENCERRAR PARTIDA--------------------------*/
     @Override
     public void encerrarPartida() {
     

@@ -8,16 +8,16 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
-/*---------------------CLASSE PRINCIPAL DA TELA DE LISTAGEM DE PERGUNTAS----*/
+/*---------------------CLASSE PRINCIPAL DA TELA DE LISTAGEM DE PERGUNTAS------*/
 public class TelaListaPerguntas extends JFrame {
 
-    /*----------------------DECLARAÇÃO DE VARIÁVEIS----------------------*/
+/*--------------------------DECLARAÇÃO DE VARIÁVEIS---------------------------*/
     private JPanel painelListaPerguntas;
     private static String idProfessor;
 
-    /*----------------------CONSTRUTOR DA TELA DE LISTAGEM DE PERGUNTAS------*/
+/*---------------------------CONSTRUTOR DA TELA DE LISTAGEM DE PERGUNTAS------*/
     public TelaListaPerguntas(String idProfessor) {
-        /*----------------------CONFIGURAÇÕES DA JANELA-------------------*/
+/*-------------------------CONFIGURAÇÕES DA JANELA----------------------------*/
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setUndecorated(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -26,7 +26,7 @@ public class TelaListaPerguntas extends JFrame {
         this.idProfessor = idProfessor;
 
         try {
-            /*----------------------INSTANCIAÇÃO DO PAINEL----------------*/
+/*-------------------------INSTANCIAÇÃO DO PAINEL-----------------------------*/
             PanelListaPerguntas listaPerguntas = new PanelListaPerguntas();
             setContentPane(listaPerguntas);
                    
@@ -36,7 +36,7 @@ public class TelaListaPerguntas extends JFrame {
         }
     }
 
-    /*----------------------MÉTODO MAIN PARA EXECUTAR A TELA----------------*/
+/*------------------------MÉTODO MAIN PARA EXECUTAR A TELA--------------------*/
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             TelaListaPerguntas tela = new TelaListaPerguntas(idProfessor);
@@ -44,10 +44,10 @@ public class TelaListaPerguntas extends JFrame {
         });
     }
 
-    /*----------------------CLASSE INTERNA: PAINEL DE LISTAGEM DE PERGUNTAS--*/
+/*----------------------CLASSE INTERNA: PAINEL DE LISTAGEM DE PERGUNTAS-------*/
     public static class PanelListaPerguntas extends JPanel {
 
-        /*----------------------DECLARAÇÃO DE VARIÁVEIS----------------------*/
+/*----------------------DECLARAÇÃO DE VARIÁVEIS-------------------------------*/
         private BufferedImage imagemDeFundoListaPerguntas;
         private BufferedImage imagemBoxQuest;
         private BufferedImage imagemBotaoFacil;
@@ -67,11 +67,11 @@ public class TelaListaPerguntas extends JFrame {
         private JButton botaoEditarPergunta;
         private JButton botaoVoltar;
 
-        /*----------------------CONSTRUTOR DO PAINEL DE LISTAGEM DE PERGUNTAS--*/
+/*-----------------CONSTRUTOR DO PAINEL DE LISTAGEM DE PERGUNTAS--------------*/
         public PanelListaPerguntas() throws IOException {
             setLayout(new GridBagLayout());
 
-            /*----------------------CARREGAMENTO DAS IMAGENS------------------*/
+/*-------------------------CARREGAMENTO DAS IMAGENS---------------------------*/
             imagemDeFundoListaPerguntas = ImageIO.read(getClass().getResource
         ("/ImagensTelaListaPerguntas/telaListaPerguntas.png"));
             
@@ -96,13 +96,13 @@ public class TelaListaPerguntas extends JFrame {
             imagemBotaoVoltar = ImageIO.read(getClass().getResource
         ("/ImagensTelaListaPerguntas/botaoVoltar.png"));
 
-            /*----------------------CRIAÇÃO DO PAINEL DE CONTEÚDO-------------*/
+/*-----------------------CRIAÇÃO DO PAINEL DE CONTEÚDO------------------------*/
             JPanel painelConteudo = new JPanel(null) {
                 @Override
                 protected void paintComponent(Graphics g) {
                     super.paintComponent(g);
 
-                    /*----------------------CONFIGURAÇÃO GRÁFICA----------------*/
+/*-------------------------CONFIGURAÇÃO GRÁFICA-------------------------------*/
                     Graphics2D g2d = (Graphics2D) g;
                     g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
                             RenderingHints.VALUE_INTERPOLATION_BILINEAR);
@@ -113,7 +113,7 @@ public class TelaListaPerguntas extends JFrame {
                     int h = getHeight();
                     int centroX = w / 2;
 
-                    /*----------------------DIMENSIONAMENTO E POSICIONAMENTO----*/
+/*----------------------DIMENSIONAMENTO E POSICIONAMENTO----------------------*/
                     double escala = 1.0;
                     int larguraBoxQuest = (int)
                             (imagemBoxQuest.getWidth() * 0.7 * escala);
@@ -141,16 +141,18 @@ public class TelaListaPerguntas extends JFrame {
                             (imagemBotaoDificuldade.getHeight() * 0.7 * escala);
                     
                     int larguraBotEditar = (int) 
-                            (imagemBotaoEditarPergunta.getWidth() * 0.7 * escala);
+                            (imagemBotaoEditarPergunta.getWidth() * 
+                            0.7 * escala);
                     int alturaBotEditar = (int)
-                            (imagemBotaoEditarPergunta.getHeight() * 0.7 * escala);
+                            (imagemBotaoEditarPergunta.getHeight() * 
+                            0.7 * escala);
                     
                     int larguraBotVoltar = (int)
                             (imagemBotaoVoltar.getWidth() * 0.7 * escala);
                     int alturaBotVoltar = (int)
                             (imagemBotaoVoltar.getHeight() * 0.7 * escala);
 
-                    /*----------------------COORDENADAS DOS ELEMENTOS-----------*/
+/*-----------------------COORDENADAS DOS ELEMENTOS----------------------------*/
                     int xBoxQuest = centroX - (larguraBoxQuest / 2);
                     int yBoxQuest = (int) (h * 0.45) - 230;
                     
@@ -172,7 +174,7 @@ public class TelaListaPerguntas extends JFrame {
                     int xEditar = centroX - (larguraBotEditar / 2) + 490;
                     int yEditar = yFacil + alturaBotFacil + (int)(-68 * escala);
 
-                    /*----------------------POSICIONAMENTO DOS CAMPOS------------*/
+/*------------------------POSICIONAMENTO DOS CAMPOS---------------------------*/
                     botaoVoltar.setBounds(xVoltar, 
                             yVoltar,
                             larguraBotVoltar,
@@ -193,7 +195,7 @@ public class TelaListaPerguntas extends JFrame {
                             (int)(250 * escala), 
                             (int)(50 * escala));
 
-                    /*----------------------DESENHO DOS ELEMENTOS----------------*/
+/*------------------------DESENHO DOS ELEMENTOS-------------------------------*/
                     g2d.drawImage(imagemBotaoEditarPergunta,
                             xEditar,
                             yEditar, 
@@ -244,7 +246,7 @@ public class TelaListaPerguntas extends JFrame {
             };
             painelConteudo.setOpaque(false);
 
-            /*----------------------CONFIGURAÇÃO DO BOTÃO VOLTAR--------------*/
+/*-----------------------CONFIGURAÇÃO DO BOTÃO VOLTAR-------------------------*/
             botaoVoltar = new JButton();
             botaoVoltar.setBorderPainted(false);
             botaoVoltar.setContentAreaFilled(false);
@@ -262,7 +264,7 @@ public class TelaListaPerguntas extends JFrame {
             });
             painelConteudo.add(botaoVoltar);
 
-            /*----------------------CONFIGURAÇÃO DO BOTÃO EDITAR PERGUNTA-----*/
+/*---------------------CONFIGURAÇÃO DO BOTÃO EDITAR PERGUNTA------------------*/
             botaoEditarPergunta = new JButton();
             botaoEditarPergunta.setBorderPainted(false);
             botaoEditarPergunta.setContentAreaFilled(false);
@@ -281,7 +283,7 @@ public class TelaListaPerguntas extends JFrame {
             });
             painelConteudo.add(botaoEditarPergunta);
 
-            /*----------------------CONFIGURAÇÃO DO CAMPO TEXTO PERGUNTA-------*/
+/*----------------------CONFIGURAÇÃO DO CAMPO TEXTO PERGUNTA------------------*/
             campoTextoPergunta = new JTextField();
             campoTextoPergunta.setBorder(null);
             campoTextoPergunta.setOpaque(false);
@@ -293,7 +295,7 @@ public class TelaListaPerguntas extends JFrame {
             campoTextoPergunta.setFocusable(false);
             painelConteudo.add(campoTextoPergunta);
 
-            /*----------------------CONFIGURAÇÃO DO CAMPO NÚMERO DA PERGUNTA---*/
+/*------------------CONFIGURAÇÃO DO CAMPO NÚMERO DA PERGUNTA------------------*/
             campoTextoNumeroPergunta = new JTextField();
             campoTextoNumeroPergunta.setBorder(null);
             campoTextoNumeroPergunta.setOpaque(false);
@@ -306,12 +308,12 @@ public class TelaListaPerguntas extends JFrame {
             campoTextoNumeroPergunta.setFocusable(false);
             painelConteudo.add(campoTextoNumeroPergunta);
 
-            /*----------------------CONFIGURAÇÃO DO LAYOUT--------------------*/
+/*-------------------------CONFIGURAÇÃO DO LAYOUT-----------------------------*/
             setLayout(new BorderLayout());
             add(painelConteudo, BorderLayout.CENTER);
         }
 
-        /*----------------------PINTURA DO FUNDO DO PAINEL-------------------*/
+/*-----------------------PINTURA DO FUNDO DO PAINEL---------------------------*/
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
@@ -319,7 +321,7 @@ public class TelaListaPerguntas extends JFrame {
             int w = getWidth();
             int h = getHeight();
 
-            /*----------------------CONFIGURAÇÃO DE RENDERIZAÇÃO-------------*/
+/*----------------------CONFIGURAÇÃO DE RENDERIZAÇÃO--------------------------*/
             g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
                     RenderingHints.VALUE_INTERPOLATION_BICUBIC);
             g2d.setRenderingHint(RenderingHints.KEY_RENDERING,
@@ -335,7 +337,7 @@ public class TelaListaPerguntas extends JFrame {
             g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL,
                     RenderingHints.VALUE_STROKE_PURE);
 
-            /*----------------------DESENHO DA IMAGEM DE FUNDO---------------*/
+/*-----------------------DESENHO DA IMAGEM DE FUNDO---------------------------*/
             if (imagemDeFundoListaPerguntas != null) {
                 g2d.drawImage(imagemDeFundoListaPerguntas, 
                         0,

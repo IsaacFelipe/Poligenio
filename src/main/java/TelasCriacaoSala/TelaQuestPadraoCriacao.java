@@ -480,7 +480,7 @@ public class TelaQuestPadraoCriacao extends JFrame {
             g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, 
                     RenderingHints.VALUE_STROKE_PURE);
 
-/*-----------------------DESENHO DA IMAGEM DE FUNDO---------------------------*/
+/*----------------------DESENHO DA IMAGEM DE FUNDO----------------------------*/
             if (imagemDeFundoQuestPadraoCriacao != null) {
                 g2d.drawImage(imagemDeFundoQuestPadraoCriacao, 
                         0, 

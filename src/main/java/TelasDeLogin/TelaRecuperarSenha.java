@@ -1,7 +1,7 @@
 /*----------------------PACOTE QUE PERTENCE A CLASSE--------------------------*/
 package TelasDeLogin;
 
-/*----------------------IMPORTAÇÕES NECESSÁRIAS-----------------------------*/
+/*----------------------IMPORTAÇÕES NECESSÁRIAS-------------------------------*/
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -11,37 +11,37 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import CodigoPoligenio.Sistema;
 
-/*----------------------CLASSE PRINCIPAL DA TELA DE RECUPERAÇÃO DE SENHA-----*/
+/*------------CLASSE PRINCIPAL DA TELA DE RECUPERAÇÃO DE SENHA----------------*/
 public class TelaRecuperarSenha extends JFrame {
     
-    /*----------------------DECLARAÇÃO DE VARIÁVEIS----------------------*/
+/*--------------------------DECLARAÇÃO DE VARIÁVEIS---------------------------*/
     private JPanel painelRecuperarSenha;
     
-    /*----------------------CONSTRUTOR DA TELA DE RECUPERAÇÃO DE SENHA-------*/
+/*------------------CONSTRUTOR DA TELA DE RECUPERAÇÃO DE SENHA----------------*/
     public TelaRecuperarSenha() {
-        /*----------------------CONFIGURAÇÕES DA JANELA-------------------*/
+/*-------------------------CONFIGURAÇÕES DA JANELA----------------------------*/
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setUndecorated(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         Sistema sistema = Sistema.getInstance();
 
-        /*----------------------CONFIGURA O LAYOUT DE CARTÕES-------------*/
+/*----------------------CONFIGURA O LAYOUT DE CARTÕES-------------------------*/
         painelRecuperarSenha = new JPanel();
 
         try {
-            /*----------------------INSTANCIAÇÃO DO PAINEL----------------*/
+/*-------------------------INSTANCIAÇÃO DO PAINEL-----------------------------*/
             PanelRecuperarSenha recuperarSenha = new PanelRecuperarSenha();
             setContentPane(recuperarSenha);
 
         } catch (IOException e) {
-            /*----------------------TRATAMENTO DE EXCEÇÕES-------------------*/
+/*---------------------------TRATAMENTO DE EXCEÇÕES---------------------------*/
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Erro ao inicializar a tela: " 
                     + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }
     
-    /*----------------------MÉTODO MAIN PARA EXECUTAR A TELA----------------*/
+/*----------------------MÉTODO MAIN PARA EXECUTAR A TELA----------------------*/
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             TelaRecuperarSenha tela = new TelaRecuperarSenha();
@@ -49,10 +49,10 @@ public class TelaRecuperarSenha extends JFrame {
         });
     }
     
-    /*----------------------CLASSE INTERNA: PAINEL DE RECUPERAÇÃO DE SENHA---*/
+/*-------------CLASSE INTERNA: PAINEL DE RECUPERAÇÃO DE SENHA-----------------*/
     public static class PanelRecuperarSenha extends JPanel {
 
-        /*----------------------DECLARAÇÃO DE VARIÁVEIS----------------------*/
+/*-----------------------DECLARAÇÃO DE VARIÁVEIS------------------------------*/
         private BufferedImage imagemDeFundoRecSenha;
         private BufferedImage imagemInputEmail;
         private BufferedImage imagemBotãoEnviar;
@@ -66,11 +66,11 @@ public class TelaRecuperarSenha extends JFrame {
         
         private String emailUsuario;
          
-        /*----------------------CONSTRUTOR DO PAINEL DE RECUPERAÇÃO DE SENHA-*/
+/*---------------CONSTRUTOR DO PAINEL DE RECUPERAÇÃO DE SENHA-----------------*/
         public PanelRecuperarSenha() throws IOException {
             setLayout(new GridBagLayout());
 
-            /*----------------------CARREGAMENTO DAS IMAGENS------------------*/
+/*-------------------------CARREGAMENTO DAS IMAGENS---------------------------*/
             imagemDeFundoRecSenha = ImageIO.read(getClass().getResource
         ("/ImagensTelaRecuperarSenha/telaRecuperarSenha.png"));
             
@@ -86,13 +86,13 @@ public class TelaRecuperarSenha extends JFrame {
             imagemBotaoSair = ImageIO.read(getClass().getResource
         ("/ImagensTelaRecuperarSenha/botaoSairJogo.png"));
             
-            /*----------------------CRIAÇÃO DO PAINEL DE CONTEÚDO-------------*/
+/*----------------------CRIAÇÃO DO PAINEL DE CONTEÚDO-------------------------*/
             JPanel painelConteudo = new JPanel(null) {
                 @Override
                 protected void paintComponent(Graphics g) {
                     super.paintComponent(g);
 
-                    /*----------------------CONFIGURAÇÃO GRÁFICA----------------*/
+/*--------------------------CONFIGURAÇÃO GRÁFICA------------------------------*/
                     Graphics2D g2d = (Graphics2D) g;
                     g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
                             RenderingHints.VALUE_INTERPOLATION_BILINEAR);
@@ -102,10 +102,10 @@ public class TelaRecuperarSenha extends JFrame {
                     int w = getWidth();
                     int h = getHeight();
 
-                    /*----------------------CALCULA O CENTRO DA TELA------------*/
+/*--------------------------CALCULA O CENTRO DA TELA--------------------------*/
                     int centroX = w / 2;
 
-                    /*----------------------DIMENSÕES DOS ELEMENTOS--------------*/
+/*---------------------------DIMENSÕES DOS ELEMENTOS--------------------------*/
                     double escala = 0.4; // Defina a escala conforme necessário
                     int larguraInputEmail = (int) 
                             (imagemInputEmail.getWidth() * 0.5 * escala);
@@ -127,7 +127,7 @@ public class TelaRecuperarSenha extends JFrame {
                     int alturaSair = (int) 
                             (imagemBotaoSair.getHeight() * 1.75 * escala);
 
-                    /*----------------------POSICIONAMENTO DOS ELEMENTOS---------*/
+/*----------------------POSICIONAMENTO DOS ELEMENTOS--------------------------*/
                     int xEmail = centroX - (larguraInputEmail / 2);
                     int yEmail = (int) (h * 0.60) + 10;
                     
@@ -140,7 +140,7 @@ public class TelaRecuperarSenha extends JFrame {
                     int xSair = centroX - (larguraSair / 2) + 600;
                     int ySair = (int) (h * 0.45) - 360;
 
-                    /*----------------------CONFIGURAÇÃO DOS BOTÕES E CAMPO------*/
+/*----------------------CONFIGURAÇÃO DOS BOTÕES E CAMPO-----------------------*/
                     campoEmail.setBounds(
                     xEmail + (int)(77 * escala) + 90, 
                     yEmail + (int)(27 * escala) - 76, 
@@ -163,7 +163,7 @@ public class TelaRecuperarSenha extends JFrame {
                             larguraSair,
                             alturaSair);
 
-                    /*----------------------DESENHO DOS ELEMENTOS----------------*/
+/*---------------------------DESENHO DOS ELEMENTOS----------------------------*/
                     g2d.drawImage(imagemInputEmail, 
                             xEmail,
                             yEmail, 
@@ -189,10 +189,10 @@ public class TelaRecuperarSenha extends JFrame {
                             alturaBotaoVoltar, this);
                 }
             };
-            /*----------------------CONFIGURAÇÃO DO PAINEL DE CONTEÚDO-------*/
+/*----------------------CONFIGURAÇÃO DO PAINEL DE CONTEÚDO--------------------*/
             painelConteudo.setOpaque(false);
             
-            /*----------------------CONFIGURAÇÃO DO CAMPO EMAIL--------------*/
+/*------------------------CONFIGURAÇÃO DO CAMPO EMAIL-------------------------*/
             campoEmail = new JTextField();
             campoEmail.setBorder(null);
             campoEmail.setOpaque(false);
@@ -200,7 +200,7 @@ public class TelaRecuperarSenha extends JFrame {
             campoEmail.setFont(new Font("Jockey One", Font.BOLD, 30));
             painelConteudo.add(campoEmail);
             
-            /*----------------------CONFIGURAÇÃO DO BOTÃO ENVIAR-------------*/
+/*-----------------------CONFIGURAÇÃO DO BOTÃO ENVIAR-------------------------*/
             botaoEnviar = new JButton();
             botaoEnviar.setBorderPainted(false);
             botaoEnviar.setContentAreaFilled(false);
@@ -214,14 +214,14 @@ public class TelaRecuperarSenha extends JFrame {
                     
                     CodigoPoligenio.Sistema email = Sistema.getInstance();
                     try {
-                        /*----------------------VALIDA OS DADOS---------------*/
+/*---------------------------VALIDA OS DADOS----------------------------------*/
                         boolean enviado = email.validarDados(destinatario);
                         if (enviado) {
                             TelaEmailCodigo tec =
                                     new TelaEmailCodigo(destinatario);
                             tec.setVisible(true);
                             
-                            /*----------------------FECHA A JANELA ATUAL------*/
+/*-------------------------FECHA A JANELA ATUAL-------------------------------*/
                             Window janela = SwingUtilities.getWindowAncestor
                                                 (PanelRecuperarSenha.this);
                             if (janela instanceof JFrame) {
@@ -229,7 +229,7 @@ public class TelaRecuperarSenha extends JFrame {
                             }          
                             campoEmail.setText("");
                         } else {
-                            /*----------------------MOSTRA ERRO DE EMAIL------*/
+/*--------------------------MOSTRA ERRO DE EMAIL------------------------------*/
                             JOptionPane.showMessageDialog(null, 
                                     "E-mail não encontrado no sistema.");
                         }
@@ -241,7 +241,7 @@ public class TelaRecuperarSenha extends JFrame {
             });
             painelConteudo.add(botaoEnviar);
             
-            /*----------------------CONFIGURAÇÃO DO BOTÃO VOLTAR-------------*/
+/*------------------------CONFIGURAÇÃO DO BOTÃO VOLTAR------------------------*/
             botaoVoltar = new JButton();
             botaoVoltar.setBorderPainted(false);
             botaoVoltar.setContentAreaFilled(false);
@@ -262,11 +262,11 @@ public class TelaRecuperarSenha extends JFrame {
             });
             painelConteudo.add(botaoVoltar);
             
-            /*----------------------CONFIGURAÇÃO DO LAYOUT--------------------*/
+/*--------------------------CONFIGURAÇÃO DO LAYOUT----------------------------*/
             setLayout(new BorderLayout());
             add(painelConteudo, BorderLayout.CENTER);
             
-            /*----------------------CONFIGURAÇÃO DO BOTÃO SAIR---------------*/
+/*-------------------------CONFIGURAÇÃO DO BOTÃO SAIR-------------------------*/
             botaoSair = new JButton();
             botaoSair.setBorderPainted(false);
             botaoSair.setContentAreaFilled(false);
@@ -274,17 +274,18 @@ public class TelaRecuperarSenha extends JFrame {
             botaoSair.setOpaque(false);
             botaoSair.setCursor(new Cursor(Cursor.HAND_CURSOR));
             botaoSair.addActionListener(e -> {
-                /*----------------------FECHA A APLICAÇÃO-----------------*/
+/*-----------------------------FECHA A APLICAÇÃO------------------------------*/
                 Window janela = SwingUtilities.getWindowAncestor(this);
                 if (janela instanceof JFrame) {
-                    ((JFrame) janela).setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    ((JFrame) janela).setDefaultCloseOperation
+                            (JFrame.EXIT_ON_CLOSE);
                     janela.dispose(); // Fecha a janela
                 }
             });
             painelConteudo.add(botaoSair);
         } 
         
-        /*----------------------PINTURA DO FUNDO DO PAINEL-------------------*/
+/*-------------------------PINTURA DO FUNDO DO PAINEL-------------------------*/
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
@@ -293,16 +294,23 @@ public class TelaRecuperarSenha extends JFrame {
             int w = getWidth();
             int h = getHeight();
 
-            /*----------------------CONFIGURAÇÃO DE RENDERIZAÇÃO-------------*/
-            g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
-            g2d.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
-            g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-            g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-            g2d.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
-            g2d.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
-            g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_PURE);
+/*-----------------------CONFIGURAÇÃO DE RENDERIZAÇÃO-------------------------*/
+            g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, 
+                    RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+            g2d.setRenderingHint(RenderingHints.KEY_RENDERING, 
+                    RenderingHints.VALUE_RENDER_QUALITY);
+            g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, 
+                    RenderingHints.VALUE_ANTIALIAS_ON);
+            g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, 
+                    RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+            g2d.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, 
+                    RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
+            g2d.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, 
+                    RenderingHints.VALUE_COLOR_RENDER_QUALITY);
+            g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, 
+                    RenderingHints.VALUE_STROKE_PURE);
             
-            /*----------------------DESENHO DA IMAGEM DE FUNDO---------------*/
+/*--------------------------DESENHO DA IMAGEM DE FUNDO------------------------*/
             if (imagemDeFundoRecSenha != null) {
                 g2d.drawImage(imagemDeFundoRecSenha, 0, 0, w, h, this);
             }

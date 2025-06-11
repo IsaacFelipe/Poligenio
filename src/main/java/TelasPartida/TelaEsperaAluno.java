@@ -209,7 +209,7 @@ public class TelaEsperaAluno extends JFrame {
             g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, 
                     RenderingHints.VALUE_STROKE_PURE);
 
-/*------------------------DESENHO DA IMAGEM DE FUNDO--------------------------*/
+/*-----------------------DESENHO DA IMAGEM DE FUNDO---------------------------*/
             if (imagemDeFundoEsperaAluno != null) {
                 g2d.drawImage(imagemDeFundoEsperaAluno, 0,
                         0,

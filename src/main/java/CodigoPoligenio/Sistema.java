@@ -1,7 +1,7 @@
-/*----------------------PACOTE QUE PERTENCE A CLASSE--------------------------*/
+/*------------------------PACOTE QUE PERTENCE A CLASSE------------------------*/
 package CodigoPoligenio;
 
-/*----------------------IMPORTAÇÕES NECESSÁRIAS-----------------------------*/
+/*------------------------IMPORTAÇÕES NECESSÁRIAS-----------------------------*/
 import java.io.BufferedInputStream;
 import java.io.InputStream;
 import java.sql.Connection;
@@ -27,10 +27,10 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
 import javax.swing.JOptionPane;
 
-/*----------------------CLASSE PARA GERENCIAMENTO DO SISTEMA-----------------*/
+/*-------------------CLASSE PARA GERENCIAMENTO DO SISTEMA---------------------*/
 public class Sistema {
     
-    /*----------------------DECLARAÇÃO DE VARIÁVEIS----------------------*/
+/*-------------------------DECLARAÇÃO DE VARIÁVEIS----------------------------*/
     private static Sistema instance;
     private final String url = "jdbc:mysql://localhost:3306/poligenio";
     private final String usuario = "root";
@@ -43,7 +43,7 @@ public class Sistema {
     private AbstractPessoa usuarioLogado;
     private boolean notificouCadastro = false;
     
-    /*----------------------CONSTRUTOR DA CLASSE SISTEMA-----------------*/
+/*----------------------CONSTRUTOR DA CLASSE SISTEMA--------------------------*/
     private Sistema() {
         try {
             String resourcePath = "/MusicaPoligenio/musicaPoligenio.wav";
@@ -66,7 +66,7 @@ public class Sistema {
         }
     }
     
-    /*----------------------MÉTODO PARA OBTER INSTÂNCIA DO SISTEMA-------*/
+/*------------------MÉTODO PARA OBTER INSTÂNCIA DO SISTEMA--------------------*/
     public static Sistema getInstance() {
         if (instance == null) {
             instance = new Sistema();
@@ -74,7 +74,7 @@ public class Sistema {
         return instance;
     }
     
-    /*----------------------MÉTODO PARA TOCAR MÚSICA--------------------*/
+/*------------------------MÉTODO PARA TOCAR MÚSICA----------------------------*/
     public void tocarMusica() {
         if (musicaPoligenio != null && !musicaPoligenio.isRunning()) {
             musicaPoligenio.loop(Clip.LOOP_CONTINUOUSLY);
@@ -82,14 +82,14 @@ public class Sistema {
         }
     }
 
-    /*----------------------MÉTODO PARA PARAR MÚSICA--------------------*/
+/*------------------------MÉTODO PARA PARAR MÚSICA----------------------------*/
     public void pararMusica() {
         if (musicaPoligenio != null && musicaPoligenio.isRunning()) {
             musicaPoligenio.stop();
         }
     }
     
-    /*----------------------MÉTODO PARA AUTENTICAR USUÁRIO--------------*/
+/*----------------------MÉTODO PARA AUTENTICAR USUÁRIO------------------------*/
     public AbstractPessoa autenticarUsuario(String email, 
             String senhaUsuario) throws Exception {
         try {
@@ -152,7 +152,7 @@ public class Sistema {
         return null;
     }
     
-    /*----------------------MÉTODO PARA AUTENTICAR CREDENCIAIS-----------*/
+/*--------------------MÉTODO PARA AUTENTICAR CREDENCIAIS----------------------*/
     public boolean autenticar(String email, String senha) {
         this.email = email;
         this.senhaUsuario = senha;
@@ -165,7 +165,7 @@ public class Sistema {
         }
     }
     
-    /*----------------------MÉTODO PARA ENVIAR E-MAIL-------------------*/
+/*------------------------MÉTODO PARA ENVIAR E-MAIL---------------------------*/
     public void enviarEmail(String destinatario, String codigo){
         final String remetente = "poligeniogame@gmail.com";
         final String senha = "qocz yxxd vrdb esdx";
@@ -196,11 +196,13 @@ public class Sistema {
         }
     }
     
-    /*----------------------MÉTODO PARA VALIDAR DADOS DO USUÁRIO---------*/
+/*---------------------MÉTODO PARA VALIDAR DADOS DO USUÁRIO-------------------*/
     public boolean validarDados(String destinatario) throws SQLException {  
-        try (Connection conn = DriverManager.getConnection(url, usuario, senha)) {
+        try (Connection conn = 
+                DriverManager.getConnection(url, usuario, senha)) {
             String sqlAluno = "SELECT * FROM jogador WHERE email_jogador = ?";
-            try (PreparedStatement stmtAluno = conn.prepareStatement(sqlAluno)) {
+            try (PreparedStatement stmtAluno = 
+                    conn.prepareStatement(sqlAluno)) {
                 stmtAluno.setString(1, destinatario);
                 try (ResultSet rsAluno = stmtAluno.executeQuery()) {
                     if (rsAluno.next()) {
@@ -211,7 +213,8 @@ public class Sistema {
             }
             String sqlProfessor = "SELECT * FROM administrador "
                     + "WHERE email_administrador = ?";
-            try (PreparedStatement stmtProf = conn.prepareStatement(sqlProfessor)) {
+            try (PreparedStatement stmtProf = 
+                    conn.prepareStatement(sqlProfessor)) {
                 stmtProf.setString(1, destinatario);
                 try (ResultSet rsProf = stmtProf.executeQuery()) {
                     if (rsProf.next()) {
@@ -224,7 +227,7 @@ public class Sistema {
         return false;
     }
     
-    /*----------------------MÉTODO PARA PROCESSAR CÓDIGO DE E-MAIL-------*/
+/*-------------------MÉTODO PARA PROCESSAR CÓDIGO DE E-MAIL-------------------*/
     private void processarCodigoEmail(String destinatario) throws SQLException {
         String codigo = gerarCodigoEmail();
         System.out.println("Código gerado para email " + 
@@ -237,7 +240,7 @@ public class Sistema {
         this.emailRecuperacao = destinatario;
     }
 
-    /*----------------------MÉTODO PARA NOTIFICAR CADASTRO--------------*/
+/*----------------------MÉTODO PARA NOTIFICAR CADASTRO------------------------*/
     public void notificarCadastro(AbstractPessoa pessoa) {
         if (notificouCadastro) return;
     
@@ -258,7 +261,7 @@ public class Sistema {
                 + " Logado!");    
     }
 
-    /*----------------------MÉTODO PARA VERIFICAR USUÁRIO LOGADO--------*/
+/*--------------------MÉTODO PARA VERIFICAR USUÁRIO LOGADO--------------------*/
     public boolean verificarUsuarioLogado(int idJogador) throws Exception {
         Connection conexao = null;
         PreparedStatement ps = null;
@@ -297,27 +300,27 @@ public class Sistema {
         }
     }
 
-    /*----------------------MÉTODO PARA GERAR RANKING-------------------*/
+/*------------------------MÉTODO PARA GERAR RANKING---------------------------*/
     public void gerarRanking() {
         
     }
 
-    /*----------------------MÉTODO PARA ARMAZENAR PONTUAÇÃO-------------*/
+/*----------------------MÉTODO PARA ARMAZENAR PONTUAÇÃO-----------------------*/
     public void armazenarPontuacao() {
         
     }
 
-    /*----------------------MÉTODO PARA MOSTRAR RANKING-----------------*/
+/*-----------------------MÉTODO PARA MOSTRAR RANKING--------------------------*/
     public void mostrarRanking() {
         
     }
 
-    /*----------------------MÉTODO PARA CALCULAR PONTUAÇÃO-------------*/
+/*----------------------MÉTODO PARA CALCULAR PONTUAÇÃO------------------------*/
     public void calcularPontuacao() {
         
     }
     
-    /*----------------------MÉTODO PARA GERAR CÓDIGO DA SALA------------*/
+/*----------------------MÉTODO PARA GERAR CÓDIGO DA SALA----------------------*/
     public String gerarCodigoSala(){
         String caracteres = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
         StringBuilder codigo = new StringBuilder();
@@ -329,7 +332,7 @@ public class Sistema {
         return codigo.toString();
     }
     
-    /*----------------------MÉTODO PARA GERAR CÓDIGO DE E-MAIL----------*/
+/*--------------------MÉTODO PARA GERAR CÓDIGO DE E-MAIL----------------------*/
     public String gerarCodigoEmail(){
         String caracteres = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
         StringBuilder codigo = new StringBuilder();
@@ -341,7 +344,7 @@ public class Sistema {
         return codigo.toString();
     }
     
-    /*----------------------MÉTODO PARA VALIDAR CÓDIGO-----------------*/
+/*------------------------MÉTODO PARA VALIDAR CÓDIGO--------------------------*/
     public boolean validarCodigo(String email, 
             String codigo) throws SQLException {
         Connection conn = DriverManager.getConnection(url, usuario, senha);
@@ -360,19 +363,21 @@ public class Sistema {
         return valido;
     }
     
-    /*----------------------MÉTODO PARA GERAR E ARMAZENAR CÓDIGO--------*/
+/*------------------MÉTODO PARA GERAR E ARMAZENAR CÓDIGO----------------------*/
     public String gerarEArmazenarCodigo(String email) throws SQLException {
         String codigo = gerarCodigoEmail();      
         salvarCodigo(email, codigo);
         return codigo;
     }
 
-    /*----------------------MÉTODO PARA SALVAR CÓDIGO------------------*/
+/*------------------------MÉTODO PARA SALVAR CÓDIGO---------------------------*/
     public void salvarCodigo(String email, String codigo) throws SQLException {
-        try (Connection conn = DriverManager.getConnection(url, usuario, senha)) {
+        try (Connection conn = 
+                DriverManager.getConnection(url, usuario, senha)) {
             String sqlDelete = "DELETE FROM RecuperacaoSenha "
                     + "WHERE email_usuario = ?";
-            try (PreparedStatement stmtDelete = conn.prepareStatement(sqlDelete)) {
+            try (PreparedStatement stmtDelete = 
+                    conn.prepareStatement(sqlDelete)) {
                 stmtDelete.setString(1, email);
                 stmtDelete.executeUpdate();
             }
@@ -380,7 +385,8 @@ public class Sistema {
                     + "codigo, "
                     + "expiracao) "
                     + "VALUES (?, ?, ?)";
-            try (PreparedStatement stmtInsert = conn.prepareStatement(sqlInsert)) {
+            try (PreparedStatement stmtInsert = 
+                    conn.prepareStatement(sqlInsert)) {
                 stmtInsert.setString(1, email);
                 stmtInsert.setString(2, codigo);
                 stmtInsert.setTimestamp(3, 
@@ -390,9 +396,10 @@ public class Sistema {
         }
     }
 
-    /*----------------------MÉTODO PARA REMOVER CÓDIGO-----------------*/
+/*------------------------MÉTODO PARA REMOVER CÓDIGO--------------------------*/
     public void removerCodigo(String email) throws SQLException {
-        try (Connection conn = DriverManager.getConnection(url, usuario, senha)) {
+        try (Connection conn = 
+                DriverManager.getConnection(url, usuario, senha)) {
             String sql = "DELETE FROM RecuperacaoSenha "
                     + "WHERE email_usuario = ?";
             PreparedStatement stmt = conn.prepareStatement(sql);
@@ -402,11 +409,12 @@ public class Sistema {
         }
     }
     
-    /*----------------------MÉTODO PARA VERIFICAR CÓDIGO---------------*/
+/*----------------------MÉTODO PARA VERIFICAR CÓDIGO--------------------------*/
     public boolean verificarCodigo(String email_usuario, String codigoDigitado) 
             throws SQLException {
         
-        try (Connection conn = DriverManager.getConnection(url, usuario, senha)) {
+        try (Connection conn = 
+                DriverManager.getConnection(url, usuario, senha)) {
             String sql = "SELECT codigo FROM RecuperacaoSenha "
                     + "WHERE email_usuario = ? "
                     + "AND UPPER(codigo) = UPPER(?) "
@@ -425,17 +433,17 @@ public class Sistema {
         return false;
     }
 
-    /*----------------------MÉTODO PARA OBTER E-MAIL DE RECUPERAÇÃO-----*/
+/*-----------------MÉTODO PARA OBTER E-MAIL DE RECUPERAÇÃO--------------------*/
     public String getEmailRecuperacao() {
         return emailRecuperacao;
     }
 
-    /*----------------------MÉTODO PARA DEFINIR E-MAIL DE RECUPERAÇÃO---*/
+/*---------------MÉTODO PARA DEFINIR E-MAIL DE RECUPERAÇÃO--------------------*/
     public void setEmailRecuperacao(String destinatario) {
         this.emailRecuperacao = destinatario;
     }
     
-    /*----------------------MÉTODO PARA DEFINIR NOVA SENHA--------------*/
+/*---------------------MÉTODO PARA DEFINIR NOVA SENHA-------------------------*/
     public boolean novaSenha(String destinatario, 
             String novaSenha) throws Exception{
         
@@ -467,7 +475,8 @@ public class Sistema {
         return false;
     }
 
-   public boolean verificarCodigoSala(String codigoSala) throws Exception {
+/*--------------------MÉTODO PARA VERIFICAR CÓDIGO DA SALA--------------------*/
+    public boolean verificarCodigoSala(String codigoSala) throws Exception {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;

@@ -255,7 +255,7 @@ public class TelaInicial extends JFrame {
                     
                     if (aluno.fazerLogin(nome, Senha)) {
                         
-                        /*---------------LOGIN DO ALUNO--------------*/
+/*------------------------------LOGIN DO ALUNO--------------------------------*/
                         Sistema.getInstance().notificarCadastro(aluno);
                         
                         TelaGifEntrada lobby = 
@@ -272,7 +272,7 @@ public class TelaInicial extends JFrame {
                     } 
                     else if(professor.fazerLogin(nome, Senha)) {
                         
-                        /*---------LOGIN DO PROFESSOR--------*/
+/*-----------------------------LOGIN DO PROFESSOR-----------------------------*/
                         String idProfessor = professor.getId();
                         Sistema.getInstance().notificarCadastro(professor);
                         

@@ -241,29 +241,39 @@ public class TelaAdicionarPergunta extends JFrame {
 /*-------------------------DIMENSIONAMENTO E POSICIONAMENTO-------------------*/
                     double escala = 1.0;
                     int larguraBotNewQuest = (int) 
-                        (imagemBotaoNovaQuestao.getWidth() * 0.7 * escala);
+                        (imagemBotaoNovaQuestao.getWidth() * 
+                            0.7 * escala);
                     int alturaBotNewQuest = (int)
-                        (imagemBotaoNovaQuestao.getHeight() * 0.7 * escala);
+                        (imagemBotaoNovaQuestao.getHeight() * 
+                            0.7 * escala);
                     
                     int larguraBotRespostACorreta = (int) 
-                        (imagemBotaoRespostaACorreta.getWidth() * 0.7 * escala);
+                        (imagemBotaoRespostaACorreta.getWidth() * 
+                            0.7 * escala);
                     int alturaBotRespostACorreta = (int)
-                        (imagemBotaoRespostaACorreta.getHeight() * 0.7 * escala);
+                        (imagemBotaoRespostaACorreta.getHeight() * 
+                            0.7 * escala);
                     
                     int larguraBotRespostBCorreta = (int) 
-                        (imagemBotaoRespostaBCorreta.getWidth() * 0.7 * escala);
+                        (imagemBotaoRespostaBCorreta.getWidth() * 
+                            0.7 * escala);
                     int alturaBotRespostBCorreta = (int)
-                        (imagemBotaoRespostaBCorreta.getHeight() * 0.7 * escala);
+                        (imagemBotaoRespostaBCorreta.getHeight() * 
+                            0.7 * escala);
                     
                     int larguraBotRespostCCorreta = (int) 
-                        (imagemBotaoRespostaCCorreta.getWidth() * 0.7 * escala);
+                        (imagemBotaoRespostaCCorreta.getWidth() * 
+                            0.7 * escala);
                     int alturaBotRespostCCorreta = (int)
-                        (imagemBotaoRespostaCCorreta.getHeight() * 0.7 * escala);
+                        (imagemBotaoRespostaCCorreta.getHeight() * 
+                            0.7 * escala);
                     
                     int larguraBotRespostDCorreta = (int) 
-                        (imagemBotaoRespostaDCorreta.getWidth() * 0.7 * escala);
+                        (imagemBotaoRespostaDCorreta.getWidth() * 
+                            0.7 * escala);
                     int alturaBotRespostDCorreta = (int)
-                        (imagemBotaoRespostaDCorreta.getHeight() * 0.7 * escala);
+                        (imagemBotaoRespostaDCorreta.getHeight() * 
+                            0.7 * escala);
                     
                     int larguraBotCQuest = (int) 
                         (imagemBotaoCriarQuestionario.getWidth() * 

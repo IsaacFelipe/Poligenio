@@ -9,16 +9,16 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
-/*----------------------CLASSE PRINCIPAL DA TELA DE EDIÇÃO DE PERGUNTA------*/
+/*----------------------CLASSE PRINCIPAL DA TELA DE EDIÇÃO DE PERGUNTA--------*/
 public class TelaEditarPergunta extends JFrame {
 
-    /*----------------------DECLARAÇÃO DE VARIÁVEIS----------------------*/
+/*--------------------------DECLARAÇÃO DE VARIÁVEIS---------------------------*/
     private JPanel painelEditarPergunta;
     private static String idProfessor;
     
-    /*----------------------CONSTRUTOR DA TELA DE EDIÇÃO DE PERGUNTA---------*/
+/*----------------------CONSTRUTOR DA TELA DE EDIÇÃO DE PERGUNTA--------------*/
     public TelaEditarPergunta(String idProfessor) {
-        /*----------------------CONFIGURAÇÕES DA JANELA-------------------*/
+/*------------------------CONFIGURAÇÕES DA JANELA-----------------------------*/
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setUndecorated(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -27,7 +27,7 @@ public class TelaEditarPergunta extends JFrame {
         this.idProfessor = idProfessor;
 
         try {
-            /*----------------------INSTANCIAÇÃO DO PAINEL----------------*/
+/*--------------------------INSTANCIAÇÃO DO PAINEL----------------------------*/
             PanelEditarPergunta editarQuestionario = 
                     new PanelEditarPergunta();
             setContentPane(editarQuestionario);
@@ -37,7 +37,7 @@ public class TelaEditarPergunta extends JFrame {
         }
     }
     
-    /*----------------------MÉTODO MAIN PARA EXECUTAR A TELA----------------*/
+/*----------------------MÉTODO MAIN PARA EXECUTAR A TELA----------------------*/
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             TelaEditarPergunta tela = new TelaEditarPergunta(idProfessor);
@@ -45,10 +45,10 @@ public class TelaEditarPergunta extends JFrame {
         });
     }
     
-    /*----------------------CLASSE INTERNA: PAINEL DE EDIÇÃO DE PERGUNTAS----*/
+/*--------------CLASSE INTERNA: PAINEL DE EDIÇÃO DE PERGUNTAS-----------------*/
     public static class PanelEditarPergunta extends JPanel {
 
-        /*----------------------DECLARAÇÃO DE VARIÁVEIS----------------------*/
+/*-------------------------DECLARAÇÃO DE VARIÁVEIS----------------------------*/
         private BufferedImage imagemDeFundoEditarPerguntas;
         private BufferedImage imagemBoxMaterias;
         private BufferedImage imagemBoxPergunta;
@@ -89,11 +89,11 @@ public class TelaEditarPergunta extends JFrame {
         
         private String dificuldadeSelecionado = null;
         
-        /*----------------------CONSTRUTOR DO PAINEL DE EDIÇÃO DE PERGUNTAS--*/
+/*---------------CONSTRUTOR DO PAINEL DE EDIÇÃO DE PERGUNTAS------------------*/
         public PanelEditarPergunta() throws IOException {
             setLayout(new GridBagLayout());
 
-            /*----------------------CARREGAMENTO DAS IMAGENS------------------*/
+/*------------------------CARREGAMENTO DAS IMAGENS----------------------------*/
             imagemDeFundoEditarPerguntas = ImageIO.read
         (getClass().getResource
         ("/ImagensTelaEditarPergunta/telaEditarPergunta.png"));
@@ -158,13 +158,13 @@ public class TelaEditarPergunta extends JFrame {
         (getClass().getResource
         ("/ImagensTelaEditarPergunta/botaoSalvar.png"));
             
-            /*----------------------CRIAÇÃO DO PAINEL DE CONTEÚDO-------------*/
+/*-----------------------CRIAÇÃO DO PAINEL DE CONTEÚDO------------------------*/
             JPanel painelConteudo = new JPanel(null) {
                 @Override
                 protected void paintComponent(Graphics g) {
                     super.paintComponent(g);
 
-                    /*----------------------CONFIGURAÇÃO GRÁFICA----------------*/
+/*-------------------------CONFIGURAÇÃO GRÁFICA-------------------------------*/
                     Graphics2D g2d = (Graphics2D) g;
                     g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
                             RenderingHints.VALUE_INTERPOLATION_BILINEAR);
@@ -175,7 +175,7 @@ public class TelaEditarPergunta extends JFrame {
                     int h = getHeight();
                     int centroX = w / 2;
 
-                    /*----------------------DIMENSIONAMENTO E POSICIONAMENTO----*/
+/*-----------------------DIMENSIONAMENTO E POSICIONAMENTO---------------------*/
                     double escala = 1.0;
                     int larguraBoxMateria = (int) 
                             (imagemBoxMaterias.getWidth() * 0.7 * escala);
@@ -188,24 +188,32 @@ public class TelaEditarPergunta extends JFrame {
                             (imagemBoxPergunta.getHeight() * 0.7 * escala);
                     
                     int larguraBoxAlternativa1 = (int)
-                            (imagemTextoAlternativa1.getWidth() * 0.7 * escala);
+                            (imagemTextoAlternativa1.getWidth() * 
+                            0.7 * escala);
                     int alturaBoxAlternativa1 = (int)
-                            (imagemTextoAlternativa1.getHeight() * 0.7 * escala);
+                            (imagemTextoAlternativa1.getHeight() * 
+                            0.7 * escala);
                     
                     int larguraBoxAlternativa3 = (int) 
-                            (imagemTextoAlternativa3.getWidth() * 0.7 * escala);
+                            (imagemTextoAlternativa3.getWidth() * 
+                            0.7 * escala);
                     int alturaBoxAlternativa3 = (int)
-                            (imagemTextoAlternativa3.getHeight() * 0.7 * escala);
+                            (imagemTextoAlternativa3.getHeight() * 
+                            0.7 * escala);
                     
                     int larguraBoxAlternativa2 = (int)
-                            (imagemTextoAlternativa2.getWidth() * 0.7 * escala);
+                            (imagemTextoAlternativa2.getWidth() * 
+                            0.7 * escala);
                     int alturaBoxAlternativa2 = (int)
-                            (imagemTextoAlternativa2.getHeight() * 0.7 * escala);
+                            (imagemTextoAlternativa2.getHeight() * 
+                            0.7 * escala);
                     
                     int larguraBoxAlternativa4 = (int)
-                            (imagemTextoAlternativa4.getWidth() * 0.7 * escala);
+                            (imagemTextoAlternativa4.getWidth() * 
+                            0.7 * escala);
                     int alturaBoxAlternativa4 = (int)
-                            (imagemTextoAlternativa4.getHeight() * 0.7 * escala);
+                            (imagemTextoAlternativa4.getHeight() * 
+                            0.7 * escala);
                     
                     int larguraBotFacil = (int) 
                             (imagemBotaoDifFacil.getWidth() * 0.7 * escala);
@@ -228,16 +236,18 @@ public class TelaEditarPergunta extends JFrame {
                             (imagemBotaoVoltar.getHeight() * 0.7 * escala);
                     
                     int larguraBotApagarQuest = (int) 
-                            (imagemBotaoApagarPergunta.getWidth() * 0.7 * escala);
+                            (imagemBotaoApagarPergunta.getWidth() * 
+                            0.7 * escala);
                     int alturaBotApagarQuest = (int)
-                            (imagemBotaoApagarPergunta.getHeight() * 0.7 * escala);
+                            (imagemBotaoApagarPergunta.getHeight() * 
+                            0.7 * escala);
                     
                     int larguraBotSalvar = (int)
                             (imagemBotaoSalvar.getWidth() * 0.7 * escala);
                     int alturaBotSalvar = (int) 
                             (imagemBotaoSalvar.getHeight() * 0.7 * escala);
 
-                    /*----------------------COORDENADAS DOS ELEMENTOS-----------*/
+/*----------------------COORDENADAS DOS ELEMENTOS-----------------------------*/
                     int xBoxMateria = centroX - (larguraBoxMateria / 2) + 300;
                     int yBoxMateria = (int) (h * 0.45) - 320;
                     
@@ -248,7 +258,8 @@ public class TelaEditarPergunta extends JFrame {
                     int yBoxAlt1 = (int) (h * 0.45) + 40;
                     
                     int xBoxAlt3 = centroX - (larguraBoxAlternativa3 / 2) - 400;
-                    int yBoxAlt3 = yBoxAlt1 + alturaBoxAlternativa1 + (int)(90 * escala);
+                    int yBoxAlt3 = yBoxAlt1 + alturaBoxAlternativa1 + 
+                            (int)(90 * escala);
                     
                     int xBoxAlt2 = centroX - (larguraBoxAlternativa2 / 2) + 345;
                     int yBoxAlt2 = yBoxAlt1;
@@ -274,57 +285,105 @@ public class TelaEditarPergunta extends JFrame {
                     int xSalvar = centroX - (larguraBotApagarQuest / 2) - 365;
                     int ySalvar = yApagar;
 
-                    /*----------------------POSICIONAMENTO DOS CAMPOS------------*/
-                    botaoDifFacil.setBounds(xBotFac + 40, yBotFac, larguraBotFacil - 80, alturaBotFacil);
-                    botaoDifMedio.setBounds(xBotMed + 40, yBotMed, larguraBotMedio - 80, alturaBotMedio);
-                    botaoDifDificil.setBounds(xBotDif + 40, yBotDif, larguraBotDificil - 80, alturaBotDificil);
-                    botaoVoltar.setBounds(xVoltar, yVoltar, larguraBotVoltar, alturaBotVoltar);
-                    botaoApagarPergunta.setBounds(xApagar, yApagar, larguraBotApagarQuest, alturaBotApagarQuest);
-                    botaoSalvar.setBounds(xSalvar, ySalvar, larguraBotSalvar, alturaBotSalvar);
-                    campoTextoMateria.setBounds(xBoxMateria + (int)(70 * escala), yBoxMateria - (int)(escala), (int)(200 * escala), (int)(50 * escala));
-                    campoTextoPergunta.setBounds(xBoxPer + (int)(82 * escala), yBoxPer + (int)(1 * escala), (int)(900 * escala), (int)(50 * escala));
-                    campoTextoAlternativa1.setBounds(xBoxAlt1 + (int)(82 * escala), yBoxAlt1 + (int)(1 * escala), (int)(300 * escala), (int)(50 * escala));
-                    campoTextoAlternativa3.setBounds(xBoxAlt3 + (int)(82 * escala), yBoxAlt3 + (int)(1 * escala), (int)(300 * escala), (int)(50 * escala));
-                    campoTextoAlternativa2.setBounds(xBoxAlt2 + (int)(82 * escala), yBoxAlt2 + (int)(1 * escala), (int)(300 * escala), (int)(50 * escala));
-                    campoTextoAlternativa4.setBounds(xBoxAlt4 + (int)(82 * escala), yBoxAlt4 + (int)(1 * escala), (int)(300 * escala), (int)(50 * escala));
+/*------------------------POSICIONAMENTO DOS CAMPOS---------------------------*/
+                    botaoDifFacil.setBounds
+        (xBotFac + 40, yBotFac, larguraBotFacil - 80, alturaBotFacil);
+                    botaoDifMedio.setBounds
+        (xBotMed + 40, yBotMed, larguraBotMedio - 80, alturaBotMedio);
+                    botaoDifDificil.setBounds
+        (xBotDif + 40, yBotDif, larguraBotDificil - 80, alturaBotDificil);
+                    botaoVoltar.setBounds
+        (xVoltar, yVoltar, larguraBotVoltar, alturaBotVoltar);
+                    botaoApagarPergunta.setBounds
+        (xApagar, yApagar, larguraBotApagarQuest, alturaBotApagarQuest);
+                    botaoSalvar.setBounds
+        (xSalvar, ySalvar, larguraBotSalvar, alturaBotSalvar);
+                    campoTextoMateria.setBounds
+        (xBoxMateria + (int)(70 * escala), yBoxMateria - 
+                (int)(escala), (int)(200 * escala), (int)(50 * escala));
+                    campoTextoPergunta.setBounds
+        (xBoxPer + (int)(82 * escala), yBoxPer + 
+                (int)(1 * escala), (int)(900 * escala), (int)(50 * escala));
+                    campoTextoAlternativa1.setBounds
+        (xBoxAlt1 + (int)(82 * escala), yBoxAlt1 + 
+                (int)(1 * escala), (int)(300 * escala), (int)(50 * escala));
+                    campoTextoAlternativa3.setBounds
+        (xBoxAlt3 + (int)(82 * escala), yBoxAlt3 + 
+                (int)(1 * escala), (int)(300 * escala), (int)(50 * escala));
+                    campoTextoAlternativa2.setBounds
+        (xBoxAlt2 + (int)(82 * escala), yBoxAlt2 + 
+                (int)(1 * escala), (int)(300 * escala), (int)(50 * escala));
+                    campoTextoAlternativa4.setBounds
+        (xBoxAlt4 + (int)(82 * escala), yBoxAlt4 + 
+                (int)(1 * escala), (int)(300 * escala), (int)(50 * escala));
 
-                    /*----------------------DESENHO DOS ELEMENTOS----------------*/
-                    g2d.drawImage(imagemBoxMaterias, xBoxMateria, yBoxMateria, larguraBoxMateria, alturaBoxMateria, this);
-                    g2d.drawImage(imagemBoxPergunta, xBoxPer, yBoxPer, larguraBoxPergunta, alturaBoxPergunta, this);
-                    g2d.drawImage(imagemTextoAlternativa1, xBoxAlt1, yBoxAlt1, larguraBoxAlternativa1, alturaBoxAlternativa1, this);
-                    g2d.drawImage(imagemTextoAlternativa3, xBoxAlt3, yBoxAlt3, larguraBoxAlternativa3, alturaBoxAlternativa3, this);
-                    g2d.drawImage(imagemTextoAlternativa2, xBoxAlt2, yBoxAlt2, larguraBoxAlternativa2, alturaBoxAlternativa2, this);
-                    g2d.drawImage(imagemTextoAlternativa4, xBoxAlt4, yBoxAlt4, larguraBoxAlternativa4, alturaBoxAlternativa4, this);
-                    g2d.drawImage(imagemBotaoDifFacil, xBotFac, yBotFac, larguraBotFacil, alturaBotFacil, this);
-                    g2d.drawImage(imagemBotaoDifMedio, xBotMed, yBotMed, larguraBotMedio, alturaBotMedio, this);
-                    g2d.drawImage(imagemBotaoDifDificil, xBotDif, yBotDif, larguraBotDificil, alturaBotDificil, this);
-                    g2d.drawImage(imagemBotaoVoltar, xVoltar, yVoltar, larguraBotVoltar, alturaBotVoltar, this);
-                    g2d.drawImage(imagemBotaoApagarPergunta, xApagar, yApagar, larguraBotApagarQuest, alturaBotApagarQuest, this);
-                    g2d.drawImage(imagemBotaoSalvar, xSalvar, ySalvar, larguraBotSalvar, alturaBotSalvar, this);
+/*--------------------------DESENHO DOS ELEMENTOS-----------------------------*/
+                    g2d.drawImage
+        (imagemBoxMaterias, xBoxMateria, yBoxMateria, 
+                larguraBoxMateria, alturaBoxMateria, this);
+                    g2d.drawImage
+        (imagemBoxPergunta, xBoxPer, yBoxPer, 
+                larguraBoxPergunta, alturaBoxPergunta, this);
+                    g2d.drawImage
+        (imagemTextoAlternativa1, xBoxAlt1, yBoxAlt1, 
+                larguraBoxAlternativa1, alturaBoxAlternativa1, this);
+                    g2d.drawImage
+        (imagemTextoAlternativa3, xBoxAlt3, yBoxAlt3, 
+                larguraBoxAlternativa3, alturaBoxAlternativa3, this);
+                    g2d.drawImage
+        (imagemTextoAlternativa2, xBoxAlt2, yBoxAlt2, 
+                larguraBoxAlternativa2, alturaBoxAlternativa2, this);
+                    g2d.drawImage
+        (imagemTextoAlternativa4, xBoxAlt4, yBoxAlt4, 
+                larguraBoxAlternativa4, alturaBoxAlternativa4, this);
+                    g2d.drawImage
+        (imagemBotaoDifFacil, xBotFac, yBotFac, 
+                larguraBotFacil, alturaBotFacil, this);
+                    g2d.drawImage
+        (imagemBotaoDifMedio, xBotMed, yBotMed, 
+                larguraBotMedio, alturaBotMedio, this);
+                    g2d.drawImage
+        (imagemBotaoDifDificil, xBotDif, yBotDif, 
+                larguraBotDificil, alturaBotDificil, this);
+                    g2d.drawImage
+        (imagemBotaoVoltar, xVoltar, yVoltar, 
+                larguraBotVoltar, alturaBotVoltar, this);
+                    g2d.drawImage
+        (imagemBotaoApagarPergunta, xApagar, yApagar, 
+                larguraBotApagarQuest, alturaBotApagarQuest, this);
+                    g2d.drawImage
+        (imagemBotaoSalvar, xSalvar, ySalvar, 
+                larguraBotSalvar, alturaBotSalvar, this);
                 }
             };
             painelConteudo.setOpaque(false);
             
-            /*----------------------CONFIGURAÇÃO DO LAYOUT--------------------*/
+/*----------------------CONFIGURAÇÃO DO LAYOUT--------------------------------*/
             setLayout(new BorderLayout());
             
-            /*----------------------CONFIGURAÇÃO DOS LABELS DE SELEÇÃO---------*/
+/*----------------------CONFIGURAÇÃO DOS LABELS DE SELEÇÃO--------------------*/
             labelFacil = new JLabel(new ImageIcon(imagemFacilSelecionado));
             labelFacil.setVisible(false);
-            labelFacil.setBounds(0, 0, imagemFacilSelecionado.getWidth(), imagemFacilSelecionado.getHeight());
+            labelFacil.setBounds
+        (0, 0, imagemFacilSelecionado.getWidth(),
+                imagemFacilSelecionado.getHeight());
             painelConteudo.add(labelFacil);
             
             labelMedio = new JLabel(new ImageIcon(imagemMedioSelecionado));
             labelMedio.setVisible(false);
-            labelMedio.setBounds(0, 0, imagemMedioSelecionado.getWidth(), imagemMedioSelecionado.getHeight());
+            labelMedio.setBounds
+        (0, 0, imagemMedioSelecionado.getWidth(), 
+                imagemMedioSelecionado.getHeight());
             painelConteudo.add(labelMedio);
             
             labelDificil = new JLabel(new ImageIcon(imagemDificilSelecionado));
             labelDificil.setVisible(false);
-            labelDificil.setBounds(0, 0, imagemDificilSelecionado.getWidth(), imagemDificilSelecionado.getHeight());
+            labelDificil.setBounds
+        (0, 0, imagemDificilSelecionado.getWidth(), 
+                imagemDificilSelecionado.getHeight());
             painelConteudo.add(labelDificil);
             
-            /*----------------------CONFIGURAÇÃO DO BOTÃO DIFICULDADE FÁCIL---*/
+/*----------------------CONFIGURAÇÃO DO BOTÃO DIFICULDADE FÁCIL---------------*/
             botaoDifFacil = new JButton();
             botaoDifFacil.setBorderPainted(false);
             botaoDifFacil.setContentAreaFilled(false);
@@ -334,7 +393,7 @@ public class TelaEditarPergunta extends JFrame {
             botaoDifFacil.addActionListener(e -> SelecionarBotao("facil"));
             painelConteudo.add(botaoDifFacil);
             
-            /*----------------------CONFIGURAÇÃO DO BOTÃO DIFICULDADE MÉDIO---*/
+/*----------------------CONFIGURAÇÃO DO BOTÃO DIFICULDADE MÉDIO---------------*/
             botaoDifMedio = new JButton();
             botaoDifMedio.setBorderPainted(false);
             botaoDifMedio.setContentAreaFilled(false);
@@ -344,7 +403,7 @@ public class TelaEditarPergunta extends JFrame {
             botaoDifMedio.addActionListener(e -> SelecionarBotao("medio"));
             painelConteudo.add(botaoDifMedio);
             
-            /*----------------------CONFIGURAÇÃO DO BOTÃO DIFICULDADE DIFÍCIL-*/
+/*----------------------CONFIGURAÇÃO DO BOTÃO DIFICULDADE DIFÍCIL-------------*/
             botaoDifDificil = new JButton();
             botaoDifDificil.setBorderPainted(false);
             botaoDifDificil.setContentAreaFilled(false);
@@ -354,7 +413,7 @@ public class TelaEditarPergunta extends JFrame {
             botaoDifDificil.addActionListener(e -> SelecionarBotao("dificil"));
             painelConteudo.add(botaoDifDificil);
             
-            /*----------------------CONFIGURAÇÃO DO BOTÃO APAGAR PERGUNTA-----*/
+/*----------------------CONFIGURAÇÃO DO BOTÃO APAGAR PERGUNTA-----------------*/
             botaoApagarPergunta = new JButton();
             botaoApagarPergunta.setBorderPainted(false);
             botaoApagarPergunta.setContentAreaFilled(false);
@@ -363,7 +422,7 @@ public class TelaEditarPergunta extends JFrame {
             botaoApagarPergunta.setCursor(new Cursor(Cursor.HAND_CURSOR));
             painelConteudo.add(botaoApagarPergunta);
             
-            /*----------------------CONFIGURAÇÃO DO BOTÃO SALVAR--------------*/
+/*----------------------CONFIGURAÇÃO DO BOTÃO SALVAR--------------------------*/
             botaoSalvar = new JButton();
             botaoSalvar.setBorderPainted(false);
             botaoSalvar.setContentAreaFilled(false);
@@ -372,7 +431,7 @@ public class TelaEditarPergunta extends JFrame {
             botaoSalvar.setCursor(new Cursor(Cursor.HAND_CURSOR));
             painelConteudo.add(botaoSalvar);
             
-            /*----------------------CONFIGURAÇÃO DO BOTÃO VOLTAR--------------*/
+/*------------------------CONFIGURAÇÃO DO BOTÃO VOLTAR------------------------*/
             botaoVoltar = new JButton();
             botaoVoltar.setBorderPainted(false);
             botaoVoltar.setContentAreaFilled(false);
@@ -393,7 +452,7 @@ public class TelaEditarPergunta extends JFrame {
             });
             painelConteudo.add(botaoVoltar);
             
-            /*----------------------CONFIGURAÇÃO DO CAMPO TEXTO MATÉRIA-------*/
+/*----------------------CONFIGURAÇÃO DO CAMPO TEXTO MATÉRIA-------------------*/
             campoTextoMateria = new JTextField();
             campoTextoMateria.setBorder(null);
             campoTextoMateria.setOpaque(false);
@@ -405,39 +464,43 @@ public class TelaEditarPergunta extends JFrame {
             campoTextoMateria.setFocusable(false);
             painelConteudo.add(campoTextoMateria);
             
-            /*----------------------CONFIGURAÇÃO DO CAMPO TEXTO PERGUNTA-------*/
+/*----------------------CONFIGURAÇÃO DO CAMPO TEXTO PERGUNTA------------------*/
             campoTextoPergunta = new JTextField();
             campoTextoPergunta.setBorder(null);
             campoTextoPergunta.setOpaque(false);
             campoTextoPergunta.setForeground(Color.BLACK);
-            campoTextoPergunta.setFont(new Font("Jockey One", Font.BOLD, 32));
+            campoTextoPergunta.setFont(new Font
+        ("Jockey One", Font.BOLD, 32));
             painelConteudo.add(campoTextoPergunta);
             
-            /*----------------------CONFIGURAÇÃO DO CAMPO ALTERNATIVA 1--------*/
+/*----------------------CONFIGURAÇÃO DO CAMPO ALTERNATIVA 1-------------------*/
             campoTextoAlternativa1 = new JTextField();
             campoTextoAlternativa1.setBorder(null);
             campoTextoAlternativa1.setOpaque(false);
             campoTextoAlternativa1.setForeground(Color.BLACK);
-            campoTextoAlternativa1.setFont(new Font("Jockey One", Font.BOLD, 35));
+            campoTextoAlternativa1.setFont(new Font
+        ("Jockey One", Font.BOLD, 35));
             painelConteudo.add(campoTextoAlternativa1);
             
-            /*----------------------CONFIGURAÇÃO DO CAMPO ALTERNATIVA 3--------*/
+/*----------------------CONFIGURAÇÃO DO CAMPO ALTERNATIVA 3-------------------*/
             campoTextoAlternativa3 = new JTextField();
             campoTextoAlternativa3.setBorder(null);
             campoTextoAlternativa3.setOpaque(false);
             campoTextoAlternativa3.setForeground(Color.BLACK);
-            campoTextoAlternativa3.setFont(new Font("Jockey One", Font.BOLD, 35));
+            campoTextoAlternativa3.setFont(new Font
+        ("Jockey One", Font.BOLD, 35));
             painelConteudo.add(campoTextoAlternativa3);
             
-            /*----------------------CONFIGURAÇÃO DO CAMPO ALTERNATIVA 2--------*/
+/*----------------------CONFIGURAÇÃO DO CAMPO ALTERNATIVA 2-------------------*/
             campoTextoAlternativa2 = new JTextField();
             campoTextoAlternativa2.setBorder(null);
             campoTextoAlternativa2.setOpaque(false);
             campoTextoAlternativa2.setForeground(Color.BLACK);
-            campoTextoAlternativa2.setFont(new Font("Jockey One", Font.BOLD, 35));
+            campoTextoAlternativa2.setFont(new Font
+        ("Jockey One", Font.BOLD, 35));
             painelConteudo.add(campoTextoAlternativa2);
             
-            /*----------------------CONFIGURAÇÃO DO CAMPO ALTERNATIVA 4--------*/
+/*---------------------CONFIGURAÇÃO DO CAMPO ALTERNATIVA 4--------------------*/
             campoTextoAlternativa4 = new JTextField();
             campoTextoAlternativa4.setBorder(null);
             campoTextoAlternativa4.setOpaque(false);
@@ -445,11 +508,11 @@ public class TelaEditarPergunta extends JFrame {
             campoTextoAlternativa4.setFont(new Font("Jockey One", Font.BOLD, 35));
             painelConteudo.add(campoTextoAlternativa4);
             
-            /*----------------------ADICIONA O PAINEL DE CONTEÚDO-------------*/
+/*-----------------------ADICIONA O PAINEL DE CONTEÚDO------------------------*/
             add(painelConteudo, BorderLayout.CENTER);
         }
         
-        /*----------------------SELEÇÃO DE BOTÃO DE DIFICULDADE-------------*/
+/*-----------------------SELEÇÃO DE BOTÃO DE DIFICULDADE----------------------*/
         private void SelecionarBotao(String tipo) {
             dificuldadeSelecionado = tipo;
             
@@ -460,9 +523,15 @@ public class TelaEditarPergunta extends JFrame {
             switch (tipo) {
                 case "facil":
                     if (botaoSelecionado != botaoDifFacil) {
-                        int x = botaoDifFacil.getX() + (botaoDifFacil.getWidth() - imagemFacilSelecionado.getWidth()) / 2;
-                        int y = botaoDifFacil.getY() + (botaoDifFacil.getHeight() - imagemFacilSelecionado.getHeight()) / 2;
-                        labelFacil.setBounds(x, y, imagemFacilSelecionado.getWidth(), imagemFacilSelecionado.getHeight());
+                        int x = botaoDifFacil.getX() + 
+                                (botaoDifFacil.getWidth() - 
+                                imagemFacilSelecionado.getWidth()) / 2;
+                        int y = botaoDifFacil.getY() + 
+                                (botaoDifFacil.getHeight() - 
+                                imagemFacilSelecionado.getHeight()) / 2;
+                        labelFacil.setBounds(x, y, 
+                                imagemFacilSelecionado.getWidth(), 
+                                imagemFacilSelecionado.getHeight());
                         labelFacil.setVisible(true);
                         labelFacil.repaint();
                         botaoSelecionado = botaoDifFacil;
@@ -471,9 +540,15 @@ public class TelaEditarPergunta extends JFrame {
 
                 case "medio":
                     if (botaoSelecionado != botaoDifMedio) {
-                        int x = botaoDifMedio.getX() + (botaoDifMedio.getWidth() - imagemMedioSelecionado.getWidth()) / 2;
-                        int y = botaoDifMedio.getY() + (botaoDifMedio.getHeight() - imagemMedioSelecionado.getHeight()) / 2;
-                        labelMedio.setBounds(x, y, imagemMedioSelecionado.getWidth(), imagemMedioSelecionado.getHeight());
+                        int x = botaoDifMedio.getX() + 
+                                (botaoDifMedio.getWidth() - 
+                                imagemMedioSelecionado.getWidth()) / 2;
+                        int y = botaoDifMedio.getY() + 
+                                (botaoDifMedio.getHeight() - 
+                                imagemMedioSelecionado.getHeight()) / 2;
+                        labelMedio.setBounds(x, y, 
+                                imagemMedioSelecionado.getWidth(), 
+                                imagemMedioSelecionado.getHeight());
                         labelMedio.setVisible(true);
                         labelMedio.repaint();
                         botaoSelecionado = botaoDifMedio;
@@ -482,9 +557,15 @@ public class TelaEditarPergunta extends JFrame {
                     
                 case "dificil":
                     if (botaoSelecionado != botaoDifDificil) {
-                        int x = botaoDifDificil.getX() + (botaoDifDificil.getWidth() - imagemDificilSelecionado.getWidth()) / 2;
-                        int y = botaoDifDificil.getY() + (botaoDifDificil.getHeight() - imagemDificilSelecionado.getHeight()) / 2;
-                        labelDificil.setBounds(x, y, imagemDificilSelecionado.getWidth(), imagemDificilSelecionado.getHeight());
+                        int x = botaoDifDificil.getX() + 
+                                (botaoDifDificil.getWidth() - 
+                                imagemDificilSelecionado.getWidth()) / 2;
+                        int y = botaoDifDificil.getY() + 
+                                (botaoDifDificil.getHeight() - 
+                                imagemDificilSelecionado.getHeight()) / 2;
+                        labelDificil.setBounds(x, y, 
+                                imagemDificilSelecionado.getWidth(), 
+                                imagemDificilSelecionado.getHeight());
                         labelDificil.setVisible(true);
                         labelDificil.repaint();
                         botaoSelecionado = botaoDifDificil;
@@ -499,7 +580,7 @@ public class TelaEditarPergunta extends JFrame {
             }
         }
         
-        /*----------------------PINTURA DO FUNDO DO PAINEL-------------------*/
+/*----------------------PINTURA DO FUNDO DO PAINEL----------------------------*/
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
@@ -507,7 +588,7 @@ public class TelaEditarPergunta extends JFrame {
             int w = getWidth();
             int h = getHeight();
 
-            /*----------------------CONFIGURAÇÃO DE RENDERIZAÇÃO-------------*/
+/*----------------------CONFIGURAÇÃO DE RENDERIZAÇÃO--------------------------*/
             g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, 
                     RenderingHints.VALUE_INTERPOLATION_BICUBIC);
             g2d.setRenderingHint(RenderingHints.KEY_RENDERING, 
@@ -523,7 +604,7 @@ public class TelaEditarPergunta extends JFrame {
             g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, 
                     RenderingHints.VALUE_STROKE_PURE);
             
-            /*----------------------DESENHO DA IMAGEM DE FUNDO---------------*/
+/*-----------------------DESENHO DA IMAGEM DE FUNDO---------------------------*/
             if (imagemDeFundoEditarPerguntas != null) {
                 g2d.drawImage(imagemDeFundoEditarPerguntas,
                         0,

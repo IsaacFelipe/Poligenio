@@ -13,14 +13,14 @@ import javax.imageio.ImageIO;
 /*----------------------CLASSE PRINCIPAL DA TELA DE CRIAÇÃO DE SALA---------*/
 public class TelaCriarSala extends JFrame {
 
-    /*----------------------DECLARAÇÃO DE VARIÁVEIS----------------------*/
+/*----------------------DECLARAÇÃO DE VARIÁVEIS-------------------------------*/
     private JPanel painelCriarSala;
     private static String idProfessor;
     
-    /*----------------------CONSTRUTOR DA TELA DE CRIAÇÃO DE SALA------------*/
+/*----------------------CONSTRUTOR DA TELA DE CRIAÇÃO DE SALA-----------------*/
     public TelaCriarSala(String idProfessor) {
         
-        /*----------------------CONFIGURAÇÕES DA JANELA-------------------*/
+/*------------------------CONFIGURAÇÕES DA JANELA-----------------------------*/
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setUndecorated(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -29,7 +29,7 @@ public class TelaCriarSala extends JFrame {
         painelCriarSala = new JPanel();
 
         try {
-            /*----------------------INSTANCIAÇÃO DOS PAINÉIS----------------*/
+/*------------------------INSTANCIAÇÃO DOS PAINÉIS----------------------------*/
             PanelCriarSala criarSala = 
                     new PanelCriarSala();
             setContentPane(criarSala);
@@ -41,7 +41,7 @@ public class TelaCriarSala extends JFrame {
         }
     }
 
-    /*----------------------MÉTODO MAIN PARA EXECUTAR A TELA----------------*/
+/*----------------------MÉTODO MAIN PARA EXECUTAR A TELA----------------------*/
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             TelaCriarSala tela = new TelaCriarSala(idProfessor);
@@ -49,10 +49,10 @@ public class TelaCriarSala extends JFrame {
         });
     }
 
-    /*----------------------CLASSE INTERNA: PAINEL DE CRIAÇÃO DE SALA--------*/
+/*----------------CLASSE INTERNA: PAINEL DE CRIAÇÃO DE SALA-------------------*/
     public static class PanelCriarSala extends JPanel {
 
-        /*----------------------DECLARAÇÃO DE VARIÁVEIS----------------------*/
+/*------------------------DECLARAÇÃO DE VARIÁVEIS-----------------------------*/
         private BufferedImage imagemDeFundoCriarSala;
         private BufferedImage imagemBotaoQuestPadr;
         private BufferedImage imagemBotaoQuestPers;
@@ -74,11 +74,11 @@ public class TelaCriarSala extends JFrame {
         
         private String tipoSelecionado = null;
 
-        /*----------------------CONSTRUTOR DO PAINEL DE CRIAÇÃO DE SALA------*/
+/*---------------------CONSTRUTOR DO PAINEL DE CRIAÇÃO DE SALA----------------*/
         public PanelCriarSala() throws IOException {
             setLayout(new GridBagLayout());
 
-            /*----------------------CARREGAMENTO DAS IMAGENS------------------*/
+/*-------------------------CARREGAMENTO DAS IMAGENS---------------------------*/
             imagemDeFundoCriarSala = ImageIO.read
         (getClass().getResource("/ImagensTelaCriarSala/telaSelecaoSala.png"));
             
@@ -104,13 +104,13 @@ public class TelaCriarSala extends JFrame {
         (getClass().getResource
         ("/ImagensTelaCriarSala/questPersSelecionado.png"));
 
-            /*----------------------CRIAÇÃO DO PAINEL DE CONTEÚDO-------------*/
+/*--------------------------CRIAÇÃO DO PAINEL DE CONTEÚDO---------------------*/
             JPanel painelConteudo = new JPanel(null) {
                 @Override
                 protected void paintComponent(Graphics g) {
                     super.paintComponent(g);
 
-                    /*----------------------CONFIGURAÇÃO GRÁFICA----------------*/
+/*---------------------------CONFIGURAÇÃO GRÁFICA-----------------------------*/
                     Graphics2D g2d = (Graphics2D) g;
                     g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
                             RenderingHints.VALUE_INTERPOLATION_BILINEAR);
@@ -121,7 +121,7 @@ public class TelaCriarSala extends JFrame {
                     int h = getHeight();
                     int centroX = w / 2;
 
-                    /*----------------------DIMENSIONAMENTO E POSICIONAMENTO----*/
+/*-----------------------DIMENSIONAMENTO E POSICIONAMENTO---------------------*/
                     double escala = 1.0;
                     int larguraQPdr = (int)
                             (imagemBotaoQuestPadr.getWidth() * 0.7 * escala);
@@ -143,7 +143,7 @@ public class TelaCriarSala extends JFrame {
                     int alturaBVoltar = (int) 
                             (imagemBotaoVoltar.getHeight() * 0.7 * escala);
 
-                    /*----------------------COORDENADAS DOS ELEMENTOS-----------*/
+/*-------------------------COORDENADAS DOS ELEMENTOS--------------------------*/
                     int xQPdr = centroX - (larguraQPdr / 2);
                     int yQPdr = (int) (h * 0.45) - 37;
                     
@@ -156,7 +156,7 @@ public class TelaCriarSala extends JFrame {
                     int xBVoltar = centroX - (larguraBVoltar / 2) + 250;
                     int yBVoltar = yQPers + alturaQPers + (int)(140 * escala);
 
-                    /*----------------------POSICIONAMENTO DOS BOTÕES------------*/
+/*-------------------------POSICIONAMENTO DOS BOTÕES--------------------------*/
                     botaoQuestPadr.setBounds(xQPdr, 
                             yQPdr, 
                             larguraQPdr, 
@@ -177,7 +177,7 @@ public class TelaCriarSala extends JFrame {
                             larguraBVoltar,
                             alturaBVoltar);
 
-                    /*----------------------DESENHO DOS ELEMENTOS----------------*/
+/*------------------------DESENHO DOS ELEMENTOS-------------------------------*/
                     g2d.drawImage(imagemBotaoQuestPadr, 
                             xQPdr, 
                             yQPdr, 

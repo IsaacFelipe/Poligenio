@@ -1,7 +1,7 @@
 /*----------------------PACOTE QUE PERTENCE A CLASSE--------------------------*/
 package TelasLobby;
 
-/*----------------------IMPORTAÇÕES NECESSÁRIAS-----------------------------*/
+/*----------------------IMPORTAÇÕES NECESSÁRIAS-------------------------------*/
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -10,16 +10,16 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
-/*----------------------CLASSE PRINCIPAL DA TELA DE QUESTIONÁRIO-------------*/
+/*----------------------CLASSE PRINCIPAL DA TELA DE QUESTIONÁRIO--------------*/
 public class TelaQuestionario extends JFrame {
     
-    /*----------------------DECLARAÇÃO DE VARIÁVEIS----------------------*/
+/*-------------------------DECLARAÇÃO DE VARIÁVEIS----------------------------*/
     private JPanel painelQuestionario;
     private static String idProfessor;
     
-    /*----------------------CONSTRUTOR DA TELA DE QUESTIONÁRIO---------------*/
+/*----------------------CONSTRUTOR DA TELA DE QUESTIONÁRIO--------------------*/
     public TelaQuestionario(String idProfessor) {
-        /*----------------------CONFIGURAÇÕES DA JANELA-------------------*/
+/*-------------------------CONFIGURAÇÕES DA JANELA----------------------------*/
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setUndecorated(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -28,7 +28,7 @@ public class TelaQuestionario extends JFrame {
         painelQuestionario = new JPanel();
 
         try {
-            /*----------------------INSTANCIAÇÃO DO PAINEL----------------*/
+/*--------------------------INSTANCIAÇÃO DO PAINEL----------------------------*/
             PanelQuestionario telaQuestionarioPanel = 
                     new PanelQuestionario();
             setContentPane(telaQuestionarioPanel);
@@ -40,7 +40,7 @@ public class TelaQuestionario extends JFrame {
         }
     }
     
-    /*----------------------MÉTODO MAIN PARA EXECUTAR A TELA----------------*/
+/*----------------------MÉTODO MAIN PARA EXECUTAR A TELA----------------------*/
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             TelaQuestionario tela = new TelaQuestionario(idProfessor);
@@ -48,10 +48,10 @@ public class TelaQuestionario extends JFrame {
         });
     }
     
-    /*----------------------CLASSE INTERNA: PAINEL DE QUESTIONÁRIO-----------*/
+/*------------------CLASSE INTERNA: PAINEL DE QUESTIONÁRIO--------------------*/
     public static class PanelQuestionario extends JPanel {
 
-        /*----------------------DECLARAÇÃO DE VARIÁVEIS----------------------*/
+/*-----------------------DECLARAÇÃO DE VARIÁVEIS------------------------------*/
         private BufferedImage imagemDeFundoQuestionario;
         private BufferedImage imagemBotaoUsarQuestionario;
         private BufferedImage imagemBotaoEditar;
@@ -63,11 +63,11 @@ public class TelaQuestionario extends JFrame {
         private JButton botaoVoltar;
         private JButton botaoNovoQuestionario;
         
-        /*----------------------CONSTRUTOR DO PAINEL DE QUESTIONÁRIO---------*/
+/*--------------------CONSTRUTOR DO PAINEL DE QUESTIONÁRIO--------------------*/
         public PanelQuestionario() throws IOException {
             setLayout(new GridBagLayout());
 
-            /*----------------------CARREGAMENTO DAS IMAGENS------------------*/
+/*-------------------------CARREGAMENTO DAS IMAGENS---------------------------*/
             imagemDeFundoQuestionario = ImageIO.read
 (getClass().getResource("/ImagensTelaQuestionario/telaQuestionario.png"));
             
@@ -83,13 +83,13 @@ public class TelaQuestionario extends JFrame {
             imagemBotaoVoltar = ImageIO.read(getClass().getResource
         ("/ImagensTelaQuestionario/botaoVoltar.png"));
             
-            /*----------------------CRIAÇÃO DO PAINEL DE CONTEÚDO-------------*/
+/*-----------------------CRIAÇÃO DO PAINEL DE CONTEÚDO------------------------*/
             JPanel painelConteudo = new JPanel(null) {
                 @Override
                 protected void paintComponent(Graphics g) {
                     super.paintComponent(g);
 
-                    /*----------------------CONFIGURAÇÃO GRÁFICA----------------*/
+/*--------------------------CONFIGURAÇÃO GRÁFICA------------------------------*/
                     Graphics2D g2d = (Graphics2D) g;
                     g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, 
                             RenderingHints.VALUE_INTERPOLATION_BILINEAR);
@@ -99,33 +99,41 @@ public class TelaQuestionario extends JFrame {
                     int w = getWidth();
                     int h = getHeight();
 
-                    /*----------------------CALCULA O CENTRO DA TELA------------*/
+/*------------------------CALCULA O CENTRO DA TELA----------------------------*/
                     int centroX = w / 2;
 
-                    /*----------------------DIMENSÕES DOS ELEMENTOS--------------*/
+/*-------------------------DIMENSÕES DOS ELEMENTOS----------------------------*/
                     double escala = 1.0;
                     
                     int larguraBotUsarQuest = (int) 
-                        (imagemBotaoUsarQuestionario.getWidth() * 0.7 * escala);
+                        (imagemBotaoUsarQuestionario.getWidth() * 
+                            0.7 * escala);
                     int alturaBotUsarQuest = (int) 
-                        (imagemBotaoUsarQuestionario.getHeight() * 0.7 * escala);
+                        (imagemBotaoUsarQuestionario.getHeight() * 
+                            0.7 * escala);
                     
                     int larguraBotEditar = (int) 
-                        (imagemBotaoEditar.getWidth() * 0.7 * escala);
+                        (imagemBotaoEditar.getWidth() * 
+                            0.7 * escala);
                     int alturaBotEditar = (int) 
-                        (imagemBotaoEditar.getHeight() * 0.7 * escala);
+                        (imagemBotaoEditar.getHeight() * 
+                            0.7 * escala);
                     
                     int larguraBotVoltar = (int) 
-                        (imagemBotaoVoltar.getWidth() * 0.7 * escala);
+                        (imagemBotaoVoltar.getWidth() * 
+                            0.7 * escala);
                     int alturaBotVoltar = (int) 
-                        (imagemBotaoVoltar.getHeight() * 0.7 * escala);
+                        (imagemBotaoVoltar.getHeight() * 
+                            0.7 * escala);
                     
                     int larguraBotNovoQuest = (int) 
-                        (imagemBotaoNovoQuestionario.getWidth() * 0.7 * escala);
+                        (imagemBotaoNovoQuestionario.getWidth() * 
+                            0.7 * escala);
                     int alturaBotNovoQuest = (int) 
-                        (imagemBotaoNovoQuestionario.getHeight() * 0.7 * escala);
+                        (imagemBotaoNovoQuestionario.getHeight() * 
+                            0.7 * escala);
                     
-                    /*----------------------POSICIONAMENTO DOS ELEMENTOS---------*/
+/*------------------------POSICIONAMENTO DOS ELEMENTOS------------------------*/
                     int xUsarQuest = centroX - (larguraBotUsarQuest / 2) - 340;
                     int yUsarQuest = (int) (h * 0.45) + 315;
                     
@@ -138,7 +146,7 @@ public class TelaQuestionario extends JFrame {
                     int xNovoQuest = centroX - (larguraBotUsarQuest / 2) + 340;
                     int yNovoQuest = (int) (h * 0.45) + 315;
                     
-                    /*----------------------CONFIGURAÇÃO DOS BOTÕES--------------*/
+/*-------------------------CONFIGURAÇÃO DOS BOTÕES----------------------------*/
                     botaoUsarQuestionario.setBounds(xUsarQuest, 
                             yUsarQuest, 
                             larguraBotUsarQuest, 
@@ -159,7 +167,7 @@ public class TelaQuestionario extends JFrame {
                             larguraBotNovoQuest, 
                             alturaBotNovoQuest);
                     
-                    /*----------------------DESENHO DOS ELEMENTOS----------------*/
+/*--------------------------DESENHO DOS ELEMENTOS-----------------------------*/
                     g2d.drawImage(imagemBotaoUsarQuestionario, 
                             xUsarQuest, 
                             yUsarQuest, 
@@ -185,10 +193,10 @@ public class TelaQuestionario extends JFrame {
                             alturaBotNovoQuest, this);
                 }
             };
-            /*----------------------CONFIGURAÇÃO DO PAINEL DE CONTEÚDO-------*/
+/*---------------------CONFIGURAÇÃO DO PAINEL DE CONTEÚDO---------------------*/
             painelConteudo.setOpaque(false);
             
-            /*----------------------CONFIGURAÇÃO DO BOTÃO USAR QUESTIONÁRIO--*/
+/*------------------CONFIGURAÇÃO DO BOTÃO USAR QUESTIONÁRIO-------------------*/
             botaoUsarQuestionario = new JButton();
             botaoUsarQuestionario.setBorderPainted(false);
             botaoUsarQuestionario.setContentAreaFilled(false);
@@ -197,7 +205,7 @@ public class TelaQuestionario extends JFrame {
             botaoUsarQuestionario.setCursor(new Cursor(Cursor.HAND_CURSOR));
             painelConteudo.add(botaoUsarQuestionario);
             
-            /*----------------------CONFIGURAÇÃO DO BOTÃO EDITAR-------------*/
+/*------------------------CONFIGURAÇÃO DO BOTÃO EDITAR------------------------*/
             botaoEditar = new JButton();
             botaoEditar.setBorderPainted(false);
             botaoEditar.setContentAreaFilled(false);
@@ -206,7 +214,7 @@ public class TelaQuestionario extends JFrame {
             botaoEditar.setCursor(new Cursor(Cursor.HAND_CURSOR));
             painelConteudo.add(botaoEditar);
             
-            /*----------------------CONFIGURAÇÃO DO BOTÃO VOLTAR-------------*/
+/*------------------------CONFIGURAÇÃO DO BOTÃO VOLTAR------------------------*/
             botaoVoltar = new JButton();
             botaoVoltar.setBorderPainted(false);
             botaoVoltar.setContentAreaFilled(false);
@@ -228,7 +236,7 @@ public class TelaQuestionario extends JFrame {
             });
             painelConteudo.add(botaoVoltar);
             
-            /*----------------------CONFIGURAÇÃO DO BOTÃO NOVO QUESTIONÁRIO--*/
+/*--------------------CONFIGURAÇÃO DO BOTÃO NOVO QUESTIONÁRIO-----------------*/
             botaoNovoQuestionario = new JButton();
             botaoNovoQuestionario.setBorderPainted(false);
             botaoNovoQuestionario.setContentAreaFilled(false);
@@ -237,12 +245,12 @@ public class TelaQuestionario extends JFrame {
             botaoNovoQuestionario.setCursor(new Cursor(Cursor.HAND_CURSOR));
             painelConteudo.add(botaoNovoQuestionario);
             
-            /*----------------------CONFIGURAÇÃO DO LAYOUT--------------------*/
+/*--------------------------CONFIGURAÇÃO DO LAYOUT----------------------------*/
             setLayout(new BorderLayout());
             add(painelConteudo, BorderLayout.CENTER);
         }
         
-        /*----------------------PINTURA DO FUNDO DO PAINEL-------------------*/
+/*-------------------------PINTURA DO FUNDO DO PAINEL-------------------------*/
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
@@ -251,7 +259,7 @@ public class TelaQuestionario extends JFrame {
             int w = getWidth();
             int h = getHeight();
 
-            /*----------------------CONFIGURAÇÃO DE RENDERIZAÇÃO-------------*/
+/*-------------------------CONFIGURAÇÃO DE RENDERIZAÇÃO-----------------------*/
             g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, 
                     RenderingHints.VALUE_INTERPOLATION_BICUBIC);
             g2d.setRenderingHint(RenderingHints.KEY_RENDERING, 
@@ -267,7 +275,7 @@ public class TelaQuestionario extends JFrame {
             g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, 
                     RenderingHints.VALUE_STROKE_PURE);
             
-            /*----------------------DESENHO DA IMAGEM DE FUNDO---------------*/
+/*-----------------------DESENHO DA IMAGEM DE FUNDO---------------------------*/
             if (imagemDeFundoQuestionario != null) {
                 g2d.drawImage(imagemDeFundoQuestionario, 
                         0, 

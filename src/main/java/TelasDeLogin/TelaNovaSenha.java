@@ -284,7 +284,7 @@ public class TelaNovaSenha extends JFrame {
             botaoVoltarLogin.setCursor(new Cursor(Cursor.HAND_CURSOR));
             botaoVoltarLogin.addActionListener(e -> {
                 
-/*----------------------------INSTANCIA O SISTEMA-----------------------------*/
+/*---------------------------INSTANCIA O SISTEMA------------------------------*/
                 Sistema sistema = Sistema.getInstance();
 
                 TelaInicial tec = new TelaInicial(destinatario, "", sistema);

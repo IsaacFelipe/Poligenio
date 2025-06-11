@@ -1,7 +1,7 @@
 /*----------------------PACOTE QUE PERTENCE A CLASSE--------------------------*/
 package TelasPartida;
 
-/*----------------------IMPORTAÇÕES NECESSÁRIAS-----------------------------*/
+/*----------------------IMPORTAÇÕES NECESSÁRIAS-------------------------------*/
 import TelasLobby.TelaLobbyProfessor;
 import javax.swing.*;
 import java.awt.*;
@@ -14,15 +14,15 @@ import javax.imageio.ImageIO;
 /*----------------------CLASSE PRINCIPAL DA TELA DE ESPERA PROFESSOR----------*/
 public class TelaEsperaProfessor extends JFrame {
     
-    /*----------------------DECLARAÇÃO DE VARIÁVEIS----------------------*/
+/*---------------------------DECLARAÇÃO DE VARIÁVEIS--------------------------*/
     private JPanel painelEspera;
     private static String idProfessor;
     private static String codigoSala;
     
-    /*----------------------CONSTRUTOR DA TELA DE ESPERA PROFESSOR-----------*/
+/*----------------------CONSTRUTOR DA TELA DE ESPERA PROFESSOR----------------*/
     public TelaEsperaProfessor(String idProfessor, String codigoSala) {
         
-        /*----------------------CONFIGURAÇÕES DA JANELA-------------------*/
+/*-------------------------CONFIGURAÇÕES DA JANELA----------------------------*/
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setUndecorated(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -32,7 +32,7 @@ public class TelaEsperaProfessor extends JFrame {
         painelEspera = new JPanel();
         
         try {
-            /*----------------------INSTANCIAÇÃO DO PAINEL----------------*/
+/*-------------------------INSTANCIAÇÃO DO PAINEL-----------------------------*/
             PanelEspera telaEsperaPanel = new PanelEspera();
             setContentPane(telaEsperaPanel);
 
@@ -43,7 +43,7 @@ public class TelaEsperaProfessor extends JFrame {
         }
     }
     
-    /*----------------------MÉTODO MAIN PARA EXECUTAR A TELA----------------*/
+/*---------------------MÉTODO MAIN PARA EXECUTAR A TELA-----------------------*/
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             TelaEsperaProfessor tela = new TelaEsperaProfessor(idProfessor,
@@ -52,10 +52,10 @@ public class TelaEsperaProfessor extends JFrame {
         });
     }
     
-    /*----------------------CLASSE INTERNA: PAINEL DE ESPERA-----------------*/
+/*----------------------CLASSE INTERNA: PAINEL DE ESPERA----------------------*/
     public static class PanelEspera extends JPanel {
 
-        /*----------------------DECLARAÇÃO DE VARIÁVEIS----------------------*/
+/*-------------------------DECLARAÇÃO DE VARIÁVEIS----------------------------*/
         private BufferedImage imagemDeFundoEspera;
         private BufferedImage imagemBotaoId;
         private BufferedImage imagemBotaoDesconectar;
@@ -66,11 +66,11 @@ public class TelaEsperaProfessor extends JFrame {
         private JButton botaoIniciar;
         
         
-        /*----------------------CONSTRUTOR DO PAINEL DE ESPERA---------------*/
+/*----------------------CONSTRUTOR DO PAINEL DE ESPERA------------------------*/
         public PanelEspera() throws IOException {
             setLayout(new GridBagLayout());
 
-            /*----------------------CARREGAMENTO DAS IMAGENS------------------*/
+/*------------------------CARREGAMENTO DAS IMAGENS----------------------------*/
             imagemDeFundoEspera = ImageIO.read(getClass().getResource
         ("/ImagensTelaEsperaProfessor/telaEsperaProfessor.png"));
             
@@ -83,13 +83,13 @@ public class TelaEsperaProfessor extends JFrame {
             imagemBotaoIniciar = ImageIO.read(getClass().getResource
         ("/ImagensTelaEsperaProfessor/botaoIniciar.png"));
             
-            /*----------------------CRIAÇÃO DO PAINEL DE CONTEÚDO-------------*/
+/*---------------------CRIAÇÃO DO PAINEL DE CONTEÚDO--------------------------*/
             JPanel painelConteudo = new JPanel(null) {
                 @Override
                 protected void paintComponent(Graphics g) {
                     super.paintComponent(g);
 
-                    /*----------------------CONFIGURAÇÃO GRÁFICA----------------*/
+/*----------------------CONFIGURAÇÃO GRÁFICA----------------------------------*/
                     Graphics2D g2d = (Graphics2D) g;
                     g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, 
                             RenderingHints.VALUE_INTERPOLATION_BILINEAR);
@@ -99,11 +99,11 @@ public class TelaEsperaProfessor extends JFrame {
                     int w = getWidth();
                     int h = getHeight();
 
-                    /*----------------------CALCULA O CENTRO DA TELA------------*/
+/*-------------------------CALCULA O CENTRO DA TELA---------------------------*/
                     int centroX = w / 2;
 
-                    /*----------------------DIMENSÕES DOS ELEMENTOS--------------*/
-                    double escala = 1.0; // Defina a escala conforme necessário
+/*--------------------------DIMENSÕES DOS ELEMENTOS---------------------------*/
+                    double escala = 1.0;
                     
                     int larguraIdSala = (int) 
                             (imagemBotaoId.getWidth() * 0.7 * escala);
@@ -120,7 +120,7 @@ public class TelaEsperaProfessor extends JFrame {
                     int alturaIniciar = (int) 
                             (imagemBotaoIniciar.getHeight() * 0.2 * escala);
                     
-                    /*----------------------POSICIONAMENTO DOS ELEMENTOS---------*/
+/*----------------------POSICIONAMENTO DOS ELEMENTOS--------------------------*/
                     int xId = centroX - (larguraIdSala / 2) - 390;
                     int yId = (int) (h * 0.45) - 250;
                     
@@ -132,7 +132,7 @@ public class TelaEsperaProfessor extends JFrame {
                             alturaDesconectar - 
                             (int)(10 * escala);
                     
-                    /*----------------------CONFIGURAÇÃO DOS BOTÕES--------------*/
+/*-----------------------CONFIGURAÇÃO DOS BOTÕES------------------------------*/
                     botaoIdSala.setBounds(xId, 
                             yId, 
                             larguraIdSala, 
@@ -148,7 +148,7 @@ public class TelaEsperaProfessor extends JFrame {
                             larguraIniciar, 
                             alturaIniciar);
                     
-                    /*----------------------DESENHO DOS ELEMENTOS----------------*/
+/*-------------------------DESENHO DOS ELEMENTOS------------------------------*/
                     g2d.drawImage(imagemBotaoId, 
                             xId, 
                             yId, 
@@ -170,7 +170,7 @@ public class TelaEsperaProfessor extends JFrame {
             };
             painelConteudo.setOpaque(false);
             
-            /*----------------------CONFIGURAÇÃO DO BOTÃO ID SALA------------*/
+/*-----------------------CONFIGURAÇÃO DO BOTÃO ID SALA------------------------*/
             botaoIdSala = new JButton();
             botaoIdSala.setBorderPainted(false);
             botaoIdSala.setContentAreaFilled(false);
@@ -189,7 +189,7 @@ public class TelaEsperaProfessor extends JFrame {
             });
             painelConteudo.add(botaoIdSala);
             
-            /*----------------------CONFIGURAÇÃO DO BOTÃO DESCONECTAR--------*/
+/*-----------------------CONFIGURAÇÃO DO BOTÃO DESCONECTAR--------------------*/
             botaoDesconectar = new JButton();
             botaoDesconectar.setBorderPainted(false);
             botaoDesconectar.setContentAreaFilled(false);
@@ -208,7 +208,7 @@ public class TelaEsperaProfessor extends JFrame {
             });
             painelConteudo.add(botaoDesconectar);
             
-            /*----------------------CONFIGURAÇÃO DO BOTÃO INICIAR------------*/
+/*-----------------------CONFIGURAÇÃO DO BOTÃO INICIAR------------------------*/
             botaoIniciar = new JButton();
             botaoIniciar.setBorderPainted(false);
             botaoIniciar.setContentAreaFilled(false);
@@ -229,12 +229,12 @@ public class TelaEsperaProfessor extends JFrame {
             });
             painelConteudo.add(botaoIniciar);
             
-            /*----------------------CONFIGURAÇÃO DO LAYOUT--------------------*/
+/*--------------------------CONFIGURAÇÃO DO LAYOUT----------------------------*/
             setLayout(new BorderLayout());
             add(painelConteudo, BorderLayout.CENTER);
         }
         
-        /*----------------------PINTURA DO FUNDO DO PAINEL-------------------*/
+/*-------------------------PINTURA DO FUNDO DO PAINEL-------------------------*/
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
@@ -243,7 +243,7 @@ public class TelaEsperaProfessor extends JFrame {
             int w = getWidth();
             int h = getHeight();
 
-            /*----------------------CONFIGURAÇÃO DE RENDERIZAÇÃO-------------*/
+/*------------------------CONFIGURAÇÃO DE RENDERIZAÇÃO------------------------*/
             g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
                     RenderingHints.VALUE_INTERPOLATION_BICUBIC);
             g2d.setRenderingHint(RenderingHints.KEY_RENDERING,
@@ -259,7 +259,7 @@ public class TelaEsperaProfessor extends JFrame {
             g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL,
                     RenderingHints.VALUE_STROKE_PURE);
             
-            /*----------------------DESENHO DA IMAGEM DE FUNDO---------------*/
+/*-----------------------DESENHO DA IMAGEM DE FUNDO---------------------------*/
             if (imagemDeFundoEspera != null) {
                 g2d.drawImage(imagemDeFundoEspera, 0, 
                         0, 

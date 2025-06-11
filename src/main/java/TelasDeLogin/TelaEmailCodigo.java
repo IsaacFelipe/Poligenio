@@ -1,4 +1,4 @@
-/*----------------------IMPORTAÇÕES NECESSÁRIAS-----------------------------*/
+/*----------------------IMPORTAÇÕES NECESSÁRIAS-------------------------------*/
 package TelasDeLogin;
 
 import CodigoPoligenio.Sistema;
@@ -10,29 +10,29 @@ import java.io.IOException;
 import java.sql.SQLException;
 import javax.imageio.ImageIO;
 
-/*----------------------CLASSE PRINCIPAL DA TELA DE VALIDAÇÃO DE CÓDIGO POR EMAIL----*/
+/*------------CLASSE PRINCIPAL DA TELA DE VALIDAÇÃO DE CÓDIGO POR EMAIL-------*/
 public class TelaEmailCodigo extends JFrame {
 
-    /*----------------------DECLARAÇÃO DE VARIÁVEIS----------------------*/
+/*---------------------------DECLARAÇÃO DE VARIÁVEIS--------------------------*/
     private JPanel painelEmailCodigo;
     private static String destinatario;
 
 
-    /*----------------------CONSTRUTOR DA TELA DE VALIDAÇÃO DE CÓDIGO--------*/
+/*----------------------CONSTRUTOR DA TELA DE VALIDAÇÃO DE CÓDIGO-------------*/
     public TelaEmailCodigo(String destinatario) {
-        /*----------------------CONFIGURAÇÕES DA JANELA-------------------*/
+/*-------------------------CONFIGURAÇÕES DA JANELA----------------------------*/
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setUndecorated(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         painelEmailCodigo = new JPanel();
 
-        /*----------------------INSTANCIA O SISTEMA----------------------*/
+/*----------------------------INSTANCIA O SISTEMA-----------------------------*/
         Sistema sistema = Sistema.getInstance();
         this.destinatario = destinatario;
 
         try {
-            /*----------------------INSTANCIAÇÃO DO PAINEL----------------*/
+/*----------------------------INSTANCIAÇÃO DO PAINEL--------------------------*/
             PanelEmailCodigo emailCodigo = new PanelEmailCodigo(sistema);
             setContentPane(emailCodigo);
             
@@ -43,7 +43,7 @@ public class TelaEmailCodigo extends JFrame {
         }
     }
 
-    /*----------------------MÉTODO MAIN PARA EXECUTAR A TELA----------------*/
+/*-----------------------MÉTODO MAIN PARA EXECUTAR A TELA---------------------*/
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             TelaEmailCodigo telaCodigo = new TelaEmailCodigo(destinatario);
@@ -51,10 +51,14 @@ public class TelaEmailCodigo extends JFrame {
         });
     }
 
-    /*----------------------CLASSE INTERNA: PAINEL DE VALIDAÇÃO DE CÓDIGO----*/
+    void set_Visible(boolean b) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+/*----------------------CLASSE INTERNA: PAINEL DE VALIDAÇÃO DE CÓDIGO---------*/
     public static class PanelEmailCodigo extends JPanel {
 
-        /*----------------------DECLARAÇÃO DE VARIÁVEIS----------------------*/
+/*-------------------------DECLARAÇÃO DE VARIÁVEIS----------------------------*/
         private BufferedImage imagemDeFundoEmailCodigo;
         private BufferedImage imagemInputEmailCodigo;
         private BufferedImage imagemBotaoEnviarEmail;
@@ -66,13 +70,13 @@ public class TelaEmailCodigo extends JFrame {
 
         private final Sistema sistema;
 
-        /*----------------------CONSTRUTOR DO PAINEL DE VALIDAÇÃO DE CÓDIGO--*/
+/*----------------CONSTRUTOR DO PAINEL DE VALIDAÇÃO DE CÓDIGO-----------------*/
         public PanelEmailCodigo(Sistema sistema) throws IOException {
             this.sistema = sistema;
 
             setLayout(new GridBagLayout());
 
-            /*----------------------CARREGAMENTO DAS IMAGENS------------------*/
+/*------------------------CARREGAMENTO DAS IMAGENS----------------------------*/
             imagemDeFundoEmailCodigo = ImageIO.read(getClass().getResource
         ("/ImagensTelaEmailCodigo/telaEmailCodigo.png"));
             
@@ -85,14 +89,14 @@ public class TelaEmailCodigo extends JFrame {
             imagemBotaoVoltarEmail = ImageIO.read(getClass().getResource
         ("/ImagensTelaEmailCodigo/botaoVoltarEmail.png"));
 
-            /*----------------------CRIAÇÃO DO PAINEL DE CONTEÚDO-------------*/
+/*-------------------------CRIAÇÃO DO PAINEL DE CONTEÚDO----------------------*/
             JPanel painelConteudo = new JPanel(null) {
                 @Override
                 protected void paintComponent(Graphics g) {
                     super.paintComponent(g);
                     Graphics2D g2d = (Graphics2D) g;
 
-                    /*----------------------CONFIGURAÇÃO GRÁFICA----------------*/
+/*--------------------------CONFIGURAÇÃO GRÁFICA------------------------------*/
                     g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, 
                             RenderingHints.VALUE_INTERPOLATION_BILINEAR);
                     g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, 
@@ -103,7 +107,7 @@ public class TelaEmailCodigo extends JFrame {
 
                     int centroX = w / 2;
 
-                    /*----------------------DIMENSÕES DOS ELEMENTOS--------------*/
+/*---------------------------DIMENSÕES DOS ELEMENTOS--------------------------*/
                     double escala = 1.0;
 
                     int larguraInputCodigo = (int) 
@@ -121,7 +125,7 @@ public class TelaEmailCodigo extends JFrame {
                     int alturaVoltarCodigo = (int) 
                             (imagemBotaoVoltarEmail.getHeight() * 0.7 * escala);
 
-                    /*----------------------POSICIONAMENTO DOS ELEMENTOS---------*/
+/*------------------------POSICIONAMENTO DOS ELEMENTOS------------------------*/
                     int xCodigo = centroX - (larguraInputCodigo / 2);
                     int yCodigo = (int) (h * 0.45) + 150;
                     
@@ -135,7 +139,7 @@ public class TelaEmailCodigo extends JFrame {
                             alturaEnviarCodigo + 
                             (int) (50 * escala);
 
-                    /*----------------------CONFIGURAÇÃO DOS BOTÕES E CAMPO------*/
+/*--------------------------CONFIGURAÇÃO DOS BOTÕES E CAMPO-------------------*/
                     botaoValidarCodigo.setBounds(xEnviar,
                             yEnviar,
                             larguraEnviarCodigo, 
@@ -153,7 +157,7 @@ public class TelaEmailCodigo extends JFrame {
                             (int) (50 * escala)
                     );
 
-                    /*----------------------DESENHO DOS ELEMENTOS----------------*/
+/*---------------------------DESENHO DOS ELEMENTOS----------------------------*/
                     g2d.drawImage(imagemInputEmailCodigo,
                             xCodigo,
                             yCodigo,
@@ -175,7 +179,7 @@ public class TelaEmailCodigo extends JFrame {
             };
             painelConteudo.setOpaque(false);
 
-            /*----------------------CONFIGURAÇÃO DO BOTÃO VALIDAR CÓDIGO---------*/
+/*-----------------------CONFIGURAÇÃO DO BOTÃO VALIDAR CÓDIGO-----------------*/
             botaoValidarCodigo = new JButton();
             botaoValidarCodigo.setBorderPainted(false);
             botaoValidarCodigo.setContentAreaFilled(false);
@@ -183,17 +187,17 @@ public class TelaEmailCodigo extends JFrame {
             botaoValidarCodigo.setOpaque(false);
             botaoValidarCodigo.setCursor(new Cursor(Cursor.HAND_CURSOR));
             botaoValidarCodigo.addActionListener(e -> {
-                /*----------------------OBTÉM O CÓDIGO DIGITADO---------------*/
+/*---------------------------OBTÉM O CÓDIGO DIGITADO--------------------------*/
                 String codigoDigitado = 
                         campoTextoEmailCodigo.getText().trim().toUpperCase();
 
                 try {
-                    /*----------------------VERIFICA A VALIDADE DO CÓDIGO---------*/
+/*-------------------------VERIFICA A VALIDADE DO CÓDIGO----------------------*/
                     boolean codigoValido = 
                             sistema.verificarCodigo(destinatario, codigoDigitado);
 
                     if (codigoValido) {
-                        /*----------------------ABRE TELA DE NOVA SENHA-----------*/
+/*-----------------------------ABRE TELA DE NOVA SENHA------------------------*/
                         TelaNovaSenha tela = new TelaNovaSenha(destinatario);
                         tela.setVisible(true);
                         Window janela = SwingUtilities.getWindowAncestor
@@ -203,7 +207,7 @@ public class TelaEmailCodigo extends JFrame {
                         }
                         campoTextoEmailCodigo.setText("");
                     } else {
-                        /*----------------------MOSTRA ERRO DE CÓDIGO INVÁLIDO----*/
+/*---------------------------MOSTRA ERRO DE CÓDIGO INVÁLIDO-------------------*/
                         System.out.println("email: '" + destinatario + "'");
                         JOptionPane.showMessageDialog(this, "Código incorreto. "
                                 + "Tente novamente.", 
@@ -218,7 +222,7 @@ public class TelaEmailCodigo extends JFrame {
             });
             painelConteudo.add(botaoValidarCodigo);
 
-            /*----------------------CONFIGURAÇÃO DO BOTÃO VOLTAR----------------*/
+/*---------------------------CONFIGURAÇÃO DO BOTÃO VOLTAR---------------------*/
             botaoVoltarEmail = new JButton();
             botaoVoltarEmail.setBorderPainted(false);
             botaoVoltarEmail.setContentAreaFilled(false);
@@ -226,7 +230,7 @@ public class TelaEmailCodigo extends JFrame {
             botaoVoltarEmail.setOpaque(false);
             botaoVoltarEmail.setCursor(new Cursor(Cursor.HAND_CURSOR));
             botaoVoltarEmail.addActionListener(e -> {
-                /*----------------------ABRE TELA INICIAL---------------------*/
+/*-----------------------------ABRE TELA INICIAL------------------------------*/
                 TelaInicial tela = new TelaInicial(destinatario, "", sistema);
                 tela.setVisible(true);
                 Window janela = SwingUtilities.getWindowAncestor
@@ -237,7 +241,7 @@ public class TelaEmailCodigo extends JFrame {
             });
             painelConteudo.add(botaoVoltarEmail);
 
-            /*----------------------CONFIGURAÇÃO DO CAMPO DE CÓDIGO-------------*/
+/*--------------------------CONFIGURAÇÃO DO CAMPO DE CÓDIGO-------------------*/
             campoTextoEmailCodigo = new JTextField();
             campoTextoEmailCodigo.setBorder(null);
             campoTextoEmailCodigo.setOpaque(false);
@@ -247,12 +251,12 @@ public class TelaEmailCodigo extends JFrame {
                     24));
             painelConteudo.add(campoTextoEmailCodigo);
 
-            /*----------------------CONFIGURAÇÃO DO LAYOUT--------------------*/
+/*----------------------------CONFIGURAÇÃO DO LAYOUT--------------------------*/
             setLayout(new BorderLayout());
             add(painelConteudo, BorderLayout.CENTER);
         }
 
-        /*----------------------PINTURA DO FUNDO DO PAINEL-------------------*/
+/*---------------------------PINTURA DO FUNDO DO PAINEL-----------------------*/
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
@@ -260,7 +264,7 @@ public class TelaEmailCodigo extends JFrame {
             int w = getWidth();
             int h = getHeight();
 
-            /*----------------------CONFIGURAÇÃO DE RENDERIZAÇÃO-------------*/
+/*---------------------------CONFIGURAÇÃO DE RENDERIZAÇÃO---------------------*/
             g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, 
                     RenderingHints.VALUE_INTERPOLATION_BICUBIC);
             g2d.setRenderingHint(RenderingHints.KEY_RENDERING,
@@ -276,7 +280,7 @@ public class TelaEmailCodigo extends JFrame {
             g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, 
                     RenderingHints.VALUE_STROKE_PURE);
 
-            /*----------------------DESENHO DA IMAGEM DE FUNDO---------------*/
+/*--------------------------DESENHO DA IMAGEM DE FUNDO------------------------*/
             if (imagemDeFundoEmailCodigo != null) {
                 g2d.drawImage(imagemDeFundoEmailCodigo, 0, 
                         0, 

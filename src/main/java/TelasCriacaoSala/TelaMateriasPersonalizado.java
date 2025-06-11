@@ -827,7 +827,7 @@ public class TelaMateriasPersonalizado extends JFrame {
             g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, 
                     RenderingHints.VALUE_STROKE_PURE);
 
-/*------------VERIFICAÇÃO DE EXISTÊNCIA DA IMAGEM ANTES DE DESENHAR-----------*/
+/*-----------VERIFICAÇÃO DE EXISTÊNCIA DA IMAGEM ANTES DE DESENHAR------------*/
 
             if (imagemDeFundoMaterias != null) {
                 g2d.drawImage(imagemDeFundoMaterias, 0, 

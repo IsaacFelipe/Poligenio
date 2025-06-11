@@ -1,24 +1,24 @@
-/*----------------------PACOTE QUE PERTENCE A INTERFACE--------------------------*/
+/*-------------------PACOTE QUE PERTENCE A INTERFACE--------------------------*/
 package CodigoPoligenio;
 
-/*----------------------INTERFACE PARA DEFINIÇÃO DE MÉTODOS DO JOGADOR-----------------*/
+/*-------------INTERFACE PARA DEFINIÇÃO DE MÉTODOS DO JOGADOR-----------------*/
 public interface InterfaceJogador {
     
-    /*----------------------MÉTODO PARA INICIAR JOGO--------------------------*/
+/*----------------------MÉTODO PARA INICIAR JOGO------------------------------*/
     void jogar();
     
-    /*----------------------MÉTODO PARA CONSULTAR PONTUAÇÃO------------------*/
+/*----------------------MÉTODO PARA CONSULTAR PONTUAÇÃO-----------------------*/
     void consultarPontuacao();
     
-    /*----------------------MÉTODO PARA REALIZAR LOGIN-----------------------*/
+/*----------------------MÉTODO PARA REALIZAR LOGIN----------------------------*/
     boolean fazerLogin(String nome, String Senha);
     
-    /*----------------------MÉTODO PARA ESCOLHER ALTERNATIVA----------------*/
+/*----------------------MÉTODO PARA ESCOLHER ALTERNATIVA----------------------*/
     void escolherAlternativa();
     
-    /*----------------------MÉTODO PARA SOLICITAR DESISTÊNCIA---------------*/
+/*--------------------------MÉTODO PARA SOLICITAR DESISTÊNCIA-----------------*/
     void solicitarDesistencia();
     
-    /*----------------------MÉTODO PARA RESPONDER ALTERNATIVA--------------*/
+/*----------------------MÉTODO PARA RESPONDER ALTERNATIVA---------------------*/
     void responderAlternativa();
 }

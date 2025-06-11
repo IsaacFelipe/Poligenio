@@ -1,7 +1,7 @@
 /*----------------------PACOTE QUE PERTENCE A CLASSE--------------------------*/
 package CodigoPoligenio;
 
-/*----------------------IMPORTAÇÕES NECESSÁRIAS-----------------------------*/
+/*----------------------IMPORTAÇÕES NECESSÁRIAS-------------------------------*/
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -10,30 +10,30 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JOptionPane;
 
-/*----------------------CLASSE PARA GERENCIAMENTO DE SALA CRIADA-------------*/
+/*----------------------CLASSE PARA GERENCIAMENTO DE SALA CRIADA--------------*/
 public class SalaCriada {
     
-    /*----------------------DECLARAÇÃO DE VARIÁVEIS----------------------*/
+/*----------------------DECLARAÇÃO DE VARIÁVEIS-------------------------------*/
     private TipoSala tipoSala;
     private String idMateria;
     
-    /*----------------------MÉTODO PARA OBTER TIPO DE SALA---------------*/
+/*----------------------MÉTODO PARA OBTER TIPO DE SALA------------------------*/
     public TipoSala getTipoSala() {
         return tipoSala;
     }
 
-    /*----------------------MÉTODO PARA DEFINIR TIPO DE SALA-------------*/
+/*----------------------MÉTODO PARA DEFINIR TIPO DE SALA----------------------*/
     public void setTipoSala(TipoSala tipoSala) {
         this.tipoSala = tipoSala;
     }
 
-    /*----------------------CONSTRUTOR DA CLASSE SALA CRIADA-------------*/
+/*----------------------CONSTRUTOR DA CLASSE SALA CRIADA----------------------*/
     public SalaCriada(TipoSala tipoSala, String idMateria) {
         this.tipoSala = tipoSala;
         this.idMateria = idMateria;
     }
 
-    /*----------------------MÉTODO PARA ADICIONAR PERGUNTA---------------*/
+/*----------------------MÉTODO PARA ADICIONAR PERGUNTA------------------------*/
     public int adicionarPergunta(Integer idDificuldade, 
                               String idMateria, 
                               String pergunta) throws Exception {
@@ -75,17 +75,17 @@ public class SalaCriada {
         return idPergunta;
     }
 
-    /*----------------------MÉTODO PARA ATUALIZAR PERGUNTA--------------*/
+/*----------------------MÉTODO PARA ATUALIZAR PERGUNTA------------------------*/
     public void atualizarPergunta() {
         
     }
 
-    /*----------------------MÉTODO PARA EXCLUIR PERGUNTA---------------*/
+/*----------------------MÉTODO PARA EXCLUIR PERGUNTA--------------------------*/
     public void excluirPergunta() {
         
     }
 
-    /*----------------------MÉTODO PARA EXIBIR ALTERNATIVAS------------*/
+/*----------------------MÉTODO PARA EXIBIR ALTERNATIVAS-----------------------*/
     public static Map<String, String> exibirPerguntaComAlternativas() 
             throws Exception {
         Map<String, String> dados = new HashMap<>();
@@ -162,7 +162,7 @@ public class SalaCriada {
         return totalPerguntas;
     }
 
-    /*----------------------MÉTODO PARA ADICIONAR ALTERNATIVA---------*/
+/*----------------------MÉTODO PARA ADICIONAR ALTERNATIVA---------------------*/
     public void adicionarAlternativa(int idPergunta, 
                                      String alternativaA, 
                                      String alternativaB, 

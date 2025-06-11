@@ -1,7 +1,7 @@
 /*----------------------PACOTE QUE PERTENCE A CLASSE--------------------------*/
 package TelasLobby;
 
-/*----------------------IMPORTAÇÕES NECESSÁRIAS-----------------------------*/
+/*----------------------IMPORTAÇÕES NECESSÁRIAS-------------------------------*/
 import CodigoPoligenio.Professor;
 import javax.swing.*;
 import java.awt.*;
@@ -11,38 +11,38 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
-/*----------------------CLASSE PRINCIPAL DA TELA DE CADASTRO-----------------*/
+/*----------------------CLASSE PRINCIPAL DA TELA DE CADASTRO------------------*/
 public class TelaCadastrar extends JFrame {
     
-    /*----------------------DECLARAÇÃO DE VARIÁVEIS----------------------*/
+/*-----------------------DECLARAÇÃO DE VARIÁVEIS------------------------------*/
     private JPanel painelCadastrar;
     private static String idProfessor;
     
-    /*----------------------CONSTRUTOR DA TELA DE CADASTRO-------------------*/
+/*--------------------CONSTRUTOR DA TELA DE CADASTRO--------------------------*/
     public TelaCadastrar(String idProfessor) {
-        /*----------------------CONFIGURAÇÕES DA JANELA-------------------*/
+/*------------------------CONFIGURAÇÕES DA JANELA-----------------------------*/
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setUndecorated(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        /*----------------------CONFIGURA O LAYOUT DE CARTÕES-------------*/
+/*----------------------CONFIGURA O LAYOUT DE CARTÕES-------------------------*/
         painelCadastrar = new JPanel();
         this.idProfessor = idProfessor;
         
         try {
-            /*----------------------INSTANCIAÇÃO DO PAINEL----------------*/
+/*--------------------------INSTANCIAÇÃO DO PAINEL----------------------------*/
             PanelCadastrar telaCadastrarPanel = new PanelCadastrar();
             setContentPane(telaCadastrarPanel);
 
         } catch (IOException e) {
-            /*----------------------TRATAMENTO DE EXCEÇÕES-------------------*/
+/*--------------------------TRATAMENTO DE EXCEÇÕES----------------------------*/
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Erro ao inicializar a tela: " 
                     + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }
     
-    /*----------------------MÉTODO MAIN PARA EXECUTAR A TELA----------------*/
+/*----------------------MÉTODO MAIN PARA EXECUTAR A TELA----------------------*/
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             TelaCadastrar tela = new TelaCadastrar(idProfessor);
@@ -50,10 +50,10 @@ public class TelaCadastrar extends JFrame {
         });
     }
     
-    /*----------------------CLASSE INTERNA: PAINEL DE CADASTRO---------------*/
+/*--------------------CLASSE INTERNA: PAINEL DE CADASTRO----------------------*/
     public static class PanelCadastrar extends JPanel {
 
-        /*----------------------DECLARAÇÃO DE VARIÁVEIS----------------------*/
+/*------------------------DECLARAÇÃO DE VARIÁVEIS-----------------------------*/
         private BufferedImage imagemDeFundoCadastrar;
         private BufferedImage imagemNomeCadastrar;
         private BufferedImage imagemRaCadastrar;
@@ -75,11 +75,11 @@ public class TelaCadastrar extends JFrame {
         private JButton botaoCadastrar;
         private JButton botaoVoltarCadastrar;
                
-        /*----------------------CONSTRUTOR DO PAINEL DE CADASTRO-------------*/
+/*----------------------CONSTRUTOR DO PAINEL DE CADASTRO----------------------*/
         public PanelCadastrar() throws IOException {
             setLayout(new GridBagLayout());
 
-            /*----------------------CARREGAMENTO DAS IMAGENS------------------*/
+/*-------------------------CARREGAMENTO DAS IMAGENS---------------------------*/
             imagemDeFundoCadastrar = ImageIO.read(getClass().getResource
         ("/ImagensTelaCadastrar/telaCadastrar.png"));
             
@@ -110,13 +110,13 @@ public class TelaCadastrar extends JFrame {
             imagemVoltarCadastrar = ImageIO.read(getClass().getResource
         ("/ImagensTelaCadastrar/voltarLoginCadastrar.png"));
             
-            /*----------------------CRIAÇÃO DO PAINEL DE CONTEÚDO-------------*/
+/*-----------------------CRIAÇÃO DO PAINEL DE CONTEÚDO------------------------*/
             JPanel painelConteudo = new JPanel(null) {
                 @Override
                 protected void paintComponent(Graphics g) {
                     super.paintComponent(g);
 
-                    /*----------------------CONFIGURAÇÃO GRÁFICA----------------*/
+/*---------------------------CONFIGURAÇÃO GRÁFICA-----------------------------*/
                     Graphics2D g2d = (Graphics2D) g;
                     g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, 
                             RenderingHints.VALUE_INTERPOLATION_BILINEAR);
@@ -126,10 +126,10 @@ public class TelaCadastrar extends JFrame {
                     int w = getWidth();
                     int h = getHeight();
 
-                    /*----------------------CALCULA O CENTRO DA TELA------------*/
+/*--------------------------CALCULA O CENTRO DA TELA--------------------------*/
                     int centroX = w / 2;
 
-                    /*----------------------DIMENSÕES DOS ELEMENTOS--------------*/
+/*---------------------------DIMENSÕES DOS ELEMENTOS--------------------------*/
                     double escala = 1.0; // Defina a escala conforme necessário
                     int larguraNomeCadastrar = (int) 
                             (imagemNomeCadastrar.getWidth() * 0.7 * escala);
@@ -176,7 +176,7 @@ public class TelaCadastrar extends JFrame {
                     int alturaVoltarCadastrar = (int) 
                             (imagemVoltarCadastrar.getHeight() * 0.2 * escala);
                     
-                    /*----------------------POSICIONAMENTO DOS ELEMENTOS---------*/
+/*-----------------------POSICIONAMENTO DOS ELEMENTOS-------------------------*/
                     int xNCad = centroX - (larguraNomeCadastrar / 2);
                     int yNCad = (int) (h * 0.60) - 460;
                     
@@ -222,7 +222,7 @@ public class TelaCadastrar extends JFrame {
                             (int)(70 * escala);
                     
                     
-                    /*----------------------CONFIGURAÇÃO DOS CAMPOS E BOTÕES-----*/
+/*------------------------CONFIGURAÇÃO DOS CAMPOS E BOTÕES--------------------*/
                     campoTextoNome.setBounds(xNCad + (int)(95 * escala), 
                             yNCad + (int)(6 * escala), 
                             (int)(350 * escala), 
@@ -269,7 +269,7 @@ public class TelaCadastrar extends JFrame {
                             larguraVoltarCadastrar,
                             alturaVoltarCadastrar);
                     
-                    /*----------------------DESENHO DOS ELEMENTOS----------------*/
+/*--------------------------DESENHO DOS ELEMENTOS-----------------------------*/
                     g2d.drawImage(imagemNomeCadastrar, xNCad,
                             yNCad, 
                             larguraNomeCadastrar,
@@ -316,10 +316,10 @@ public class TelaCadastrar extends JFrame {
                     
                 }
             };
-            /*----------------------CONFIGURAÇÃO DO PAINEL DE CONTEÚDO-------*/
+/*---------------------CONFIGURAÇÃO DO PAINEL DE CONTEÚDO---------------------*/
             painelConteudo.setOpaque(false);
             
-            /*----------------------CONFIGURAÇÃO DO CAMPO NOME---------------*/
+/*----------------------CONFIGURAÇÃO DO CAMPO NOME----------------------------*/
             campoTextoNome = new JTextField();
             campoTextoNome.setBorder(null);
             campoTextoNome.setOpaque(false);
@@ -328,7 +328,7 @@ public class TelaCadastrar extends JFrame {
                     Font.BOLD, 24));
             painelConteudo.add(campoTextoNome);
             
-            /*----------------------CONFIGURAÇÃO DO CAMPO RA-----------------*/
+/*----------------------CONFIGURAÇÃO DO CAMPO RA------------------------------*/
             campoTextoRA = new JTextField();
             campoTextoRA.setBorder(null);
             campoTextoRA.setOpaque(false);
@@ -337,7 +337,7 @@ public class TelaCadastrar extends JFrame {
                     Font.BOLD, 24));
             painelConteudo.add(campoTextoRA);
             
-            /*----------------------CONFIGURAÇÃO DO CAMPO EMAIL--------------*/
+/*----------------------CONFIGURAÇÃO DO CAMPO EMAIL---------------------------*/
             campoTextoEmail = new JTextField();
             campoTextoEmail.setBorder(null);
             campoTextoEmail.setOpaque(false);
@@ -346,7 +346,7 @@ public class TelaCadastrar extends JFrame {
                     Font.BOLD, 24));
             painelConteudo.add(campoTextoEmail);
             
-            /*----------------------CONFIGURAÇÃO DO CAMPO SENHA--------------*/
+/*----------------------CONFIGURAÇÃO DO CAMPO SENHA---------------------------*/
             campoTextoSenha = new JPasswordField();
             campoTextoSenha.setBorder(null);
             campoTextoSenha.setOpaque(false);
@@ -355,7 +355,7 @@ public class TelaCadastrar extends JFrame {
                     Font.BOLD, 24));
             painelConteudo.add(campoTextoSenha);
             
-            /*----------------------CONFIGURAÇÃO DO CAMPO CONFIRMAR SENHA----*/
+/*------------------CONFIGURAÇÃO DO CAMPO CONFIRMAR SENHA---------------------*/
             campoTextoConfirmSenha = new JPasswordField();
             campoTextoConfirmSenha.setBorder(null);
             campoTextoConfirmSenha.setOpaque(false);
@@ -364,7 +364,7 @@ public class TelaCadastrar extends JFrame {
                     Font.BOLD, 24));
             painelConteudo.add(campoTextoConfirmSenha);
             
-            /*----------------------CONFIGURAÇÃO DO CAMPO SÉRIE--------------*/
+/*-----------------------CONFIGURAÇÃO DO CAMPO SÉRIE--------------------------*/
             campoTextoSerie = new JTextField();
             campoTextoSerie.setBorder(null);
             campoTextoSerie.setOpaque(false);
@@ -373,7 +373,7 @@ public class TelaCadastrar extends JFrame {
                     Font.BOLD, 24));
             painelConteudo.add(campoTextoSerie);
             
-            /*----------------------CONFIGURAÇÃO DO CAMPO TURMA--------------*/
+/*-------------------------CONFIGURAÇÃO DO CAMPO TURMA------------------------*/
             campoTextoTurma = new JTextField();
             campoTextoTurma.setBorder(null);
             campoTextoTurma.setOpaque(false);
@@ -381,7 +381,7 @@ public class TelaCadastrar extends JFrame {
             campoTextoTurma.setFont(new Font("Jockey One", Font.BOLD, 24));
             painelConteudo.add(campoTextoTurma);
             
-            /*----------------------CONFIGURAÇÃO DO BOTÃO CADASTRAR----------*/
+/*-----------------------CONFIGURAÇÃO DO BOTÃO CADASTRAR----------------------*/
             botaoCadastrar = new JButton();
             botaoCadastrar.setBorderPainted(false);
             botaoCadastrar.setContentAreaFilled(false);
@@ -391,7 +391,7 @@ public class TelaCadastrar extends JFrame {
             botaoCadastrar.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    /*----------------------OBTÉM DADOS DIGITADOS------------*/
+/*-------------------------OBTÉM DADOS DIGITADOS------------------------------*/
                     String nome = campoTextoNome.getText();
                     String ra = campoTextoRA.getText();
                     String email = campoTextoEmail.getText();
@@ -401,20 +401,20 @@ public class TelaCadastrar extends JFrame {
                     String serie = campoTextoSerie.getText();
                     String turma = campoTextoTurma.getText();
 
-                    /*----------------------VERIFICA COINCIDÊNCIA DAS SENHAS--*/
+/*----------------------VERIFICA COINCIDÊNCIA DAS SENHAS----------------------*/
                     if(!senha.equals(confirmSenha)) {
                         JOptionPane.showMessageDialog(null, 
                                 "As senhas não coincidem!");
                         return;
                     }
                     
-                    /*----------------------INSTANCIA O PROFESSOR------------*/
+/*---------------------------INSTANCIA O PROFESSOR----------------------------*/
                     Professor professor = new Professor("", 
                             idProfessor, 
                             "", 
                             "", 
                             "");
-                    /*----------------------CADASTRA O JOGADOR---------------*/
+/*----------------------------CADASTRA O JOGADOR------------------------------*/
                     boolean sucesso = professor.cadastrarJogador(nome, 
                             ra, 
                             email, 
@@ -423,11 +423,11 @@ public class TelaCadastrar extends JFrame {
                             turma);
 
                     if(sucesso) {
-                        /*----------------------SUCESSO NO CADASTRO----------*/
+/*---------------------------SUCESSO NO CADASTRO------------------------------*/
                         JOptionPane.showMessageDialog(null, 
                                 "Aluno cadastrado com sucesso!");
                     } else {
-                        /*----------------------ERRO NO CADASTRO-------------*/
+/*-----------------------------ERRO NO CADASTRO-------------------------------*/
                         JOptionPane.showMessageDialog(null, 
                                 "Erro ao cadastrar aluno.");
                     }
@@ -435,7 +435,7 @@ public class TelaCadastrar extends JFrame {
             });
             painelConteudo.add(botaoCadastrar);
             
-            /*----------------------CONFIGURAÇÃO DO BOTÃO VOLTAR-------------*/
+/*------------------------CONFIGURAÇÃO DO BOTÃO VOLTAR------------------------*/
             botaoVoltarCadastrar = new JButton();
             botaoVoltarCadastrar.setBorderPainted(false);
             botaoVoltarCadastrar.setContentAreaFilled(false);
@@ -443,7 +443,7 @@ public class TelaCadastrar extends JFrame {
             botaoVoltarCadastrar.setOpaque(false);
             botaoVoltarCadastrar.setCursor(new Cursor(Cursor.HAND_CURSOR));
             botaoVoltarCadastrar.addActionListener(e -> {
-                /*----------------------ABRE TELA DO LOBBY PROFESSOR-----*/
+/*-------------------------ABRE TELA DO LOBBY PROFESSOR-----------------------*/
                 TelaLobbyProfessor lobbyProfessor = 
                         new TelaLobbyProfessor(idProfessor);
                 lobbyProfessor.setVisible(true);
@@ -455,12 +455,12 @@ public class TelaCadastrar extends JFrame {
             });
             painelConteudo.add(botaoVoltarCadastrar);
             
-            /*----------------------CONFIGURAÇÃO DO LAYOUT--------------------*/
+/*--------------------------CONFIGURAÇÃO DO LAYOUT----------------------------*/
             setLayout(new BorderLayout());
             add(painelConteudo, BorderLayout.CENTER);
         }
         
-        /*----------------------PINTURA DO FUNDO DO PAINEL-------------------*/
+/*-------------------------PINTURA DO FUNDO DO PAINEL-------------------------*/
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
@@ -469,7 +469,7 @@ public class TelaCadastrar extends JFrame {
             int w = getWidth();
             int h = getHeight();
 
-            /*----------------------CONFIGURAÇÃO DE RENDERIZAÇÃO-------------*/
+/*------------------------CONFIGURAÇÃO DE RENDERIZAÇÃO------------------------*/
             g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
                     RenderingHints.VALUE_INTERPOLATION_BICUBIC);
             g2d.setRenderingHint(RenderingHints.KEY_RENDERING,
@@ -485,7 +485,7 @@ public class TelaCadastrar extends JFrame {
             g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, 
                     RenderingHints.VALUE_STROKE_PURE);
             
-            /*----------------------DESENHO DA IMAGEM DE FUNDO---------------*/
+/*-----------------------DESENHO DA IMAGEM DE FUNDO---------------------------*/
             if (imagemDeFundoCadastrar != null) {
                 g2d.drawImage(imagemDeFundoCadastrar, 
                         0,

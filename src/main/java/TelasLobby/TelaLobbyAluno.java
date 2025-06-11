@@ -28,24 +28,24 @@ public class TelaLobbyAluno extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         painelLobbyAluno = new JPanel();
-        /*----------------------INSTANCIA O SISTEMA----------------------*/
+/*---------------------------INSTANCIA O SISTEMA------------------------------*/
         Sistema sistema = Sistema.getInstance();
 
         try {
-            /*----------------------INSTANCIAÇÃO DOS PAINÉIS----------------*/
+/*-------------------------INSTANCIAÇÃO DOS PAINÉIS---------------------------*/
             PanelLobbyAluno telaLobbyAlunoPanel = 
                     new PanelLobbyAluno();
             setContentPane(telaLobbyAlunoPanel);
 
         } catch (IOException e) {
-            /*----------------------TRATAMENTO DE EXCEÇÕES-------------------*/
+/*---------------------------TRATAMENTO DE EXCEÇÕES---------------------------*/
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Erro ao inicializar a tela: " 
                     + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }
 
-    /*----------------------MÉTODO MAIN PARA EXECUTAR A TELA----------------*/
+/*-----------------------MÉTODO MAIN PARA EXECUTAR A TELA---------------------*/
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             TelaLobbyAluno telaPrincipal = new TelaLobbyAluno();
@@ -53,10 +53,10 @@ public class TelaLobbyAluno extends JFrame {
         });
     }
 
-    /*----------------------CLASSE INTERNA: PAINEL DE LOBBY ALUNO------------*/
+/*----------------------CLASSE INTERNA: PAINEL DE LOBBY ALUNO-----------------*/
     public static class PanelLobbyAluno extends JPanel {
 
-        /*----------------------DECLARAÇÃO DE VARIÁVEIS----------------------*/
+/*--------------------------DECLARAÇÃO DE VARIÁVEIS---------------------------*/
         private BufferedImage imagemDeFundoLobbyAluno;
         private BufferedImage imagemBotaoJogar;
         private BufferedImage imagemBotaoConfig;
@@ -66,11 +66,11 @@ public class TelaLobbyAluno extends JFrame {
         private JButton botaoConfig;
         private JTextField campoCash;
 
-        /*----------------------CONSTRUTOR DO PAINEL DE LOBBY ALUNO----------*/
+/*---------------------CONSTRUTOR DO PAINEL DE LOBBY ALUNO--------------------*/
         public PanelLobbyAluno() throws IOException {
             setLayout(new GridBagLayout());
 
-            /*----------------------CARREGAMENTO DAS IMAGENS------------------*/
+/*------------------------CARREGAMENTO DAS IMAGENS----------------------------*/
             imagemDeFundoLobbyAluno = ImageIO.read
         (getClass().getResource("/ImagensTelaLobbyAluno/telaLobbyAluno.png"));
             
@@ -83,13 +83,13 @@ public class TelaLobbyAluno extends JFrame {
             imagemBoxCash = ImageIO.read
         (getClass().getResource("/ImagensTelaLobbyAluno/boxCash.png"));
 
-            /*----------------------CRIAÇÃO DO PAINEL DE CONTEÚDO-------------*/
+/*----------------------CRIAÇÃO DO PAINEL DE CONTEÚDO-------------------------*/
             JPanel painelConteudo = new JPanel(null) {
                 @Override
                 protected void paintComponent(Graphics g) {
                     super.paintComponent(g);
 
-                    /*----------------------CONFIGURAÇÃO GRÁFICA----------------*/
+/*--------------------------CONFIGURAÇÃO GRÁFICA------------------------------*/
                     Graphics2D g2d = (Graphics2D) g;
                     g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, 
                             RenderingHints.VALUE_INTERPOLATION_BILINEAR);
@@ -99,10 +99,10 @@ public class TelaLobbyAluno extends JFrame {
                     int w = getWidth();
                     int h = getHeight();
 
-                    /*----------------------CALCULA O CENTRO DA TELA------------*/
+/*--------------------------CALCULA O CENTRO DA TELA--------------------------*/
                     int centroX = w / 2;
 
-                    /*----------------------DIMENSÕES DOS ELEMENTOS--------------*/
+/*---------------------------DIMENSÕES DOS ELEMENTOS--------------------------*/
                     double escala = 1.0; // Defina a escala conforme necessário
                     int larguraBotJogar = (int) 
                             (imagemBotaoJogar.getWidth() * 0.7 * escala);
@@ -119,7 +119,7 @@ public class TelaLobbyAluno extends JFrame {
                     int alturaBoxCash = (int) 
                             (imagemBoxCash.getHeight() * 0.7 * escala);
 
-                    /*----------------------POSICIONAMENTO DOS ELEMENTOS---------*/
+/*------------------------POSICIONAMENTO DOS ELEMENTOS------------------------*/
                     int xJogar = centroX - (larguraBotJogar / 2) - 320;
                     int yJogar = (int) (h * 0.45) + 20;
                     
@@ -129,7 +129,7 @@ public class TelaLobbyAluno extends JFrame {
                     int xCash = centroX + (larguraBotJogar / 3);
                     int yCash = yConfig + alturaBotConfig + (int)(20 * escala);
 
-                    /*----------------------CONFIGURAÇÃO DOS BOTÕES E CAMPO------*/
+/*-----------------------CONFIGURAÇÃO DOS BOTÕES E CAMPO----------------------*/
                     botaoJogar.setBounds(xJogar, 
                             yJogar, 
                             larguraBotJogar,
@@ -145,7 +145,7 @@ public class TelaLobbyAluno extends JFrame {
                             (int)(400 * escala), 
                             (int)(50 * escala));
 
-                    /*----------------------DESENHO DOS ELEMENTOS----------------*/
+/*---------------------------DESENHO DOS ELEMENTOS----------------------------*/
                     g2d.drawImage(imagemBotaoJogar,
                             xJogar,
                             yJogar, 
@@ -165,10 +165,10 @@ public class TelaLobbyAluno extends JFrame {
                             alturaBoxCash, this);
                 }
             };
-            /*----------------------CONFIGURAÇÃO DO PAINEL DE CONTEÚDO-------*/
+/*----------------------CONFIGURAÇÃO DO PAINEL DE CONTEÚDO--------------------*/
             painelConteudo.setOpaque(false);
 
-            /*----------------------CONFIGURAÇÃO DO BOTÃO JOGAR--------------*/
+/*------------------------CONFIGURAÇÃO DO BOTÃO JOGAR-------------------------*/
             botaoJogar = new JButton();
             botaoJogar.setBorderPainted(false);
             botaoJogar.setContentAreaFilled(false);
@@ -176,7 +176,7 @@ public class TelaLobbyAluno extends JFrame {
             botaoJogar.setOpaque(false);
             botaoJogar.setCursor(new Cursor(Cursor.HAND_CURSOR));
             botaoJogar.addActionListener(e -> {
-                /*----------------------ABRE TELA DE CÓDIGO------------------*/
+/*----------------------------ABRE TELA DE CÓDIGO-----------------------------*/
                 TelaCodigo criarSala;
                 try {
                     criarSala = new TelaCodigo();
@@ -194,7 +194,7 @@ public class TelaLobbyAluno extends JFrame {
             });
             painelConteudo.add(botaoJogar);
 
-            /*----------------------CONFIGURAÇÃO DO BOTÃO CONFIGURAÇÃO-------*/
+/*----------------------CONFIGURAÇÃO DO BOTÃO CONFIGURAÇÃO--------------------*/
             botaoConfig = new JButton();
             botaoConfig.setBorderPainted(false);
             botaoConfig.setContentAreaFilled(false);
@@ -202,7 +202,7 @@ public class TelaLobbyAluno extends JFrame {
             botaoConfig.setOpaque(false);
             botaoConfig.setCursor(new Cursor(Cursor.HAND_CURSOR));
             botaoConfig.addActionListener(e -> {
-                /*----------------------NAVEGA PARA TELA DE CONFIGURAÇÃO-----*/
+/*----------------------NAVEGA PARA TELA DE CONFIGURAÇÃO----------------------*/
                 ControleLobby.setOrigem(ControleLobby.Origem.LOBBY_ALUNO);
                 TelaConfiguracao configuracao = 
                                 new TelaConfiguracao("");
@@ -216,7 +216,7 @@ public class TelaLobbyAluno extends JFrame {
             });
             painelConteudo.add(botaoConfig);
 
-            /*----------------------CONFIGURAÇÃO DO CAMPO CASH---------------*/
+/*-----------------------CONFIGURAÇÃO DO CAMPO CASH---------------------------*/
             campoCash = new JTextField();
             campoCash.setBorder(null);
             campoCash.setOpaque(false);
@@ -227,12 +227,12 @@ public class TelaLobbyAluno extends JFrame {
             campoCash.setFocusable(false);
             painelConteudo.add(campoCash);
 
-            /*----------------------CONFIGURAÇÃO DO LAYOUT--------------------*/
+/*------------------------CONFIGURAÇÃO DO LAYOUT------------------------------*/
             setLayout(new BorderLayout());
             add(painelConteudo, BorderLayout.CENTER);
         }
            
-        /*----------------------PINTURA DO FUNDO DO PAINEL-------------------*/
+/*----------------------PINTURA DO FUNDO DO PAINEL----------------------------*/
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
@@ -241,7 +241,7 @@ public class TelaLobbyAluno extends JFrame {
             int w = getWidth();
             int h = getHeight();
 
-            /*----------------------CONFIGURAÇÃO DE RENDERIZAÇÃO-------------*/
+/*-----------------------CONFIGURAÇÃO DE RENDERIZAÇÃO-------------------------*/
             g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
                     RenderingHints.VALUE_INTERPOLATION_BICUBIC);
             g2d.setRenderingHint(RenderingHints.KEY_RENDERING, 
@@ -257,7 +257,7 @@ public class TelaLobbyAluno extends JFrame {
             g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL,
                     RenderingHints.VALUE_STROKE_PURE);
 
-            /*----------------------DESENHO DA IMAGEM DE FUNDO---------------*/
+/*-----------------------DESENHO DA IMAGEM DE FUNDO---------------------------*/
             if (imagemDeFundoLobbyAluno != null) {
                 g2d.drawImage(imagemDeFundoLobbyAluno, 
                         0, 

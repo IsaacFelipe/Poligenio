@@ -1,6 +1,7 @@
+/*----------------------PACOTE QUE PERTENCE A CLASSE--------------------------*/
 package TelasPartida;
 
-/*----------------------IMPORTAÇÕES NECESSÁRIAS-----------------------------*/
+/*-------------------------IMPORTAÇÕES NECESSÁRIAS----------------------------*/
 import TelasLobby.TelaLobbyAluno;
 import javax.swing.*;
 import java.awt.*;
@@ -9,28 +10,28 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import TelasLobby.TelaLobbyProfessor;
 
-/*----------------------CLASSE PRINCIPAL DA TELA DE RANK ALUNO---------------*/
+/*--------------------CLASSE PRINCIPAL DA TELA DE RANK------------------------*/
 public class TelaRankAluno extends JFrame {
 
-    /*---------------------------DECLARAÇÃO DE VARIÁVEIS--------------------------*/
+/*--------------------------DECLARAÇÃO DE VARIÁVEIS---------------------------*/
     private JPanel painelPrincipal;
     private static String logado;
     private static String idProfessor;
     
-    /*-----------------------CONSTRUTOR DA TELA DE RANK ALUNO---------------------*/
+/*-----------------------CONSTRUTOR DA TELA DE RANK---------------------------*/
     public TelaRankAluno(String logado, String idProfessor) {
         
-        /*---------------------------CONFIGURAÇÕES DA JANELA--------------------------*/
+/*--------------------------CONFIGURAÇÕES DA JANELA---------------------------*/
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setUndecorated(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.logado = logado;
         this.idProfessor = idProfessor;
 
+/*---------------------INSTANCIANDO O PAINEL DA CLASSE------------------------*/
         painelPrincipal = new JPanel();
 
         try {
-            /*----------------------INSTANCIAÇÃO DO PAINEL----------------*/
             PanelRankAluno panelRank = new PanelRankAluno(logado);
             setContentPane(panelRank);
         } catch (IOException e) {           
@@ -39,7 +40,7 @@ public class TelaRankAluno extends JFrame {
         }
     }
 
-    /*----------------------MÉTODO MAIN PARA EXECUTAR A TELA----------------*/
+/*--------------------MÉTODO MAIN PARA EXECUTAR A TELA------------------------*/
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             TelaRankAluno rankAluno = new TelaRankAluno(logado, idProfessor);
@@ -47,57 +48,61 @@ public class TelaRankAluno extends JFrame {
         });
     }
 
-    /*----------------------CLASSE INTERNA: PAINEL DE RANK ALUNO-------------*/
+/*---------------------CLASSE INTERNA: PAINEL DE RANK-------------------------*/
     public static class PanelRankAluno extends JPanel {
 
-        /*----------------------DECLARAÇÃO DE VARIÁVEIS----------------------*/
+/*--------------------------DECLARAÇÃO DE VARIÁVEIS---------------------------*/
         private BufferedImage imagemFundoTelaRank;
         private BufferedImage imagemBotaoRetornar;
         private JButton botaoRetornar;
         private String logado;
 
-        /*----------------------CONSTRUTOR DO PAINEL DE RANK ALUNO-----------*/
+/*---------------------CONSTRUTOR DO PAINEL DE RANK---------------------------*/
         public PanelRankAluno(String logado) throws IOException {
             this.logado = logado;
             setLayout(new GridBagLayout());
  
-            /*----------------------CARREGAMENTO DAS IMAGENS------------------*/
-            imagemFundoTelaRank = ImageIO.read(getClass().getResource("/ImagensTelaRankAluno/telaRankAluno.jpg"));
-            imagemBotaoRetornar = ImageIO.read(getClass().getResource("/ImagensTelaRankAluno/botaoRetonarRankAluno.png"));
+/*------------------------CARREGAMENTO DAS IMAGENS----------------------------*/
+            imagemFundoTelaRank = ImageIO.read(getClass().getResource
+                    ("/ImagensTelaRankAluno/telaRankAluno.jpg"));
+            imagemBotaoRetornar = ImageIO.read(getClass().getResource
+                    ("/ImagensTelaRankAluno/botaoRetonarRankAluno.png"));
 
-            /*----------------------CRIAÇÃO DO PAINEL DE CONTEÚDO-------------*/
+/*-----------------------CRIAÇÃO DO PAINEL DE CONTEÚDO------------------------*/
             JPanel painelConteudo = new JPanel(null) {
                 @Override
                 protected void paintComponent(Graphics g) {
                     super.paintComponent(g);
-                    /*----------------------CONFIGURAÇÃO GRÁFICA----------------*/
+                    
+/*--------------------------CONFIGURAÇÃO GRÁFICA------------------------------*/
                     Graphics2D g2d = (Graphics2D) g;
-                    g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+                    g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, 
+                            RenderingHints.VALUE_ANTIALIAS_ON);
                     
                     int w = getWidth();
                     int h = getHeight();
 
-                    /*----------------------CALCULA O CENTRO DA TELA------------*/
+/*--------------------------CALCULA O CENTRO DA TELA--------------------------*/
                     int centroX = w / 2;
 
-                    /*----------------------DIMENSÕES DOS ELEMENTOS--------------*/
+/*------------------------DIMENSÕES DOS ELEMENTOS-----------------------------*/
                     double escala = 1.0;
                     int larguraBotaoRetornar = (int)
                             (imagemBotaoRetornar.getWidth() * 0.7 * escala);
                     int alturaBotaoRetornar = (int) 
                             (imagemBotaoRetornar.getHeight() * 0.7 * escala);
                     
-                    /*----------------------POSICIONAMENTO DOS ELEMENTOS---------*/
+/*----------------------POSICIONAMENTO DOS ELEMENTOS--------------------------*/
                     int xRetornar = centroX - (larguraBotaoRetornar / 2) + 450;
                     int yRetornar = (int) (h * 0.45) + 350;
 
-                    /*----------------------CONFIGURAÇÃO DOS BOTÕES--------------*/
+/*------------------------CONFIGURAÇÃO DOS BOTÕES-----------------------------*/
                     botaoRetornar.setBounds(xRetornar,
                             yRetornar, 
                             larguraBotaoRetornar,
                             alturaBotaoRetornar);
                     
-                    /*----------------------DESENHO DOS ELEMENTOS----------------*/
+/*------------------------DESENHO DOS ELEMENTOS NA TELA-----------------------*/
                     g2d.drawImage(imagemBotaoRetornar, 
                             xRetornar,
                             yRetornar, 
@@ -105,10 +110,11 @@ public class TelaRankAluno extends JFrame {
                             alturaBotaoRetornar, this);
                 }
             };
-            /*----------------------CONFIGURAÇÃO DO PAINEL DE CONTEÚDO-------*/
+            
+/*----------------------CONFIGURAÇÃO DO PAINEL DE CONTEÚDO--------------------*/
             painelConteudo.setOpaque(false);
 
-            /*----------------------CONFIGURAÇÃO DO BOTÃO RETORNAR-----------*/
+/*--------------------------CONFIGURAÇÃO DO BOTÃO RETORNAR--------------------*/
             botaoRetornar = new JButton();
             botaoRetornar.setContentAreaFilled(false);
             botaoRetornar.setBorderPainted(false);
@@ -117,12 +123,12 @@ public class TelaRankAluno extends JFrame {
             botaoRetornar.addActionListener(e -> {
                 SwingUtilities.getWindowAncestor(this).dispose();
                 
+/*--------------------------NAVEGACAO PARA TELA DE LOBBY----------------------*/
                 if ("professor".equals(logado)) {
                     TelaLobbyProfessor telaLobby = 
-                                            new TelaLobbyProfessor(idProfessor);
+                            new TelaLobbyProfessor(idProfessor);
                     telaLobby.setVisible(true);
                 } else if ("aluno".equals(logado)) {
-
                     TelaLobbyAluno telaLobby = new TelaLobbyAluno();
                     telaLobby.setVisible(true);
                 } else {
@@ -134,12 +140,12 @@ public class TelaRankAluno extends JFrame {
 
             painelConteudo.add(botaoRetornar);
 
-            /*----------------------CONFIGURAÇÃO DO LAYOUT--------------------*/
+/*--------------------------CONFIGURAÇÃO DO LAYOUT----------------------------*/
             setLayout(new BorderLayout());
             add(painelConteudo, BorderLayout.CENTER);
         }
 
-        /*----------------------PINTURA DO FUNDO DO PAINEL-------------------*/
+/*------------------------PINTURA DO FUNDO DO PAINEL--------------------------*/
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
@@ -148,7 +154,7 @@ public class TelaRankAluno extends JFrame {
             int w = getWidth();
             int h = getHeight();
 
-            /*----------------------CONFIGURAÇÃO DE RENDERIZAÇÃO-------------*/
+/*------------------------CONFIGURAÇÃO DE RENDERIZAÇÃO------------------------*/
             g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, 
                     RenderingHints.VALUE_INTERPOLATION_BICUBIC);
             g2d.setRenderingHint(RenderingHints.KEY_RENDERING, 
@@ -163,7 +169,8 @@ public class TelaRankAluno extends JFrame {
                     RenderingHints.VALUE_COLOR_RENDER_QUALITY);
             g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, 
                     RenderingHints.VALUE_STROKE_PURE);
-            /*----------------------DESENHO DA IMAGEM DE FUNDO---------------*/
+            
+/*------------------------DESENHO DA IMAGEM DE FUNDO--------------------------*/
             if (imagemFundoTelaRank != null) {
                 g.drawImage(imagemFundoTelaRank, 0, 0, w, h, this);
             }
