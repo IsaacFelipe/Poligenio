@@ -105,7 +105,7 @@ public class SalaCriada {
              ResultSet rs = stmt.executeQuery()) {
 
             if (rs.next()) {
-                dados.put("id", rs.getString("id_pergunta")); // <-- usa o alias aqui
+                dados.put("id", rs.getString("id_pergunta"));
                 dados.put("pergunta", rs.getString("texto_pergunta"));
                 dados.put("A", rs.getString("alternativaA"));
                 dados.put("B", rs.getString("alternativaB"));

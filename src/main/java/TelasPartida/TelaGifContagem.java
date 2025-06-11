@@ -7,6 +7,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class TelaGifContagem extends JFrame {
     Sistema sistema = Sistema.getInstance();
@@ -15,15 +17,17 @@ public class TelaGifContagem extends JFrame {
     private JPanel painelGif;
     private static String idProfessor;
     private static String origem;
-
+    private static String tipoSala;
+    
     /*----------------------CONSTRUTOR DA TELA DE ACESSO---------------------*/
-    public TelaGifContagem(String idProfessor, String origem) {
+    public TelaGifContagem(String idProfessor, String origem, String tipoSala) {
         /*----------------------CONFIGURAÇÕES DA JANELA-------------------*/
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setUndecorated(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.idProfessor = idProfessor;
         this.origem = origem;
+        this.tipoSala = tipoSala;
 
         painelGif = new JPanel();     
 
@@ -35,8 +39,7 @@ public class TelaGifContagem extends JFrame {
         } catch (IOException e) {
             /*----------------------TRATAMENTO DE EXCEÇÕES-------------------*/
             e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Erro ao inicializar a tela: "
-                    + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Erro ao inicializar a tela: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -44,7 +47,7 @@ public class TelaGifContagem extends JFrame {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             // Exemplo com parâmetros para teste
-            TelaGifContagem tela = new TelaGifContagem("prof123", "Professor");
+            TelaGifContagem tela = new TelaGifContagem(idProfessor, origem, tipoSala);
             tela.setVisible(true);
         });
     }
@@ -108,12 +111,20 @@ public class TelaGifContagem extends JFrame {
             int duracaoGif = 15700;
 
             timer = new javax.swing.Timer(duracaoGif, (ActionEvent e) -> {
-                transitionToNextScreen();
+                try {
+                    mudarTela();
+                } catch (Exception ex) {
+                    Logger.getLogger(TelaGifContagem.class.getName()).log(Level.SEVERE, null, ex);
+                }
             });
 
             skipButton.addActionListener((ActionEvent e) -> {
-                timer.stop(); // Para o timer para evitar transição dupla
-                transitionToNextScreen();
+                timer.stop();
+                try {
+                    mudarTela();
+                } catch (Exception ex) {
+                    Logger.getLogger(TelaGifContagem.class.getName()).log(Level.SEVERE, null, ex);
+                }
             });
 
             timer.setRepeats(false);
@@ -121,11 +132,29 @@ public class TelaGifContagem extends JFrame {
         }
 
         /*----------------------MÉTODO PARA TRANSIÇÃO----------------------*/
-        private void transitionToNextScreen() {
-
-            TelaGifPartidaEmAndamento gifPartidaAndamento = 
-                    new TelaGifPartidaEmAndamento(idProfessor);
-            gifPartidaAndamento.setVisible(true);
+        private void mudarTela() throws Exception {
+            if ("aluno".equals(TelaGifContagem.this.origem)) {
+                TelaPergunta pergunta = new TelaPergunta(idProfessor, tipoSala);
+                pergunta.setVisible(true);
+                
+                Window window = SwingUtilities.getWindowAncestor(this);
+                if (window instanceof JFrame) {
+                    window.dispose();
+                }
+            } else if ("professor".equals(TelaGifContagem.this.origem)) {
+                TelaGifPartidaEmAndamento partidaAndamento = 
+                        new TelaGifPartidaEmAndamento(idProfessor);
+                partidaAndamento.setVisible(true);
+                
+                Window window = SwingUtilities.getWindowAncestor(this);
+                if (window instanceof JFrame) {
+                    window.dispose();
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Origem inválida: " 
+                        + TelaGifContagem.origem, 
+                        "Erro", JOptionPane.ERROR_MESSAGE);
+            }
             fecharJanela();
         }
 

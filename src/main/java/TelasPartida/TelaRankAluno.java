@@ -1,7 +1,7 @@
-/*----------------------PACOTE QUE PERTENCE A CLASSE--------------------------*/
 package TelasPartida;
 
 /*----------------------IMPORTAÇÕES NECESSÁRIAS-----------------------------*/
+import TelasLobby.TelaLobbyAluno;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -14,37 +14,36 @@ public class TelaRankAluno extends JFrame {
 
     /*---------------------------DECLARAÇÃO DE VARIÁVEIS--------------------------*/
     private JPanel painelPrincipal;
+    private static String logado;
     private static String idProfessor;
-
+    
     /*-----------------------CONSTRUTOR DA TELA DE RANK ALUNO---------------------*/
-    public TelaRankAluno(String idProfessor) {
+    public TelaRankAluno(String logado, String idProfessor) {
         
         /*---------------------------CONFIGURAÇÕES DA JANELA--------------------------*/
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setUndecorated(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.logado = logado;
         this.idProfessor = idProfessor;
 
         painelPrincipal = new JPanel();
 
         try {
             /*----------------------INSTANCIAÇÃO DO PAINEL----------------*/
-            PanelRankAluno panelRank = new PanelRankAluno();
+            PanelRankAluno panelRank = new PanelRankAluno(logado);
             setContentPane(panelRank);
-        } 
-        catch (IOException e) {           
+        } catch (IOException e) {           
             JOptionPane.showMessageDialog(this, "Erro: " 
-                    + e.getMessage(), 
-                    "Erro", 
-                    JOptionPane.ERROR_MESSAGE);
+                    + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }
 
     /*----------------------MÉTODO MAIN PARA EXECUTAR A TELA----------------*/
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            TelaRankAluno tela = new TelaRankAluno(idProfessor);
-            tela.setVisible(true);
+            TelaRankAluno rankAluno = new TelaRankAluno(logado, idProfessor);
+            rankAluno.setVisible(true);
         });
     }
 
@@ -55,17 +54,16 @@ public class TelaRankAluno extends JFrame {
         private BufferedImage imagemFundoTelaRank;
         private BufferedImage imagemBotaoRetornar;
         private JButton botaoRetornar;
+        private String logado;
 
         /*----------------------CONSTRUTOR DO PAINEL DE RANK ALUNO-----------*/
-        public PanelRankAluno() throws IOException {
+        public PanelRankAluno(String logado) throws IOException {
+            this.logado = logado;
             setLayout(new GridBagLayout());
  
             /*----------------------CARREGAMENTO DAS IMAGENS------------------*/
-            imagemFundoTelaRank = ImageIO.read
-                (getClass().getResource("/ImagensTelaRankAluno/telaRankAluno.jpg"));
-            
-            imagemBotaoRetornar = ImageIO.read
-                (getClass().getResource("/ImagensTelaRankAluno/botaoRetonarRankAluno.png"));
+            imagemFundoTelaRank = ImageIO.read(getClass().getResource("/ImagensTelaRankAluno/telaRankAluno.jpg"));
+            imagemBotaoRetornar = ImageIO.read(getClass().getResource("/ImagensTelaRankAluno/botaoRetonarRankAluno.png"));
 
             /*----------------------CRIAÇÃO DO PAINEL DE CONTEÚDO-------------*/
             JPanel painelConteudo = new JPanel(null) {
@@ -74,9 +72,7 @@ public class TelaRankAluno extends JFrame {
                     super.paintComponent(g);
                     /*----------------------CONFIGURAÇÃO GRÁFICA----------------*/
                     Graphics2D g2d = (Graphics2D) g;
-                    
-                    g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, 
-                            RenderingHints.VALUE_ANTIALIAS_ON);
+                    g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
                     
                     int w = getWidth();
                     int h = getHeight();
@@ -86,7 +82,7 @@ public class TelaRankAluno extends JFrame {
 
                     /*----------------------DIMENSÕES DOS ELEMENTOS--------------*/
                     double escala = 1.0;
-                    int larguraBotaoRetornar = (int) 
+                    int larguraBotaoRetornar = (int)
                             (imagemBotaoRetornar.getWidth() * 0.7 * escala);
                     int alturaBotaoRetornar = (int) 
                             (imagemBotaoRetornar.getHeight() * 0.7 * escala);
@@ -97,13 +93,13 @@ public class TelaRankAluno extends JFrame {
 
                     /*----------------------CONFIGURAÇÃO DOS BOTÕES--------------*/
                     botaoRetornar.setBounds(xRetornar,
-                            yRetornar,
+                            yRetornar, 
                             larguraBotaoRetornar,
                             alturaBotaoRetornar);
                     
                     /*----------------------DESENHO DOS ELEMENTOS----------------*/
                     g2d.drawImage(imagemBotaoRetornar, 
-                            xRetornar, 
+                            xRetornar,
                             yRetornar, 
                             larguraBotaoRetornar, 
                             alturaBotaoRetornar, this);
@@ -118,15 +114,22 @@ public class TelaRankAluno extends JFrame {
             botaoRetornar.setBorderPainted(false);
             botaoRetornar.setFocusPainted(false);
             botaoRetornar.setCursor(new Cursor(Cursor.HAND_CURSOR));
-
-            // Adiciona o ActionListener para o botão Retornar
             botaoRetornar.addActionListener(e -> {
-                // Fecha a TelaRankAluno atual
                 SwingUtilities.getWindowAncestor(this).dispose();
                 
-                // Abre a TelaLobbyProfessor, passando o idProfessor
-                TelaLobbyProfessor telaLobby = new TelaLobbyProfessor(idProfessor);
-                telaLobby.setVisible(true);
+                if ("professor".equals(logado)) {
+                    TelaLobbyProfessor telaLobby = 
+                                            new TelaLobbyProfessor(idProfessor);
+                    telaLobby.setVisible(true);
+                } else if ("aluno".equals(logado)) {
+
+                    TelaLobbyAluno telaLobby = new TelaLobbyAluno();
+                    telaLobby.setVisible(true);
+                } else {
+                    JOptionPane.showMessageDialog(null, 
+                            "Tipo de usuário inválido!", 
+                            "Erro", JOptionPane.ERROR_MESSAGE);
+                }
             });
 
             painelConteudo.add(botaoRetornar);
@@ -156,17 +159,13 @@ public class TelaRankAluno extends JFrame {
                     RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
             g2d.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, 
                     RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
-            g2d.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, 
+            g2d.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING,
                     RenderingHints.VALUE_COLOR_RENDER_QUALITY);
             g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, 
                     RenderingHints.VALUE_STROKE_PURE);
             /*----------------------DESENHO DA IMAGEM DE FUNDO---------------*/
             if (imagemFundoTelaRank != null) {
-                g.drawImage(imagemFundoTelaRank, 
-                        0, 
-                        0, 
-                        w, 
-                        h, this);
+                g.drawImage(imagemFundoTelaRank, 0, 0, w, h, this);
             }
         }
     }

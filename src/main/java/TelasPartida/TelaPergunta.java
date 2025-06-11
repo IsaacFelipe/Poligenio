@@ -1,5 +1,6 @@
 package TelasPartida;
 
+import CodigoPoligenio.PerguntaCriada;
 import CodigoPoligenio.SalaCriada;
 import javax.swing.*;
 import java.awt.*;
@@ -17,20 +18,30 @@ public class TelaPergunta extends JFrame {
     
     private JPanel painelPergunta;
     private static String idProfessor;
-    private static JTextField campoTextoAltA;
-    private static JTextField campoTextoAltB;
-    private static JTextField campoTextoAltC;
-    private static JTextField campoTextoAltD;
+    private static String tipoSala;
+    
+    public static JTextField campoTextoAltA;
+    public static JTextField campoTextoAltB;
+    public static JTextField campoTextoAltC;
+    public static JTextField campoTextoAltD;
+    
     public static JButton botaoAlternativaA;
     public static JButton botaoAlternativaB;
     public static JButton botaoAlternativaC;
     public static JButton botaoAlternativaD;
+    public static JButton botaoConfirmar;
+    
+    private static JLabel labelAltASelecionado;
+    private static JLabel labelAltBSelecionado;
+    private static JLabel labelAltCSelecionado;
+    private static JLabel labelAltDSelecionado;
 
-    public TelaPergunta(String idProfessor) throws Exception {
+    public TelaPergunta(String idProfessor, String tipoSala) throws Exception {
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setUndecorated(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.idProfessor = idProfessor;
+        this.tipoSala = tipoSala;
 
         try {
             painelPergunta = new PanelPergunta(this, 0);
@@ -46,7 +57,7 @@ public class TelaPergunta extends JFrame {
         SwingUtilities.invokeLater(() -> {
             TelaPergunta tela;
             try {
-                tela = new TelaPergunta(idProfessor);
+                tela = new TelaPergunta(idProfessor, tipoSala);
                 tela.setVisible(true);
             } catch (Exception ex) {
                 Logger.getLogger(TelaPergunta.class.getName()).log
@@ -65,17 +76,37 @@ public class TelaPergunta extends JFrame {
         private BufferedImage imagemBoxPontuacaoErro;
         private BufferedImage imagemBoxPontuacaoAcerto;
         private BufferedImage imagemBotaoAjuda;
+        private BufferedImage imagemBotaoConfirmar;
         
+        private BufferedImage imagemAltASelecionado;
+        private BufferedImage imagemAltBSelecionado;
+        private BufferedImage imagemAltCSelecionado;
+        private BufferedImage imagemAltDSelecionado;
+        
+        public String alternativaAtivada = null;
+        public JButton botaoSelecionado = null;
+        private String alternativaSelecionada;
+        private boolean alternativas = false;
+        
+        private boolean duplaChanceUsada = false;
 
         private static JButton botaoAjuda;
         
         private JTextField campoTextoAcerto;
         private JTextField campoTextoErro;
-        private JTextField campoPergunta;
+        public JTextField campoPergunta;
         
         private JFrame parentFrame;
         private Random random = new Random();
-        private JButton respostaCorreta;
+        public JButton respostaCorreta;
+        
+        public boolean isDuplaChanceUsada() { 
+            return duplaChanceUsada; 
+        }
+        
+        public void setDuplaChanceUsada(boolean duplaChanceUsada) { 
+            this.duplaChanceUsada = duplaChanceUsada; 
+        }
 
         public PanelPergunta(JFrame parentFrame, int indiceRespostaCorreta)
                 throws IOException, Exception {
@@ -107,26 +138,48 @@ public class TelaPergunta extends JFrame {
             imagemBotaoAjuda = ImageIO.read(getClass().getResource
         ("/ImagensTelaPergunta/botaoAjuda.png"));
             
+            imagemAltASelecionado = ImageIO.read(getClass().getResource
+        ("/ImagensTelaPergunta/alternativaSelecionada.png"));
+            
+            imagemAltBSelecionado = ImageIO.read(getClass().getResource
+        ("/ImagensTelaPergunta/alternativaSelecionada.png"));
+            
+            imagemAltCSelecionado = ImageIO.read(getClass().getResource
+        ("/ImagensTelaPergunta/alternativaSelecionada.png"));
+            
+            imagemAltDSelecionado = ImageIO.read(getClass().getResource
+        ("/ImagensTelaPergunta/alternativaSelecionada.png"));
+            
+            imagemBotaoConfirmar = ImageIO.read(getClass().getResource
+        ("/ImagensTelaPergunta/botaoConfirmar.png"));
+            
+            
             botaoAlternativaA = new JButton();
             botaoAlternativaB = new JButton();
             botaoAlternativaC = new JButton();
             botaoAlternativaD = new JButton();
+            botaoConfirmar = new JButton();
             
-            switch (indiceRespostaCorreta) {
-                case 1:
+            Map<String, String> perguntaComAlternativas = 
+                    SalaCriada.exibirPerguntaComAlternativas();
+            
+            String correta = perguntaComAlternativas.get("correta");
+            switch (correta) {
+                case "A":
                     respostaCorreta = botaoAlternativaA;
                     break;
-                case 2:
+                case "B":
                     respostaCorreta = botaoAlternativaB;
                     break;
-                case 3:
+                case "C":
                     respostaCorreta = botaoAlternativaC;
                     break;
-                case 4:
+                case "D":
                     respostaCorreta = botaoAlternativaD;
                     break;
                 default:
-                    respostaCorreta = botaoAlternativaA; // Valor padrão
+                    respostaCorreta = botaoAlternativaA; // Fallback
+                    break;
             }
             
             JPanel painelConteudo = new JPanel(null) {
@@ -178,6 +231,11 @@ public class TelaPergunta extends JFrame {
                     int alturaBotAjuda = (int)
                             (imagemBotaoAjuda.getHeight() * 0.2 * escala);
                     
+                    int larguraBotConfirmar = (int)
+                            (imagemBotaoConfirmar.getWidth() * 0.7 * escala);
+                    int alturaBotConfirmar = (int)
+                            (imagemBotaoConfirmar.getHeight() * 0.7 * escala);
+                    
                     int xAltA = centroX - (larguraBotAltA / 2) - 480;
                     int yAltA = (int)(h * 0.45) + 80;
                     
@@ -198,6 +256,9 @@ public class TelaPergunta extends JFrame {
                     
                     int xAjuda = centroX - (larguraBotAjuda / 2);
                     int yAjuda = yAltD + alturaBotAltD + (int)(10 * escala);
+                    
+                    int xConfirm = centroX - (larguraBotAjuda / 2) + 450;
+                    int yConfirm = yAjuda + (int)(10 * escala);
                     
                     botaoAlternativaA.setBounds(xAltA,
                             yAltA, 
@@ -224,8 +285,13 @@ public class TelaPergunta extends JFrame {
                             larguraBotAjuda, 
                             alturaBotAjuda);
                     
-                    campoPergunta.setBounds(xAcerto + (int)(-100 * escala),
-                            yAcerto + (int)(-740 * escala), 
+                    botaoConfirmar.setBounds(xConfirm,
+                            yConfirm, 
+                            larguraBotConfirmar, 
+                            alturaBotConfirmar);
+                    
+                    campoPergunta.setBounds(centroX - (int)(400 * escala),
+                            (int)(100 * escala), 
                             (int)(1500 * escala), 
                             (int)(50 * escala));
                     
@@ -308,26 +374,34 @@ public class TelaPergunta extends JFrame {
                             yAjuda, 
                             larguraBotAjuda, 
                             alturaBotAjuda, this);
+                    
+                    g2d.drawImage(imagemBotaoConfirmar,
+                            xConfirm,
+                            yConfirm, 
+                            larguraBotConfirmar, 
+                            alturaBotConfirmar, this);
                 }
             };
             painelConteudo.setOpaque(false);
             
-            Map<String, String> perguntaComAlternativas = 
-                    SalaCriada.exibirPerguntaComAlternativas();
-            
-            String id = perguntaComAlternativas.get("id");
             String pergunta = perguntaComAlternativas.get("pergunta");
             String altA = perguntaComAlternativas.get("A");
             String altB = perguntaComAlternativas.get("B");
             String altC = perguntaComAlternativas.get("C");
             String altD = perguntaComAlternativas.get("D");
-            String correta = perguntaComAlternativas.get("correta");
+            String id = perguntaComAlternativas.get("id");
+            String corretaAlternativa = perguntaComAlternativas.get("correta");
+            
+            PerguntaCriada perguntaAtual = new PerguntaCriada(id, corretaAlternativa);
             
             botaoAlternativaA.setBorderPainted(false);
             botaoAlternativaA.setContentAreaFilled(false);
             botaoAlternativaA.setFocusPainted(false);
             botaoAlternativaA.setOpaque(false);
             botaoAlternativaA.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            botaoAlternativaA.addActionListener(e -> {
+                SelecionarBotao("alternativa A");
+            });
             painelConteudo.add(botaoAlternativaA);
             
             botaoAlternativaB.setBorderPainted(false);
@@ -335,6 +409,9 @@ public class TelaPergunta extends JFrame {
             botaoAlternativaB.setFocusPainted(false);
             botaoAlternativaB.setOpaque(false);
             botaoAlternativaB.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            botaoAlternativaB.addActionListener(e -> {
+                SelecionarBotao("alternativa B");
+            });
             painelConteudo.add(botaoAlternativaB);
             
             botaoAlternativaC.setBorderPainted(false);
@@ -342,6 +419,9 @@ public class TelaPergunta extends JFrame {
             botaoAlternativaC.setFocusPainted(false);
             botaoAlternativaC.setOpaque(false);
             botaoAlternativaC.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            botaoAlternativaC.addActionListener(e -> {
+                SelecionarBotao("alternativa C");
+            });
             painelConteudo.add(botaoAlternativaC);
             
             botaoAlternativaD.setBorderPainted(false);
@@ -349,6 +429,9 @@ public class TelaPergunta extends JFrame {
             botaoAlternativaD.setFocusPainted(false);
             botaoAlternativaD.setOpaque(false);
             botaoAlternativaD.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            botaoAlternativaD.addActionListener(e -> {
+                SelecionarBotao("alternativa D");
+            });
             painelConteudo.add(botaoAlternativaD);
             
             botaoAjuda = new JButton();
@@ -375,6 +458,46 @@ public class TelaPergunta extends JFrame {
                 }
             });
             painelConteudo.add(botaoAjuda);
+            
+            botaoConfirmar.setBorderPainted(false);
+            botaoConfirmar.setContentAreaFilled(false);
+            botaoConfirmar.setFocusPainted(false);
+            botaoConfirmar.setOpaque(false);
+            botaoConfirmar.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            botaoConfirmar.addActionListener(e -> {
+                if (alternativaAtivada == null) {
+                    JOptionPane.showMessageDialog(parentFrame, 
+                            "Por favor, selecione uma alternativa!", 
+                            "Aviso", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+
+                String alternativaSelecionada = null;
+                switch (alternativaAtivada) {
+                    case "alternativa A":
+                        alternativaSelecionada = "A";
+                        break;
+                    case "alternativa B":
+                        alternativaSelecionada = "B";
+                        break;
+                    case "alternativa C":
+                        alternativaSelecionada = "C";
+                        break;
+                    case "alternativa D":
+                        alternativaSelecionada = "D";
+                        break;
+                }
+
+                try {
+                    perguntaAtual.verificarResposta(alternativaSelecionada, 
+                            parentFrame);
+                    PerguntaCriada.limparEInserirQuest(this, idProfessor);
+                } catch (Exception ex) {
+                    Logger.getLogger(TelaPergunta.class.getName()).log
+                                        (Level.SEVERE, null, ex);
+                }
+            });
+            painelConteudo.add(botaoConfirmar);
             
             campoTextoAcerto = new JTextField();
             campoTextoAcerto.setBorder(null);
@@ -446,8 +569,153 @@ public class TelaPergunta extends JFrame {
             campoTextoAltD.setFocusable(false);
             painelConteudo.add(campoTextoAltD);
             
+            labelAltASelecionado = new JLabel
+                (new ImageIcon(imagemAltASelecionado));
+            labelAltASelecionado.setVisible(false);
+            labelAltASelecionado.setBounds(0, 0,
+                    imagemAltASelecionado.getWidth(), 
+                    imagemAltASelecionado.getHeight());
+            painelConteudo.add(labelAltASelecionado);
+            
+            labelAltBSelecionado = new JLabel
+                (new ImageIcon(imagemAltBSelecionado));
+            labelAltBSelecionado.setVisible(false);
+            labelAltBSelecionado.setBounds(0, 0,
+                    imagemAltBSelecionado.getWidth(), 
+                    imagemAltBSelecionado.getHeight());
+            painelConteudo.add(labelAltBSelecionado);
+            
+            labelAltCSelecionado = new JLabel
+                (new ImageIcon(imagemAltCSelecionado));
+            labelAltCSelecionado.setVisible(false);
+            labelAltCSelecionado.setBounds(0, 0,
+                    imagemAltCSelecionado.getWidth(), 
+                    imagemAltCSelecionado.getHeight());
+            painelConteudo.add(labelAltCSelecionado);
+            
+            labelAltDSelecionado = new JLabel
+                (new ImageIcon(imagemAltDSelecionado));
+            labelAltDSelecionado.setVisible(false);
+            labelAltDSelecionado.setBounds(0, 0,
+                    imagemAltDSelecionado.getWidth(), 
+                    imagemAltDSelecionado.getHeight());
+            painelConteudo.add(labelAltDSelecionado);
+            
             setLayout(new BorderLayout());
             add(painelConteudo, BorderLayout.CENTER);
+        }
+        
+        public JTextField getCampoPergunta() { return campoPergunta; }
+        public JTextField getCampoTextoAltA() { return campoTextoAltA; }
+        public JTextField getCampoTextoAltB() { return campoTextoAltB; }
+        public JTextField getCampoTextoAltC() { return campoTextoAltC; }
+        public JTextField getCampoTextoAltD() { return campoTextoAltD; }
+        public JLabel getLabelAltASelecionado() { return labelAltASelecionado; }
+        public JLabel getLabelAltBSelecionado() { return labelAltBSelecionado; }
+        public JLabel getLabelAltCSelecionado() { return labelAltCSelecionado; }
+        public JLabel getLabelAltDSelecionado() { return labelAltDSelecionado; }
+        public String getAlternativaAtivada() { return alternativaAtivada; }
+        public void setAlternativaAtivada(String alternativaAtivada) { this.alternativaAtivada = alternativaAtivada; }
+        public JButton getBotaoSelecionado() { return botaoSelecionado; }
+        public void setBotaoSelecionado(JButton botaoSelecionado) { this.botaoSelecionado = botaoSelecionado; }
+        public JButton getRespostaCorreta() { return respostaCorreta; }
+        
+        private void SelecionarBotao(String alternativa) {
+            alternativaAtivada = alternativa;
+            switch (alternativa) {
+                case "alternativa A":
+                    if (botaoSelecionado != botaoAlternativaA) {
+                        int x = botaoAlternativaA.getX() 
+                                + (botaoAlternativaA.getWidth()
+                                - imagemAltASelecionado.getWidth()) / 2;
+                        
+                        int y = botaoAlternativaA.getY() 
+                                + (botaoAlternativaA.getHeight()
+                                - imagemAltASelecionado.getHeight()) / 2;
+                        labelAltASelecionado.setBounds(x, 
+                                y,
+                                imagemAltASelecionado.getWidth(), 
+                                imagemAltASelecionado.getHeight());
+                        
+                        labelAltASelecionado.setVisible(true);
+                        labelAltBSelecionado.setVisible(false);
+                        labelAltCSelecionado.setVisible(false);
+                        labelAltDSelecionado.setVisible(false);
+                        labelAltASelecionado.repaint();
+                        
+                        botaoSelecionado = botaoAlternativaA;
+                    }
+                    break;
+                case "alternativa B":
+                    if (botaoSelecionado != botaoAlternativaB) {
+                        int x = botaoAlternativaB.getX() 
+                                + (botaoAlternativaB.getWidth()
+                                - imagemAltBSelecionado.getWidth()) / 2;
+                        
+                        int y = botaoAlternativaB.getY() 
+                                + (botaoAlternativaB.getHeight()
+                                - imagemAltBSelecionado.getHeight()) / 2;
+                        labelAltBSelecionado.setBounds(x, 
+                                y,
+                                imagemAltBSelecionado.getWidth(), 
+                                imagemAltBSelecionado.getHeight());
+                        
+                        labelAltBSelecionado.setVisible(true);
+                        labelAltASelecionado.setVisible(false);
+                        labelAltCSelecionado.setVisible(false);
+                        labelAltDSelecionado.setVisible(false);
+                        labelAltBSelecionado.repaint();
+                        
+                        botaoSelecionado = botaoAlternativaB;
+                    }
+                    break;
+                case "alternativa C":
+                    if (botaoSelecionado != botaoAlternativaC) {
+                        int x = botaoAlternativaC.getX() 
+                                + (botaoAlternativaC.getWidth()
+                                - imagemAltCSelecionado.getWidth()) / 2;
+                        
+                        int y = botaoAlternativaC.getY() 
+                                + (botaoAlternativaC.getHeight()
+                                - imagemAltCSelecionado.getHeight()) / 2;
+                        labelAltCSelecionado.setBounds(x, 
+                                y,
+                                imagemAltCSelecionado.getWidth(), 
+                                imagemAltCSelecionado.getHeight());
+                        
+                        labelAltCSelecionado.setVisible(true);
+                        labelAltASelecionado.setVisible(false);
+                        labelAltBSelecionado.setVisible(false);
+                        labelAltDSelecionado.setVisible(false);
+                        labelAltCSelecionado.repaint();
+                        
+                        botaoSelecionado = botaoAlternativaC;
+                    }
+                    break;
+                case "alternativa D":
+                    if (botaoSelecionado != botaoAlternativaD) {
+                        int x = botaoAlternativaD.getX() 
+                                + (botaoAlternativaD.getWidth()
+                                - imagemAltDSelecionado.getWidth()) / 2;
+                        
+                        int y = botaoAlternativaD.getY() 
+                                + (botaoAlternativaD.getHeight()
+                                - imagemAltDSelecionado.getHeight()) / 2;
+                        labelAltDSelecionado.setBounds(x, 
+                                y,
+                                imagemAltDSelecionado.getWidth(), 
+                                imagemAltDSelecionado.getHeight());
+                        
+                        labelAltDSelecionado.setVisible(true);
+                        labelAltASelecionado.setVisible(false);
+                        labelAltBSelecionado.setVisible(false);
+                        labelAltCSelecionado.setVisible(false);
+                        labelAltDSelecionado.repaint();
+                        
+                        botaoSelecionado = botaoAlternativaD;
+                    }
+                    break;       
+            }
         }
         
         @Override
@@ -603,7 +871,8 @@ public class TelaPergunta extends JFrame {
                 textos.add(campoTextoAltC);
                 textos.add(campoTextoAltD);
 
-                if (parentPanel.respostaCorreta != null && buttons.contains(parentPanel.respostaCorreta)) {
+                if (parentPanel.respostaCorreta != null && buttons.contains
+                        (parentPanel.respostaCorreta)) {
                     buttons.remove(parentPanel.respostaCorreta);
                 }
 
@@ -622,6 +891,17 @@ public class TelaPergunta extends JFrame {
 
                         if (idx != -1) {
                             textos.get(idx).setVisible(false);
+
+                        switch (idx) {
+                            case 0: labelAltASelecionado.setVisible(false); 
+                            break;
+                            case 1: labelAltBSelecionado.setVisible(false);
+                            break;
+                            case 2: labelAltCSelecionado.setVisible(false); 
+                            break;
+                            case 3: labelAltDSelecionado.setVisible(false); 
+                            break;
+                        }
                         }
                     }
                     parentPanel.repaint();
@@ -642,6 +922,30 @@ public class TelaPergunta extends JFrame {
             botaoAjuda2.setOpaque(false);
             botaoAjuda2.setCursor(new Cursor(Cursor.HAND_CURSOR));
             botaoAjuda2.addActionListener(e -> {
+                if (parentPanel.isDuplaChanceUsada()) {
+                JOptionPane.showMessageDialog(parentDialog, 
+                    "A dupla chance já foi utilizada nesta questão!", 
+                    "Aviso", JOptionPane.WARNING_MESSAGE);
+                } else {
+                    TelaPergunta.botaoAlternativaA.setVisible(true);
+                    TelaPergunta.botaoAlternativaB.setVisible(true);
+                    TelaPergunta.botaoAlternativaC.setVisible(true);
+                    TelaPergunta.botaoAlternativaD.setVisible(true);
+                    parentPanel.getCampoTextoAltA().setVisible(true);
+                    parentPanel.getCampoTextoAltB().setVisible(true);
+                    parentPanel.getCampoTextoAltC().setVisible(true);
+                    parentPanel.getCampoTextoAltD().setVisible(true);
+                    parentPanel.getLabelAltASelecionado().setVisible(false);
+                    parentPanel.getLabelAltBSelecionado().setVisible(false);
+                    parentPanel.getLabelAltCSelecionado().setVisible(false);
+                    parentPanel.getLabelAltDSelecionado().setVisible(false);
+                    parentPanel.setAlternativaAtivada(null);
+                    parentPanel.setBotaoSelecionado(null);
+
+                    parentPanel.setDuplaChanceUsada(true);
+
+                    parentPanel.repaint();
+                }
                 parentDialog.dispose();
             });
             painelConteudo.add(botaoAjuda2);

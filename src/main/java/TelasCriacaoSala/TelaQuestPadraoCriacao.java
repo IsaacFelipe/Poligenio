@@ -1,8 +1,10 @@
-/*----------------------IMPORTAÇÕES NECESSÁRIAS-----------------------------*/
+/*----------------------IMPORTAÇÕES NECESSÁRIAS-------------------------------*/
 package TelasCriacaoSala;
 
 import CodigoPoligenio.Professor;
 import CodigoPoligenio.Sistema;
+import TelasPartida.TelaEsperaAluno;
+import TelasPartida.TelaEsperaProfessor;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -11,10 +13,10 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
-/*----------------------CLASSE PRINCIPAL DA TELA DE CRIAÇÃO DE QUESTÕES PADRÃO----*/
+/*--------------CLASSE PRINCIPAL DA TELA DE CRIAÇÃO DE QUESTÕES PADRÃO--------*/
 public class TelaQuestPadraoCriacao extends JFrame {
 
-    /*----------------------DECLARAÇÃO DE VARIÁVEIS----------------------*/
+/*--------------------------DECLARAÇÃO DE VARIÁVEIS---------------------------*/
     private JPanel painelQuestPadraoCriacao;
     private static String materiaSelecionada;
     private static String serieSelecionadaText;
@@ -24,12 +26,12 @@ public class TelaQuestPadraoCriacao extends JFrame {
     private static JTextField campoTextoNomeMateria;
     private static JTextField campoTextoSerie;
 
-    /*----------------------CONSTRUTOR DA TELA DE CRIAÇÃO DE QUESTÕES PADRÃO------*/
+/*-----------------CONSTRUTOR DA TELA DE CRIAÇÃO DE QUESTÕES PADRÃO-----------*/
     public TelaQuestPadraoCriacao(String materia, 
             String serieSelecionadaText,
             String idProfessor) {
         
-        /*----------------------CONFIGURAÇÕES DA JANELA-------------------*/
+/*-------------------------CONFIGURAÇÕES DA JANELA----------------------------*/
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setUndecorated(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -40,7 +42,7 @@ public class TelaQuestPadraoCriacao extends JFrame {
         painelQuestPadraoCriacao = new JPanel();
 
         try {
-            /*----------------------INSTANCIAÇÃO DO PAINEL----------------*/
+/*-------------------------INSTANCIAÇÃO DO PAINEL-----------------------------*/
             PanelQuestPadraoCriacao questPadraoCriacao = new 
                     PanelQuestPadraoCriacao(painelQuestPadraoCriacao);
             setContentPane(questPadraoCriacao);
@@ -52,7 +54,7 @@ public class TelaQuestPadraoCriacao extends JFrame {
         }
     }
 
-    /*----------------------MÉTODO MAIN PARA EXECUTAR A TELA----------------*/
+/*----------------------MÉTODO MAIN PARA EXECUTAR A TELA----------------------*/
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             TelaQuestPadraoCriacao tela = 
@@ -63,22 +65,22 @@ public class TelaQuestPadraoCriacao extends JFrame {
         });
     }
 
-    /*----------------------DEFINE A MATÉRIA SELECIONADA---------------------*/
+/*-----------------------DEFINE A MATÉRIA SELECIONADA-------------------------*/
     public void setMateriaSelecionada(String materia) {
         this.materiaSelecionada = materia;
         campoTextoNomeMateria.setText(materia);
     }
 
-    /*----------------------DEFINE A SÉRIE SELECIONADA-----------------------*/
+/*------------------------DEFINE A SÉRIE SELECIONADA--------------------------*/
     public void setSerieSelecionada(String serieSelecionadaText) {
         this.serie = serieSelecionadaText;
         campoTextoSerie.setText(serieSelecionadaText);
     }
 
-    /*----------------------CLASSE INTERNA: PAINEL DE CRIAÇÃO DE QUESTÕES PADRÃO--*/
+/*-------------CLASSE INTERNA: PAINEL DE CRIAÇÃO DE QUESTÕES PADRÃO-----------*/
     public static class PanelQuestPadraoCriacao extends JPanel {
 
-        /*----------------------DECLARAÇÃO DE VARIÁVEIS----------------------*/
+/*------------------------DECLARAÇÃO DE VARIÁVEIS-----------------------------*/
         private BufferedImage imagemDeFundoQuestPadraoCriacao;
         private BufferedImage imagemNomeQuiz;
         private BufferedImage imagemBoxMateria;
@@ -104,43 +106,51 @@ public class TelaQuestPadraoCriacao extends JFrame {
         
         private boolean dicaAtivada = false;
 
-        /*----------------------CONSTRUTOR DO PAINEL DE CRIAÇÃO DE QUESTÕES PADRÃO--*/
+/*-------------CONSTRUTOR DO PAINEL DE CRIAÇÃO DE QUESTÕES PADRÃO-------------*/
         public PanelQuestPadraoCriacao(JPanel container) throws IOException {
             this.container = container;
             setLayout(new GridBagLayout());
 
-            /*----------------------CARREGAMENTO DAS IMAGENS------------------*/
-            imagemDeFundoQuestPadraoCriacao = ImageIO.read(getClass().getResource
+/*--------------------------CARREGAMENTO DAS IMAGENS--------------------------*/
+            imagemDeFundoQuestPadraoCriacao = 
+                    ImageIO.read(getClass().getResource
             ("/ImagensTelaQuestPadraoCriacao/telaQuestPadraoCriacao.png"));
             
-            imagemNomeQuiz = ImageIO.read(getClass().getResource
+            imagemNomeQuiz = 
+                    ImageIO.read(getClass().getResource
             ("/ImagensTelaQuestPadraoCriacao/boxNomeQuiz.png"));
             
-            imagemBoxMateria = ImageIO.read(getClass().getResource
+            imagemBoxMateria = 
+                    ImageIO.read(getClass().getResource
             ("/ImagensTelaQuestPadraoCriacao/boxNomeQuiz.png"));
             
-            imagemBoxSerie = ImageIO.read(getClass().getResource
+            imagemBoxSerie = 
+                    ImageIO.read(getClass().getResource
             ("/ImagensTelaQuestPadraoCriacao/boxNomeQuiz.png"));
             
-            imagemBotaoCriarQuest = ImageIO.read(getClass().getResource
+            imagemBotaoCriarQuest = 
+                    ImageIO.read(getClass().getResource
             ("/ImagensTelaQuestPadraoCriacao/botaoCriarQuest.png"));
             
-            imagemBotaoVoltarQuest = ImageIO.read(getClass().getResource
+            imagemBotaoVoltarQuest = 
+                    ImageIO.read(getClass().getResource
             ("/ImagensTelaQuestPadraoCriacao/botaoVoltarQuest.png"));
             
-            imagemBotaoDicasOn = ImageIO.read(getClass().getResource
+            imagemBotaoDicasOn = 
+                    ImageIO.read(getClass().getResource
             ("/ImagensTelaQuestPadraoCriacao/botaoDicasAtivado.png"));
             
-            imagemBotaoDicasOff = ImageIO.read(getClass().getResource
+            imagemBotaoDicasOff = 
+                    ImageIO.read(getClass().getResource
             ("/ImagensTelaQuestPadraoCriacao/botaoDicasDesativado.png"));
 
-            /*----------------------CRIAÇÃO DO PAINEL DE CONTEÚDO-------------*/
+/*-------------------------CRIAÇÃO DO PAINEL DE CONTEÚDO----------------------*/
             JPanel painelConteudo = new JPanel(null) {
                 @Override
                 protected void paintComponent(Graphics g) {
                     super.paintComponent(g);
 
-                    /*----------------------CONFIGURAÇÃO GRÁFICA----------------*/
+/*--------------------------CONFIGURAÇÃO GRÁFICA------------------------------*/
                     Graphics2D g2d = (Graphics2D) g;
                     g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, 
                             RenderingHints.VALUE_INTERPOLATION_BILINEAR);
@@ -153,7 +163,7 @@ public class TelaQuestPadraoCriacao extends JFrame {
 
                     int centroX = w / 2;
 
-                    /*-------------------------DIMENSÃO DOS ELEMENTOS DA TELA---------------------*/
+/*-------------------------DIMENSÃO DOS ELEMENTOS DA TELA---------------------*/
                     double escala = 1.0;
                     
                     int larguraNomeQuiz = (int) 
@@ -186,7 +196,7 @@ public class TelaQuestPadraoCriacao extends JFrame {
                     int alturaBotDicaOff = (int) 
                             (imagemBotaoDicasOff.getHeight() * 0.7 * escala);
 
-                    /*--------------------POSICIONAMENTO DOS ELEMENTOS NA TELA--------------------*/
+/*--------------------POSICIONAMENTO DOS ELEMENTOS NA TELA--------------------*/
                     int xNQuiz = centroX - (larguraNomeQuiz / 3) + 60;
                     int yNQuiz = (int) (h * 0.45) - 210;
                     
@@ -207,7 +217,7 @@ public class TelaQuestPadraoCriacao extends JFrame {
                     int xDicaOff = centroX - (larguraBotDicaOff / 2);
                     int yDicaOff = (int) (h * 0.45) + 215;
 
-                    /*-------------------CRIAÇÃO DOS ELEMENTOS COM BASE NA POSIÇÃO----------------*/
+/*-------------------CRIAÇÃO DOS ELEMENTOS COM BASE NA POSIÇÃO----------------*/
                     botaoCriar.setBounds(xCriar, 
                             yCriar, 
                             larguraCriarQuest, 
@@ -244,7 +254,7 @@ public class TelaQuestPadraoCriacao extends JFrame {
                             (int)(250 * escala), 
                             (int)(50 * escala));
                     
-                    /*---------------------------DESENHANDO IMAGENS NA TELA-----------------------*/
+/*---------------------------DESENHANDO IMAGENS NA TELA-----------------------*/
                     g2d.drawImage(imagemNomeQuiz, 
                             xNQuiz, 
                             yNQuiz, 
@@ -284,7 +294,7 @@ public class TelaQuestPadraoCriacao extends JFrame {
             };
             painelConteudo.setOpaque(false);
 
-            /*----------------------CONFIGURAÇÃO DO LABEL DE DICAS ATIVADAS-------*/
+/*---------------------CONFIGURAÇÃO DO LABEL DE DICAS ATIVADAS----------------*/
             labelDicasOn = new JLabel
                 (new ImageIcon(imagemBotaoDicasOn));
             labelDicasOn.setVisible(false);
@@ -293,7 +303,7 @@ public class TelaQuestPadraoCriacao extends JFrame {
                     imagemBotaoDicasOn.getHeight());
             painelConteudo.add(labelDicasOn);
 
-            /*----------------------CONFIGURAÇÃO DO CAMPO NOME DO QUIZ------------*/
+/*-----------------------CONFIGURAÇÃO DO CAMPO NOME DO QUIZ-------------------*/
             campoTextoNomeQuest = new JTextField();
             campoTextoNomeQuest.setBorder(null);
             campoTextoNomeQuest.setOpaque(false);
@@ -304,7 +314,7 @@ public class TelaQuestPadraoCriacao extends JFrame {
             campoTextoNomeQuest.setHorizontalAlignment(JTextField.CENTER);
             painelConteudo.add(campoTextoNomeQuest);
 
-            /*----------------------CONFIGURAÇÃO DO CAMPO SÉRIE-------------------*/
+/*------------------------CONFIGURAÇÃO DO CAMPO SÉRIE-------------------------*/
             campoTextoSerie = new JTextField();
             campoTextoSerie.setBorder(null);
             campoTextoSerie.setOpaque(false);
@@ -318,7 +328,7 @@ public class TelaQuestPadraoCriacao extends JFrame {
             campoTextoSerie.setText(serie);
             painelConteudo.add(campoTextoSerie);
 
-            /*----------------------CONFIGURAÇÃO DO CAMPO NOME DA MATÉRIA---------*/
+/*----------------------CONFIGURAÇÃO DO CAMPO NOME DA MATÉRIA-----------------*/
             campoTextoNomeMateria = new JTextField();
             campoTextoNomeMateria.setBorder(null);
             campoTextoNomeMateria.setOpaque(false);
@@ -332,16 +342,35 @@ public class TelaQuestPadraoCriacao extends JFrame {
             campoTextoNomeMateria.setText(materia);
             painelConteudo.add(campoTextoNomeMateria);
 
-            /*----------------------CONFIGURAÇÃO DO BOTÃO CRIAR-------------------*/
+/*----------------------CONFIGURAÇÃO DO BOTÃO CRIAR---------------------------*/
             botaoCriar = new JButton();
             botaoCriar.setBorderPainted(false);
             botaoCriar.setContentAreaFilled(false);
             botaoCriar.setFocusPainted(false);
             botaoCriar.setOpaque(false);
             botaoCriar.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            botaoCriar.addActionListener(e -> {
+                String tipoSala = "padrao";
+                
+                Sistema sistema = Sistema.getInstance();
+                String codigoSala = sistema.gerarCodigoSala();
+                
+                Professor professor = new Professor("", "");
+                professor.criarSala(idProfessor, codigoSala);
+                
+                TelaEsperaProfessor criarSala = 
+                        new TelaEsperaProfessor(tipoSala, idProfessor);
+                criarSala.setVisible(true);
+                
+                Window janela = SwingUtilities.getWindowAncestor
+                                    (PanelQuestPadraoCriacao.this);
+                if (janela instanceof JFrame) {
+                    janela.dispose();
+                }
+            });
             painelConteudo.add(botaoCriar);
 
-            /*----------------------CONFIGURAÇÃO DO BOTÃO BOX MATÉRIAS------------*/
+ /*-------------------------CONFIGURAÇÃO DO BOTÃO BOX MATÉRIAS----------------*/
             botaoBoxMaterias = new JButton();
             botaoBoxMaterias.setBorderPainted(false);
             botaoBoxMaterias.setContentAreaFilled(false);
@@ -350,7 +379,7 @@ public class TelaQuestPadraoCriacao extends JFrame {
             botaoBoxMaterias.setCursor(new Cursor(Cursor.HAND_CURSOR));
             painelConteudo.add(botaoBoxMaterias);
 
-            /*----------------------CONFIGURAÇÃO DO BOTÃO DICAS DESATIVADAS-------*/
+/*--------------------CONFIGURAÇÃO DO BOTÃO DICAS DESATIVADAS-----------------*/
             botaoDicasOff = new JButton();
             botaoDicasOff.setBorderPainted(false);
             botaoDicasOff.setContentAreaFilled(false);
@@ -362,7 +391,7 @@ public class TelaQuestPadraoCriacao extends JFrame {
             });
             painelConteudo.add(botaoDicasOff);
 
-            /*----------------------CONFIGURAÇÃO DO BOTÃO VOLTAR------------------*/
+/*--------------------------CONFIGURAÇÃO DO BOTÃO VOLTAR----------------------*/
             botaoVoltar = new JButton();
             botaoVoltar.setBorderPainted(false);
             botaoVoltar.setContentAreaFilled(false);
@@ -383,17 +412,17 @@ public class TelaQuestPadraoCriacao extends JFrame {
             });
             painelConteudo.add(botaoVoltar);
 
-            /*----------------------CONFIGURAÇÃO DO LAYOUT--------------------*/
+/*--------------------------CONFIGURAÇÃO DO LAYOUT----------------------------*/
             setLayout(new BorderLayout());
             add(painelConteudo, BorderLayout.CENTER);
         }
 
-        /*----------------------SELEÇÃO DE BOTÃO DE DICAS---------------------*/
+/*-------------------------SELEÇÃO DE BOTÃO DE DICAS--------------------------*/
         private void SelecionarBotao(String tipo) {
             dicaSelecionada = tipo;
 
             if ("dicaOn".equals(tipo)) {
-                /*----------------------ALTERNAR ESTADO DAS DICAS-------------*/
+/*---------------------------ALTERNAR ESTADO DAS DICAS------------------------*/
                 dicaAtivada = !dicaAtivada;
 
                 int w = getWidth();
@@ -410,12 +439,12 @@ public class TelaQuestPadraoCriacao extends JFrame {
                 int xDicaOff = centroX - (larguraBotDicaOff / 2);
                 int yDicaOff = (int) (h * 0.45) + 215;
 
-                /*----------------------CONFIGURA IMAGEM ESCALADA-------------*/
+/*-----------------------CONFIGURA IMAGEM ESCALADA----------------------------*/
                 Image imagemEscalada = imagemBotaoDicasOn.getScaledInstance(
                     larguraBotDicaOff, alturaBotDicaOff, Image.SCALE_SMOOTH);
                 labelDicasOn.setIcon(new ImageIcon(imagemEscalada));
 
-                /*----------------------POSICIONA E ATUALIZA LABEL------------*/
+/*-----------------------POSICIONA E ATUALIZA LABEL---------------------------*/
                 labelDicasOn.setBounds(xDicaOff, 
                         yDicaOff, 
                         larguraBotDicaOff, 
@@ -426,7 +455,7 @@ public class TelaQuestPadraoCriacao extends JFrame {
             }
         }
 
-        /*----------------------PINTURA DO FUNDO DO PAINEL-------------------*/
+/*-------------------------PINTURA DO FUNDO DO PAINEL-------------------------*/
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
@@ -435,7 +464,7 @@ public class TelaQuestPadraoCriacao extends JFrame {
             int w = getWidth();
             int h = getHeight();
 
-            /*----------------------CONFIGURAÇÃO DE RENDERIZAÇÃO-------------*/
+/*-----------------------CONFIGURAÇÃO DE RENDERIZAÇÃO-------------------------*/
             g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, 
                     RenderingHints.VALUE_INTERPOLATION_BICUBIC);
             g2d.setRenderingHint(RenderingHints.KEY_RENDERING, 
@@ -451,7 +480,7 @@ public class TelaQuestPadraoCriacao extends JFrame {
             g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, 
                     RenderingHints.VALUE_STROKE_PURE);
 
-            /*----------------------DESENHO DA IMAGEM DE FUNDO---------------*/
+/*-----------------------DESENHO DA IMAGEM DE FUNDO---------------------------*/
             if (imagemDeFundoQuestPadraoCriacao != null) {
                 g2d.drawImage(imagemDeFundoQuestPadraoCriacao, 
                         0, 

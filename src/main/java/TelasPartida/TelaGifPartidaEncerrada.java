@@ -126,7 +126,7 @@ public class TelaGifPartidaEncerrada extends JFrame {
 
         /*----------------------MÉTODO PARA TRANSIÇÃO----------------------*/
         private void transitionToNextScreen() {
-            TelaRankAluno rankAluno = new TelaRankAluno(idProfessor);
+            TelaRankAluno rankAluno = new TelaRankAluno("professor",idProfessor);
             rankAluno.setVisible(true);
             sistema.tocarMusica();
             fecharJanela();

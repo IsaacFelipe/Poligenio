@@ -22,15 +22,17 @@ public class TelaEsperaAluno extends JFrame {
 /*-------------------------DECLARAÇÃO DE VARIÁVEIS----------------------------*/
     private JPanel painelEsperaAluno;
     private static String origem;
+    private static String tipoSala;
 
 /*-----------------------CONSTRUTOR DA TELA DE CÓDIGO-------------------------*/
-    public TelaEsperaAluno(String origem){
+    public TelaEsperaAluno(String origem, String tipoSala){
         
 /*--------------------------CONFIGURAÇÕES DA JANELA---------------------------*/
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setUndecorated(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.origem = origem;
+        this.tipoSala = tipoSala;
 
         painelEsperaAluno = new JPanel();
 
@@ -50,7 +52,7 @@ public class TelaEsperaAluno extends JFrame {
 /*----------------------MÉTODO MAIN PARA EXECUTAR A TELA----------------------*/
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            TelaEsperaAluno tela = new TelaEsperaAluno(origem);
+            TelaEsperaAluno tela = new TelaEsperaAluno(origem, tipoSala);
             tela.setVisible(true);  
         });
     }
@@ -166,7 +168,7 @@ public class TelaEsperaAluno extends JFrame {
                 public void actionPerformed(ActionEvent e) {
                     
                     TelaGifContagem gifContagem = 
-                            new TelaGifContagem("", origem);
+                            new TelaGifContagem("", origem, tipoSala);
                     gifContagem.setVisible(true);
                     Window janela = SwingUtilities.getWindowAncestor
                                         (painelConteudo);

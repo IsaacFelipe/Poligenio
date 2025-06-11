@@ -219,7 +219,7 @@ public class TelaEsperaProfessor extends JFrame {
                 String origem = "Professor";
                 
                 TelaGifContagem telaLobbyProfessor = 
-                        new TelaGifContagem(idProfessor, origem);
+                        new TelaGifContagem(idProfessor, origem, "");
                 telaLobbyProfessor.setVisible(true);
                 Window janela = SwingUtilities.getWindowAncestor
                                     (PanelEspera.this);

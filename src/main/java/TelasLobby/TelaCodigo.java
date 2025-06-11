@@ -203,7 +203,7 @@ public class TelaCodigo extends JFrame {
                                 "Sucesso", JOptionPane.INFORMATION_MESSAGE);
                         
                         TelaEsperaAluno esperaAluno = new TelaEsperaAluno( 
-                                origem);
+                                origem, "");
                         esperaAluno.setVisible(true);
                         Window janela = SwingUtilities.getWindowAncestor
                                             (painelConteudo);
