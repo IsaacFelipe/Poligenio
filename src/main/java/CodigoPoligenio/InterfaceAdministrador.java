@@ -17,22 +17,4 @@ public interface InterfaceAdministrador {
     
 /*----------------------MÉTODO PARA CRIAR SALA--------------------------------*/
     void criarSala(String idProfessor, String codigoSala);
-    
-/*----------------------MÉTODO PARA SOLICITAR RANKING-------------------------*/
-    void solicitarRanking();
-    
-/*----------------------MÉTODO PARA CONSULTAR RANKING-------------------------*/
-    void consultarRanking();
-    
-/*----------------------MÉTODO PARA INICIAR PARTIDA---------------------------*/
-    void iniciarPartida();
-    
-/*----------------------MÉTODO PARA GERENCIAR DICA----------------------------*/
-    void gerenciarDica();
-    
-/*----------------------MÉTODO PARA GERENCIAR QUESTÃO-------------------------*/
-    void gerenciarQuestao();
-    
-/*----------------------MÉTODO PARA ENCERRAR PARTIDA--------------------------*/
-    void encerrarPartida();
 }

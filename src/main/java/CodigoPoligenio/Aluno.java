@@ -35,25 +35,6 @@ public class Aluno extends AbstractPessoa implements InterfaceJogador {
         super(nome, null, null, senha);
         this.serie = serie;
     }
-    
-/*----------------------MÉTODO PARA AUTENTICAR USUÁRIO------------------------*/
-    @Override
-    public void autenticarUsuario() {
-        System.out.println("Email = " + getEmail() + " \nId = " + getId() + 
-        " \nNome = " + getNome() + " \nSerie = " + getSerie());
-    }
-
-/*----------------------MÉTODO PARA INICIAR JOGO------------------------------*/
-    @Override
-    public void jogar() {
-        System.out.println("O aluno " + getNome() + " está jogando!");
-    }
-
-/*----------------------MÉTODO PARA CONSULTAR PONTUAÇÃO-----------------------*/
-    @Override
-    public void consultarPontuacao() {
-        
-    }
 
 /*----------------------MÉTODO PARA REALIZAR LOGIN----------------------------*/
     @Override
@@ -104,21 +85,9 @@ public class Aluno extends AbstractPessoa implements InterfaceJogador {
         return false;
     }
 
-/*----------------------MÉTODO PARA ESCOLHER ALTERNATIVA----------------------*/
-    @Override
-    public void escolherAlternativa() {
-    
-    }
-
 /*--------------------------MÉTODO PARA SOLICITAR DESISTÊNCIA-----------------*/
     @Override
     public void solicitarDesistencia() {
-    
-    }
-
-/*----------------------MÉTODO PARA RESPONDER ALTERNATIVA---------------------*/
-    @Override
-    public void responderAlternativa() {
     
     }
 }

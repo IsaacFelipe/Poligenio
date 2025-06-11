@@ -110,7 +110,8 @@ public class PerguntaCriada {
             JFrame parentFrame) throws Exception {
         try (Connection conn = ConexaoBD.obterConexao();
              PreparedStatement stmt = conn.prepareStatement(
-                 "SELECT respostaCriada, alternativaA, alternativaB, alternativaC, alternativaD " +
+                 "SELECT respostaCriada, alternativaA, alternativaB, "
+                         + "alternativaC, alternativaD " +
                  "FROM alternativascriadas WHERE id_Pergunta = ?")) {
             stmt.setString(1, this.id);
             try (ResultSet rs = stmt.executeQuery()) {
@@ -134,13 +135,16 @@ public class PerguntaCriada {
                                     rs.getString("alternativaD").trim();
                             break;
                         default:
-                            throw new Exception("Valor inválido para respostaCriada: " + rs.getInt("respostaCriada"));
+                            throw new Exception("Valor inválido para "
+                                    + "respostaCriada: " + 
+                                    rs.getInt("respostaCriada"));
                     }
 
                     String alternativaSelecionadaTexto = "";
                     alternativaSelecionada = 
                             alternativaSelecionada != 
-                            null ? alternativaSelecionada.trim().toUpperCase() : "";
+                            null ? 
+                            alternativaSelecionada.trim().toUpperCase() : "";
                     switch (alternativaSelecionada) {
                         case "A":
                             alternativaSelecionadaTexto = 
@@ -168,23 +172,28 @@ public class PerguntaCriada {
                     System.out.println("Alternativa correta do BD: '" 
                             + alternativaCorretaBD + "'");
 
-                    if (alternativaSelecionadaTexto.equalsIgnoreCase(alternativaCorretaBD)) {
-                        JOptionPane.showMessageDialog(null, "Resposta CORRETA!");
+                    if (alternativaSelecionadaTexto.equalsIgnoreCase
+        (alternativaCorretaBD)) {
+                        JOptionPane.showMessageDialog(null, 
+                                "Resposta CORRETA!");
                     } else {
-                        JOptionPane.showMessageDialog(null, "Resposta incorreta!");
+                        JOptionPane.showMessageDialog(null,
+                                "Resposta incorreta!");
                     }
                 } else {
-                    JOptionPane.showMessageDialog(null, "Pergunta não encontrada no banco de dados.");
+                    JOptionPane.showMessageDialog(null, 
+                            "Pergunta não encontrada no banco de dados.");
                 }
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro ao consultar o banco de dados: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, 
+                    "Erro ao consultar o banco de dados: " + e.getMessage());
             throw e;
         }
     }
     
 /*-----------------MÉTODO PARA OBTER TEXTO DA ALTERNATIVA DA UI---------------*/
-    private String getAlternativaTextoFromUI(String alternativa) {
+    private String obterAlternativa(String alternativa) {
         switch (alternativa) {
             case "A":
                 return TelaPergunta.campoTextoAltA.getText().trim();

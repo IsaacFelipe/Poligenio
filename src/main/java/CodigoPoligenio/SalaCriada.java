@@ -75,16 +75,6 @@ public class SalaCriada {
         return idPergunta;
     }
 
-/*----------------------MÉTODO PARA ATUALIZAR PERGUNTA------------------------*/
-    public void atualizarPergunta() {
-        
-    }
-
-/*----------------------MÉTODO PARA EXCLUIR PERGUNTA--------------------------*/
-    public void excluirPergunta() {
-        
-    }
-
 /*----------------------MÉTODO PARA EXIBIR ALTERNATIVAS-----------------------*/
     public static Map<String, String> exibirPerguntaComAlternativas() 
             throws Exception {

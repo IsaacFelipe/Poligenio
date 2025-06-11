@@ -36,13 +36,6 @@ public class Professor extends AbstractPessoa implements InterfaceAdministrador
         super(nome, id, email, senha);
         this.especialidade = especialidade;
     }
-    
-/*----------------------MÉTODO PARA AUTENTICAR USUÁRIO------------------------*/
-    @Override
-    public void autenticarUsuario() {
-        System.out.println("Email = " + getEmail() + " \nId = " + getId() + 
-        " \nNome = " + getNome() + " \nEspecialidade = " + getEspecialidade());
-    }
 
 /*----------------------MÉTODO PARA CADASTRAR JOGADOR-------------------------*/
     @Override
@@ -126,18 +119,6 @@ public class Professor extends AbstractPessoa implements InterfaceAdministrador
         }
     }
 
-/*----------------------MÉTODO PARA CONSULTAR RANKING-------------------------*/
-    @Override
-    public void consultarRanking() {
-    
-    }
-
-/*----------------------MÉTODO PARA INICIAR PARTIDA---------------------------*/
-    @Override
-    public void iniciarPartida() {
-    
-    }
-
 /*----------------------MÉTODO PARA REALIZAR LOGIN----------------------------*/
     @Override
     public boolean fazerLogin(String nome, String Senha) {
@@ -181,29 +162,5 @@ public class Professor extends AbstractPessoa implements InterfaceAdministrador
             }
         }
         return false;
-    }
-
-/*----------------------MÉTODO PARA SOLICITAR RANKING-------------------------*/
-    @Override
-    public void solicitarRanking() {
-    
-    }
-
-/*----------------------MÉTODO PARA GERENCIAR DICA----------------------------*/
-    @Override
-    public void gerenciarDica() {
-    
-    }
-
-/*----------------------MÉTODO PARA GERENCIAR QUESTÃO-------------------------*/
-    @Override
-    public void gerenciarQuestao() {
-    
-    }
-
-/*----------------------MÉTODO PARA ENCERRAR PARTIDA--------------------------*/
-    @Override
-    public void encerrarPartida() {
-    
     }
 }

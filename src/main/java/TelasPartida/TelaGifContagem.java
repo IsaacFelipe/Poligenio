@@ -51,7 +51,7 @@ public class TelaGifContagem extends JFrame {
         SwingUtilities.invokeLater(() -> {
             // Exemplo com parâmetros para teste
             TelaGifContagem tela = 
-                    new TelaGifContagem(idProfessor, origem, tipoSala);
+                    new TelaGifContagem(idProfessor, "aluno", tipoSala);
             tela.setVisible(true);
         });
     }
@@ -140,31 +140,33 @@ public class TelaGifContagem extends JFrame {
             timer.setRepeats(false);
             timer.start();
         }
+        
+        
 
 /*-------------------------MÉTODO PARA TRANSIÇÃO------------------------------*/
         private void mudarTela() throws Exception {
-            if ("aluno".equals(TelaGifContagem.this.origem)) {
-                TelaPergunta pergunta = new TelaPergunta(idProfessor, tipoSala);
-                pergunta.setVisible(true);
-                
-                Window window = SwingUtilities.getWindowAncestor(this);
-                if (window instanceof JFrame) {
-                    window.dispose();
-                }
-            } else if ("professor".equals(TelaGifContagem.this.origem)) {
-                TelaGifPartidaEmAndamento partidaAndamento = 
-                        new TelaGifPartidaEmAndamento(idProfessor);
-                partidaAndamento.setVisible(true);
-                
-                Window window = SwingUtilities.getWindowAncestor(this);
-                if (window instanceof JFrame) {
-                    window.dispose();
-                }
-            } else {
-                JOptionPane.showMessageDialog(null, "Origem inválida: " 
-                        + TelaGifContagem.origem, 
-                        "Erro", JOptionPane.ERROR_MESSAGE);
+            String origemLocal = "aluno";
+
+            switch (origemLocal) {
+                case "aluno":
+                    TelaPergunta pergunta =
+                            new TelaPergunta(idProfessor, tipoSala);
+                    pergunta.setVisible(true);
+                    break;
+
+                case "professor":
+                    TelaGifPartidaEmAndamento partidaAndamento = 
+                            new TelaGifPartidaEmAndamento(idProfessor);
+                    partidaAndamento.setVisible(true);
+                    break;
+
+                default:
+                    JOptionPane.showMessageDialog(null, "Origem inválida: " 
+                            + TelaGifContagem.origem, 
+                            "Erro", JOptionPane.ERROR_MESSAGE);
+                    return;
             }
+
             fecharJanela();
         }
 

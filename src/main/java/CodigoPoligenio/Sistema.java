@@ -310,11 +310,6 @@ public class Sistema {
         
     }
 
-/*-----------------------MÉTODO PARA MOSTRAR RANKING--------------------------*/
-    public void mostrarRanking() {
-        
-    }
-
 /*----------------------MÉTODO PARA CALCULAR PONTUAÇÃO------------------------*/
     public void calcularPontuacao() {
         

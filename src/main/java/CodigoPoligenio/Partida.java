@@ -89,16 +89,6 @@ public class Partida {
         this.pontuacaoFinal = pontuacaoFinal;
     }
     
-/*----------------------MÉTODO PARA INICIAR PARTIDA---------------------------*/
-    public void iniciarPartida(){
-        
-    }
-    
-/*----------------------MÉTODO PARA ENCERRAR PARTIDA--------------------------*/
-    public void encerrarPartida(){
-        
-    }
-    
 /*----------------------MÉTODO PARA APLICAR PONTUAÇÃO-------------------------*/
     public void aplicaPontuacao(){
         
@@ -106,31 +96,6 @@ public class Partida {
     
 /*----------------------MÉTODO PARA HABILITAR DICAS---------------------------*/
     public void habilitarDicas(){
-        
-    }
-    
-/*----------------------MÉTODO PARA VERIFICAR QUANTIDADE DE JOGADORES---------*/
-    public void verificarQuantidadeJogadores(){
-        
-    }
-    
-/*----------------------MÉTODO PARA REMOVER JOGADOR---------------------------*/
-    public void removerJogador(){
-        
-    }
-    
-/*----------------------MÉTODO PARA VERIFICAR CONCLUSÃO DA PARTIDA------------*/
-    public void partidaConcluida(){
-    
-    }
-    
-/*----------------------MÉTODO PARA AVANÇAR PARA PRÓXIMA PERGUNTA-------------*/
-    public void proximaPergunta(){
-        
-    }
-    
-/*----------------------MÉTODO PARA ENCERRAR QUESTIONÁRIO---------------------*/
-    public void encerrarQuestionario(){
         
     }
 }

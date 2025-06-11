@@ -56,7 +56,4 @@ public abstract class AbstractPessoa {
     public void setEmail(String email) {
         this.email = email;
     }
-    
-/*----------------------MÉTODO ABSTRATO PARA AUTENTICAÇÃO---------------------*/
-    public abstract void autenticarUsuario();
 }
